@@ -26,6 +26,8 @@
   "author": "uufish <uufish.io@gmail.com>",
   "license": "MIT",
   "devDependencies": {
+    "flow-bin": "^0.82.0",
+    "flow-typed": "^2.5.1",
     "prettier": "^1.14.3"
   }
 }

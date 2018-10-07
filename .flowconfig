@@ -1,0 +1,14 @@
+[ignore]
+.*/node_modules/.*
+
+[include]
+
+[libs]
+flow-typed
+.*/node_modules/@material-ui/*
+
+[lints]
+
+[options]
+
+[strict]
