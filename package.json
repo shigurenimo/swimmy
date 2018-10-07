@@ -24,5 +24,8 @@
   ],
   "main": "index.js",
   "author": "uufish <uufish.io@gmail.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "prettier": "^1.14.3"
+  }
 }
