@@ -1,7 +1,6 @@
 import withStyles from '@material-ui/core/styles/withStyles'
-import Update from '@material-ui/icons/Update'
 import React, { Component } from 'react'
-import UnderDevelopment from '../components/UnderDevelopment'
+import ChangelogExpansionPanel from '../containers/ChangelogExpansionPanel'
 
 class PageChangelogs extends Component<any, any> {
   render() {
@@ -9,12 +8,16 @@ class PageChangelogs extends Component<any, any> {
 
     return (
       <div className={classes.root}>
-        <UnderDevelopment
-          Icon={Update}
-          title={'アップデート'}
-          description={
-            'このサービスのアップデート履歴を確認する機能を開発しています。'
-          }
+        <ChangelogExpansionPanel
+          version={'3.0.1'}
+          date={'2018年10月15日'}
+          description={`- 開発予定のページの説明を追加
+          - 書き込みの日付が間違っているバグを修正`}
+        />
+        <ChangelogExpansionPanel
+          version={'3.0.0'}
+          date={'2018年10月15日'}
+          description={'色んな機能がなくなりました'}
         />
       </div>
     )
@@ -23,7 +26,7 @@ class PageChangelogs extends Component<any, any> {
 
 const styles = () => ({
   root: {
-    paddingTop: '40%'
+    width: '100%'
   }
 })
 
