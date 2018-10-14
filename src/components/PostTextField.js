@@ -21,7 +21,10 @@ class PostTextField extends Component {
     return (
       <div className={classes.root}>
         <div className={classes.actions}>
-          <Button color={'primary'} disabled={!postText || inProgress}>
+          <Button color={'primary'} disabled={true}>
+            PUBLIC
+          </Button>
+          <Button color={'primary'} disabled={true}>
             IMAGE
           </Button>
           <Button
@@ -45,6 +48,7 @@ class PostTextField extends Component {
             multiline
             onChange={this.onChangePostText}
             value={postText}
+            disabled={inProgress}
           />
         </FormControl>
       </div>
