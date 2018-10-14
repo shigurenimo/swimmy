@@ -1,6 +1,7 @@
 import withStyles from '@material-ui/core/styles/withStyles'
-import Typography from '@material-ui/core/Typography/Typography'
+import Code from '@material-ui/icons/Code'
 import React, { Component } from 'react'
+import UnderDevelopment from '../components/UnderDevelopment'
 
 class PageDevelopment extends Component<any, any> {
   render() {
@@ -8,9 +9,13 @@ class PageDevelopment extends Component<any, any> {
 
     return (
       <div className={classes.root}>
-        <Typography align={'center'}>
-          このページはまだ利用できません。
-        </Typography>
+        <UnderDevelopment
+          Icon={Code}
+          title={'開発'}
+          description={
+            'Swをローカル環境で走らせる方法を確認できる機能を開発しています。'
+          }
+        />
       </div>
     )
   }

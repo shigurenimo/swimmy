@@ -1,6 +1,7 @@
 import withStyles from '@material-ui/core/styles/withStyles'
-import Typography from '@material-ui/core/Typography/Typography'
+import Email from '@material-ui/icons/Email'
 import React, { Component } from 'react'
+import UnderDevelopment from '../components/UnderDevelopment'
 
 class PageSettingsEmail extends Component<any, any> {
   render() {
@@ -8,9 +9,13 @@ class PageSettingsEmail extends Component<any, any> {
 
     return (
       <div className={classes.root}>
-        <Typography align={'center'}>
-          このページはまだ利用できません。
-        </Typography>
+        <UnderDevelopment
+          Icon={Email}
+          title={'メールアドレスの更新'}
+          description={
+            'メールアドレスまたはユーザIDを更新する機能を開発しています。'
+          }
+        />
       </div>
     )
   }
@@ -18,7 +23,7 @@ class PageSettingsEmail extends Component<any, any> {
 
 const styles = () => ({
   root: {
-    paddingTop: 160
+    paddingTop: '40%'
   }
 })
 

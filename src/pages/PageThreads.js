@@ -1,6 +1,7 @@
 import withStyles from '@material-ui/core/styles/withStyles'
-import Typography from '@material-ui/core/Typography/Typography'
+import TurnedIn from '@material-ui/icons/TurnedIn'
 import React, { Component } from 'react'
+import UnderDevelopment from '../components/UnderDevelopment'
 
 class PageThreads extends Component<any, any> {
   render() {
@@ -8,9 +9,13 @@ class PageThreads extends Component<any, any> {
 
     return (
       <div className={classes.root}>
-        <Typography align={'center'}>
-          このページはまだ利用できません。
-        </Typography>
+        <UnderDevelopment
+          Icon={TurnedIn}
+          title={'スレッド'}
+          description={
+            'スレッドを検索する機能を開発しています。'
+          }
+        />
       </div>
     )
   }
@@ -18,7 +23,7 @@ class PageThreads extends Component<any, any> {
 
 const styles = () => ({
   root: {
-    paddingTop: 160
+    paddingTop: '40%'
   }
 })
 

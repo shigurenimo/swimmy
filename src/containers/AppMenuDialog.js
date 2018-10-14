@@ -7,12 +7,14 @@ import ListItem from '@material-ui/core/ListItem/ListItem'
 import ListItemIcon from '@material-ui/core/ListItemIcon/ListItemIcon'
 import ListItemText from '@material-ui/core/ListItemText/ListItemText'
 import ListSubheader from '@material-ui/core/ListSubheader/ListSubheader'
+import BugReport from '@material-ui/icons/BugReport'
 import Code from '@material-ui/icons/Code'
 import Email from '@material-ui/icons/Email'
 import Equalizer from '@material-ui/icons/Equalizer'
 import Home from '@material-ui/icons/Home'
 import Info from '@material-ui/icons/Info'
 import Search from '@material-ui/icons/Search'
+import Update from '@material-ui/icons/Update'
 import VpnKey from '@material-ui/icons/VpnKey'
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
@@ -53,12 +55,28 @@ class AppMenuDialog extends Component {
                 <ListItemText inset primary="統計" />
               </ListItem>
             </Link>
+            <Link to={'/changelogs'}>
+              <ListItem button onClick={onClose}>
+                <ListItemIcon>
+                  <Update />
+                </ListItemIcon>
+                <ListItemText inset primary="アップデート" />
+              </ListItem>
+            </Link>
+            <Link to={'/issues'}>
+              <ListItem button onClick={onClose}>
+                <ListItemIcon>
+                  <BugReport />
+                </ListItemIcon>
+                <ListItemText inset primary="バグレポート" />
+              </ListItem>
+            </Link>
             <Link to={'/about'}>
               <ListItem button onClick={onClose}>
                 <ListItemIcon>
                   <Info />
                 </ListItemIcon>
-                <ListItemText inset primary="使い方" />
+                <ListItemText inset primary="トリセツ" />
               </ListItem>
             </Link>
             <Link to={'/development'}>

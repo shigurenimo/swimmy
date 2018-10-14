@@ -1,18 +1,20 @@
 import withStyles from '@material-ui/core/styles/withStyles'
-import Photo from '@material-ui/icons/Photo'
+import Update from '@material-ui/icons/Update'
 import React, { Component } from 'react'
 import UnderDevelopment from '../components/UnderDevelopment'
 
-class PageImages extends Component<any, any> {
+class PageChangelogs extends Component<any, any> {
   render() {
     const { classes } = this.props
 
     return (
       <div className={classes.root}>
         <UnderDevelopment
-          Icon={Photo}
-          title={'フォト'}
-          description={'画像付きの書き込みを検索する機能を開発しています。'}
+          Icon={Update}
+          title={'アップデート'}
+          description={
+            'このサービスのアップデート履歴を確認する機能を開発しています。'
+          }
         />
       </div>
     )
@@ -25,4 +27,4 @@ const styles = () => ({
   }
 })
 
-export default withStyles(styles)(PageImages)
+export default withStyles(styles)(PageChangelogs)
