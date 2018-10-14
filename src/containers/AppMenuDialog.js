@@ -7,9 +7,12 @@ import ListItem from '@material-ui/core/ListItem/ListItem'
 import ListItemIcon from '@material-ui/core/ListItemIcon/ListItemIcon'
 import ListItemText from '@material-ui/core/ListItemText/ListItemText'
 import ListSubheader from '@material-ui/core/ListSubheader/ListSubheader'
+import Code from '@material-ui/icons/Code'
 import Email from '@material-ui/icons/Email'
 import Equalizer from '@material-ui/icons/Equalizer'
 import Home from '@material-ui/icons/Home'
+import Info from '@material-ui/icons/Info'
+import Search from '@material-ui/icons/Search'
 import VpnKey from '@material-ui/icons/VpnKey'
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
@@ -34,12 +37,36 @@ class AppMenuDialog extends Component {
                 <ListItemText inset primary="ホーム" />
               </ListItem>
             </Link>
-            <Link to={'/settings/email'}>
+            <Link to={'/search'}>
+              <ListItem button onClick={onClose}>
+                <ListItemIcon>
+                  <Search />
+                </ListItemIcon>
+                <ListItemText inset primary="検索" />
+              </ListItem>
+            </Link>
+            <Link to={'/stats'}>
               <ListItem button onClick={onClose}>
                 <ListItemIcon>
                   <Equalizer />
                 </ListItemIcon>
                 <ListItemText inset primary="統計" />
+              </ListItem>
+            </Link>
+            <Link to={'/about'}>
+              <ListItem button onClick={onClose}>
+                <ListItemIcon>
+                  <Info />
+                </ListItemIcon>
+                <ListItemText inset primary="使い方" />
+              </ListItem>
+            </Link>
+            <Link to={'/development'}>
+              <ListItem button onClick={onClose}>
+                <ListItemIcon>
+                  <Code />
+                </ListItemIcon>
+                <ListItemText inset primary="開発" />
               </ListItem>
             </Link>
           </List>
