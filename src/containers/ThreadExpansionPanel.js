@@ -12,10 +12,7 @@ class ThreadExpansionPanel extends Component<any, any> {
 
     return (
       <ExpansionPanel>
-        <ExpansionPanelSummary
-          className={classes.summary}
-          onClick={this.onClickPanelSummary}
-        >
+        <ExpansionPanelSummary className={classes.summary}>
           <PostExpansionPanelSummary post={post} />
         </ExpansionPanelSummary>
       </ExpansionPanel>
