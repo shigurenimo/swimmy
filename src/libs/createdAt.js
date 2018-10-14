@@ -1,6 +1,6 @@
 // @flow
 
-export const createdAt = (seconds: number) => {
+export const createdAt = (seconds: number): string => {
   const date = new Date(seconds * 1000)
   const Y = date.getFullYear()
   const M = date.getMonth() + 1
