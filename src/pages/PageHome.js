@@ -1,3 +1,5 @@
+import CircularProgress from '@material-ui/core/CircularProgress/CircularProgress'
+import Fade from '@material-ui/core/Fade/Fade'
 import withStyles from '@material-ui/core/styles/withStyles'
 import { firestore } from 'firebase/app'
 import React, { Component, Fragment } from 'react'
@@ -7,31 +9,38 @@ import { DESC } from '../constants/order'
 import PostExpansionPanel from '../containers/PostExpansionPanel'
 import { createdAt } from '../libs/createdAt'
 
-type State = {}
+class PageHome extends Component<any, any> {
+  isUnmounted = false
+  unsubscribe = null
 
-class PageHome extends Component<any, State> {
   state = {
-    posts: []
+    posts: [],
+    inProgress: true
   }
 
   render() {
     const { classes } = this.props
-    const { posts } = this.state
+    const { posts, inProgress } = this.state
 
     return (
       <Fragment>
         <PostTextField />
-        <div className={classes.posts}>
-          {posts.map(post => (
-            <PostExpansionPanel key={post.id} post={post} />
-          ))}
-        </div>
+        {inProgress && <CircularProgress className={classes.progress} />}
+        {!inProgress && (
+          <Fade in>
+            <div className={classes.posts}>
+              {posts.map(post => (
+                <PostExpansionPanel key={post.id} post={post} />
+              ))}
+            </div>
+          </Fade>
+        )}
       </Fragment>
     )
   }
 
   componentDidMount() {
-    firestore()
+    this.unsubscribe = firestore()
       .collection(POSTS_AS_ANONYM)
       .limit(40)
       .orderBy('createdAt', DESC)
@@ -45,14 +54,28 @@ class PageHome extends Component<any, State> {
             }
           }
         })
-        this.setState({ posts })
+        if (this.isUnmounted) return
+        this.setState({ posts, inProgress: false })
       })
+  }
+
+  componentWillUnmount() {
+    this.isUnmounted = true
+    if (this.unsubscribe) {
+      this.unsubscribe()
+    }
   }
 }
 
 const styles = () => ({
   root: {},
-  posts: {}
+  posts: {},
+  progress: {
+    display: 'block',
+    marginTop: 80,
+    marginLeft: 'auto',
+    marginRight: 'auto'
+  }
 })
 
 export default withStyles(styles)(PageHome)

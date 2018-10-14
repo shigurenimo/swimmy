@@ -48,18 +48,6 @@ const styles = theme => ({
   },
   summary: {
     padding: '0 12px'
-  },
-  summaryContentInner: {
-    paddingRight: '0 !important',
-    width: '100%'
-  },
-  text: {
-    fontSize: theme.typography.pxToRem(15),
-    fontWeight: theme.typography.fontWeightMedium
-  },
-  replyPostCount: {
-    paddingLeft: 8,
-    color: theme.palette.secondary.light
   }
 })
 
