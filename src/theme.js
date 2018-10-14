@@ -99,7 +99,7 @@ const overrides = {
 }
 
 const palette = {
-  primary: { main: blue[500] },
+  primary: { main: blue['A700'] },
   secondary: { main: pink[500] },
   background: { default: '#ffffff' }
 }
@@ -111,3 +111,7 @@ export const theme = createMuiTheme({
   palette,
   shadows
 })
+
+if (process.env.NODE_ENV === 'development') {
+  window.theme = theme
+}
