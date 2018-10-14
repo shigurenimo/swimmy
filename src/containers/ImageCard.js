@@ -17,7 +17,7 @@ class ImageCard extends Component<any, any> {
             component="img"
             alt={post.id}
             className={classes.media}
-            image={post.photoURLs[0]}
+            image={post.photoURLs[0] + '=s400'}
           />
         </CardActionArea>
       </Card>
