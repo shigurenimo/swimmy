@@ -1,3 +1,4 @@
+import purple from '@material-ui/core/colors/purple'
 import withStyles from '@material-ui/core/styles/withStyles'
 import Typography from '@material-ui/core/Typography'
 import React from 'react'
@@ -6,6 +7,9 @@ const PostExpansionPanelSummary = ({ classes, post }) => (
   <div className={classes.root}>
     <Typography className={classes.text} gutterBottom variant={'body2'}>
       {post.text}
+      {post.likeCount > 0 && (
+        <span className={classes.likeCount}>+ {post.likeCount}</span>
+      )}
       {post.replyPostCount > 0 && (
         <span className={classes.replyPostCount}>+ {post.replyPostCount}</span>
       )}
@@ -27,9 +31,13 @@ const styles = theme => ({
     whiteSpace: 'pre-line',
     wordBreak: 'break-all'
   },
-  replyPostCount: {
+  likeCount: {
     paddingLeft: 8,
     color: theme.palette.secondary.light
+  },
+  replyPostCount: {
+    paddingLeft: 8,
+    color: purple['A400']
   }
 })
 
