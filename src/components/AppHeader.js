@@ -7,7 +7,6 @@ import MoreHoriz from '@material-ui/icons/MoreHoriz'
 import Photo from '@material-ui/icons/Photo'
 import PowerSettingsNew from '@material-ui/icons/PowerSettingsNew'
 import TurnedIn from '@material-ui/icons/TurnedIn'
-import { auth } from 'firebase/app'
 import React, { Component, Fragment } from 'react'
 import { Link, withRouter } from 'react-router-dom'
 import { compose } from 'recompose'
@@ -77,14 +76,6 @@ class AppHeader extends Component {
         />
       </Fragment>
     )
-  }
-
-  onSignOut = () => {
-    auth()
-      .signOut()
-      .catch(err => {
-        console.error(err)
-      })
   }
 
   onOpenMenuDialog = () => {

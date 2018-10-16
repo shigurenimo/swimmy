@@ -15,7 +15,9 @@ import Home from '@material-ui/icons/Home'
 import Info from '@material-ui/icons/Info'
 import Search from '@material-ui/icons/Search'
 import Update from '@material-ui/icons/Update'
+import PowerSettingsNew from '@material-ui/icons/PowerSettingsNew'
 import VpnKey from '@material-ui/icons/VpnKey'
+import { auth } from 'firebase'
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import { AuthConsumer } from '../contexts/auth'
@@ -108,6 +110,12 @@ class AppMenuDialog extends Component {
                       <ListItemText inset primary="パスワードの更新" />
                     </ListItem>
                   </Link>
+                  <ListItem button onClick={this.onSignOut}>
+                    <ListItemIcon>
+                      <PowerSettingsNew />
+                    </ListItemIcon>
+                    <ListItemText inset primary="サインアウト" />
+                  </ListItem>
                 </List>
               )
             }
@@ -115,6 +123,14 @@ class AppMenuDialog extends Component {
         </DialogContent>
       </Dialog>
     )
+  }
+
+  onSignOut = () => {
+    auth()
+      .signOut()
+      .catch(err => {
+        console.error(err)
+      })
   }
 }
 
