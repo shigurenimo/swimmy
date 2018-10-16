@@ -30,8 +30,8 @@ class PostTextField extends Component {
           <Button
             color={'primary'}
             className={classes.submitButton}
-            disabled={!postText || inProgress}
-            variant={postText ? 'contained' : 'text'}
+            disabled={this.disabled()}
+            variant={this.disabled() ? 'text' : 'contained'}
             onClick={this.onSubmitPost}
           >
             GO
@@ -55,15 +55,21 @@ class PostTextField extends Component {
     )
   }
 
+  disabled = () => {
+    const { postText, inProgress } = this.state
+
+    return inProgress || postText.match(/\S/g) === null
+  }
+
   onChangePostText = event => {
     event.persist()
     this.setState({ postText: event.target.value })
   }
 
   onSubmitPost = () => {
-    const { postText, inProgress } = this.state
+    const { postText } = this.state
 
-    if (!postText || inProgress) return
+    if (this.disabled()) return
 
     this.setState({ inProgress: true })
 
