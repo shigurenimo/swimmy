@@ -54,7 +54,7 @@ class PostAsReplyList extends Component<any, any> {
         .collection(POSTS_AS_ANONYM)
         .doc(postId)
         .collection(POSTS)
-        .limit(4)
+        .limit(8)
         .orderBy('createdAt', DESC)
         .onSnapshot(querySnapshot => {
           if (this.isUnmounted) return
