@@ -1,6 +1,6 @@
 {
   "name": "swimmy.io",
-  "version": "3.0.2",
+  "version": "3.0.3",
   "private": true,
   "dependencies": {
     "@material-ui/core": "^3.2.1",
