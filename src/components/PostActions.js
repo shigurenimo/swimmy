@@ -1,7 +1,8 @@
 import IconButton from '@material-ui/core/IconButton/IconButton'
 import withStyles from '@material-ui/core/styles/withStyles'
+import Launch from '@material-ui/icons/Launch'
+import Delete from '@material-ui/icons/Delete'
 import Favorite from '@material-ui/icons/Favorite'
-import MoreHoriz from '@material-ui/icons/MoreHoriz'
 import React, { Component } from 'react'
 
 class PostActions extends Component {
@@ -16,14 +17,23 @@ class PostActions extends Component {
 
     return (
       <div className={classes.root}>
-        <IconButton className={classes.iconButton}>
-          <MoreHoriz />
+        <IconButton className={classes.iconButton} disabled={true}>
+          <Delete />
         </IconButton>
-        <IconButton className={classes.iconButton}>
+        <IconButton className={classes.iconButton} disabled={true}>
           <Favorite />
+        </IconButton>
+        <IconButton className={classes.iconButton} onClick={this.onSelectPost}>
+          <Launch />
         </IconButton>
       </div>
     )
+  }
+
+  onSelectPost = () => {
+    const { postId, selectPost } = this.props
+
+    selectPost(postId)
   }
 
   componentWillUnmount() {

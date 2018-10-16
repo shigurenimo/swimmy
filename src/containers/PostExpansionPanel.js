@@ -2,6 +2,7 @@ import ExpansionPanel from '@material-ui/core/ExpansionPanel'
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary'
 import withStyles from '@material-ui/core/styles/withStyles'
 import React, { Component } from 'react'
+import PostActions from '../components/PostActions'
 import PostAsReplyList from '../components/PostAsReplyList'
 import PostAsReplyTextField from '../components/PostAsReplyTextField'
 import PostExpansionPanelSummary from '../components/PostExpansionPanelSummary'
@@ -12,7 +13,7 @@ class PostExpansionPanel extends Component<any, any> {
   }
 
   render() {
-    const { classes, post } = this.props
+    const { classes, post, selectPost } = this.props
     const { expanded } = this.state
 
     return (
@@ -23,14 +24,16 @@ class PostExpansionPanel extends Component<any, any> {
         >
           <PostExpansionPanelSummary post={post} />
         </ExpansionPanelSummary>
-        {/* <PostActions /> */}
+        <PostActions selectPost={selectPost} postId={post.id} />
         {expanded && (
           <PostAsReplyList
             postId={post.id}
             replyPostCount={post.replyPostCount}
           />
         )}
-        <PostAsReplyTextField postId={post.id} />
+        <div className={classes.textField}>
+          <PostAsReplyTextField postId={post.id} />
+        </div>
       </ExpansionPanel>
     )
   }
@@ -48,6 +51,9 @@ const styles = theme => ({
   },
   summary: {
     padding: '0 12px'
+  },
+  textField: {
+    marginTop: 8
   }
 })
 
