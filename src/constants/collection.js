@@ -2,6 +2,7 @@
 
 export const FILES = 'files'
 export const IMAGES = 'images'
+export const LIKES = 'likes'
 export const POSTS = 'posts'
 export const POSTS_AS_ANONYM = 'posts-as-anonym'
 export const POSTS_AS_THREAD = 'posts-as-thread'
