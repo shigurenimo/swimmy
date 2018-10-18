@@ -60,6 +60,20 @@ class PageHome extends Component<any, any> {
     )
   }
 
+  componentDidMount() {
+    this.subscribePosts()
+  }
+
+  componentWillUnmount() {
+    this.isUnmounted = true
+    if (this.unsubscribe) {
+      this.unsubscribe()
+    }
+    if (this.unsubscribeReply) {
+      this.unsubscribeReply()
+    }
+  }
+
   onCloseReplyDialog = () => {
     if (this.unsubscribeReply) {
       this.unsubscribeReply()
@@ -76,28 +90,6 @@ class PageHome extends Component<any, any> {
       return { selectedPost, replyPosts: [], inProgressReply: true }
     })
     this.subscribeReplyPosts(selectedPost)
-  }
-
-  subscribeReplyPosts(selectedPost: any) {
-    this.unsubscribeReply = firestore()
-      .collection(POSTS_AS_ANONYM)
-      .doc(selectedPost.id)
-      .collection(POSTS)
-      .limit(80)
-      .orderBy('createdAt', DESC)
-      .onSnapshot(querySnapshot => {
-        const replyPosts = querySnapshot.docs.map(doc => {
-          const data = doc.data()
-          return {
-            ...data,
-            ui: {
-              createdAt: createdAt(data.createdAt.seconds)
-            }
-          }
-        })
-        if (this.isUnmounted) return
-        this.setState({ replyPosts, inProgressReply: false })
-      })
   }
 
   subscribePosts() {
@@ -132,18 +124,27 @@ class PageHome extends Component<any, any> {
       })
   }
 
-  componentDidMount() {
-    this.subscribePosts()
-  }
 
-  componentWillUnmount() {
-    this.isUnmounted = true
-    if (this.unsubscribe) {
-      this.unsubscribe()
-    }
-    if (this.unsubscribeReply) {
-      this.unsubscribeReply()
-    }
+  subscribeReplyPosts(selectedPost: any) {
+    this.unsubscribeReply = firestore()
+      .collection(POSTS_AS_ANONYM)
+      .doc(selectedPost.id)
+      .collection(POSTS)
+      .limit(80)
+      .orderBy('createdAt', DESC)
+      .onSnapshot(querySnapshot => {
+        const replyPosts = querySnapshot.docs.map(doc => {
+          const data = doc.data()
+          return {
+            ...data,
+            ui: {
+              createdAt: createdAt(data.createdAt.seconds)
+            }
+          }
+        })
+        if (this.isUnmounted) return
+        this.setState({ replyPosts, inProgressReply: false })
+      })
   }
 }
 

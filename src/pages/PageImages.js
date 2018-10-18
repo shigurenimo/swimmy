@@ -16,7 +16,7 @@ class PageImages extends Component<any, any> {
   state = {
     posts: [],
     inProgress: true,
-    orderBy: 'replyPostCount'
+    orderBy: 'createdAt'
   }
 
   render() {

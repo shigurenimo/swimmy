@@ -21,7 +21,7 @@ class PostExpansionPanel extends Component<any, any> {
   }
 
   render() {
-    const { classes, post, selectPost } = this.props
+    const { classes, post } = this.props
     const { expanded, inProgressLike, hasLike } = this.state
 
     return (

@@ -39,12 +39,12 @@ class AppHeader extends Component {
           <Toolbar>
             <AppTitle />
             <Link to={'/images'}>
-              <IconButton>
+              <IconButton className={classes.iconButton}>
                 <Photo />
               </IconButton>
             </Link>
             <Link to={'/threads'}>
-              <IconButton>
+              <IconButton className={classes.iconButton}>
                 <TurnedIn />
               </IconButton>
             </Link>
@@ -116,6 +116,9 @@ const styles = createStyles({
   menuButton: {
     marginLeft: -12,
     marginRight: 20
+  },
+  iconButton: {
+    marginRight: 8
   }
 })
 

@@ -1,12 +1,11 @@
 import IconButton from '@material-ui/core/IconButton/IconButton'
 import createStyles from '@material-ui/core/styles/createStyles'
 import withStyles from '@material-ui/core/styles/withStyles'
-import Delete from '@material-ui/icons/Delete'
 import Favorite from '@material-ui/icons/Favorite'
 import Launch from '@material-ui/icons/Launch'
 import React from 'react'
 
-const PostActions = ({
+const ThreadActions = ({
   classes,
   inProgressLike,
   hasLike,
@@ -14,9 +13,6 @@ const PostActions = ({
   onSelectPost
 }) => (
   <div className={classes.root}>
-    <IconButton className={classes.iconButton} disabled>
-      <Delete />
-    </IconButton>
     <IconButton
       className={classes.iconButton}
       onClick={onClickLike}
@@ -42,4 +38,4 @@ const styles = createStyles({
   }
 })
 
-export default withStyles(styles)(PostActions)
+export default withStyles(styles)(ThreadActions)
