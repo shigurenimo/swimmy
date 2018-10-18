@@ -1,4 +1,5 @@
 import purple from '@material-ui/core/colors/purple'
+import createStyles from '@material-ui/core/styles/createStyles'
 import withStyles from '@material-ui/core/styles/withStyles'
 import Typography from '@material-ui/core/Typography'
 import React from 'react'
@@ -20,25 +21,26 @@ const PostExpansionPanelSummary = ({ classes, post }) => (
   </div>
 )
 
-const styles = theme => ({
-  root: {
-    paddingRight: '0 !important',
-    width: '100%'
-  },
-  text: {
-    fontSize: theme.typography.pxToRem(15),
-    fontWeight: theme.typography.fontWeightMedium,
-    whiteSpace: 'pre-line',
-    wordBreak: 'break-all'
-  },
-  likeCount: {
-    paddingLeft: 8,
-    color: theme.palette.secondary.light
-  },
-  replyPostCount: {
-    paddingLeft: 8,
-    color: purple['A400']
-  }
-})
+const styles = theme =>
+  createStyles({
+    root: {
+      paddingRight: '0 !important',
+      width: '100%'
+    },
+    text: {
+      fontSize: theme.typography.pxToRem(15),
+      fontWeight: theme.typography.fontWeightMedium,
+      whiteSpace: 'pre-line',
+      wordBreak: 'break-all'
+    },
+    likeCount: {
+      paddingLeft: 8,
+      color: theme.palette.secondary.light
+    },
+    replyPostCount: {
+      paddingLeft: 8,
+      color: purple['A400']
+    }
+  })
 
 export default withStyles(styles)(PostExpansionPanelSummary)

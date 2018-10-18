@@ -2,6 +2,7 @@ import Button from '@material-ui/core/Button'
 import CircularProgress from '@material-ui/core/CircularProgress/CircularProgress'
 import FormControl from '@material-ui/core/FormControl'
 import Input from '@material-ui/core/Input'
+import createStyles from '@material-ui/core/styles/createStyles'
 import withStyles from '@material-ui/core/styles/withStyles'
 import React, { Component } from 'react'
 import { createPost } from '../libs/createPost'
@@ -94,7 +95,7 @@ class PostTextField extends Component {
   }
 }
 
-const styles = () => ({
+const styles = createStyles({
   root: {
     marginTop: 24
   },

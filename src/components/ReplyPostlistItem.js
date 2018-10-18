@@ -1,4 +1,5 @@
 import ListItem from '@material-ui/core/ListItem/ListItem'
+import createStyles from '@material-ui/core/styles/createStyles'
 import withStyles from '@material-ui/core/styles/withStyles'
 import Typography from '@material-ui/core/Typography/Typography'
 import React from 'react'
@@ -14,7 +15,7 @@ const ReplyPostlistItem = ({ post }) => (
   </ListItem>
 )
 
-const styles = () => ({
+const styles = createStyles({
   root: {}
 })
 

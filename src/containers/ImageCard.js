@@ -1,6 +1,7 @@
 import Card from '@material-ui/core/Card/Card'
 import CardActionArea from '@material-ui/core/CardActionArea/CardActionArea'
 import CardMedia from '@material-ui/core/CardMedia/CardMedia'
+import createStyles from '@material-ui/core/styles/createStyles'
 import withStyles from '@material-ui/core/styles/withStyles'
 import React, { Component } from 'react'
 
@@ -25,7 +26,7 @@ class ImageCard extends Component<any, any> {
   }
 }
 
-const styles = theme => ({
+const styles = createStyles({
   root: {},
   actionArea: {
     width: '100%'

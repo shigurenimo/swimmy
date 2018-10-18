@@ -1,3 +1,4 @@
+import createStyles from '@material-ui/core/es/styles/createStyles'
 import IconButton from '@material-ui/core/IconButton/IconButton'
 import withStyles from '@material-ui/core/styles/withStyles'
 import React from 'react'
@@ -13,7 +14,7 @@ const AppTitle = ({ classes }) => (
   </div>
 )
 
-const styles = () => ({
+const styles = createStyles({
   root: {
     flexGrow: 1
   },

@@ -1,6 +1,7 @@
 import AppBar from '@material-ui/core/AppBar/AppBar'
 import IconButton from '@material-ui/core/IconButton/IconButton'
 import LinearProgress from '@material-ui/core/LinearProgress/LinearProgress'
+import createStyles from '@material-ui/core/styles/createStyles'
 import withStyles from '@material-ui/core/styles/withStyles'
 import Toolbar from '@material-ui/core/Toolbar/Toolbar'
 import MoreHoriz from '@material-ui/icons/MoreHoriz'
@@ -10,10 +11,10 @@ import TurnedIn from '@material-ui/icons/TurnedIn'
 import React, { Component, Fragment } from 'react'
 import { Link, withRouter } from 'react-router-dom'
 import { compose } from 'recompose'
-import AppMenuDialog from '../containers/AppMenuDialog'
-import AppSignInDialog from '../containers/AppSignInDialog'
+import AppTitle from '../components/AppTitle'
 import { AuthConsumer } from '../contexts/auth'
-import AppTitle from './AppTitle'
+import AppMenuDialog from './AppMenuDialog'
+import AppSignInDialog from './AppSignInDialog'
 
 class AppHeader extends Component {
   state = {
@@ -95,7 +96,7 @@ class AppHeader extends Component {
   }
 }
 
-const styles = () => ({
+const styles = createStyles({
   root: {
     flexGrow: 1
   },

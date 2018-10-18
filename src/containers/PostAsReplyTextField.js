@@ -1,6 +1,7 @@
 import CircularProgress from '@material-ui/core/CircularProgress/CircularProgress'
 import Button from '@material-ui/core/es/Button'
 import TextField from '@material-ui/core/es/TextField'
+import createStyles from '@material-ui/core/styles/createStyles'
 import withStyles from '@material-ui/core/styles/withStyles'
 import React, { Component, Fragment } from 'react'
 import { createPost } from '../libs/createPost'
@@ -73,7 +74,7 @@ class PostAsReplyTextField extends Component {
   }
 }
 
-const styles = () => ({
+const styles = createStyles({
   root: {
     width: '100%'
   },

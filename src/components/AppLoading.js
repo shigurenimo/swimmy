@@ -1,20 +1,15 @@
 import CircularProgress from '@material-ui/core/CircularProgress'
+import createStyles from '@material-ui/core/styles/createStyles'
 import withStyles from '@material-ui/core/styles/withStyles'
-import React, { Component } from 'react'
+import React from 'react'
 
-class AppLoading extends Component<any, any> {
-  render() {
-    const { classes } = this.props
+const AppLoading = ({ classes }) => (
+  <div className={classes.root}>
+    <CircularProgress size={50} />
+  </div>
+)
 
-    return (
-      <div className={classes.root}>
-        <CircularProgress size={50} />
-      </div>
-    )
-  }
-}
-
-const styles = theme => ({
+const styles = createStyles({
   root: {
     position: 'fixed',
     top: 0,

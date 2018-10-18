@@ -4,6 +4,7 @@ import Dialog from '@material-ui/core/Dialog/Dialog'
 import DialogActions from '@material-ui/core/DialogActions/DialogActions'
 import DialogContent from '@material-ui/core/DialogContent/DialogContent'
 import List from '@material-ui/core/List/List'
+import createStyles from '@material-ui/core/styles/createStyles'
 import withStyles from '@material-ui/core/styles/withStyles'
 import React, { Component } from 'react'
 import ReplyPostlistItem from '../components/ReplyPostlistItem'
@@ -30,7 +31,7 @@ class PostDetailDialog extends Component<any, any> {
   }
 }
 
-const styles = () => ({
+const styles = createStyles({
   root: {},
   posts: {},
   progress: {

@@ -3,6 +3,7 @@ import Fade from '@material-ui/core/Fade/Fade'
 import List from '@material-ui/core/List/List'
 import ListItem from '@material-ui/core/ListItem/ListItem'
 import ListItemText from '@material-ui/core/ListItemText/ListItemText'
+import createStyles from '@material-ui/core/styles/createStyles'
 import withStyles from '@material-ui/core/styles/withStyles'
 import { firestore } from 'firebase/app'
 import React, { Component } from 'react'
@@ -77,7 +78,7 @@ class PostAsReplyList extends Component<any, any> {
   }
 }
 
-const styles = () => ({
+const styles = createStyles({
   root: {
     width: '100%'
   },

@@ -1,3 +1,4 @@
+import createStyles from '@material-ui/core/styles/createStyles'
 import withStyles from '@material-ui/core/styles/withStyles'
 import Typography from '@material-ui/core/Typography/Typography'
 import React from 'react'
@@ -23,7 +24,7 @@ const UnderDevelopment = ({ classes, Icon, title, description }) => (
   </div>
 )
 
-const styles = () => ({
+const styles = createStyles({
   root: {
     paddingLeft: 12,
     paddingRight: 12

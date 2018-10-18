@@ -1,14 +1,15 @@
 import ExpansionPanel from '@material-ui/core/ExpansionPanel'
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary'
+import createStyles from '@material-ui/core/styles/createStyles'
 import withStyles from '@material-ui/core/styles/withStyles'
 import { auth, firestore } from 'firebase/app'
 import React, { Component } from 'react'
 import PostActions from '../components/PostActions'
-import PostAsReplyList from '../components/PostAsReplyList'
-import PostAsReplyTextField from '../components/PostAsReplyTextField'
 import PostExpansionPanelSummary from '../components/PostExpansionPanelSummary'
 import { LIKES, POSTS } from '../constants/collection'
 import { createPostLike } from '../libs/createPostLike'
+import PostAsReplyList from './PostAsReplyList'
+import PostAsReplyTextField from './PostAsReplyTextField'
 
 class PostExpansionPanel extends Component<any, any> {
   isUnmounted = false
@@ -32,8 +33,8 @@ class PostExpansionPanel extends Component<any, any> {
           <PostExpansionPanelSummary post={post} />
         </ExpansionPanelSummary>
         <PostActions
-          selectPost={selectPost}
-          onClickLike={this.clickLike}
+          onSelectPost={this.onSelectPost}
+          onClickLike={this.onClickLike}
           postId={post.id}
           inProgressLike={inProgressLike}
           hasLike={hasLike}
@@ -57,18 +58,16 @@ class PostExpansionPanel extends Component<any, any> {
     this.isUnmounted = true
   }
 
-  clickLike = (postId: string) => {
-    if (this.isUnmounted) return
+  onClickLike = () => {
+    const { postId } = this.props
 
-    const { inProgress } = this.props
+    this.clickLike(postId)
+  }
 
-    if (inProgress) return
+  onSelectPost = () => {
+    const { postId, selectPost } = this.props
 
-    this.setState(state => ({ hasLike: !state.hasLike }))
-
-    createPostLike({ postId }).catch(err => {
-      console.error(err)
-    })
+    selectPost(postId)
   }
 
   onChangeExpand = (_, expanded) => {
@@ -103,9 +102,23 @@ class PostExpansionPanel extends Component<any, any> {
       this.setState(state => ({ expanded: !state.expanded }))
     }
   }
+
+  clickLike = (postId: string) => {
+    if (this.isUnmounted) return
+
+    const { inProgress } = this.props
+
+    if (inProgress) return
+
+    this.setState(state => ({ hasLike: !state.hasLike }))
+
+    createPostLike({ postId }).catch(err => {
+      console.error(err)
+    })
+  }
 }
 
-const styles = theme => ({
+const styles = createStyles({
   root: {
     width: '100%'
   },

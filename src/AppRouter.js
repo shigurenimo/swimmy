@@ -1,7 +1,7 @@
 import withStyles from '@material-ui/core/styles/withStyles'
 import React, { Component, Fragment } from 'react'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
-import AppHeader from './components/AppHeader'
+import AppHeader from './containers/AppHeader'
 import PageAbout from './pages/PageAbout'
 import PageChangelogs from './pages/PageChangelogs'
 import PageDevelopment from './pages/PageDevelopment'

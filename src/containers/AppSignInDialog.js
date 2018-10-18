@@ -5,6 +5,7 @@ import DialogContent from '@material-ui/core/DialogContent/DialogContent'
 import DialogContentText from '@material-ui/core/DialogContentText/DialogContentText'
 import DialogTitle from '@material-ui/core/DialogTitle/DialogTitle'
 import LinearProgress from '@material-ui/core/LinearProgress/LinearProgress'
+import createStyles from '@material-ui/core/styles/createStyles'
 import withStyles from '@material-ui/core/styles/withStyles'
 import TextField from '@material-ui/core/TextField/TextField'
 import { auth } from 'firebase/app'
@@ -141,13 +142,14 @@ class AppSignInDialog extends Component {
   }
 }
 
-const styles = theme => ({
-  progress: {
-    height: 5
-  },
-  errorMassage: {
-    color: theme.palette.light
-  }
-})
+const styles = theme =>
+  createStyles({
+    progress: {
+      height: 5
+    },
+    errorMassage: {
+      color: theme.palette.light
+    }
+  })
 
 export default withStyles(styles)(AppSignInDialog)
