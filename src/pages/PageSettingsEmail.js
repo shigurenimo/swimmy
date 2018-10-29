@@ -23,7 +23,7 @@ class PageSettingsEmail extends Component<any, any> {
 
 const styles = () => ({
   root: {
-    paddingTop: '40%'
+    paddingTop: '80px'
   }
 })
 
