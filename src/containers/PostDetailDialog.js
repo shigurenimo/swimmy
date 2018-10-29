@@ -20,7 +20,7 @@ class PostDetailDialog extends Component<any, any> {
         </DialogActions>
         {inProgress && <CircularProgress className={classes.progress} />}
         <DialogContent>
-          <List>
+          <List className={classes.list}>
             {posts.map(post => (
               <ReplyPostlistItem key={post.id} post={post} />
             ))}
@@ -39,6 +39,9 @@ const styles = createStyles({
     marginTop: 80,
     marginLeft: 'auto',
     marginRight: 'auto'
+  },
+  list: {
+    paddingBottom: 40
   }
 })
 

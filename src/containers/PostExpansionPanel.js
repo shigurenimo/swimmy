@@ -59,15 +59,15 @@ class PostExpansionPanel extends Component<any, any> {
   }
 
   onClickLike = () => {
-    const { postId } = this.props
+    const { post } = this.props
 
-    this.clickLike(postId)
+    this.clickLike(post.id)
   }
 
   onSelectPost = () => {
-    const { postId, selectPost } = this.props
+    const { post, selectPost } = this.props
 
-    selectPost(postId)
+    selectPost(post.id)
   }
 
   onChangeExpand = (_, expanded) => {

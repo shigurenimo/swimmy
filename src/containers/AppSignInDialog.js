@@ -148,7 +148,7 @@ const styles = theme =>
       height: 5
     },
     errorMassage: {
-      color: theme.palette.light
+      color: theme.palette.error.light
     }
   })
 

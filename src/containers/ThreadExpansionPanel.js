@@ -48,9 +48,9 @@ class ThreadExpansionPanel extends Component<any, any> {
   }
 
   onClickLike = () => {
-    const { postId } = this.props
+    const { post } = this.props
 
-    this.clickLike(postId)
+    this.clickLike(post.id)
   }
 
   onChangeExpand = (_, expanded) => {
