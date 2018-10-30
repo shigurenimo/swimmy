@@ -12,24 +12,26 @@ const Component = ({
   hasLike,
   onClickLike,
   onSelectPost
-}) => (
-  <div className={classes.root}>
-    <IconButton className={classes.iconButton} disabled>
-      <Delete />
-    </IconButton>
-    <IconButton
-      className={classes.iconButton}
-      onClick={onClickLike}
-      disabled={inProgressLike}
-      color={hasLike ? 'secondary' : 'default'}
-    >
-      <Favorite />
-    </IconButton>
-    <IconButton className={classes.iconButton} onClick={onSelectPost}>
-      <Launch />
-    </IconButton>
-  </div>
-)
+}) => {
+  return (
+    <div className={classes.root}>
+      <IconButton className={classes.iconButton} disabled>
+        <Delete />
+      </IconButton>
+      <IconButton
+        className={classes.iconButton}
+        onClick={onClickLike}
+        disabled={inProgressLike}
+        color={hasLike ? 'secondary' : 'default'}
+      >
+        <Favorite />
+      </IconButton>
+      <IconButton className={classes.iconButton} onClick={onSelectPost}>
+        <Launch />
+      </IconButton>
+    </div>
+  )
+}
 
 const styles = createStyles({
   root: {

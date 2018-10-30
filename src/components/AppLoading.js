@@ -3,11 +3,13 @@ import createStyles from '@material-ui/core/styles/createStyles'
 import withStyles from '@material-ui/core/styles/withStyles'
 import React from 'react'
 
-const Component = ({ classes }) => (
-  <div className={classes.root}>
-    <CircularProgress size={50} />
-  </div>
-)
+const Component = ({ classes }) => {
+  return (
+    <div className={classes.root}>
+      <CircularProgress size={50} />
+    </div>
+  )
+}
 
 const styles = createStyles({
   root: {
