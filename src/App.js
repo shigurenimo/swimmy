@@ -2,10 +2,10 @@ import CssBaseline from '@material-ui/core/CssBaseline'
 import { createGenerateClassName } from '@material-ui/core/styles'
 import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider'
 import withStyles from '@material-ui/core/styles/withStyles'
-import React, { Component, Fragment } from 'react'
+import React, { Fragment } from 'react'
 import JssProvider from 'react-jss/lib/JssProvider'
-import AppRouter from './AppRouter'
-import AppAuthProvider from './containers/AppAuthProvider'
+import { AppRouter } from './AppRouter'
+import { AppAuthProvider } from './containers/AppAuthProvider'
 import { theme } from './theme'
 
 const generateClassName = createGenerateClassName({
@@ -13,7 +13,7 @@ const generateClassName = createGenerateClassName({
   productionPrefix: 'c'
 })
 
-class App extends Component {
+class Component extends React.Component {
   render() {
     return (
       <JssProvider generateClassName={generateClassName}>
@@ -32,4 +32,4 @@ class App extends Component {
 
 const styles = () => ({})
 
-export default withStyles(styles)(App)
+export const App = withStyles(styles)(Component)

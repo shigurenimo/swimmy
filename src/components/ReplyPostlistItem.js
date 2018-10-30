@@ -4,7 +4,7 @@ import withStyles from '@material-ui/core/styles/withStyles'
 import Typography from '@material-ui/core/Typography/Typography'
 import React from 'react'
 
-const ReplyPostlistItem = ({ post }) => (
+const Component = ({ post }) => (
   <ListItem button divider>
     <div>
       <Typography gutterBottom>{post.text}</Typography>
@@ -19,4 +19,4 @@ const styles = createStyles({
   root: {}
 })
 
-export default withStyles(styles)(ReplyPostlistItem)
+export const ReplyPostlistItem = withStyles(styles)(Component)

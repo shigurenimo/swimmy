@@ -5,9 +5,9 @@ import createStyles from '@material-ui/core/styles/createStyles'
 import withStyles from '@material-ui/core/styles/withStyles'
 import Typography from '@material-ui/core/Typography/Typography'
 import ExpandMore from '@material-ui/icons/ExpandMore'
-import React, { Component } from 'react'
+import React from 'react'
 
-class ChangelogExpansionPanel extends Component<any, any> {
+class Component extends React.Component<any, any> {
   state = {}
 
   render() {
@@ -42,4 +42,4 @@ const styles = createStyles({
   }
 })
 
-export default withStyles(styles)(ChangelogExpansionPanel)
+export const ChangelogExpansionPanel = withStyles(styles)(Component)

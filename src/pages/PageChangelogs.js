@@ -1,8 +1,8 @@
 import withStyles from '@material-ui/core/styles/withStyles'
-import React, { Component } from 'react'
-import ChangelogExpansionPanel from '../containers/ChangelogExpansionPanel'
+import React from 'react'
+import { ChangelogExpansionPanel } from '../containers/ChangelogExpansionPanel'
 
-class PageChangelogs extends Component<any, any> {
+class Component extends React.Component<any, any> {
   render() {
     const { classes } = this.props
 
@@ -30,4 +30,4 @@ const styles = () => ({
   }
 })
 
-export default withStyles(styles)(PageChangelogs)
+export const PageChangelogs = withStyles(styles)(Component)

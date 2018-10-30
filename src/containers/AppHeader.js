@@ -8,15 +8,15 @@ import MoreHoriz from '@material-ui/icons/MoreHoriz'
 import Photo from '@material-ui/icons/Photo'
 import PowerSettingsNew from '@material-ui/icons/PowerSettingsNew'
 import TurnedIn from '@material-ui/icons/TurnedIn'
-import React, { Component, Fragment } from 'react'
+import React, { Fragment } from 'react'
 import { Link, withRouter } from 'react-router-dom'
 import { compose } from 'recompose'
-import AppTitle from '../components/AppTitle'
+import { AppTitle } from '../components/AppTitle'
 import { AuthConsumer } from '../contexts/auth'
-import AppMenuDialog from './AppMenuDialog'
-import AppSignInDialog from './AppSignInDialog'
+import { AppMenuDialog } from './AppMenuDialog'
+import { AppSignInDialog } from './AppSignInDialog'
 
-class AppHeader extends Component {
+class Component extends React.Component {
   state = {
     isOpenSignInDialog: false,
     isOpenMenuDialog: false
@@ -122,7 +122,7 @@ const styles = createStyles({
   }
 })
 
-export default compose(
+export const AppHeader = compose(
   withRouter,
   withStyles(styles)
-)(AppHeader)
+)(Component)

@@ -4,10 +4,10 @@ import FormControl from '@material-ui/core/FormControl'
 import Input from '@material-ui/core/Input'
 import createStyles from '@material-ui/core/styles/createStyles'
 import withStyles from '@material-ui/core/styles/withStyles'
-import React, { Component } from 'react'
+import React from 'react'
 import { createPost } from '../libs/createPost'
 
-class PostTextField extends Component {
+class Component extends React.Component {
   isUnmounted = false
 
   state = {
@@ -122,4 +122,4 @@ const styles = createStyles({
   }
 })
 
-export default withStyles(styles)(PostTextField)
+export const PostTextField = withStyles(styles)(Component)

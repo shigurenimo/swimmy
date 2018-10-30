@@ -1,9 +1,9 @@
 import withStyles from '@material-ui/core/styles/withStyles'
 import BugReport from '@material-ui/icons/BugReport'
-import React, { Component } from 'react'
-import UnderDevelopment from '../components/UnderDevelopment'
+import React from 'react'
+import { UnderDevelopment } from '../components/UnderDevelopment'
 
-class PageIssues extends Component<any, any> {
+class Component extends React.Component<any, any> {
   render() {
     const { classes } = this.props
 
@@ -25,4 +25,4 @@ const styles = () => ({
   }
 })
 
-export default withStyles(styles)(PageIssues)
+export const PageIssues = withStyles(styles)(Component)

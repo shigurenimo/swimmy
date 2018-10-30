@@ -1,8 +1,8 @@
 import { auth } from 'firebase/app'
-import React, { Component } from 'react'
+import React from 'react'
 import { AuthProvicer } from '../contexts/auth'
 
-class AppAuthProvider extends Component<any, any> {
+class Component extends React.Component<any, any> {
   state = {
     uid: null,
     isLoggingIn: true,
@@ -44,4 +44,4 @@ class AppAuthProvider extends Component<any, any> {
   }
 }
 
-export default AppAuthProvider
+export const AppAuthProvider = Component

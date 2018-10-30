@@ -6,10 +6,10 @@ import DialogContent from '@material-ui/core/DialogContent/DialogContent'
 import List from '@material-ui/core/List/List'
 import createStyles from '@material-ui/core/styles/createStyles'
 import withStyles from '@material-ui/core/styles/withStyles'
-import React, { Component } from 'react'
-import ReplyPostlistItem from '../components/ReplyPostlistItem'
+import React from 'react'
+import { ReplyPostlistItem } from '../components/ReplyPostlistItem'
 
-class PostDetailDialog extends Component<any, any> {
+class Component extends React.Component<any, any> {
   render() {
     const { onClose, isOpen, posts, inProgress, classes } = this.props
 
@@ -45,4 +45,4 @@ const styles = createStyles({
   }
 })
 
-export default withStyles(styles)(PostDetailDialog)
+export const PostDetailDialog = withStyles(styles)(Component)

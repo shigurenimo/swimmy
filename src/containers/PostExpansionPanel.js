@@ -3,15 +3,15 @@ import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary'
 import createStyles from '@material-ui/core/styles/createStyles'
 import withStyles from '@material-ui/core/styles/withStyles'
 import { auth, firestore } from 'firebase/app'
-import React, { Component } from 'react'
-import PostActions from '../components/PostActions'
-import PostExpansionPanelSummary from '../components/PostExpansionPanelSummary'
+import React from 'react'
+import { PostActions } from '../components/PostActions'
+import { PostExpansionPanelSummary } from '../components/PostExpansionPanelSummary'
 import { LIKES, POSTS } from '../constants/collection'
 import { createPostLike } from '../libs/createPostLike'
-import PostAsReplyList from './PostAsReplyList'
-import PostAsReplyTextField from './PostAsReplyTextField'
+import { PostAsReplyList } from './PostAsReplyList'
+import { PostAsReplyTextField } from './PostAsReplyTextField'
 
-class PostExpansionPanel extends Component<any, any> {
+class Component extends React.Component<any, any> {
   isUnmounted = false
 
   state = {
@@ -130,4 +130,4 @@ const styles = createStyles({
   }
 })
 
-export default withStyles(styles)(PostExpansionPanel)
+export const PostExpansionPanel = withStyles(styles)(Component)

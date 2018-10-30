@@ -4,7 +4,7 @@ import withStyles from '@material-ui/core/styles/withStyles'
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-const AppTitle = ({ classes }) => (
+const Component = ({ classes }) => (
   <div className={classes.root}>
     <Link to={'/'}>
       <IconButton className={classes.button}>
@@ -26,4 +26,4 @@ const styles = createStyles({
   }
 })
 
-export default withStyles(styles)(AppTitle)
+export const AppTitle = withStyles(styles)(Component)

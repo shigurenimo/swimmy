@@ -1,9 +1,9 @@
 import withStyles from '@material-ui/core/styles/withStyles'
 import Email from '@material-ui/icons/Email'
-import React, { Component } from 'react'
-import UnderDevelopment from '../components/UnderDevelopment'
+import React from 'react'
+import { UnderDevelopment } from '../components/UnderDevelopment'
 
-class PageSettingsEmail extends Component<any, any> {
+class Component extends React.Component<any, any> {
   render() {
     const { classes } = this.props
 
@@ -27,4 +27,4 @@ const styles = () => ({
   }
 })
 
-export default withStyles(styles)(PageSettingsEmail)
+export const PageSettingsEmail = withStyles(styles)(Component)

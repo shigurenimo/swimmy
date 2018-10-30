@@ -4,13 +4,13 @@ import withStyles from '@material-ui/core/styles/withStyles'
 import Tab from '@material-ui/core/Tab/Tab'
 import Tabs from '@material-ui/core/Tabs/Tabs'
 import { firestore } from 'firebase/app'
-import React, { Component, Fragment } from 'react'
+import React, { Fragment } from 'react'
 import { POSTS_AS_IMAGE } from '../constants/collection'
 import { DESC } from '../constants/order'
-import ImageCard from '../containers/ImageCard'
+import { ImageCard } from '../containers/ImageCard'
 import { createdAt } from '../libs/createdAt'
 
-class PageImages extends Component<any, any> {
+class Component extends React.Component<any, any> {
   isUnmounted = false
 
   state = {
@@ -103,4 +103,4 @@ const styles = () => ({
   }
 })
 
-export default withStyles(styles)(PageImages)
+export const PageImages = withStyles(styles)(Component)

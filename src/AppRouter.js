@@ -1,20 +1,20 @@
 import withStyles from '@material-ui/core/styles/withStyles'
-import React, { Component, Fragment } from 'react'
+import React, { Fragment } from 'react'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
-import AppHeader from './containers/AppHeader'
-import PageAbout from './pages/PageAbout'
-import PageChangelogs from './pages/PageChangelogs'
-import PageDevelopment from './pages/PageDevelopment'
-import PageHome from './pages/PageHome'
-import PageImages from './pages/PageImages'
-import PageIssues from './pages/PageIssues'
-import PageSearch from './pages/PageSearch'
-import PageSettingsEmail from './pages/PageSettingsEmail'
-import PageSettingsPassword from './pages/PageSettingsPassword'
-import PageStats from './pages/PageStats'
-import PageThreads from './pages/PageThreads'
+import { AppHeader } from './containers/AppHeader'
+import { PageAbout } from './pages/PageAbout'
+import { PageChangelogs } from './pages/PageChangelogs'
+import { PageDevelopment } from './pages/PageDevelopment'
+import { PageHome } from './pages/PageHome'
+import { PageImages } from './pages/PageImages'
+import { PageIssues } from './pages/PageIssues'
+import { PageSearch } from './pages/PageSearch'
+import { PageSettingsEmail } from './pages/PageSettingsEmail'
+import { PageSettingsPassword } from './pages/PageSettingsPassword'
+import { PageStats } from './pages/PageStats'
+import { PageThreads } from './pages/PageThreads'
 
-class AppRouter extends Component<any, any> {
+class Component extends React.Component<any, any> {
   render() {
     return (
       <BrowserRouter>
@@ -41,4 +41,4 @@ class AppRouter extends Component<any, any> {
 
 const styles = () => ({})
 
-export default withStyles(styles)(AppRouter)
+export const AppRouter = withStyles(styles)(Component)

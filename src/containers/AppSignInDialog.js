@@ -9,9 +9,9 @@ import createStyles from '@material-ui/core/styles/createStyles'
 import withStyles from '@material-ui/core/styles/withStyles'
 import TextField from '@material-ui/core/TextField/TextField'
 import { auth } from 'firebase/app'
-import React, { Component } from 'react'
+import React from 'react'
 
-class AppSignInDialog extends Component {
+class Component extends React.Component {
   state = {
     errorCode: '',
     errorMessage: '',
@@ -152,4 +152,4 @@ const styles = theme =>
     }
   })
 
-export default withStyles(styles)(AppSignInDialog)
+export const AppSignInDialog = withStyles(styles)(Component)

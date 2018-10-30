@@ -3,7 +3,7 @@ import createStyles from '@material-ui/core/styles/createStyles'
 import withStyles from '@material-ui/core/styles/withStyles'
 import React from 'react'
 
-const AppLoading = ({ classes }) => (
+const Component = ({ classes }) => (
   <div className={classes.root}>
     <CircularProgress size={50} />
   </div>
@@ -23,4 +23,4 @@ const styles = createStyles({
   }
 })
 
-export default withStyles(styles)(AppLoading)
+export const AppLoading = withStyles(styles)(Component)

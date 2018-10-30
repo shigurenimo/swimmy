@@ -1,9 +1,9 @@
 import withStyles from '@material-ui/core/styles/withStyles'
 import VpnKey from '@material-ui/icons/VpnKey'
-import React, { Component } from 'react'
-import UnderDevelopment from '../components/UnderDevelopment'
+import React from 'react'
+import { UnderDevelopment } from '../components/UnderDevelopment'
 
-class PageSettingsPassword extends Component<any, any> {
+class Component extends React.Component<any, any> {
   render() {
     const { classes } = this.props
 
@@ -25,4 +25,4 @@ const styles = () => ({
   }
 })
 
-export default withStyles(styles)(PageSettingsPassword)
+export const PageSettingsPassword = withStyles(styles)(Component)

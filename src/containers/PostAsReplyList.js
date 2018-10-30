@@ -6,11 +6,11 @@ import ListItemText from '@material-ui/core/ListItemText/ListItemText'
 import createStyles from '@material-ui/core/styles/createStyles'
 import withStyles from '@material-ui/core/styles/withStyles'
 import { firestore } from 'firebase/app'
-import React, { Component } from 'react'
+import React from 'react'
 import { POSTS, POSTS_AS_ANONYM } from '../constants/collection'
 import { DESC } from '../constants/order'
 
-class PostAsReplyList extends Component<any, any> {
+class Component extends React.Component<any, any> {
   isUnmounted = false
   unsubscribe = null
 
@@ -88,4 +88,4 @@ const styles = createStyles({
   }
 })
 
-export default withStyles(styles)(PostAsReplyList)
+export const PostAsReplyList = withStyles(styles)(Component)

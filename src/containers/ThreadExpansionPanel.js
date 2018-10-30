@@ -3,13 +3,13 @@ import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary'
 import createStyles from '@material-ui/core/styles/createStyles'
 import withStyles from '@material-ui/core/styles/withStyles'
 import { auth, firestore } from 'firebase/app'
-import React, { Component } from 'react'
-import PostExpansionPanelSummary from '../components/PostExpansionPanelSummary'
-import ThreadActions from '../components/ThreadActions'
+import React from 'react'
+import { PostExpansionPanelSummary } from '../components/PostExpansionPanelSummary'
+import { ThreadActions } from '../components/ThreadActions'
 import { LIKES, POSTS } from '../constants/collection'
 import { createPostLike } from '../libs/createPostLike'
 
-class ThreadExpansionPanel extends Component<any, any> {
+class Component extends React.Component<any, any> {
   isUnmounted = false
 
   state = {
@@ -110,4 +110,4 @@ const styles = createStyles({
   }
 })
 
-export default withStyles(styles)(ThreadExpansionPanel)
+export const ThreadExpansionPanel = withStyles(styles)(Component)

@@ -3,9 +3,9 @@ import CardActionArea from '@material-ui/core/CardActionArea/CardActionArea'
 import CardMedia from '@material-ui/core/CardMedia/CardMedia'
 import createStyles from '@material-ui/core/styles/createStyles'
 import withStyles from '@material-ui/core/styles/withStyles'
-import React, { Component } from 'react'
+import React from 'react'
 
-class ImageCard extends Component<any, any> {
+class Component extends React.Component<any, any> {
   state = {}
 
   render() {
@@ -34,4 +34,4 @@ const styles = createStyles({
   media: {}
 })
 
-export default withStyles(styles)(ImageCard)
+export const ImageCard = withStyles(styles)(Component)

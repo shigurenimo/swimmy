@@ -2,15 +2,15 @@ import CircularProgress from '@material-ui/core/CircularProgress/CircularProgres
 import Fade from '@material-ui/core/Fade/Fade'
 import withStyles from '@material-ui/core/styles/withStyles'
 import { firestore } from 'firebase/app'
-import React, { Component, Fragment } from 'react'
-import PostTextField from '../containers/PostTextField'
+import React, { Fragment } from 'react'
 import { POSTS, POSTS_AS_ANONYM } from '../constants/collection'
 import { DESC } from '../constants/order'
-import PostDetailDialog from '../containers/PostDetailDialog'
-import PostExpansionPanel from '../containers/PostExpansionPanel'
+import { PostDetailDialog } from '../containers/PostDetailDialog'
+import { PostExpansionPanel } from '../containers/PostExpansionPanel'
+import { PostTextField } from '../containers/PostTextField'
 import { createdAt } from '../libs/createdAt'
 
-class PageHome extends Component<any, any> {
+class Component extends React.Component<any, any> {
   isUnmounted = false
   unsubscribe = null
   unsubscribeReply = null
@@ -124,7 +124,6 @@ class PageHome extends Component<any, any> {
       })
   }
 
-
   subscribeReplyPosts(selectedPost: any) {
     this.unsubscribeReply = firestore()
       .collection(POSTS_AS_ANONYM)
@@ -159,4 +158,4 @@ const styles = () => ({
   }
 })
 
-export default withStyles(styles)(PageHome)
+export const PageHome = withStyles(styles)(Component)

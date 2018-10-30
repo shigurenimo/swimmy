@@ -4,7 +4,7 @@ import withStyles from '@material-ui/core/styles/withStyles'
 import Typography from '@material-ui/core/Typography'
 import React from 'react'
 
-const PostExpansionPanelSummary = ({ classes, post }) => (
+const Component = ({ classes, post }) => (
   <div className={classes.root}>
     <Typography className={classes.text} gutterBottom variant={'body2'}>
       {post.text}
@@ -43,4 +43,4 @@ const styles = theme =>
     }
   })
 
-export default withStyles(styles)(PostExpansionPanelSummary)
+export const PostExpansionPanelSummary = withStyles(styles)(Component)

@@ -3,7 +3,7 @@ import withStyles from '@material-ui/core/styles/withStyles'
 import Typography from '@material-ui/core/Typography/Typography'
 import React from 'react'
 
-const UnderDevelopment = ({ classes, Icon, title, description }) => (
+const Component = ({ classes, Icon, title, description }) => (
   <div className={classes.root}>
     <Icon className={classes.icon} />
     <Typography
@@ -41,4 +41,4 @@ const styles = createStyles({
   description: {}
 })
 
-export default withStyles(styles)(UnderDevelopment)
+export const UnderDevelopment = withStyles(styles)(Component)

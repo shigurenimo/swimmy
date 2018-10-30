@@ -3,10 +3,10 @@ import Button from '@material-ui/core/es/Button'
 import TextField from '@material-ui/core/es/TextField'
 import createStyles from '@material-ui/core/styles/createStyles'
 import withStyles from '@material-ui/core/styles/withStyles'
-import React, { Component, Fragment } from 'react'
+import React, { Fragment } from 'react'
 import { createPost } from '../libs/createPost'
 
-class PostAsReplyTextField extends Component {
+class Component extends React.Component {
   state = {
     postText: '',
     inProgress: false
@@ -103,4 +103,4 @@ const styles = createStyles({
   }
 })
 
-export default withStyles(styles)(PostAsReplyTextField)
+export const PostAsReplyTextField = withStyles(styles)(Component)

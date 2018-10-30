@@ -6,7 +6,7 @@ import Favorite from '@material-ui/icons/Favorite'
 import Launch from '@material-ui/icons/Launch'
 import React from 'react'
 
-const PostActions = ({
+const Component = ({
   classes,
   inProgressLike,
   hasLike,
@@ -42,4 +42,4 @@ const styles = createStyles({
   }
 })
 
-export default withStyles(styles)(PostActions)
+export const PostActions = withStyles(styles)(Component)

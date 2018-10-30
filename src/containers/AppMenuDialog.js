@@ -18,11 +18,11 @@ import Update from '@material-ui/icons/Update'
 import PowerSettingsNew from '@material-ui/icons/PowerSettingsNew'
 import VpnKey from '@material-ui/icons/VpnKey'
 import { auth } from 'firebase/app'
-import React, { Component } from 'react'
+import React from 'react'
 import { Link } from 'react-router-dom'
 import { AuthConsumer } from '../contexts/auth'
 
-class AppMenuDialog extends Component {
+class Component extends React.Component {
   render() {
     const { onClose, isOpen } = this.props
 
@@ -134,4 +134,4 @@ class AppMenuDialog extends Component {
   }
 }
 
-export default AppMenuDialog
+export const AppMenuDialog = Component

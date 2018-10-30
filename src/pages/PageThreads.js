@@ -4,18 +4,18 @@ import withStyles from '@material-ui/core/styles/withStyles'
 import Tab from '@material-ui/core/Tab/Tab'
 import Tabs from '@material-ui/core/Tabs/Tabs'
 import { firestore } from 'firebase/app'
-import React, { Component, Fragment } from 'react'
+import React, { Fragment } from 'react'
 import {
   POSTS,
   POSTS_AS_ANONYM,
   POSTS_AS_THREAD
 } from '../constants/collection'
 import { DESC } from '../constants/order'
-import PostDetailDialog from '../containers/PostDetailDialog'
-import ThreadExpansionPanel from '../containers/ThreadExpansionPanel'
+import { PostDetailDialog } from '../containers/PostDetailDialog'
+import { ThreadExpansionPanel } from '../containers/ThreadExpansionPanel'
 import { createdAt } from '../libs/createdAt'
 
-class PageThreads extends Component<any, any> {
+class Component extends React.Component<any, any> {
   isUnmounted = false
 
   state = {
@@ -165,4 +165,4 @@ const styles = () => ({
   }
 })
 
-export default withStyles(styles)(PageThreads)
+export const PageThreads = withStyles(styles)(Component)
