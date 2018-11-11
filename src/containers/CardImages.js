@@ -1,7 +1,7 @@
 import createStyles from '@material-ui/core/styles/createStyles'
 import withStyles from '@material-ui/core/styles/withStyles'
 import React from 'react'
-import { ImageCard } from '../containers/ImageCard'
+import { CardImage } from './CardImage'
 import { px } from '../libs/styles/px'
 import { resetList } from '../libs/styles/resetList'
 
@@ -13,7 +13,7 @@ class Component extends React.Component<any, any> {
       <ul className={classes.posts}>
         {posts.map(post => (
           <li key={post.id} className={classes.card}>
-            <ImageCard post={post} />
+            <CardImage post={post} />
           </li>
         ))}
       </ul>

@@ -144,4 +144,4 @@ const styles = ({ palette }) =>
     errorMassage: { color: palette.error.light }
   })
 
-export const AppSignInDialog = withStyles(styles)(Component)
+export const DialogAppSignIn = withStyles(styles)(Component)

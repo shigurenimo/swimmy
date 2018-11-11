@@ -4,23 +4,25 @@ import createStyles from '@material-ui/core/styles/createStyles'
 import withStyles from '@material-ui/core/styles/withStyles'
 import { auth, firestore } from 'firebase/app'
 import React from 'react'
-import { PostExpansionPanelSummary } from '../components/PostExpansionPanelSummary'
-import { ThreadActions } from '../components/ThreadActions'
+import { PostActions } from '../components/PostActions'
+import { ExpansionPanelSummaryPost } from '../components/ExpansionPanelSummaryPost'
 import { LIKES, POSTS } from '../constants/collection'
 import { createPostLike } from '../libs/createPostLike'
+import { ListReplyPost } from './ListReplyPost'
+import { TextFieldReplyPost } from './TextFieldReplyPost'
 
 class Component extends React.Component<any, any> {
   isUnmounted = false
-
-  state = {
-    expanded: false,
-    hasLike: false,
-    inProgressLike: true
-  }
+  state = { expanded: false, hasLike: false, inProgressLike: true }
   onClickLike = () => {
     const { post } = this.props
 
     this.clickLike(post.id)
+  }
+  onSelectPost = () => {
+    const { post, selectPost } = this.props
+
+    selectPost(post.id)
   }
   onChangeExpand = (_, expanded) => {
     if (this.isUnmounted) return
@@ -68,7 +70,7 @@ class Component extends React.Component<any, any> {
   }
 
   render() {
-    const { classes, post, onSelectPost } = this.props
+    const { classes, post } = this.props
     const { expanded, inProgressLike, hasLike } = this.state
 
     return (
@@ -77,15 +79,24 @@ class Component extends React.Component<any, any> {
           className={classes.summary}
           onClick={this.onClickPanelSummary}
         >
-          <PostExpansionPanelSummary post={post} />
+          <ExpansionPanelSummaryPost post={post} />
         </ExpansionPanelSummary>
-        <ThreadActions
-          onSelectPost={onSelectPost}
+        <PostActions
+          onSelectPost={this.onSelectPost}
           onClickLike={this.onClickLike}
           postId={post.id}
           inProgressLike={inProgressLike}
           hasLike={hasLike}
         />
+        {expanded && (
+          <ListReplyPost
+            postId={post.id}
+            replyPostCount={post.replyPostCount}
+          />
+        )}
+        <div className={classes.textField}>
+          <TextFieldReplyPost postId={post.id} />
+        </div>
       </ExpansionPanel>
     )
   }
@@ -100,12 +111,8 @@ class Component extends React.Component<any, any> {
 const styles = ({ spacing }) =>
   createStyles({
     root: { width: '100%' },
-    summary: {
-      paddingTop: 0,
-      paddingBottom: 0,
-      paddingLeft: spacing * 1.5,
-      paddingRight: spacing * 1.5
-    }
+    summary: { padding: '0 12px' },
+    textField: { marginTop: spacing.unit }
   })
 
-export const ThreadExpansionPanel = withStyles(styles)(Component)
+export const ExpansionPanelPost = withStyles(styles)(Component)

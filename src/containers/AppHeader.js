@@ -13,8 +13,8 @@ import { Link, withRouter } from 'react-router-dom'
 import { compose } from 'recompose'
 import { AppTitle } from '../components/AppTitle'
 import { AuthConsumer } from '../contexts/auth'
-import { AppMenuDialog } from './AppMenuDialog'
-import { AppSignInDialog } from './AppSignInDialog'
+import { DialogAppMenu } from './DialogAppMenu'
+import { DialogAppSignIn } from './DialogAppSignIn'
 
 class Component extends React.Component {
   state = {
@@ -79,11 +79,11 @@ class Component extends React.Component {
             </AuthConsumer>
           </Toolbar>
         </AppBar>
-        <AppMenuDialog
+        <DialogAppMenu
           isOpen={isOpenMenuDialog}
           onClose={this.onCloseMenuDialog}
         />
-        <AppSignInDialog
+        <DialogAppSignIn
           isOpen={isOpenSignInDialog}
           closeDialog={this.closeDialog}
         />

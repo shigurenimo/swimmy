@@ -1,11 +1,11 @@
 import React from 'react'
-import { PostExpansionPanel } from '../containers/PostExpansionPanel'
+import { ExpansionPanelPost } from '../containers/ExpansionPanelPost'
 
 export const Component = ({ posts, selectPost }) => {
   return (
     <div>
       {posts.map(post => (
-        <PostExpansionPanel key={post.id} post={post} selectPost={selectPost} />
+        <ExpansionPanelPost key={post.id} post={post} selectPost={selectPost} />
       ))}
     </div>
   )

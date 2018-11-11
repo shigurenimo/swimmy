@@ -1,38 +1,47 @@
+import Button from '@material-ui/core/Button'
 import CircularProgress from '@material-ui/core/CircularProgress/CircularProgress'
-import Button from '@material-ui/core/es/Button'
-import TextField from '@material-ui/core/es/TextField'
+import FormControl from '@material-ui/core/FormControl'
+import Input from '@material-ui/core/Input'
 import createStyles from '@material-ui/core/styles/createStyles'
 import withStyles from '@material-ui/core/styles/withStyles'
-import React, { Fragment } from 'react'
+import React from 'react'
 import { createPost } from '../libs/createPost'
 
 class Component extends React.Component {
+  isUnmounted = false
+
   state = {
     postText: '',
     inProgress: false
+  }
+  disabled = () => {
+    const { postText, inProgress } = this.state
+
+    return inProgress || postText.match(/\S/g) === null
   }
   onChangePostText = event => {
     event.persist()
     this.setState({ postText: event.target.value })
   }
   onSubmitPost = () => {
-    const { postId } = this.props
-    const { postText, inProgress } = this.state
+    const { postText } = this.state
 
-    if (!postText || inProgress) return
+    if (this.disabled()) return
 
     this.setState({ inProgress: true })
 
     createPost({
       fileIds: [],
       text: postText,
-      replyPostId: postId
+      replyPostId: ''
     })
       .then(() => {
+        if (this.isUnmounted) return
         this.setState({ postText: '', inProgress: false })
       })
       .catch(err => {
         console.error(err)
+        if (this.isUnmounted) return
         this.setState({ inProgress: false })
       })
   }
@@ -42,23 +51,19 @@ class Component extends React.Component {
     const { postText, inProgress } = this.state
 
     return (
-      <Fragment>
-        <div className={classes.root}>
-          <TextField
-            fullWidth
-            className={classes.textField}
-            placeholder="リプライ"
-            value={postText}
-            onChange={this.onChangePostText}
-            disabled={inProgress}
-          />
-        </div>
+      <div className={classes.root}>
         <div className={classes.actions}>
+          <Button color={'primary'} disabled={true}>
+            PUBLIC
+          </Button>
+          <Button color={'primary'} disabled={true}>
+            IMAGE
+          </Button>
           <Button
             color={'primary'}
             className={classes.submitButton}
-            disabled={!postText || inProgress}
-            variant={postText ? 'contained' : 'text'}
+            disabled={this.disabled()}
+            variant={this.disabled() ? 'text' : 'contained'}
             onClick={this.onSubmitPost}
           >
             GO
@@ -67,24 +72,37 @@ class Component extends React.Component {
             )}
           </Button>
         </div>
-      </Fragment>
+        <FormControl fullWidth>
+          <Input
+            classes={{ root: classes.textField }}
+            placeholder="新しい書き込み"
+            fullWidth
+            multiline
+            onChange={this.onChangePostText}
+            value={postText}
+            disabled={inProgress}
+          />
+        </FormControl>
+      </div>
     )
+  }
+
+  componentWillUnmount() {
+    this.isUnmounted = true
   }
 }
 
 const styles = ({ spacing }) =>
   createStyles({
-    root: { width: '100%' },
+    root: { marginTop: spacing.unit * 3 },
+    actions: {
+      textAlign: 'right',
+      paddingRight: spacing.unit,
+      paddingBottom: spacing.unit
+    },
     textField: {
       paddingLeft: spacing.unit * 1.5,
       paddingRight: spacing.unit * 1.5
-    },
-    actions: {
-      marginTop: spacing.unit,
-      paddingLeft: spacing.unit,
-      paddingRight: spacing.unit,
-      paddingBottom: spacing.unit,
-      textAlign: 'right'
     },
     submitButton: { marginLeft: spacing.unit, position: 'relative' },
     buttonProgress: {
@@ -97,4 +115,4 @@ const styles = ({ spacing }) =>
     }
   })
 
-export const PostAsReplyTextField = withStyles(styles)(Component)
+export const TextFieldPost = withStyles(styles)(Component)

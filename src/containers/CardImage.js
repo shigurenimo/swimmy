@@ -29,4 +29,4 @@ const styles = createStyles({
   actionArea: { width: '100%' }
 })
 
-export const ImageCard = withStyles(styles)(Component)
+export const CardImage = withStyles(styles)(Component)

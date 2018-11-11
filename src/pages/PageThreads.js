@@ -12,8 +12,8 @@ import {
   POSTS_AS_THREAD
 } from '../constants/collection'
 import { DESC } from '../constants/order'
-import { PostDetailDialog } from '../containers/PostDetailDialog'
-import { ThreadExpansionPanel } from '../containers/ThreadExpansionPanel'
+import { DialogPostDetail } from '../containers/DialogPostDetail'
+import { ExpansionPanelThread } from '../containers/ExpansionPanelThread'
 import { createdAt } from '../libs/createdAt'
 
 class Component extends React.Component<any, any> {
@@ -79,7 +79,7 @@ class Component extends React.Component<any, any> {
           <Fade in>
             <div className={classes.posts}>
               {posts.map(post => (
-                <ThreadExpansionPanel
+                <ExpansionPanelThread
                   key={post.id}
                   post={post}
                   onSelectPost={this.onSelectPost(post.id)}
@@ -88,7 +88,7 @@ class Component extends React.Component<any, any> {
             </div>
           </Fade>
         )}
-        <PostDetailDialog
+        <DialogPostDetail
           posts={replyPosts}
           inProgress={inProgressReply}
           onClose={this.onCloseReplyDialog}

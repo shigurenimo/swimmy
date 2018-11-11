@@ -116,4 +116,4 @@ class Component extends React.Component {
   }
 }
 
-export const AppMenuDialog = Component
+export const DialogAppMenu = Component

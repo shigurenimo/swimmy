@@ -38,4 +38,4 @@ const styles = ({ typography, palette, spacing }) =>
     replyPostCount: { color: purple['A400'], paddingLeft: spacing.unit }
   })
 
-export const PostExpansionPanelSummary = withStyles(styles)(Component)
+export const ExpansionPanelSummaryPost = withStyles(styles)(Component)

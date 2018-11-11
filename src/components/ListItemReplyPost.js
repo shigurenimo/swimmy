@@ -19,4 +19,4 @@ const Component = ({ post }) => {
 
 const styles = createStyles({})
 
-export const ReplyPostListItem = withStyles(styles)(Component)
+export const ListItemReplyPost = withStyles(styles)(Component)

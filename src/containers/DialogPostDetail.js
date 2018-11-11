@@ -7,7 +7,7 @@ import List from '@material-ui/core/List/List'
 import createStyles from '@material-ui/core/styles/createStyles'
 import withStyles from '@material-ui/core/styles/withStyles'
 import React from 'react'
-import { ReplyPostListItem } from '../components/ReplyPostListItem'
+import { ListItemReplyPost } from '../components/ListItemReplyPost'
 
 class Component extends React.Component<any, any> {
   render() {
@@ -22,7 +22,7 @@ class Component extends React.Component<any, any> {
         <DialogContent>
           <List className={classes.list}>
             {posts.map(post => (
-              <ReplyPostListItem key={post.id} post={post} />
+              <ListItemReplyPost key={post.id} post={post} />
             ))}
           </List>
         </DialogContent>
@@ -42,4 +42,4 @@ const styles = ({ spacing }) =>
     list: { paddingBottom: spacing.unit * 5 }
   })
 
-export const PostDetailDialog = withStyles(styles)(Component)
+export const DialogPostDetail = withStyles(styles)(Component)

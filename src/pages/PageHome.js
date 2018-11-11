@@ -7,8 +7,8 @@ import React, { Fragment } from 'react'
 import { Posts } from '../components/Posts'
 import { POSTS, POSTS_AS_ANONYM } from '../constants/collection'
 import { DESC } from '../constants/order'
-import { PostDetailDialog } from '../containers/PostDetailDialog'
-import { PostTextField } from '../containers/PostTextField'
+import { DialogPostDetail } from '../containers/DialogPostDetail'
+import { TextFieldPost } from '../containers/TextFieldPost'
 import { createdAt } from '../libs/createdAt'
 
 class Component extends React.Component<any, any> {
@@ -50,14 +50,14 @@ class Component extends React.Component<any, any> {
 
     return (
       <Fragment>
-        <PostTextField />
+        <TextFieldPost />
         {inProgress && <CircularProgress className={classes.progress} />}
         {!inProgress && (
           <Fade in>
             <Posts posts={posts} selectPost={this.selectPost} />
           </Fade>
         )}
-        <PostDetailDialog
+        <DialogPostDetail
           posts={replyPosts}
           inProgress={inProgressReply}
           onClose={this.onCloseReplyDialog}

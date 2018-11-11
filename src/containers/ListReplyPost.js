@@ -80,4 +80,4 @@ const styles = createStyles({
   progress: { marginTop: 16, textAlign: 'center' }
 })
 
-export const PostAsReplyList = withStyles(styles)(Component)
+export const ListReplyPost = withStyles(styles)(Component)
