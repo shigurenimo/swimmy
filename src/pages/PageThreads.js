@@ -120,7 +120,7 @@ class Component extends React.Component<any, any> {
           return {
             ...data,
             ui: {
-              createdAt: createdAt(data.createdAt.seconds)
+              createdAt: createdAt(data.createdAt)
             }
           }
         })
@@ -142,7 +142,7 @@ class Component extends React.Component<any, any> {
           return {
             ...data,
             ui: {
-              createdAt: createdAt(data.createdAt.seconds)
+              createdAt: createdAt(data.createdAt)
             }
           }
         })
