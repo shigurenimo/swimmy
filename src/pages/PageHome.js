@@ -34,9 +34,7 @@ class Component extends React.Component<any, any> {
     const { posts } = this.state
     const selectedPost = posts.find(post => post.id === postId)
 
-    this.setState(state => {
-      return { selectedPost, replyPosts: [], inProgressReply: true }
-    })
+    this.setState({ selectedPost, replyPosts: [], inProgressReply: true })
     this.subscribeReplyPosts(selectedPost)
   }
 
