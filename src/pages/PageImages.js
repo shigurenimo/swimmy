@@ -6,14 +6,15 @@ import Tab from '@material-ui/core/Tab/Tab'
 import Tabs from '@material-ui/core/Tabs/Tabs'
 import { firestore } from 'firebase/app'
 import React, { Fragment } from 'react'
+import { collectionData } from 'rxfire/firestore'
 import { POSTS_AS_IMAGE } from '../constants/collection'
 import { DESC } from '../constants/order'
-import { ImageCard } from '../containers/ImageCard'
+import { CardImages } from '../containers/CardImages'
 import { createdAt } from '../libs/createdAt'
 
 class Component extends React.Component<any, any> {
   isUnmounted = false
-
+  subscription
   state = {
     posts: [],
     inProgress: true,
@@ -43,13 +44,7 @@ class Component extends React.Component<any, any> {
         {inProgress && <CircularProgress className={classes.progress} />}
         {!inProgress && (
           <Fade in>
-            <div className={classes.posts}>
-              {posts.map(post => (
-                <div key={post.id} className={classes.card}>
-                  <ImageCard post={post} />
-                </div>
-              ))}
-            </div>
+            <CardImages posts={posts} />
           </Fade>
         )}
       </Fragment>
@@ -57,24 +52,20 @@ class Component extends React.Component<any, any> {
   }
 
   updatePosts(orderBy: string) {
-    firestore()
+    const query = firestore()
       .collection(POSTS_AS_IMAGE)
       .limit(100)
       .orderBy(orderBy, DESC)
-      .get()
-      .then(querySnapshot => {
-        const posts = querySnapshot.docs.map(doc => {
-          const data = doc.data()
-          return {
-            ...data,
-            ui: {
-              createdAt: createdAt(data.createdAt)
-            }
-          }
-        })
-        if (this.isUnmounted) return
-        this.setState({ posts, inProgress: false })
+    this.subscription = collectionData(query).subscribe(docs => {
+      const posts = docs.map(doc => {
+        return {
+          ...doc,
+          ui: { createdAt: createdAt(doc.createdAt) }
+        }
       })
+      if (this.isUnmounted) return
+      this.setState({ posts, inProgress: false })
+    })
   }
 
   componentDidMount() {
@@ -85,6 +76,9 @@ class Component extends React.Component<any, any> {
 
   componentWillUnmount() {
     this.isUnmounted = true
+    if (this.subscription) {
+      this.subscription.unsubscribe()
+    }
   }
 }
 
@@ -96,11 +90,6 @@ const styles = ({ spacing }) =>
       marginTop: spacing.unit * 10,
       marginLeft: 'auto',
       marginRight: 'auto'
-    },
-    card: {
-      marginTop: spacing.unit * 1.5,
-      paddingLeft: spacing.unit * 1.5,
-      paddingRight: spacing.unit * 1.5
     }
   })
 

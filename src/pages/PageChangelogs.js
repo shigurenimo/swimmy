@@ -3,6 +3,7 @@ import withStyles from '@material-ui/core/styles/withStyles'
 import { firestore } from 'firebase/app'
 import React from 'react'
 import { collectionData } from 'rxfire/firestore'
+import { take } from 'rxjs/operators'
 import { CHANGELOGS } from '../constants/collection'
 import { DESC } from '../constants/order'
 import { CardChangelog } from '../containers/CardChangelog'
@@ -41,12 +42,10 @@ class Component extends React.Component<any, any> {
       .collection(CHANGELOGS)
       .limit(40)
       .orderBy('version', DESC)
-    this.subscription = collectionData(query).subscribe(docs => {
-      if (this.isUnmounted) {
-        return
-      }
-      this.setState({
-        changelogs: [
+    this.subscription = collectionData(query)
+      .pipe(take(2))
+      .subscribe(docs => {
+        const changelogs = [
           ...docs.map(doc => ({
             ...doc,
             ui: {
@@ -55,8 +54,9 @@ class Component extends React.Component<any, any> {
             }
           }))
         ]
+        if (this.isUnmounted) return
+        this.setState({ changelogs })
       })
-    })
   }
 
   componentWillUnmount() {
