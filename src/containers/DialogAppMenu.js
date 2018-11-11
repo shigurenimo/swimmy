@@ -7,7 +7,6 @@ import ListItem from '@material-ui/core/ListItem/ListItem'
 import ListItemIcon from '@material-ui/core/ListItemIcon/ListItemIcon'
 import ListItemText from '@material-ui/core/ListItemText/ListItemText'
 import ListSubheader from '@material-ui/core/ListSubheader/ListSubheader'
-import BugReport from '@material-ui/icons/BugReport'
 import Email from '@material-ui/icons/Email'
 import Equalizer from '@material-ui/icons/Equalizer'
 import Home from '@material-ui/icons/Home'
@@ -69,14 +68,6 @@ class Component extends React.Component {
                   <Update />
                 </ListItemIcon>
                 <ListItemText inset primary="アップデート" />
-              </ListItem>
-            </Link>
-            <Link to={'/issues'}>
-              <ListItem button onClick={onClose}>
-                <ListItemIcon>
-                  <BugReport />
-                </ListItemIcon>
-                <ListItemText inset primary="バグレポート" />
               </ListItem>
             </Link>
           </List>
