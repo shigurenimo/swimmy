@@ -22,7 +22,9 @@ const styles = ({ spacing }) =>
     root: {
       margin: 'auto',
       maxWidth: spacing.unit * 100,
-      paddingTop: spacing.unit * 10
+      paddingTop: spacing.unit * 10,
+      paddingLeft: spacing.unit * 2,
+      paddingRight: spacing.unit * 2
     }
   })
 
