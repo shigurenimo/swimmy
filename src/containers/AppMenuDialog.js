@@ -81,22 +81,6 @@ class Component extends React.Component {
                 <ListItemText inset primary="バグレポート" />
               </ListItem>
             </Link>
-            <Link to={'/about'}>
-              <ListItem button onClick={onClose}>
-                <ListItemIcon>
-                  <Info />
-                </ListItemIcon>
-                <ListItemText inset primary="トリセツ" />
-              </ListItem>
-            </Link>
-            <Link to={'/development'}>
-              <ListItem button onClick={onClose}>
-                <ListItemIcon>
-                  <Code />
-                </ListItemIcon>
-                <ListItemText inset primary="開発" />
-              </ListItem>
-            </Link>
           </List>
           <AuthConsumer>
             {auth =>
