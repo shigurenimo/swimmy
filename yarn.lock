@@ -9115,7 +9115,7 @@ rxfire@^3.0.8:
   version "3.0.8"
   resolved "https://registry.yarnpkg.com/rxfire/-/rxfire-3.0.8.tgz#044f5d2bded065126302d0539c7b19eb44e9859b"
 
-rxjs@^6.1.0:
+rxjs@^6.1.0, rxjs@^6.3.3:
   version "6.3.3"
   resolved "https://registry.yarnpkg.com/rxjs/-/rxjs-6.3.3.tgz#3c6a7fa420e844a81390fb1158a9ec614f4bad55"
   dependencies:
