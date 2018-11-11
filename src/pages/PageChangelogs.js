@@ -1,5 +1,8 @@
+import CircularProgress from '@material-ui/core/CircularProgress/CircularProgress'
+import Fade from '@material-ui/core/Fade/Fade'
 import createStyles from '@material-ui/core/styles/createStyles'
 import withStyles from '@material-ui/core/styles/withStyles'
+import Typography from '@material-ui/core/Typography/Typography'
 import { firestore } from 'firebase/app'
 import React from 'react'
 import { collectionData } from 'rxfire/firestore'
@@ -9,30 +12,37 @@ import { DESC } from '../constants/order'
 import { CardChangelog } from '../containers/CardChangelog'
 import { createdAt } from '../libs/createdAt'
 import { px } from '../libs/styles/px'
+import { resetList } from '../libs/styles/resetList'
 import { toVersionStr } from '../libs/toVersionStr'
 
 class Component extends React.Component<any, any> {
-  state = { changelogs: [] }
+  state = { changelogs: [], inProgress: true }
   isUnmounted = false
   subscription
 
   render() {
     const { classes } = this.props
-    const { changelogs } = this.state
+    const { changelogs, inProgress } = this.state
 
     return (
       <div className={classes.root}>
-        <ul className={classes.changelogs}>
-          {changelogs.map(changelog => (
-            <li className={classes.changelog} key={changelog.id}>
-              <CardChangelog
-                version={changelog.ui.version}
-                date={changelog.ui.date}
-                contents={changelog.contents}
-              />
-            </li>
-          ))}
-        </ul>
+        <Typography variant={'h5'}>アップデート履歴</Typography>
+        {inProgress && <CircularProgress className={classes.progress} />}
+        {!inProgress && (
+          <Fade in>
+            <ul className={classes.changelogs}>
+              {changelogs.map(changelog => (
+                <li key={changelog.id}>
+                  <CardChangelog
+                    version={changelog.ui.version}
+                    date={changelog.ui.date}
+                    contents={changelog.contents}
+                  />
+                </li>
+              ))}
+            </ul>
+          </Fade>
+        )}
       </div>
     )
   }
@@ -55,7 +65,7 @@ class Component extends React.Component<any, any> {
           }))
         ]
         if (this.isUnmounted) return
-        this.setState({ changelogs })
+        this.setState({ changelogs, inProgress: false })
       })
   }
 
@@ -69,17 +79,24 @@ class Component extends React.Component<any, any> {
 
 const styles = ({ spacing }) =>
   createStyles({
-    root: { width: '100%' },
-    changelogs: {
+    root: {
       display: 'grid',
-      gridRowGap: px(spacing.unit * 2),
-      listStyle: 'none',
-      paddingTop: spacing.unit * 2,
+      gridRowGap: px(spacing.unit * 4),
+      paddingTop: spacing.unit * 4,
       paddingLeft: spacing.unit * 2,
-      paddingRight: spacing.unit * 2,
-      margin: 0
+      paddingRight: spacing.unit * 2
     },
-    changelog: {}
+    changelogs: {
+      ...resetList(),
+      display: 'grid',
+      gridRowGap: px(spacing.unit * 2)
+    },
+    progress: {
+      display: 'block',
+      marginTop: spacing.unit * 10,
+      marginLeft: 'auto',
+      marginRight: 'auto'
+    }
   })
 
 export const PageChangelogs = withStyles(styles)(Component)
