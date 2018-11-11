@@ -7,7 +7,7 @@ import List from '@material-ui/core/List/List'
 import createStyles from '@material-ui/core/styles/createStyles'
 import withStyles from '@material-ui/core/styles/withStyles'
 import React from 'react'
-import { ReplyPostlistItem } from '../components/ReplyPostlistItem'
+import { ReplyPostListItem } from '../components/ReplyPostListItem'
 
 class Component extends React.Component<any, any> {
   render() {
@@ -22,7 +22,7 @@ class Component extends React.Component<any, any> {
         <DialogContent>
           <List className={classes.list}>
             {posts.map(post => (
-              <ReplyPostlistItem key={post.id} post={post} />
+              <ReplyPostListItem key={post.id} post={post} />
             ))}
           </List>
         </DialogContent>
@@ -31,18 +31,15 @@ class Component extends React.Component<any, any> {
   }
 }
 
-const styles = createStyles({
-  root: {},
-  posts: {},
-  progress: {
-    display: 'block',
-    marginTop: 80,
-    marginLeft: 'auto',
-    marginRight: 'auto'
-  },
-  list: {
-    paddingBottom: 40
-  }
-})
+const styles = ({ spacing }) =>
+  createStyles({
+    progress: {
+      display: 'block',
+      marginTop: 80,
+      marginLeft: 'auto',
+      marginRight: 'auto'
+    },
+    list: { paddingBottom: spacing.unit * 5 }
+  })
 
 export const PostDetailDialog = withStyles(styles)(Component)

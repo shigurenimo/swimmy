@@ -1,3 +1,4 @@
+import createStyles from '@material-ui/core/styles/createStyles'
 import withStyles from '@material-ui/core/styles/withStyles'
 import React from 'react'
 import { ChangelogExpansionPanel } from '../containers/ChangelogExpansionPanel'
@@ -24,10 +25,8 @@ class Component extends React.Component<any, any> {
   }
 }
 
-const styles = () => ({
-  root: {
-    width: '100%'
-  }
+const styles = createStyles({
+  root: { width: '100%' }
 })
 
 export const PageChangelogs = withStyles(styles)(Component)

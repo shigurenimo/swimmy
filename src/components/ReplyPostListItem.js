@@ -9,7 +9,7 @@ const Component = ({ post }) => {
     <ListItem button divider>
       <div>
         <Typography gutterBottom>{post.text}</Typography>
-        <Typography variant={'caption'} color={'textSecondary'}>
+        <Typography color={'textSecondary'} variant={'caption'}>
           {post.ui.createdAt}
         </Typography>
       </div>
@@ -19,4 +19,4 @@ const Component = ({ post }) => {
 
 const styles = createStyles({})
 
-export const ReplyPostlistItem = withStyles(styles)(Component)
+export const ReplyPostListItem = withStyles(styles)(Component)

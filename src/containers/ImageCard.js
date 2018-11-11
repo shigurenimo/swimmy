@@ -17,7 +17,6 @@ class Component extends React.Component<any, any> {
           <CardMedia
             component="img"
             alt={post.id}
-            className={classes.media}
             image={post.photoURLs[0] + '=s400'}
           />
         </CardActionArea>
@@ -27,11 +26,7 @@ class Component extends React.Component<any, any> {
 }
 
 const styles = createStyles({
-  root: {},
-  actionArea: {
-    width: '100%'
-  },
-  media: {}
+  actionArea: { width: '100%' }
 })
 
 export const ImageCard = withStyles(styles)(Component)

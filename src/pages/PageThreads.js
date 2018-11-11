@@ -1,5 +1,6 @@
 import CircularProgress from '@material-ui/core/CircularProgress/CircularProgress'
 import Fade from '@material-ui/core/Fade/Fade'
+import createStyles from '@material-ui/core/styles/createStyles'
 import withStyles from '@material-ui/core/styles/withStyles'
 import Tab from '@material-ui/core/Tab/Tab'
 import Tabs from '@material-ui/core/Tabs/Tabs'
@@ -25,6 +26,30 @@ class Component extends React.Component<any, any> {
     inProgressReply: false,
     selectedPost: null,
     orderBy: 'createdAt'
+  }
+  onChangeTab = (event, orderBy) => {
+    this.setState({ orderBy, inProgress: true })
+    this.updatePosts(orderBy)
+  }
+  onSelectPost = (postId: string) => () => {
+    this.selectPost(postId)
+  }
+  selectPost = (postId: string) => {
+    const { posts } = this.state
+    const selectedPost = posts.find(post => post.id === postId)
+
+    this.setState(() => {
+      return { selectedPost, replyPosts: [], inProgressReply: true }
+    })
+
+    this.subscribeReplyPosts(selectedPost)
+  }
+  onCloseReplyDialog = () => {
+    if (this.unsubscribeReply) {
+      this.unsubscribeReply()
+      this.unsubscribeReply = null
+    }
+    this.setState({ selectedPost: null })
   }
 
   render() {
@@ -83,26 +108,6 @@ class Component extends React.Component<any, any> {
     this.isUnmounted = true
   }
 
-  onChangeTab = (event, orderBy) => {
-    this.setState({ orderBy, inProgress: true })
-    this.updatePosts(orderBy)
-  }
-
-  onSelectPost = (postId: string) => () => {
-    this.selectPost(postId)
-  }
-
-  selectPost = (postId: string) => {
-    const { posts } = this.state
-    const selectedPost = posts.find(post => post.id === postId)
-
-    this.setState(() => {
-      return { selectedPost, replyPosts: [], inProgressReply: true }
-    })
-
-    this.subscribeReplyPosts(selectedPost)
-  }
-
   updatePosts(orderBy: string) {
     firestore()
       .collection(POSTS_AS_THREAD)
@@ -145,24 +150,17 @@ class Component extends React.Component<any, any> {
         this.setState({ replyPosts, inProgressReply: false })
       })
   }
-
-  onCloseReplyDialog = () => {
-    if (this.unsubscribeReply) {
-      this.unsubscribeReply()
-      this.unsubscribeReply = null
-    }
-    this.setState({ selectedPost: null })
-  }
 }
 
-const styles = () => ({
-  root: {},
-  progress: {
-    display: 'block',
-    marginTop: 80,
-    marginLeft: 'auto',
-    marginRight: 'auto'
-  }
-})
+const styles = ({ spacing }) =>
+  createStyles({
+    root: {},
+    progress: {
+      display: 'block',
+      marginTop: spacing.unit * 10,
+      marginLeft: 'auto',
+      marginRight: 'auto'
+    }
+  })
 
 export const PageThreads = withStyles(styles)(Component)

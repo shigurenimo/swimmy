@@ -3,10 +3,9 @@ import React from 'react'
 import { AuthProvicer } from '../contexts/auth'
 
 class Component extends React.Component<any, any> {
-  state = {
-    uid: null,
-    isLoggingIn: true,
-    isLogged: false
+  state = { isLoggingIn: true, isLogged: false, uid: null }
+  resetErrorMessage = () => {
+    this.setState({ errorMessage: null })
   }
 
   render() {
@@ -37,10 +36,6 @@ class Component extends React.Component<any, any> {
         }
       })
     })
-  }
-
-  resetErrorMessage = () => {
-    this.setState({ errorMessage: null })
   }
 }
 

@@ -1,3 +1,4 @@
+import createStyles from '@material-ui/core/styles/createStyles'
 import withStyles from '@material-ui/core/styles/withStyles'
 import Code from '@material-ui/icons/Code'
 import React from 'react'
@@ -21,10 +22,9 @@ class Component extends React.Component<any, any> {
   }
 }
 
-const styles = () => ({
-  root: {
-    paddingTop: 160
-  }
-})
+const styles = ({ spacing }) =>
+  createStyles({
+    root: { paddingTop: spacing.unit * 20 }
+  })
 
 export const PageDevelopment = withStyles(styles)(Component)

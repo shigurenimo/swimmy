@@ -28,18 +28,9 @@ class Component extends React.Component<any, any> {
 }
 
 const styles = createStyles({
-  version: {
-    flexBasis: '33.33%',
-    flexShrink: 0
-  },
-  date: {
-    opacity: 0.65,
-    fontSize: 12
-  },
-  description: {
-    whiteSpace: 'pre-line',
-    wordBreak: 'break-alls'
-  }
+  version: { flexBasis: '33.33%', flexShrink: 0 },
+  date: { opacity: 0.65, fontSize: 12 },
+  description: { whiteSpace: 'pre-line', wordBreak: 'break-all' }
 })
 
 export const ChangelogExpansionPanel = withStyles(styles)(Component)

@@ -3,6 +3,7 @@ import React, { Fragment } from 'react'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import { AppHeader } from './containers/AppHeader'
 import { PageAbout } from './pages/PageAbout'
+import { PageChangelogCreate } from './pages/PageChangelogCreate'
 import { PageChangelogs } from './pages/PageChangelogs'
 import { PageDevelopment } from './pages/PageDevelopment'
 import { PageHome } from './pages/PageHome'
@@ -22,16 +23,17 @@ class Component extends React.Component<any, any> {
           <AppHeader />
           <Switch>
             <Route exact path="/" component={PageHome} />
-            <Route path="/about" component={PageAbout} />
-            <Route path="/changelogs" component={PageChangelogs} />
-            <Route path="/development" component={PageDevelopment} />
-            <Route path="/images" component={PageImages} />
-            <Route path="/issues" component={PageIssues} />
-            <Route path="/search" component={PageSearch} />
-            <Route path="/settings/email" component={PageSettingsEmail} />
-            <Route path="/settings/password" component={PageSettingsPassword} />
-            <Route path="/stats" component={PageStats} />
-            <Route path="/threads" component={PageThreads} />
+            <Route exact path="/about" component={PageAbout} />
+            <Route exact path="/changelogs" component={PageChangelogs} />
+            <Route exact path="/changelogs/create" component={PageChangelogCreate} />
+            <Route exact path="/development" component={PageDevelopment} />
+            <Route exact path="/images" component={PageImages} />
+            <Route exact path="/issues" component={PageIssues} />
+            <Route exact path="/search" component={PageSearch} />
+            <Route exact path="/settings/email" component={PageSettingsEmail} />
+            <Route exact path="/settings/password" component={PageSettingsPassword} />
+            <Route exact path="/stats" component={PageStats} />
+            <Route exact path="/threads" component={PageThreads} />
           </Switch>
         </Fragment>
       </BrowserRouter>

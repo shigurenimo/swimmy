@@ -19,6 +19,64 @@ class Component extends React.Component {
     password: '',
     inProgress: false
   }
+  onChangeEmail = event => {
+    this.setState({
+      email: event.target.value,
+      errorCode: '',
+      errorMessage: ''
+    })
+  }
+  onChangePassword = event => {
+    this.setState({
+      password: event.target.value,
+      errorCode: '',
+      errorMessage: ''
+    })
+  }
+  onSignUp = () => {
+    const { closeDialog } = this.props
+    const { email, password, inProgress } = this.state
+
+    if (inProgress) {
+      return
+    }
+
+    this.setState({ inProgress: true, errorCode: '', errorMessage: '' })
+
+    const username = email.includes('@') ? email : `${email}@swimmy.io`
+
+    auth()
+      .createUserWithEmailAndPassword(username, password)
+      .then(() => {
+        this.setState({ inProgress: false, email: '', password: '' })
+        closeDialog()
+      })
+      .catch(err => {
+        const errorCode = err.code
+        const errorMessage = err.message
+        this.setState({ errorCode, errorMessage, inProgress: false })
+      })
+  }
+  onSignIn = () => {
+    const { closeDialog } = this.props
+    const { email, password } = this.state
+
+    this.setState({ inProgress: true, errorCode: '', errorMessage: '' })
+
+    const username = email.includes('@') ? email : `${email}@swimmy.io`
+
+    auth()
+      .signInWithEmailAndPassword(username, password)
+      .then(() => {
+        this.setState({ inProgress: false, email: '', password: '' })
+        closeDialog()
+      })
+      .catch(error => {
+        const errorCode = error.code
+        const errorMessage = error.message
+        this.setState({ inProgress: false, errorCode, errorMessage })
+      })
+  }
 
   render() {
     const { classes, isOpen, closeDialog } = this.props
@@ -78,78 +136,12 @@ class Component extends React.Component {
       </Dialog>
     )
   }
-
-  onChangeEmail = event => {
-    this.setState({
-      email: event.target.value,
-      errorCode: '',
-      errorMessage: ''
-    })
-  }
-
-  onChangePassword = event => {
-    this.setState({
-      password: event.target.value,
-      errorCode: '',
-      errorMessage: ''
-    })
-  }
-
-  onSignUp = () => {
-    const { closeDialog } = this.props
-    const { email, password, inProgress } = this.state
-
-    if (inProgress) {
-      return
-    }
-
-    this.setState({ inProgress: true, errorCode: '', errorMessage: '' })
-
-    const username = email.includes('@') ? email : `${email}@swimmy.io`
-
-    auth()
-      .createUserWithEmailAndPassword(username, password)
-      .then(() => {
-        this.setState({ inProgress: false, email: '', password: '' })
-        closeDialog()
-      })
-      .catch(err => {
-        const errorCode = err.code
-        const errorMessage = err.message
-        this.setState({ errorCode, errorMessage, inProgress: false })
-      })
-  }
-
-  onSignIn = () => {
-    const { closeDialog } = this.props
-    const { email, password } = this.state
-
-    this.setState({ inProgress: true, errorCode: '', errorMessage: '' })
-
-    const username = email.includes('@') ? email : `${email}@swimmy.io`
-
-    auth()
-      .signInWithEmailAndPassword(username, password)
-      .then(() => {
-        this.setState({ inProgress: false, email: '', password: '' })
-        closeDialog()
-      })
-      .catch(error => {
-        const errorCode = error.code
-        const errorMessage = error.message
-        this.setState({ inProgress: false, errorCode, errorMessage })
-      })
-  }
 }
 
-const styles = theme =>
+const styles = ({ palette }) =>
   createStyles({
-    progress: {
-      height: 5
-    },
-    errorMassage: {
-      color: theme.palette.error.light
-    }
+    progress: { height: 5 },
+    errorMassage: { color: palette.error.light }
   })
 
 export const AppSignInDialog = withStyles(styles)(Component)

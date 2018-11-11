@@ -19,10 +19,8 @@ class Component extends React.Component<any, any> {
   }
 }
 
-const styles = () => ({
-  root: {
-    paddingTop: '80px'
-  }
+const styles = ({ spacing }) => ({
+  root: { paddingTop: spacing.unit * 10 }
 })
 
 export const PageSearch = withStyles(styles)(Component)

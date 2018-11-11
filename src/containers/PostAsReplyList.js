@@ -14,10 +14,7 @@ class Component extends React.Component<any, any> {
   isUnmounted = false
   unsubscribe = null
 
-  state = {
-    posts: [],
-    inProgress: this.props.replyPostCount > 0
-  }
+  state = { posts: [], inProgress: this.props.replyPostCount > 0 }
 
   render() {
     const { classes } = this.props
@@ -79,13 +76,8 @@ class Component extends React.Component<any, any> {
 }
 
 const styles = createStyles({
-  root: {
-    width: '100%'
-  },
-  progress: {
-    marginTop: 16,
-    textAlign: 'center'
-  }
+  root: { width: '100%' },
+  progress: { marginTop: 16, textAlign: 'center' }
 })
 
 export const PostAsReplyList = withStyles(styles)(Component)

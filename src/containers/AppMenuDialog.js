@@ -13,9 +13,9 @@ import Email from '@material-ui/icons/Email'
 import Equalizer from '@material-ui/icons/Equalizer'
 import Home from '@material-ui/icons/Home'
 import Info from '@material-ui/icons/Info'
+import PowerSettingsNew from '@material-ui/icons/PowerSettingsNew'
 import Search from '@material-ui/icons/Search'
 import Update from '@material-ui/icons/Update'
-import PowerSettingsNew from '@material-ui/icons/PowerSettingsNew'
 import VpnKey from '@material-ui/icons/VpnKey'
 import { auth } from 'firebase/app'
 import React from 'react'
@@ -23,6 +23,14 @@ import { Link } from 'react-router-dom'
 import { AuthConsumer } from '../contexts/auth'
 
 class Component extends React.Component {
+  onSignOut = () => {
+    auth()
+      .signOut()
+      .catch(err => {
+        console.error(err)
+      })
+  }
+
   render() {
     const { onClose, isOpen } = this.props
 
@@ -123,14 +131,6 @@ class Component extends React.Component {
         </DialogContent>
       </Dialog>
     )
-  }
-
-  onSignOut = () => {
-    auth()
-      .signOut()
-      .catch(err => {
-        console.error(err)
-      })
   }
 }
 

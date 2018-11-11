@@ -11,6 +11,31 @@ class Component extends React.Component {
     postText: '',
     inProgress: false
   }
+  onChangePostText = event => {
+    event.persist()
+    this.setState({ postText: event.target.value })
+  }
+  onSubmitPost = () => {
+    const { postId } = this.props
+    const { postText, inProgress } = this.state
+
+    if (!postText || inProgress) return
+
+    this.setState({ inProgress: true })
+
+    createPost({
+      fileIds: [],
+      text: postText,
+      replyPostId: postId
+    })
+      .then(() => {
+        this.setState({ postText: '', inProgress: false })
+      })
+      .catch(err => {
+        console.error(err)
+        this.setState({ inProgress: false })
+      })
+  }
 
   render() {
     const { classes } = this.props
@@ -45,62 +70,31 @@ class Component extends React.Component {
       </Fragment>
     )
   }
-
-  onChangePostText = event => {
-    event.persist()
-    this.setState({ postText: event.target.value })
-  }
-
-  onSubmitPost = () => {
-    const { postId } = this.props
-    const { postText, inProgress } = this.state
-
-    if (!postText || inProgress) return
-
-    this.setState({ inProgress: true })
-
-    createPost({
-      fileIds: [],
-      text: postText,
-      replyPostId: postId
-    })
-      .then(() => {
-        this.setState({ postText: '', inProgress: false })
-      })
-      .catch(err => {
-        console.error(err)
-        this.setState({ inProgress: false })
-      })
-  }
 }
 
-const styles = createStyles({
-  root: {
-    width: '100%'
-  },
-  textField: {
-    paddingLeft: 12,
-    paddingRight: 12
-  },
-  actions: {
-    marginTop: 8,
-    paddingLeft: 8,
-    paddingRight: 8,
-    paddingBottom: 8,
-    textAlign: 'right'
-  },
-  submitButton: {
-    marginLeft: 8,
-    position: 'relative'
-  },
-  buttonProgress: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0,
-    margin: 'auto'
-  }
-})
+const styles = ({ spacing }) =>
+  createStyles({
+    root: { width: '100%' },
+    textField: {
+      paddingLeft: spacing.unit * 1.5,
+      paddingRight: spacing.unit * 1.5
+    },
+    actions: {
+      marginTop: spacing.unit,
+      paddingLeft: spacing.unit,
+      paddingRight: spacing.unit,
+      paddingBottom: spacing.unit,
+      textAlign: 'right'
+    },
+    submitButton: { marginLeft: spacing.unit, position: 'relative' },
+    buttonProgress: {
+      position: 'absolute',
+      top: 0,
+      left: 0,
+      right: 0,
+      bottom: 0,
+      margin: 'auto'
+    }
+  })
 
 export const PostAsReplyTextField = withStyles(styles)(Component)

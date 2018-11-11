@@ -22,20 +22,11 @@ const Component = ({ classes, Icon, title, description }) => {
   )
 }
 
-const styles = createStyles({
-  root: {
-    paddingLeft: 12,
-    paddingRight: 12
-  },
-  icon: {
-    display: 'block',
-    margin: 'auto',
-    fontSize: 80
-  },
-  title: {
-    marginTop: 16,
-    fontWeight: 'bold'
-  }
-})
+const styles = ({ spacing }) =>
+  createStyles({
+    root: { paddingLeft: spacing.unit * 1.5, paddingRight: spacing.unit * 1.5 },
+    icon: { display: 'block', margin: 'auto', fontSize: 80 },
+    title: { marginTop: spacing.unit * 2, fontWeight: 'bold' }
+  })
 
 export const UnderDevelopment = withStyles(styles)(Component)

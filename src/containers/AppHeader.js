@@ -21,6 +21,18 @@ class Component extends React.Component {
     isOpenSignInDialog: false,
     isOpenMenuDialog: false
   }
+  onOpenMenuDialog = () => {
+    this.setState({ isOpenMenuDialog: true })
+  }
+  onOpenSignInDialog = () => {
+    this.setState({ isOpenSignInDialog: true })
+  }
+  onCloseMenuDialog = () => {
+    this.setState({ isOpenMenuDialog: false })
+  }
+  closeDialog = () => {
+    this.setState({ isOpenSignInDialog: false })
+  }
 
   render() {
     const { classes } = this.props
@@ -78,49 +90,25 @@ class Component extends React.Component {
       </Fragment>
     )
   }
-
-  onOpenMenuDialog = () => {
-    this.setState({ isOpenMenuDialog: true })
-  }
-
-  onOpenSignInDialog = () => {
-    this.setState({ isOpenSignInDialog: true })
-  }
-
-  onCloseMenuDialog = () => {
-    this.setState({ isOpenMenuDialog: false })
-  }
-
-  closeDialog = () => {
-    this.setState({ isOpenSignInDialog: false })
-  }
 }
 
-const styles = createStyles({
-  root: {
-    flexGrow: 1
-  },
-  progress: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    width: '100%'
-  },
-  title: {
-    fontSize: 24,
-    flexGrow: 1
-  },
-  appBar: {
-    backgroundColor: 'rgba(255, 255, 255, 0.98)'
-  },
-  menuButton: {
-    marginLeft: -12,
-    marginRight: 20
-  },
-  iconButton: {
-    marginRight: 8
-  }
-})
+const styles = ({ spacing }) =>
+  createStyles({
+    root: { flexGrow: 1 },
+    progress: {
+      position: 'absolute',
+      top: 0,
+      left: 0,
+      width: '100%'
+    },
+    title: { fontSize: 24, flexGrow: 1 },
+    appBar: { backgroundColor: 'rgba(255, 255, 255, 0.98)' },
+    menuButton: {
+      marginLeft: spacing.unit * 1.5 * -1,
+      marginRight: spacing.unit * 2.5
+    },
+    iconButton: { marginRight: spacing.unit }
+  })
 
 export const AppHeader = compose(
   withRouter,

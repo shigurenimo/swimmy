@@ -17,15 +17,9 @@ const Component = ({ classes }) => {
 }
 
 const styles = createStyles({
-  root: {
-    flexGrow: 1
-  },
-  button: {
-    padding: 0
-  },
-  img: {
-    height: 24 + 24
-  }
+  root: { flexGrow: 1 },
+  button: { padding: 0 },
+  img: { height: 24 + 24 }
 })
 
 export const AppTitle = withStyles(styles)(Component)

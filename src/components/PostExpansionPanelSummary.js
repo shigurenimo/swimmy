@@ -18,33 +18,24 @@ const Component = ({ classes, post }) => {
           </span>
         )}
       </Typography>
-      <Typography variant={'caption'} color={'textSecondary'}>
+      <Typography color={'textSecondary'} variant={'caption'}>
         {post.ui.createdAt}
       </Typography>
     </div>
   )
 }
 
-const styles = theme =>
+const styles = ({ typography, palette, spacing }) =>
   createStyles({
-    root: {
-      paddingRight: '0 !important',
-      width: '100%'
-    },
+    root: { paddingRight: '0 !important', width: '100%' },
     text: {
-      fontSize: theme.typography.pxToRem(15),
-      fontWeight: theme.typography.fontWeightMedium,
+      fontSize: typography.pxToRem(16),
+      fontWeight: typography.fontWeightMedium,
       whiteSpace: 'pre-line',
       wordBreak: 'break-all'
     },
-    likeCount: {
-      paddingLeft: 8,
-      color: theme.palette.secondary.light
-    },
-    replyPostCount: {
-      paddingLeft: 8,
-      color: purple['A400']
-    }
+    likeCount: { paddingLeft: spacing.unit, color: palette.secondary.light },
+    replyPostCount: { color: purple['A400'], paddingLeft: spacing.unit }
   })
 
 export const PostExpansionPanelSummary = withStyles(styles)(Component)

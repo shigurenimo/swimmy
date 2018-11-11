@@ -14,6 +14,37 @@ class Component extends React.Component {
     postText: '',
     inProgress: false
   }
+  disabled = () => {
+    const { postText, inProgress } = this.state
+
+    return inProgress || postText.match(/\S/g) === null
+  }
+  onChangePostText = event => {
+    event.persist()
+    this.setState({ postText: event.target.value })
+  }
+  onSubmitPost = () => {
+    const { postText } = this.state
+
+    if (this.disabled()) return
+
+    this.setState({ inProgress: true })
+
+    createPost({
+      fileIds: [],
+      text: postText,
+      replyPostId: ''
+    })
+      .then(() => {
+        if (this.isUnmounted) return
+        this.setState({ postText: '', inProgress: false })
+      })
+      .catch(err => {
+        console.error(err)
+        if (this.isUnmounted) return
+        this.setState({ inProgress: false })
+      })
+  }
 
   render() {
     const { classes } = this.props
@@ -56,70 +87,32 @@ class Component extends React.Component {
     )
   }
 
-  disabled = () => {
-    const { postText, inProgress } = this.state
-
-    return inProgress || postText.match(/\S/g) === null
-  }
-
-  onChangePostText = event => {
-    event.persist()
-    this.setState({ postText: event.target.value })
-  }
-
-  onSubmitPost = () => {
-    const { postText } = this.state
-
-    if (this.disabled()) return
-
-    this.setState({ inProgress: true })
-
-    createPost({
-      fileIds: [],
-      text: postText,
-      replyPostId: ''
-    })
-      .then(() => {
-        if (this.isUnmounted) return
-        this.setState({ postText: '', inProgress: false })
-      })
-      .catch(err => {
-        console.error(err)
-        if (this.isUnmounted) return
-        this.setState({ inProgress: false })
-      })
-  }
-
   componentWillUnmount() {
     this.isUnmounted = true
   }
 }
 
-const styles = createStyles({
-  root: {
-    marginTop: 24
-  },
-  actions: {
-    textAlign: 'right',
-    paddingRight: 8,
-    paddingBottom: 8
-  },
-  textField: {
-    paddingLeft: 12,
-    paddingRight: 12
-  },
-  submitButton: {
-    marginLeft: 8,
-    position: 'relative'
-  },
-  buttonProgress: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0,
-    margin: 'auto'
-  }
-})
+const styles = ({ spacing }) =>
+  createStyles({
+    root: { marginTop: spacing.unit * 3 },
+    actions: {
+      textAlign: 'right',
+      paddingRight: spacing.unit,
+      paddingBottom: spacing.unit
+    },
+    textField: {
+      paddingLeft: spacing.unit * 1.5,
+      paddingRight: spacing.unit * 1.5
+    },
+    submitButton: { marginLeft: spacing.unit, position: 'relative' },
+    buttonProgress: {
+      position: 'absolute',
+      top: 0,
+      left: 0,
+      right: 0,
+      bottom: 0,
+      margin: 'auto'
+    }
+  })
 
 export const PostTextField = withStyles(styles)(Component)

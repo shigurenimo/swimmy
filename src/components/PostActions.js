@@ -20,9 +20,9 @@ const Component = ({
       </IconButton>
       <IconButton
         className={classes.iconButton}
-        onClick={onClickLike}
-        disabled={inProgressLike}
         color={hasLike ? 'secondary' : 'default'}
+        disabled={inProgressLike}
+        onClick={onClickLike}
       >
         <Favorite />
       </IconButton>
@@ -34,14 +34,8 @@ const Component = ({
 }
 
 const styles = createStyles({
-  root: {
-    paddingLeft: 12,
-    paddingRight: 12,
-    paddingBottom: 12
-  },
-  iconButton: {
-    marginRight: 8
-  }
+  root: { paddingLeft: 12, paddingRight: 12, paddingBottom: 12 },
+  iconButton: { marginRight: 8 }
 })
 
 export const PostActions = withStyles(styles)(Component)

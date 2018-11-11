@@ -1,5 +1,6 @@
 import CircularProgress from '@material-ui/core/CircularProgress/CircularProgress'
 import Fade from '@material-ui/core/Fade/Fade'
+import createStyles from '@material-ui/core/styles/createStyles'
 import withStyles from '@material-ui/core/styles/withStyles'
 import Tab from '@material-ui/core/Tab/Tab'
 import Tabs from '@material-ui/core/Tabs/Tabs'
@@ -17,6 +18,10 @@ class Component extends React.Component<any, any> {
     posts: [],
     inProgress: true,
     orderBy: 'createdAt'
+  }
+  onChangeTab = (event, orderBy) => {
+    this.setState({ orderBy, inProgress: true })
+    this.updatePosts(orderBy)
   }
 
   render() {
@@ -51,11 +56,6 @@ class Component extends React.Component<any, any> {
     )
   }
 
-  onChangeTab = (event, orderBy) => {
-    this.setState({ orderBy, inProgress: true })
-    this.updatePosts(orderBy)
-  }
-
   updatePosts(orderBy: string) {
     firestore()
       .collection(POSTS_AS_IMAGE)
@@ -88,19 +88,20 @@ class Component extends React.Component<any, any> {
   }
 }
 
-const styles = () => ({
-  root: {},
-  progress: {
-    display: 'block',
-    marginTop: 80,
-    marginLeft: 'auto',
-    marginRight: 'auto'
-  },
-  card: {
-    marginTop: 12,
-    paddingLeft: 12,
-    paddingRight: 12
-  }
-})
+const styles = ({ spacing }) =>
+  createStyles({
+    root: {},
+    progress: {
+      display: 'block',
+      marginTop: spacing.unit * 10,
+      marginLeft: 'auto',
+      marginRight: 'auto'
+    },
+    card: {
+      marginTop: spacing.unit * 1.5,
+      paddingLeft: spacing.unit * 1.5,
+      paddingRight: spacing.unit * 1.5
+    }
+  })
 
 export const PageImages = withStyles(styles)(Component)

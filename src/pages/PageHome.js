@@ -1,12 +1,13 @@
 import CircularProgress from '@material-ui/core/CircularProgress/CircularProgress'
 import Fade from '@material-ui/core/Fade/Fade'
+import createStyles from '@material-ui/core/styles/createStyles'
 import withStyles from '@material-ui/core/styles/withStyles'
 import { firestore } from 'firebase/app'
 import React, { Fragment } from 'react'
+import { Posts } from '../components/Posts'
 import { POSTS, POSTS_AS_ANONYM } from '../constants/collection'
 import { DESC } from '../constants/order'
 import { PostDetailDialog } from '../containers/PostDetailDialog'
-import { PostExpansionPanel } from '../containers/PostExpansionPanel'
 import { PostTextField } from '../containers/PostTextField'
 import { createdAt } from '../libs/createdAt'
 
@@ -21,6 +22,22 @@ class Component extends React.Component<any, any> {
     inProgress: true,
     inProgressReply: false,
     selectedPost: null
+  }
+  onCloseReplyDialog = () => {
+    if (this.unsubscribeReply) {
+      this.unsubscribeReply()
+      this.unsubscribeReply = null
+    }
+    this.setState({ selectedPost: null })
+  }
+  selectPost = (postId: string) => {
+    const { posts } = this.state
+    const selectedPost = posts.find(post => post.id === postId)
+
+    this.setState(state => {
+      return { selectedPost, replyPosts: [], inProgressReply: true }
+    })
+    this.subscribeReplyPosts(selectedPost)
   }
 
   render() {
@@ -39,15 +56,7 @@ class Component extends React.Component<any, any> {
         {inProgress && <CircularProgress className={classes.progress} />}
         {!inProgress && (
           <Fade in>
-            <div className={classes.posts}>
-              {posts.map(post => (
-                <PostExpansionPanel
-                  key={post.id}
-                  post={post}
-                  selectPost={this.selectPost}
-                />
-              ))}
-            </div>
+            <Posts posts={posts} selectPost={this.selectPost} />
           </Fade>
         )}
         <PostDetailDialog
@@ -72,24 +81,6 @@ class Component extends React.Component<any, any> {
     if (this.unsubscribeReply) {
       this.unsubscribeReply()
     }
-  }
-
-  onCloseReplyDialog = () => {
-    if (this.unsubscribeReply) {
-      this.unsubscribeReply()
-      this.unsubscribeReply = null
-    }
-    this.setState({ selectedPost: null })
-  }
-
-  selectPost = (postId: string) => {
-    const { posts } = this.state
-    const selectedPost = posts.find(post => post.id === postId)
-
-    this.setState(state => {
-      return { selectedPost, replyPosts: [], inProgressReply: true }
-    })
-    this.subscribeReplyPosts(selectedPost)
   }
 
   subscribePosts() {
@@ -147,15 +138,15 @@ class Component extends React.Component<any, any> {
   }
 }
 
-const styles = () => ({
-  root: {},
-  posts: {},
-  progress: {
-    display: 'block',
-    marginTop: 80,
-    marginLeft: 'auto',
-    marginRight: 'auto'
-  }
-})
+const styles = ({ spacing }) =>
+  createStyles({
+    root: {},
+    progress: {
+      display: 'block',
+      marginTop: spacing.unit * 10,
+      marginLeft: 'auto',
+      marginRight: 'auto'
+    }
+  })
 
 export const PageHome = withStyles(styles)(Component)

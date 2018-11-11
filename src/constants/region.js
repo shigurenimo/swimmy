@@ -1,1 +1,1 @@
-export const ASIA_NORTHEAST1 = "asia-northeast1";
+export const ASIA_NORTHEAST1 = 'asia-northeast1'
