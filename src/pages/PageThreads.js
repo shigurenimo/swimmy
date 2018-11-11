@@ -13,8 +13,9 @@ import {
 } from '../constants/collection'
 import { DESC } from '../constants/order'
 import { DialogPostDetail } from '../containers/DialogPostDetail'
-import { ExpansionPanelThread } from '../containers/ExpansionPanelThread'
+import { CardThread } from '../containers/CardThread'
 import { createdAt } from '../libs/createdAt'
+import { px } from '../libs/styles/px'
 
 class Component extends React.Component<any, any> {
   isUnmounted = false
@@ -79,7 +80,7 @@ class Component extends React.Component<any, any> {
           <Fade in>
             <div className={classes.posts}>
               {posts.map(post => (
-                <ExpansionPanelThread
+                <CardThread
                   key={post.id}
                   post={post}
                   onSelectPost={this.onSelectPost(post.id)}
@@ -160,6 +161,13 @@ const styles = ({ spacing }) =>
       marginTop: spacing.unit * 10,
       marginLeft: 'auto',
       marginRight: 'auto'
+    },
+    posts: {
+      display: 'grid',
+      gridRowGap: px(spacing.unit * 2),
+      marginTop: spacing.unit * 2,
+      marginLeft: spacing.unit * 2,
+      marginRight: spacing.unit * 2
     }
   })
 
