@@ -5,7 +5,7 @@ import createStyles from '@material-ui/core/styles/createStyles'
 import withStyles from '@material-ui/core/styles/withStyles'
 import Typography from '@material-ui/core/Typography/Typography'
 import React from 'react'
-import { percent } from '../libs/styles/percent'
+import { pct } from '../libs/styles/pct'
 
 class Component extends React.Component<any, any> {
   isUnmounted = false
@@ -40,7 +40,7 @@ class Component extends React.Component<any, any> {
 
 const styles = ({ typography, palette, spacing }) =>
   createStyles({
-    root: { width: percent(100) },
+    root: { width: pct(100) },
     text: {
       fontSize: typography.pxToRem(16),
       fontWeight: typography.fontWeightMedium,

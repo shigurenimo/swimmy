@@ -8,7 +8,7 @@ import Typography from '@material-ui/core/Typography/Typography'
 import classnames from 'classnames'
 import { auth } from 'firebase/app'
 import React, { Fragment } from 'react'
-import { percent } from '../libs/styles/percent'
+import { pct } from '../libs/styles/pct'
 import { px } from '../libs/styles/px'
 
 class Component extends React.Component<any, any> {
@@ -166,7 +166,7 @@ const styles = ({ spacing, palette }) =>
       display: 'grid',
       gridRowGap: px(spacing.unit * 2),
       maxWidth: spacing.unit * 100,
-      width: percent(100),
+      width: pct(100),
       margin: '0 auto'
     },
     actions: { textAlign: 'right' },

@@ -9,7 +9,7 @@ import { firestore } from 'firebase/app'
 import React from 'react'
 import { POSTS, POSTS_AS_ANONYM } from '../constants/collection'
 import { DESC } from '../constants/order'
-import { percent } from '../libs/styles/percent'
+import { pct } from '../libs/styles/pct'
 
 class Component extends React.Component<any, any> {
   isUnmounted = false
@@ -78,7 +78,7 @@ class Component extends React.Component<any, any> {
 
 const styles = ({ spacing }) =>
   createStyles({
-    root: { width: percent(100) },
+    root: { width: pct(100) },
     progress: { marginTop: spacing.unit * 2, textAlign: 'center' }
   })
 

@@ -4,7 +4,7 @@ import CardMedia from '@material-ui/core/CardMedia/CardMedia'
 import createStyles from '@material-ui/core/styles/createStyles'
 import withStyles from '@material-ui/core/styles/withStyles'
 import React from 'react'
-import { percent } from '../libs/styles/percent'
+import { pct } from '../libs/styles/pct'
 
 class Component extends React.Component<any, any> {
   state = {}
@@ -27,7 +27,7 @@ class Component extends React.Component<any, any> {
 }
 
 const styles = createStyles({
-  actionArea: { width: percent(100) }
+  actionArea: { width: pct(100) }
 })
 
 export const CardImage = withStyles(styles)(Component)

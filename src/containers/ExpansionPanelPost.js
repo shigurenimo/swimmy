@@ -8,7 +8,7 @@ import { ExpansionPanelSummaryPost } from '../components/ExpansionPanelSummaryPo
 import { PostActions } from '../components/PostActions'
 import { LIKES, POSTS } from '../constants/collection'
 import { createPostLike } from '../libs/createPostLike'
-import { percent } from '../libs/styles/percent'
+import { pct } from '../libs/styles/pct'
 import { px } from '../libs/styles/px'
 import { ListReplyPost } from './ListReplyPost'
 import { TextFieldReplyPost } from './TextFieldReplyPost'
@@ -112,7 +112,7 @@ class Component extends React.Component<any, any> {
 
 const styles = ({ spacing }) =>
   createStyles({
-    root: { width: percent(100) },
+    root: { width: pct(100) },
     summary: { padding: `0 ${px(spacing.unit * 1.5)}` },
     textField: { marginTop: spacing.unit }
   })

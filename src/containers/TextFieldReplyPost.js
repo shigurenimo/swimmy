@@ -5,7 +5,7 @@ import createStyles from '@material-ui/core/styles/createStyles'
 import withStyles from '@material-ui/core/styles/withStyles'
 import React, { Fragment } from 'react'
 import { createPost } from '../libs/createPost'
-import { percent } from '../libs/styles/percent'
+import { pct } from '../libs/styles/pct'
 
 class Component extends React.Component {
   state = {
@@ -75,7 +75,7 @@ class Component extends React.Component {
 
 const styles = ({ spacing }) =>
   createStyles({
-    root: { width: percent(100) },
+    root: { width: pct(100) },
     textField: {
       paddingLeft: spacing.unit * 1.5,
       paddingRight: spacing.unit * 1.5
