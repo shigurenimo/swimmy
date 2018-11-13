@@ -16,10 +16,11 @@ const Component = ({ classes }) => {
   )
 }
 
-const styles = createStyles({
-  root: { flexGrow: 1 },
-  button: { padding: 0 },
-  img: { height: 24 + 24 }
-})
+const styles = ({ spacing }) =>
+  createStyles({
+    root: { flexGrow: 1 },
+    button: { padding: 0 },
+    img: { height: spacing.unit * 3 + spacing.unit * 3 }
+  })
 
 export const AppTitle = withStyles(styles)(Component)

@@ -13,6 +13,7 @@ import { Link, withRouter } from 'react-router-dom'
 import { compose } from 'recompose'
 import { AppTitle } from '../components/AppTitle'
 import { AuthConsumer } from '../contexts/auth'
+import { percent } from '../libs/styles/percent'
 import { DialogAppMenu } from './DialogAppMenu'
 import { DialogAppSignIn } from './DialogAppSignIn'
 
@@ -99,7 +100,7 @@ const styles = ({ spacing }) =>
       position: 'absolute',
       top: 0,
       left: 0,
-      width: '100%'
+      width: percent(100)
     },
     title: { fontSize: 24, flexGrow: 1 },
     appBar: { backgroundColor: 'rgba(255, 255, 255, 0.98)' },

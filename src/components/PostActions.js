@@ -33,9 +33,14 @@ const Component = ({
   )
 }
 
-const styles = createStyles({
-  root: { paddingLeft: 12, paddingRight: 12, paddingBottom: 12 },
-  iconButton: { marginRight: 8 }
-})
+const styles = ({ spacing }) =>
+  createStyles({
+    root: {
+      paddingLeft: spacing.unit * 1.5,
+      paddingRight: spacing.unit * 1.5,
+      paddingBottom: spacing.unit * 1.5
+    },
+    iconButton: { marginRight: spacing.unit }
+  })
 
 export const PostActions = withStyles(styles)(Component)

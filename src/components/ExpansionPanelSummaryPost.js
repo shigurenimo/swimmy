@@ -3,6 +3,7 @@ import createStyles from '@material-ui/core/styles/createStyles'
 import withStyles from '@material-ui/core/styles/withStyles'
 import Typography from '@material-ui/core/Typography'
 import React from 'react'
+import { percent } from '../libs/styles/percent'
 
 const Component = ({ classes, post }) => {
   return (
@@ -27,7 +28,7 @@ const Component = ({ classes, post }) => {
 
 const styles = ({ typography, palette, spacing }) =>
   createStyles({
-    root: { paddingRight: '0 !important', width: '100%' },
+    root: { paddingRight: '0 !important', width: percent(100) },
     text: {
       fontSize: typography.pxToRem(16),
       fontWeight: typography.fontWeightMedium,

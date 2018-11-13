@@ -2,6 +2,7 @@ import createStyles from '@material-ui/core/styles/createStyles'
 import withStyles from '@material-ui/core/styles/withStyles'
 import TextField from '@material-ui/core/TextField/TextField'
 import React from 'react'
+import { px } from '../libs/styles/px'
 
 class Component extends React.Component<any, any> {
   state = {}
@@ -96,14 +97,15 @@ class Component extends React.Component<any, any> {
   }
 }
 
-const styles = createStyles({
-  root: {
-    display: 'grid',
-    gridTemplateColumns: '80px 16px 80px 16px 80px',
-    gridColumnGap: '16px',
-    alignItems: 'flex-end',
-    textAlign: 'center'
-  }
-})
+const styles = ({ spacing }) =>
+  createStyles({
+    root: {
+      display: 'grid',
+      gridTemplateColumns: '80px 16px 80px 16px 80px',
+      gridColumnGap: px(spacing.unit * 2),
+      alignItems: 'flex-end',
+      textAlign: 'center'
+    }
+  })
 
 export const FormItemVersion = withStyles(styles)(Component)

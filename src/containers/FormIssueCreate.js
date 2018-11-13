@@ -6,6 +6,7 @@ import React from 'react'
 import { FormItemContents } from '../components/FormItemContents'
 import { FormItemVersion } from '../components/FormItemVersion'
 import { createChangelog } from '../libs/createChangelog'
+import { px } from '../libs/styles/px'
 
 class Component extends React.Component<any, any> {
   state = { contents: [''], date: '2017-05-24', version: 1000000 }
@@ -62,8 +63,9 @@ class Component extends React.Component<any, any> {
   }
 }
 
-const styles = createStyles({
-  root: { display: 'grid', gridRowGap: '16px' }
-})
+const styles = ({ spacing }) =>
+  createStyles({
+    root: { display: 'grid', gridRowGap: px(spacing.unit * 2) }
+  })
 
 export const FormIssueCreate = withStyles(styles)(Component)

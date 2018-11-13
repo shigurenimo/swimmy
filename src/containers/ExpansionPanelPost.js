@@ -4,10 +4,12 @@ import createStyles from '@material-ui/core/styles/createStyles'
 import withStyles from '@material-ui/core/styles/withStyles'
 import { auth, firestore } from 'firebase/app'
 import React from 'react'
-import { PostActions } from '../components/PostActions'
 import { ExpansionPanelSummaryPost } from '../components/ExpansionPanelSummaryPost'
+import { PostActions } from '../components/PostActions'
 import { LIKES, POSTS } from '../constants/collection'
 import { createPostLike } from '../libs/createPostLike'
+import { percent } from '../libs/styles/percent'
+import { px } from '../libs/styles/px'
 import { ListReplyPost } from './ListReplyPost'
 import { TextFieldReplyPost } from './TextFieldReplyPost'
 
@@ -110,8 +112,8 @@ class Component extends React.Component<any, any> {
 
 const styles = ({ spacing }) =>
   createStyles({
-    root: { width: '100%' },
-    summary: { padding: '0 12px' },
+    root: { width: percent(100) },
+    summary: { padding: `0 ${px(spacing.unit * 1.5)}` },
     textField: { marginTop: spacing.unit }
   })
 

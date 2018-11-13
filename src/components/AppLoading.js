@@ -2,6 +2,7 @@ import CircularProgress from '@material-ui/core/CircularProgress'
 import createStyles from '@material-ui/core/styles/createStyles'
 import withStyles from '@material-ui/core/styles/withStyles'
 import React from 'react'
+import { percent } from '../libs/styles/percent'
 
 const Component = ({ classes }) => {
   return (
@@ -19,8 +20,8 @@ const styles = createStyles({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    width: '100%',
-    height: '100%',
+    width: percent(100),
+    height: percent(100),
     zIndex: -1
   }
 })

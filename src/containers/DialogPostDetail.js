@@ -35,7 +35,7 @@ const styles = ({ spacing }) =>
   createStyles({
     progress: {
       display: 'block',
-      marginTop: 80,
+      marginTop: spacing.unit * 10,
       marginLeft: 'auto',
       marginRight: 'auto'
     },
