@@ -6,6 +6,7 @@ import Tab from '@material-ui/core/Tab/Tab'
 import Tabs from '@material-ui/core/Tabs/Tabs'
 import { firestore } from 'firebase/app'
 import React, { Fragment } from 'react'
+import { collectionData } from 'rxfire/firestore'
 import {
   POSTS,
   POSTS_AS_ANONYM,
@@ -19,6 +20,8 @@ import { px } from '../libs/styles/px'
 
 class Component extends React.Component<any, any> {
   isUnmounted = false
+  subscriptionReplies = null
+  subscription = null
 
   state = {
     posts: [],
@@ -30,7 +33,7 @@ class Component extends React.Component<any, any> {
   }
   onChangeTab = (event, orderBy) => {
     this.setState({ orderBy, inProgress: true })
-    this.updatePosts(orderBy)
+    this.subscribePosts(orderBy)
   }
   onSelectPost = (postId: string) => () => {
     this.selectPost(postId)
@@ -43,11 +46,16 @@ class Component extends React.Component<any, any> {
       return { selectedPost, replyPosts: [], inProgressReply: true }
     })
 
-    this.subscribeReplyPosts(selectedPost)
+    if (this.subscriptionReplies) {
+      this.subscriptionReplies.unsubscribe()
+      this.unsubscribeReply = null
+    }
+
+    this.subscriptionReplies = this.subscribeReplyPosts(selectedPost)
   }
   onCloseReplyDialog = () => {
-    if (this.unsubscribeReply) {
-      this.unsubscribeReply()
+    if (this.subscriptionReplies) {
+      this.subscriptionReplies.unsubscribe()
       this.unsubscribeReply = null
     }
     this.setState({ selectedPost: null })
@@ -102,54 +110,53 @@ class Component extends React.Component<any, any> {
   componentDidMount() {
     const { orderBy } = this.state
 
-    this.updatePosts(orderBy)
+    this.subscription = this.subscribePosts(orderBy)
   }
 
   componentWillUnmount() {
     this.isUnmounted = true
+    if (this.subscription) {
+      this.subscription.unsubscribe()
+    }
+    if (this.subscriptionReplies) {
+      this.subscriptionReplies.unsubscribe()
+    }
   }
 
-  updatePosts(orderBy: string) {
-    firestore()
+  subscribePosts(orderBy: string) {
+    const query = firestore()
       .collection(POSTS_AS_THREAD)
       .limit(100)
       .orderBy(orderBy, DESC)
-      .get()
-      .then(querySnapshot => {
-        const posts = querySnapshot.docs.map(doc => {
-          const data = doc.data()
-          return {
-            ...data,
-            ui: {
-              createdAt: createdAt(data.createdAt)
-            }
-          }
-        })
-        if (this.isUnmounted) return
-        this.setState({ posts, inProgress: false })
+    return collectionData(query).subscribe(docs => {
+      if (this.isUnmounted) return
+      const posts = docs.map(doc => {
+        return {
+          ...doc,
+          ui: { createdAt: createdAt(doc.createdAt) }
+        }
       })
+      this.setState({ posts, inProgress: false })
+    })
   }
 
   subscribeReplyPosts(selectedPost: any) {
-    this.unsubscribeReply = firestore()
+    const query = firestore()
       .collection(POSTS_AS_ANONYM)
       .doc(selectedPost.id)
       .collection(POSTS)
-      .limit(80)
+      .limit(120)
       .orderBy('createdAt', DESC)
-      .onSnapshot(querySnapshot => {
-        const replyPosts = querySnapshot.docs.map(doc => {
-          const data = doc.data()
-          return {
-            ...data,
-            ui: {
-              createdAt: createdAt(data.createdAt)
-            }
-          }
-        })
-        if (this.isUnmounted) return
-        this.setState({ replyPosts, inProgressReply: false })
+    return collectionData(query).subscribe(docs => {
+      if (this.isUnmounted) return
+      const replyPosts = docs.map(doc => {
+        return {
+          ...doc,
+          ui: { createdAt: createdAt(doc.createdAt) }
+        }
       })
+      this.setState({ replyPosts, inProgressReply: false })
+    })
   }
 }
 

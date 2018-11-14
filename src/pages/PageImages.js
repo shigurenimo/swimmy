@@ -22,7 +22,12 @@ class Component extends React.Component<any, any> {
   }
   onChangeTab = (event, orderBy) => {
     this.setState({ orderBy, inProgress: true })
-    this.updatePosts(orderBy)
+
+    if (this.subscription) {
+      this.subscription.unsubscribe()
+    }
+
+    this.subscription = this.subscribePosts(orderBy)
   }
 
   render() {
@@ -51,19 +56,19 @@ class Component extends React.Component<any, any> {
     )
   }
 
-  updatePosts(orderBy: string) {
+  subscribePosts(orderBy: string) {
     const query = firestore()
       .collection(POSTS_AS_IMAGE)
       .limit(100)
       .orderBy(orderBy, DESC)
-    this.subscription = collectionData(query).subscribe(docs => {
+    return collectionData(query).subscribe(docs => {
+      if (this.isUnmounted) return
       const posts = docs.map(doc => {
         return {
           ...doc,
           ui: { createdAt: createdAt(doc.createdAt) }
         }
       })
-      if (this.isUnmounted) return
       this.setState({ posts, inProgress: false })
     })
   }
@@ -71,7 +76,7 @@ class Component extends React.Component<any, any> {
   componentDidMount() {
     const { orderBy } = this.state
 
-    this.updatePosts(orderBy)
+    this.subscription = this.subscribePosts(orderBy)
   }
 
   componentWillUnmount() {
@@ -84,7 +89,6 @@ class Component extends React.Component<any, any> {
 
 const styles = ({ spacing }) =>
   createStyles({
-    root: {},
     progress: {
       display: 'block',
       marginTop: spacing.unit * 10,
