@@ -85,7 +85,7 @@ class Component extends React.Component<any, any> {
     return (
       <Fragment>
         <div className={classes.root}>
-          <Typography variant={'h5'}>パスワードの変更</Typography>
+          <Typography variant={'h4'}>パスワードの変更</Typography>
           <form className={classes.form}>
             <div>
               <TextField

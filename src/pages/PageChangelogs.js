@@ -24,26 +24,27 @@ class Component extends React.Component<any, any> {
     const { classes } = this.props
     const { changelogs, inProgress } = this.state
 
+    if (inProgress) {
+      return <CircularProgress className={classes.progress} />
+    }
+
     return (
-      <div className={classes.root}>
-        <Typography variant={'h5'}>アップデート履歴</Typography>
-        {inProgress && <CircularProgress className={classes.progress} />}
-        {!inProgress && (
-          <Fade in>
-            <ul className={classes.changelogs}>
-              {changelogs.map(changelog => (
-                <li key={changelog.id}>
-                  <CardChangelog
-                    version={changelog.ui.version}
-                    date={changelog.ui.date}
-                    contents={changelog.contents}
-                  />
-                </li>
-              ))}
-            </ul>
-          </Fade>
-        )}
-      </div>
+      <Fade in>
+        <div className={classes.root}>
+          <Typography variant={'h4'}>アップデート履歴</Typography>
+          <ul className={classes.changelogs}>
+            {changelogs.map(changelog => (
+              <li key={changelog.id}>
+                <CardChangelog
+                  version={changelog.ui.version}
+                  date={changelog.ui.date}
+                  contents={changelog.contents}
+                />
+              </li>
+            ))}
+          </ul>
+        </div>
+      </Fade>
     )
   }
 
