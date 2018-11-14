@@ -7,13 +7,14 @@ import createStyles from '@material-ui/core/styles/createStyles'
 import withStyles from '@material-ui/core/styles/withStyles'
 import { firestore } from 'firebase/app'
 import React from 'react'
+import { collectionData } from 'rxfire/firestore'
 import { POSTS, POSTS_AS_ANONYM } from '../constants/collection'
 import { DESC } from '../constants/order'
 import { pct } from '../libs/styles/pct'
 
 class Component extends React.Component<any, any> {
   isUnmounted = false
-  unsubscribe = null
+  subscription = null
 
   state = { posts: [], inProgress: this.props.replyPostCount > 0 }
 
@@ -49,29 +50,24 @@ class Component extends React.Component<any, any> {
 
     setTimeout(() => {
       if (this.isUnmounted) return
-      this.unsubscribe = firestore()
+      const query = firestore()
         .collection(POSTS_AS_ANONYM)
         .doc(postId)
         .collection(POSTS)
-        .limit(8)
+        .limit(24)
         .orderBy('createdAt', DESC)
-        .onSnapshot(querySnapshot => {
-          if (this.isUnmounted) return
-          const docs = querySnapshot.docs
-          docs.reverse()
-          const posts = docs.map(doc => {
-            const data = doc.data()
-            return { ...data }
-          })
-          this.setState({ inProgress: false, posts })
-        })
+      this.subscription = collectionData(query).subscribe(docs => {
+        if (this.isUnmounted) return
+        docs.reverse()
+        this.setState({ inProgress: false, posts: docs })
+      })
     }, replyPostCount > 0 ? 400 : 0)
   }
 
   componentWillUnmount() {
     this.isUnmounted = true
-    if (this.unsubscribe) {
-      this.unsubscribe()
+    if (this.subscription) {
+      this.subscription.unsubscribe()
     }
   }
 }
