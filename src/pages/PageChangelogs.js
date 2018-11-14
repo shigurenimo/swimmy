@@ -49,13 +49,25 @@ class Component extends React.Component<any, any> {
   }
 
   componentDidMount() {
+    this.subscription = this.subscribe()
+  }
+
+  componentWillUnmount() {
+    this.isUnmounted = true
+    if (this.subscription) {
+      this.subscription.unsubscribe()
+    }
+  }
+
+  subscribe() {
     const query = firestore()
       .collection(CHANGELOGS)
       .limit(40)
       .orderBy('version', DESC)
-    this.subscription = collectionData(query)
+    return collectionData(query)
       .pipe(take(2))
       .subscribe(docs => {
+        if (this.isUnmounted) return
         const changelogs = [
           ...docs.map(doc => ({
             ...doc,
@@ -65,16 +77,8 @@ class Component extends React.Component<any, any> {
             }
           }))
         ]
-        if (this.isUnmounted) return
         this.setState({ changelogs, inProgress: false })
       })
-  }
-
-  componentWillUnmount() {
-    this.isUnmounted = true
-    if (this.subscription) {
-      this.subscription.unsubscribe()
-    }
   }
 }
 

@@ -6,6 +6,7 @@ import Typography from '@material-ui/core/Typography/Typography'
 import { firestore } from 'firebase/app'
 import React from 'react'
 import { collectionData } from 'rxfire/firestore'
+import { take } from 'rxjs/operators'
 import { ChartLine } from '../components/ChartLine'
 import { STATS } from '../constants/collection'
 import { px } from '../libs/styles/px'
@@ -75,28 +76,30 @@ class Component extends React.Component<any, any> {
     const query = firestore()
       .collection(STATS)
       .orderBy('timestamp', 'desc')
-    return collectionData(query).subscribe(docs => {
-      if (this.isUnmounted) return
-      const sum = (a, b) => (a.postCount ? a.postCount : a + b.postCount)
-      const countTotal = docs.reduce(sum)
-      const countWeek = docs.filter((_, i) => i < 100).reduce(sum)
-      const averagePerDay = (countTotal / docs.length).toFixed(0)
-      const chartData = [
-        {
-          id: 'post',
-          data: docs.filter((_, i) => i < 100).map(doc => {
-            return { x: doc.time, y: doc.postCount }
-          })
-        }
-      ]
-      this.setState({
-        inProgress: false,
-        averagePerDay,
-        countTotal,
-        countWeek,
-        chartData
+    return collectionData(query)
+      .pipe(take(2))
+      .subscribe(docs => {
+        if (this.isUnmounted) return
+        const sum = (a, b) => (a.postCount ? a.postCount : a + b.postCount)
+        const countTotal = docs.reduce(sum)
+        const countWeek = docs.filter((_, i) => i < 100).reduce(sum)
+        const averagePerDay = (countTotal / docs.length).toFixed(0)
+        const chartData = [
+          {
+            id: 'post',
+            data: docs.filter((_, i) => i < 100).map(doc => {
+              return { x: doc.time, y: doc.postCount }
+            })
+          }
+        ]
+        this.setState({
+          inProgress: false,
+          averagePerDay,
+          countTotal,
+          countWeek,
+          chartData
+        })
       })
-    })
   }
 }
 
