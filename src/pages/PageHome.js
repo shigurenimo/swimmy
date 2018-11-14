@@ -4,6 +4,7 @@ import createStyles from '@material-ui/core/styles/createStyles'
 import withStyles from '@material-ui/core/styles/withStyles'
 import { firestore } from 'firebase/app'
 import React, { Fragment } from 'react'
+import { collectionData } from 'rxfire/firestore'
 import { Posts } from '../components/Posts'
 import { POSTS, POSTS_AS_ANONYM } from '../constants/collection'
 import { DESC } from '../constants/order'
@@ -13,8 +14,8 @@ import { createdAt } from '../libs/createdAt'
 
 class Component extends React.Component<any, any> {
   isUnmounted = false
-  unsubscribe = null
-  unsubscribeReply = null
+  subscription = null
+  subscriptionReply = null
 
   state = {
     posts: [],
@@ -23,6 +24,7 @@ class Component extends React.Component<any, any> {
     inProgressReply: false,
     selectedPost: null
   }
+
   onCloseReplyDialog = () => {
     if (this.unsubscribeReply) {
       this.unsubscribeReply()
@@ -30,12 +32,13 @@ class Component extends React.Component<any, any> {
     }
     this.setState({ selectedPost: null })
   }
+
   selectPost = (postId: string) => {
     const { posts } = this.state
     const selectedPost = posts.find(post => post.id === postId)
 
     this.setState({ selectedPost, replyPosts: [], inProgressReply: true })
-    this.subscribeReplyPosts(selectedPost)
+    this.subscriptionReply = this.subscribeReplies(selectedPost)
   }
 
   render() {
@@ -68,71 +71,63 @@ class Component extends React.Component<any, any> {
   }
 
   componentDidMount() {
-    this.subscribePosts()
+    this.subscription = this.subscribePosts()
   }
 
   componentWillUnmount() {
     this.isUnmounted = true
-    if (this.unsubscribe) {
-      this.unsubscribe()
+    if (this.subscription) {
+      this.subscription.unsubscribe()
     }
-    if (this.unsubscribeReply) {
-      this.unsubscribeReply()
+    if (this.subscriptionReply) {
+      this.subscriptionReply.unsubscribe()
     }
   }
 
   subscribePosts() {
-    this.unsubscribe = firestore()
+    const query = firestore()
       .collection(POSTS_AS_ANONYM)
       .limit(40)
       .orderBy('createdAt', DESC)
-      .onSnapshot(querySnapshot => {
-        const posts = querySnapshot.docs.map(doc => {
-          const data = doc.data()
-          return {
-            ...data,
-            ui: {
-              createdAt: createdAt(data.createdAt)
-            }
-          }
-        })
-        if (this.isUnmounted) return
-        this.setState(state => {
-          if (state.selectedPost) {
-            return {
-              posts,
-              inProgress: false,
-              selectedPost: posts.find(
-                post => post.id === state.selectedPost.id
-              )
-            }
-          } else {
-            return { posts, inProgress: false }
-          }
-        })
+    return collectionData(query).subscribe(docs => {
+      if (this.isUnmounted) return
+      const posts = docs.map(doc => {
+        return {
+          ...doc,
+          ui: { createdAt: createdAt(doc.createdAt) }
+        }
       })
+      this.setState(state => {
+        if (state.selectedPost) {
+          return {
+            posts,
+            inProgress: false,
+            selectedPost: posts.find(post => post.id === state.selectedPost.id)
+          }
+        } else {
+          return { posts, inProgress: false }
+        }
+      })
+    })
   }
 
-  subscribeReplyPosts(selectedPost: any) {
-    this.unsubscribeReply = firestore()
+  subscribeReplies(selectedPost: any) {
+    const query = firestore()
       .collection(POSTS_AS_ANONYM)
       .doc(selectedPost.id)
       .collection(POSTS)
-      .limit(80)
+      .limit(120)
       .orderBy('createdAt', DESC)
-      .onSnapshot(querySnapshot => {
-        const replyPosts = querySnapshot.docs.map(doc => {
-          const data = doc.data()
-          return {
-            ...data,
-            ui: {
-              createdAt: createdAt(data.createdAt)
-            }
-          }
-        })
-        if (this.isUnmounted) return
-        this.setState({ replyPosts, inProgressReply: false })
+    return collectionData(query).subscribe(docs => {
+      if (this.isUnmounted) return
+      const replyPosts = docs.map(doc => {
+        return {
+          ...doc,
+          ui: { createdAt: createdAt(doc.createdAt) }
+        }
       })
+      this.setState({ replyPosts, inProgressReply: false })
+    })
   }
 }
 
