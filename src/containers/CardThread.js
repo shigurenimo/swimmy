@@ -5,6 +5,7 @@ import createStyles from '@material-ui/core/styles/createStyles'
 import withStyles from '@material-ui/core/styles/withStyles'
 import Typography from '@material-ui/core/Typography/Typography'
 import React from 'react'
+import { Link } from 'react-router-dom'
 import { pct } from '../libs/styles/pct'
 
 class Component extends React.Component<any, any> {
@@ -13,27 +14,29 @@ class Component extends React.Component<any, any> {
   state = { inProgressLike: true }
 
   render() {
-    const { classes, post, onSelectPost } = this.props
+    const { classes, post } = this.props
 
     return (
-      <Card onClick={onSelectPost}>
-        <CardContent>
-          <Typography className={classes.text} gutterBottom variant={'body2'}>
-            {post.text}
-            {post.likeCount > 0 && (
-              <span className={classes.likeCount}>+ {post.likeCount}</span>
-            )}
-            {post.replyPostCount > 0 && (
-              <span className={classes.replyPostCount}>
-                + {post.replyPostCount}
-              </span>
-            )}
-          </Typography>
-          <Typography color={'textSecondary'} variant={'caption'}>
-            {post.ui.createdAt}
-          </Typography>
-        </CardContent>
-      </Card>
+      <Link to={`/threads/${post.id}`}>
+        <Card>
+          <CardContent>
+            <Typography className={classes.text} gutterBottom variant={'body2'}>
+              {post.text}
+              {post.likeCount > 0 && (
+                <span className={classes.likeCount}>+ {post.likeCount}</span>
+              )}
+              {post.replyPostCount > 0 && (
+                <span className={classes.replyPostCount}>
+                  + {post.replyPostCount}
+                </span>
+              )}
+            </Typography>
+            <Typography color={'textSecondary'} variant={'caption'}>
+              {post.ui.createdAt}
+            </Typography>
+          </CardContent>
+        </Card>
+      </Link>
     )
   }
 }

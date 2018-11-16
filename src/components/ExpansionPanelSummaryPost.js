@@ -20,7 +20,7 @@ const Component = ({ classes, post }) => {
         )}
       </Typography>
       <Typography color={'textSecondary'} variant={'caption'}>
-        {post.ui.createdAt}
+        {post.ui.createdAt} - {post.id}
       </Typography>
     </div>
   )

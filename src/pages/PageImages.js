@@ -18,7 +18,7 @@ class Component extends React.Component<any, any> {
   state = {
     posts: [],
     inProgress: true,
-    orderBy: 'createdAt'
+    orderBy: 'updatedAt'
   }
   onChangeTab = (event, orderBy) => {
     this.setState({ orderBy, inProgress: true })
@@ -42,9 +42,10 @@ class Component extends React.Component<any, any> {
           textColor="primary"
           onChange={this.onChangeTab}
         >
-          <Tab label="新着" value={'createdAt'} />
           <Tab label="更新" value={'updatedAt'} />
-          <Tab label="書き込み数" value={'replyPostCount'} />
+          <Tab label="新着" value={'createdAt'} />
+          <Tab label="評価数" value={'likeCount'} />
+          <Tab label="レス数" value={'replyPostCount'} />
         </Tabs>
         {inProgress && <CircularProgress className={classes.progress} />}
         {!inProgress && (
@@ -59,15 +60,12 @@ class Component extends React.Component<any, any> {
   subscribePosts(orderBy: string) {
     const query = firestore()
       .collection(POSTS_AS_IMAGE)
-      .limit(100)
+      .limit(40)
       .orderBy(orderBy, DESC)
     return collectionData(query).subscribe(docs => {
       if (this.isUnmounted) return
       const posts = docs.map(doc => {
-        return {
-          ...doc,
-          ui: { createdAt: createdAt(doc.createdAt) }
-        }
+        return { ...doc, ui: { createdAt: createdAt(doc.createdAt) } }
       })
       this.setState({ posts, inProgress: false })
     })

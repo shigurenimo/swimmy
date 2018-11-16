@@ -7,20 +7,14 @@ import Tabs from '@material-ui/core/Tabs/Tabs'
 import { firestore } from 'firebase/app'
 import React, { Fragment } from 'react'
 import { collectionData } from 'rxfire/firestore'
-import {
-  POSTS,
-  POSTS_AS_ANONYM,
-  POSTS_AS_THREAD
-} from '../constants/collection'
+import { POSTS_AS_THREAD } from '../constants/collection'
 import { DESC } from '../constants/order'
-import { DialogPostDetail } from '../containers/DialogPostDetail'
 import { CardThread } from '../containers/CardThread'
 import { createdAt } from '../libs/createdAt'
 import { px } from '../libs/styles/px'
 
 class Component extends React.Component<any, any> {
   isUnmounted = false
-  subscriptionReplies = null
   subscription = null
 
   state = {
@@ -29,47 +23,16 @@ class Component extends React.Component<any, any> {
     inProgress: true,
     inProgressReply: false,
     selectedPost: null,
-    orderBy: 'createdAt'
+    orderBy: 'updatedAt'
   }
   onChangeTab = (event, orderBy) => {
     this.setState({ orderBy, inProgress: true })
     this.subscribePosts(orderBy)
   }
-  onSelectPost = (postId: string) => () => {
-    this.selectPost(postId)
-  }
-  selectPost = (postId: string) => {
-    const { posts } = this.state
-    const selectedPost = posts.find(post => post.id === postId)
-
-    this.setState(() => {
-      return { selectedPost, replyPosts: [], inProgressReply: true }
-    })
-
-    if (this.subscriptionReplies) {
-      this.subscriptionReplies.unsubscribe()
-      this.unsubscribeReply = null
-    }
-
-    this.subscriptionReplies = this.subscribeReplyPosts(selectedPost)
-  }
-  onCloseReplyDialog = () => {
-    if (this.subscriptionReplies) {
-      this.subscriptionReplies.unsubscribe()
-      this.unsubscribeReply = null
-    }
-    this.setState({ selectedPost: null })
-  }
 
   render() {
     const { classes } = this.props
-    const {
-      posts,
-      inProgress,
-      inProgressReply,
-      replyPosts,
-      selectedPost
-    } = this.state
+    const { posts, inProgress } = this.state
 
     return (
       <Fragment>
@@ -79,30 +42,21 @@ class Component extends React.Component<any, any> {
           textColor="primary"
           onChange={this.onChangeTab}
         >
-          <Tab label="新着" value={'createdAt'} />
           <Tab label="更新" value={'updatedAt'} />
-          <Tab label="書き込み数" value={'replyPostCount'} />
+          <Tab label="新着" value={'createdAt'} />
+          <Tab label="評価数" value={'likeCount'} />
+          <Tab label="レス数" value={'replyPostCount'} />
         </Tabs>
         {inProgress && <CircularProgress className={classes.progress} />}
         {!inProgress && (
           <Fade in>
             <div className={classes.posts}>
               {posts.map(post => (
-                <CardThread
-                  key={post.id}
-                  post={post}
-                  onSelectPost={this.onSelectPost(post.id)}
-                />
+                <CardThread key={post.id} post={post} />
               ))}
             </div>
           </Fade>
         )}
-        <DialogPostDetail
-          posts={replyPosts}
-          inProgress={inProgressReply}
-          onClose={this.onCloseReplyDialog}
-          isOpen={Boolean(selectedPost)}
-        />
       </Fragment>
     )
   }
@@ -118,9 +72,6 @@ class Component extends React.Component<any, any> {
     if (this.subscription) {
       this.subscription.unsubscribe()
     }
-    if (this.subscriptionReplies) {
-      this.subscriptionReplies.unsubscribe()
-    }
   }
 
   subscribePosts(orderBy: string) {
@@ -131,31 +82,9 @@ class Component extends React.Component<any, any> {
     return collectionData(query).subscribe(docs => {
       if (this.isUnmounted) return
       const posts = docs.map(doc => {
-        return {
-          ...doc,
-          ui: { createdAt: createdAt(doc.createdAt) }
-        }
+        return { ...doc, ui: { createdAt: createdAt(doc.createdAt) } }
       })
       this.setState({ posts, inProgress: false })
-    })
-  }
-
-  subscribeReplyPosts(selectedPost: any) {
-    const query = firestore()
-      .collection(POSTS_AS_ANONYM)
-      .doc(selectedPost.id)
-      .collection(POSTS)
-      .limit(120)
-      .orderBy('createdAt', DESC)
-    return collectionData(query).subscribe(docs => {
-      if (this.isUnmounted) return
-      const replyPosts = docs.map(doc => {
-        return {
-          ...doc,
-          ui: { createdAt: createdAt(doc.createdAt) }
-        }
-      })
-      this.setState({ replyPosts, inProgressReply: false })
     })
   }
 }

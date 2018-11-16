@@ -9,32 +9,28 @@ import { createPost } from '../libs/createPost'
 
 class Component extends React.Component {
   isUnmounted = false
+  state = { postText: '', inProgress: false }
 
-  state = {
-    postText: '',
-    inProgress: false
-  }
   disabled = () => {
     const { postText, inProgress } = this.state
 
     return inProgress || postText.match(/\S/g) === null
   }
+
   onChangePostText = event => {
     event.persist()
     this.setState({ postText: event.target.value })
   }
+
   onSubmitPost = () => {
+    const { replyPostId = '' } = this.props
     const { postText } = this.state
 
     if (this.disabled()) return
 
     this.setState({ inProgress: true })
 
-    createPost({
-      fileIds: [],
-      text: postText,
-      replyPostId: ''
-    })
+    createPost({ fileIds: [], text: postText, replyPostId })
       .then(() => {
         if (this.isUnmounted) return
         this.setState({ postText: '', inProgress: false })
