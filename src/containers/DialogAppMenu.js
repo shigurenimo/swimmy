@@ -17,7 +17,7 @@ import VpnKey from '@material-ui/icons/VpnKey'
 import { auth } from 'firebase/app'
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { AuthConsumer } from '../contexts/auth'
+import { AuthContext } from '../contexts/auth'
 
 class Component extends React.Component {
   onSignOut = () => {
@@ -71,7 +71,7 @@ class Component extends React.Component {
               </ListItem>
             </Link>
           </List>
-          <AuthConsumer>
+          <AuthContext.Consumer>
             {auth =>
               auth.isLogged && (
                 <List subheader={<ListSubheader>アカウント</ListSubheader>}>
@@ -100,7 +100,7 @@ class Component extends React.Component {
                 </List>
               )
             }
-          </AuthConsumer>
+          </AuthContext.Consumer>
         </DialogContent>
       </Dialog>
     )

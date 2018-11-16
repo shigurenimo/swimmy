@@ -12,25 +12,26 @@ import React, { Fragment } from 'react'
 import { Link, withRouter } from 'react-router-dom'
 import { compose } from 'recompose'
 import { AppTitle } from '../components/AppTitle'
-import { AuthConsumer } from '../contexts/auth'
+import { AuthContext } from '../contexts/auth'
 import { pct } from '../libs/styles/pct'
 import { DialogAppMenu } from './DialogAppMenu'
 import { DialogAppSignIn } from './DialogAppSignIn'
 
 class Component extends React.Component {
-  state = {
-    isOpenSignInDialog: false,
-    isOpenMenuDialog: false
-  }
+  state = { isOpenSignInDialog: false, isOpenMenuDialog: false }
+
   onOpenMenuDialog = () => {
     this.setState({ isOpenMenuDialog: true })
   }
+
   onOpenSignInDialog = () => {
     this.setState({ isOpenSignInDialog: true })
   }
+
   onCloseMenuDialog = () => {
     this.setState({ isOpenMenuDialog: false })
   }
+
   closeDialog = () => {
     this.setState({ isOpenSignInDialog: false })
   }
@@ -42,13 +43,13 @@ class Component extends React.Component {
     return (
       <Fragment>
         <AppBar position="sticky" color="default" className={classes.appBar}>
-          <AuthConsumer>
+          <AuthContext.Consumer>
             {auth =>
               auth.isLoggingIn && (
                 <LinearProgress className={classes.progress} />
               )
             }
-          </AuthConsumer>
+          </AuthContext.Consumer>
           <Toolbar>
             <AppTitle />
             <Link to={'/images'}>
@@ -64,7 +65,7 @@ class Component extends React.Component {
             <IconButton onClick={this.onOpenMenuDialog}>
               <MoreHoriz />
             </IconButton>
-            <AuthConsumer>
+            <AuthContext.Consumer>
               {auth => {
                 if (auth.isLoggingIn) {
                   return null
@@ -77,7 +78,7 @@ class Component extends React.Component {
                   )
                 )
               }}
-            </AuthConsumer>
+            </AuthContext.Consumer>
           </Toolbar>
         </AppBar>
         <DialogAppMenu

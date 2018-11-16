@@ -1,6 +1,5 @@
 import createStyles from '@material-ui/core/styles/createStyles'
 import withStyles from '@material-ui/core/styles/withStyles'
-import Typography from '@material-ui/core/Typography/Typography'
 import React from 'react'
 import { ExpansionPanelSummaryPost } from '../components/ExpansionPanelSummaryPost'
 import { px } from '../libs/styles/px'

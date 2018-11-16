@@ -1,6 +1,6 @@
 import { auth } from 'firebase/app'
 import React from 'react'
-import { AuthProvicer } from '../contexts/auth'
+import { AuthContext } from '../contexts/auth'
 
 class Component extends React.Component<any, any> {
   state = { isLoggingIn: true, isLogged: false, uid: null }
@@ -12,7 +12,7 @@ class Component extends React.Component<any, any> {
     const { children } = this.props
 
     return (
-      <AuthProvicer
+      <AuthContext.Provider
         value={{
           uid: this.state.uid,
           isLoggingIn: this.state.isLoggingIn,
@@ -22,7 +22,7 @@ class Component extends React.Component<any, any> {
         }}
       >
         {children}
-      </AuthProvicer>
+      </AuthContext.Provider>
     )
   }
 
