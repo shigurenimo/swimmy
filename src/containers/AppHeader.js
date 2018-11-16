@@ -96,12 +96,7 @@ class Component extends React.Component {
 const styles = ({ spacing }) =>
   createStyles({
     root: { flexGrow: 1 },
-    progress: {
-      position: 'absolute',
-      top: 0,
-      left: 0,
-      width: pct(100)
-    },
+    progress: { position: 'absolute', top: 0, left: 0, width: pct(100) },
     title: { fontSize: 24, flexGrow: 1 },
     appBar: { backgroundColor: 'rgba(255, 255, 255, 0.98)' },
     menuButton: {
