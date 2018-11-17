@@ -2,6 +2,7 @@ import Button from '@material-ui/core/Button'
 import CircularProgress from '@material-ui/core/CircularProgress/CircularProgress'
 import FormControl from '@material-ui/core/FormControl'
 import Input from '@material-ui/core/Input'
+import InputLabel from '@material-ui/core/InputLabel/InputLabel'
 import createStyles from '@material-ui/core/styles/createStyles'
 import withStyles from '@material-ui/core/styles/withStyles'
 import { firestore, storage } from 'firebase/app'
@@ -161,11 +162,16 @@ class Component extends React.Component {
         {postImages.length !== 0 && (
           <PreviewImages photoURLs={postImages.map(image => image.imageURL)} />
         )}
-        <label className={classes.label}>Text</label>
         <FormControl fullWidth>
+          <InputLabel
+            htmlFor="textarea"
+            classes={{ root: classes.textFieldLabel }}
+          >
+            新しい書き込み
+          </InputLabel>
           <Input
+            id={'textarea'}
             classes={{ root: classes.textField }}
-            placeholder="新しい書き込み"
             fullWidth
             multiline
             onChange={this.onChangePostText}
@@ -197,6 +203,10 @@ const styles = ({ spacing }) =>
       paddingLeft: spacing.unit * 1.5,
       paddingRight: spacing.unit * 1.5
     },
+    textFieldLabel: {
+      paddingLeft: spacing.unit * 1.5,
+      paddingRight: spacing.unit * 1.5
+    },
     submitButton: { marginLeft: spacing.unit, position: 'relative' },
     buttonProgress: {
       position: 'absolute',
@@ -206,7 +216,6 @@ const styles = ({ spacing }) =>
       bottom: 0,
       margin: 'auto'
     },
-    label: { display: 'none' }
   })
 
 export const TextFieldPost = withStyles(styles)(Component)
