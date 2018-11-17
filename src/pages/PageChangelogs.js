@@ -16,7 +16,7 @@ import { resetList } from '../libs/styles/resetList'
 import { toVersionStr } from '../libs/toVersionStr'
 
 class Component extends React.Component<any, any> {
-  state = { changelogs: [], inProgressPosts: true }
+  state = { changelogs: [], inProgressSubmit: true }
   isUnmounted = false
   subscription
 
@@ -77,7 +77,7 @@ class Component extends React.Component<any, any> {
             }
           }))
         ]
-        this.setState({ changelogs, inProgressPosts: false })
+        this.setState({ changelogs, inProgressSubmit: false })
       })
   }
 }

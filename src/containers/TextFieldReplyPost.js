@@ -10,7 +10,7 @@ import { pct } from '../libs/styles/pct'
 class Component extends React.Component {
   state = {
     postText: '',
-    inProgressPosts: false
+    inProgressSubmit: false
   }
   onChangePostText = event => {
     event.persist()
@@ -22,7 +22,7 @@ class Component extends React.Component {
 
     if (!postText || inProgress) return
 
-    this.setState({ inProgressPosts: true })
+    this.setState({ inProgressSubmit: true })
 
     createPost({
       fileIds: [],
@@ -30,11 +30,11 @@ class Component extends React.Component {
       replyPostId: postId
     })
       .then(() => {
-        this.setState({ postText: '', inProgressPosts: false })
+        this.setState({ postText: '', inProgressSubmit: false })
       })
       .catch(err => {
         console.error(err)
-        this.setState({ inProgressPosts: false })
+        this.setState({ inProgressSubmit: false })
       })
   }
 

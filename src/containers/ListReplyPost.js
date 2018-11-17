@@ -16,7 +16,7 @@ class Component extends React.Component<any, any> {
   isUnmounted = false
   subscription = null
 
-  state = { posts: [], inProgressPosts: this.props.replyPostCount > 0 }
+  state = { posts: [], inProgressSubmit: this.props.replyPostCount > 0 }
 
   render() {
     const { classes } = this.props
@@ -59,7 +59,7 @@ class Component extends React.Component<any, any> {
       this.subscription = collectionData(query).subscribe(docs => {
         if (this.isUnmounted) return
         docs.reverse()
-        this.setState({ inProgressPosts: false, posts: docs })
+        this.setState({ inProgressSubmit: false, posts: docs })
       })
     }, replyPostCount > 0 ? 400 : 0)
   }

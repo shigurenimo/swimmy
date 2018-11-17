@@ -15,7 +15,7 @@ class Component extends React.Component<any, any> {
   isUnmounted = false
   subscription = null
 
-  state = { posts: [], inProgressPosts: true }
+  state = { posts: [], inProgressSubmit: true }
 
   render() {
     const { classes } = this.props
@@ -59,7 +59,7 @@ class Component extends React.Component<any, any> {
       const posts = docs.map(doc => {
         return { ...doc, ui: { createdAt: createdAt(doc.createdAt) } }
       })
-      this.setState({ posts, inProgressPosts: false })
+      this.setState({ posts, inProgressSubmit: false })
     })
   }
 }

@@ -26,10 +26,11 @@ const styles = ({ breakpoints, spacing }) =>
       display: 'grid',
       gridColumnGap: px(spacing.unit * 2),
       gridRowGap: px(spacing.unit * 2),
-      [breakpoints.up('xs')]: { gridTemplateColumns: 'repeat(2, 1fr)' },
-      [breakpoints.up('md')]: { gridTemplateColumns: 'repeat(4, 1fr)' }
+      gridTemplateColumns: 'repeat(4, 1fr)',
+      paddingLeft: spacing.unit,
+      paddingRight: spacing.unit
     },
     img: { width: pct(100), borderRadius: px(4) }
   })
 
-export const Images = withStyles(styles)(Component)
+export const PreviewImages = withStyles(styles)(Component)

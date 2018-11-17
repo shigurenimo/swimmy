@@ -4,15 +4,30 @@ import FormControl from '@material-ui/core/FormControl'
 import Input from '@material-ui/core/Input'
 import createStyles from '@material-ui/core/styles/createStyles'
 import withStyles from '@material-ui/core/styles/withStyles'
-import React from 'react'
+import { firestore, storage } from 'firebase/app'
+import React, { Fragment } from 'react'
+import { doc, snapToData } from 'rxfire/firestore'
+import { put } from 'rxfire/storage'
+import { InputFile } from '../components/InputFile'
+import { PreviewImages } from '../components/previewImages'
+import { IMAGES } from '../constants/collection'
+import { createId } from '../libs/createId'
 import { createPost } from '../libs/createPost'
+import { px } from '../libs/styles/px'
 
 class Component extends React.Component {
   isUnmounted = false
-  state = { postText: '', inProgressPosts: false }
+  state = {
+    postText: '',
+    postImages: [],
+    inProgressSubmit: false,
+    inProgressImage: false
+  }
+  inputFileRef = React.createRef()
 
   disabled = () => {
-    const { postText, inProgress } = this.state
+    const { postText, inProgressSubmit, inProgressImage } = this.state
+    const inProgress = inProgressSubmit || inProgressImage
 
     return inProgress || postText.match(/\S/g) === null
   }
@@ -22,64 +37,143 @@ class Component extends React.Component {
     this.setState({ postText: event.target.value })
   }
 
+  onSelectImage = () => {
+    const { inProgressSubmit, inProgressImage } = this.state
+
+    if (inProgressSubmit || inProgressImage) {
+      return
+    }
+
+    this.inputFileRef.current.click()
+  }
+
+  onChangeImage = event => {
+    const { inProgressSubmit, inProgressImage } = this.state
+
+    if (inProgressSubmit || inProgressImage) {
+      return
+    }
+
+    const [file] = event.target.files
+
+    const fileId = createId()
+    const ref = storage().ref(`posts/${fileId}`)
+
+    this.setState({ inProgressImage: true })
+
+    console.log('fileId', fileId)
+
+    const file$ = put(ref, file)
+
+    file$.subscribe(res => {
+      console.log('file$', res)
+    })
+
+    const imageRef = firestore()
+      .collection(IMAGES)
+      .doc(fileId)
+
+    const image$ = doc(imageRef)
+
+    const image$$ = image$.subscribe(imageSnap => {
+      if (!imageSnap.exists) return
+      image$$.unsubscribe()
+      if (this.isUnmounted) return
+      const image = snapToData(imageSnap)
+      console.log('image', image)
+      this.setState(state => {
+        console.log('state', state)
+        const postImages = [...state.postImages, image]
+        return { inProgressImage: false, postImages }
+      })
+    })
+  }
+
   onSubmitPost = () => {
     const { replyPostId = '' } = this.props
-    const { postText } = this.state
+    const { postText, postImages } = this.state
 
     if (this.disabled()) return
 
-    this.setState({ inProgressPosts: true })
+    this.setState({ inProgressSubmit: true })
 
-    createPost({ fileIds: [], text: postText, replyPostId })
+    const fileIds = postImages.map(image => image.id)
+
+    createPost({ fileIds, text: postText, replyPostId })
       .then(() => {
         if (this.isUnmounted) return
-        this.setState({ postText: '', inProgressPosts: false })
+        this.setState({
+          postText: '',
+          postImages: [],
+          inProgressSubmit: false
+        })
       })
       .catch(err => {
         console.error(err)
         if (this.isUnmounted) return
-        this.setState({ inProgressPosts: false })
+        this.setState({ inProgressSubmit: false })
       })
   }
 
   render() {
     const { classes } = this.props
-    const { postText, inProgress } = this.state
+    const {
+      postText,
+      postImages,
+      inProgressSubmit,
+      inProgressImage
+    } = this.state
+    const inProgress = inProgressSubmit || inProgressImage
 
     return (
-      <div className={classes.root}>
-        <div className={classes.actions}>
-          <Button color={'primary'} disabled={true}>
-            PUBLIC
-          </Button>
-          <Button color={'primary'} disabled={true}>
-            IMAGE
-          </Button>
-          <Button
-            color={'primary'}
-            className={classes.submitButton}
-            disabled={this.disabled()}
-            variant={this.disabled() ? 'text' : 'contained'}
-            onClick={this.onSubmitPost}
-          >
-            GO
-            {inProgress && (
-              <CircularProgress size={24} className={classes.buttonProgress} />
-            )}
-          </Button>
+      <Fragment>
+        <InputFile inputRef={this.inputFileRef} onChange={this.onChangeImage} />
+        <div className={classes.root}>
+          <div className={classes.actions}>
+            <Button color={'primary'} disabled={true}>
+              PUBLIC
+            </Button>
+            <Button
+              color={'primary'}
+              onClick={this.onSelectImage}
+              disabled={inProgress}
+            >
+              IMAGE
+            </Button>
+            <Button
+              color={'primary'}
+              className={classes.submitButton}
+              disabled={this.disabled()}
+              variant={this.disabled() ? 'text' : 'contained'}
+              onClick={this.onSubmitPost}
+            >
+              GO
+              {inProgressSubmit && (
+                <CircularProgress
+                  size={24}
+                  className={classes.buttonProgress}
+                />
+              )}
+            </Button>
+          </div>
+          {postImages.length !== 0 && (
+            <PreviewImages
+              photoURLs={postImages.map(image => image.imageURL)}
+            />
+          )}
+          <FormControl fullWidth>
+            <Input
+              classes={{ root: classes.textField }}
+              placeholder="新しい書き込み"
+              fullWidth
+              multiline
+              onChange={this.onChangePostText}
+              value={postText}
+              disabled={inProgress}
+            />
+          </FormControl>
         </div>
-        <FormControl fullWidth>
-          <Input
-            classes={{ root: classes.textField }}
-            placeholder="新しい書き込み"
-            fullWidth
-            multiline
-            onChange={this.onChangePostText}
-            value={postText}
-            disabled={inProgress}
-          />
-        </FormControl>
-      </div>
+      </Fragment>
     )
   }
 
@@ -90,11 +184,14 @@ class Component extends React.Component {
 
 const styles = ({ spacing }) =>
   createStyles({
-    root: { marginTop: spacing.unit * 3 },
+    root: {
+      marginTop: spacing.unit,
+      display: 'grid',
+      gridRowGap: px(spacing.unit)
+    },
     actions: {
       textAlign: 'right',
-      paddingRight: spacing.unit,
-      paddingBottom: spacing.unit
+      paddingRight: spacing.unit
     },
     textField: {
       paddingLeft: spacing.unit * 1.5,

@@ -22,7 +22,7 @@ class Component extends React.Component<any, any> {
   state = {
     posts: [],
     thread: null,
-    inProgressPosts: true,
+    inProgressSubmit: true,
     inProgressThread: true
   }
 
@@ -83,7 +83,7 @@ class Component extends React.Component<any, any> {
           ui: { createdAt: createdAt(doc.createdAt) }
         }
       })
-      this.setState({ posts, inProgressPosts: false })
+      this.setState({ posts, inProgressSubmit: false })
     })
   }
 

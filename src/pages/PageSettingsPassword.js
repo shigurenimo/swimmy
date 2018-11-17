@@ -34,7 +34,7 @@ class Component extends React.Component<any, any> {
 
     if (password === currentPassword) return
 
-    this.setState({ inProgressPosts: true })
+    this.setState({ inProgressSubmit: true })
 
     const { email } = auth().currentUser
 
@@ -48,7 +48,7 @@ class Component extends React.Component<any, any> {
       .then(() => {
         if (this.isUnmounted) return
         this.setState({
-          inProgressPosts: false,
+          inProgressSubmit: false,
           snackbarOpen: true,
           snackbarMessage: 'パスワードを更新しました',
           snackbarType: 'success',
@@ -59,7 +59,7 @@ class Component extends React.Component<any, any> {
       .catch(err => {
         if (this.isUnmounted) return
         this.setState({
-          inProgressPosts: false,
+          inProgressSubmit: false,
           snackbarOpen: true,
           snackbarMessage: `ERROR: ${err.message}`,
           snackbarType: 'error'
