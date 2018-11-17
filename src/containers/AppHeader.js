@@ -86,25 +86,25 @@ class Component extends React.Component {
                 >
                   <MoreHoriz />
                 </IconButton>
+                <AuthContext.Consumer>
+                  {auth => {
+                    if (auth.isLoggingIn) {
+                      return null
+                    }
+                    return (
+                      !auth.isLogged && (
+                        <IconButton
+                          onClick={this.onOpenSignInDialog}
+                          aria-label={'Open a login dialog'}
+                        >
+                          <PowerSettingsNew />
+                        </IconButton>
+                      )
+                    )
+                  }}
+                </AuthContext.Consumer>
               </div>
             )}
-            <AuthContext.Consumer>
-              {auth => {
-                if (auth.isLoggingIn) {
-                  return null
-                }
-                return (
-                  !auth.isLogged && (
-                    <IconButton
-                      onClick={this.onOpenSignInDialog}
-                      aria-label={'Open a login dialog'}
-                    >
-                      <PowerSettingsNew />
-                    </IconButton>
-                  )
-                )
-              }}
-            </AuthContext.Consumer>
           </Toolbar>
         </AppBar>
         <DialogAppMenu

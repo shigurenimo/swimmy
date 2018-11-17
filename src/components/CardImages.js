@@ -24,11 +24,10 @@ const styles = ({ breakpoints, spacing }) =>
       display: 'grid',
       paddingLeft: spacing.unit * 2,
       paddingRight: spacing.unit * 2,
-      paddingTop: spacing.unit * 2,
       alignItems: 'center',
       gridColumnGap: px(spacing.unit * 2),
       gridRowGap: px(spacing.unit * 2),
-      [breakpoints.up('xs')]: { gridTemplateColumns: '1fr' },
+      [breakpoints.up('xs')]: { gridTemplateColumns: 'repeat(2, 1fr)' },
       [breakpoints.up('sm')]: { gridTemplateColumns: 'repeat(3, 1fr)' },
       [breakpoints.up('md')]: { gridTemplateColumns: 'repeat(5, 1fr)' },
       [breakpoints.up('lg')]: { gridTemplateColumns: 'repeat(7, 1fr)' }

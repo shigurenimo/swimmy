@@ -5,8 +5,9 @@ import withStyles from '@material-ui/core/styles/withStyles'
 import Tab from '@material-ui/core/Tab/Tab'
 import Tabs from '@material-ui/core/Tabs/Tabs'
 import { firestore } from 'firebase/app'
-import React, { Fragment } from 'react'
+import React from 'react'
 import { collectionData } from 'rxfire/firestore'
+import { PageTitle } from '../components/PageTitle'
 import { POSTS_AS_THREAD } from '../constants/collection'
 import { DESC } from '../constants/order'
 import { CardThread } from '../containers/CardThread'
@@ -35,7 +36,11 @@ class Component extends React.Component<any, any> {
     const { posts, inProgress } = this.state
 
     return (
-      <Fragment>
+      <main className={classes.root}>
+        <PageTitle
+          title={'スレッド'}
+          description={'レスのある書き込みはこのページで確認できます。'}
+        />
         <Tabs
           value={this.state.orderBy}
           indicatorColor="primary"
@@ -57,7 +62,7 @@ class Component extends React.Component<any, any> {
             </div>
           </Fade>
         )}
-      </Fragment>
+      </main>
     )
   }
 
@@ -91,7 +96,7 @@ class Component extends React.Component<any, any> {
 
 const styles = ({ spacing }) =>
   createStyles({
-    root: {},
+    root: { display: 'grid', gridRowGap: px(spacing.unit * 2) },
     progress: {
       display: 'block',
       marginTop: spacing.unit * 10,
@@ -101,7 +106,6 @@ const styles = ({ spacing }) =>
     posts: {
       display: 'grid',
       gridRowGap: px(spacing.unit * 2),
-      marginTop: spacing.unit * 2,
       marginLeft: spacing.unit * 2,
       marginRight: spacing.unit * 2
     }

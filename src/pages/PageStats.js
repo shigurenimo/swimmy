@@ -8,6 +8,7 @@ import React from 'react'
 import { collectionData } from 'rxfire/firestore'
 import { take } from 'rxjs/operators'
 import { ChartLine } from '../components/ChartLine'
+import { PageTitle } from '../components/PageTitle'
 import { STATS } from '../constants/collection'
 import { px } from '../libs/styles/px'
 
@@ -39,8 +40,11 @@ class Component extends React.Component<any, any> {
 
     return (
       <Fade in>
-        <div className={classes.root}>
-          <Typography variant={'h4'}>統計データ</Typography>
+        <main className={classes.root}>
+          <PageTitle
+            title={'統計データ'}
+            description={'ちょっとした統計データをこのページで確認できます。'}
+          />
           <section className={classes.section}>
             <Typography>1日の平均の書き込み</Typography>
             <Typography variant={'h3'}>{averagePerDay}</Typography>
@@ -56,7 +60,7 @@ class Component extends React.Component<any, any> {
           <div>
             <ChartLine data={chartData} />
           </div>
-        </div>
+        </main>
       </Fade>
     )
   }
@@ -113,14 +117,13 @@ const styles = ({ spacing }) =>
     },
     root: {
       display: 'grid',
-      gridRowGap: px(spacing.unit * 4),
-      paddingTop: spacing.unit * 4,
-      paddingLeft: spacing.unit * 2,
-      paddingRight: spacing.unit * 2
+      gridRowGap: px(spacing.unit * 4)
     },
     section: {
       display: 'grid',
-      gridRowGap: px(spacing.unit)
+      gridRowGap: px(spacing.unit),
+      paddingLeft: spacing.unit * 2,
+      paddingRight: spacing.unit * 2
     }
   })
 

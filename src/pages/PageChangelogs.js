@@ -2,11 +2,11 @@ import CircularProgress from '@material-ui/core/CircularProgress/CircularProgres
 import Fade from '@material-ui/core/Fade/Fade'
 import createStyles from '@material-ui/core/styles/createStyles'
 import withStyles from '@material-ui/core/styles/withStyles'
-import Typography from '@material-ui/core/Typography/Typography'
 import { firestore } from 'firebase/app'
 import React from 'react'
 import { collectionData } from 'rxfire/firestore'
 import { take } from 'rxjs/operators'
+import { PageTitle } from '../components/PageTitle'
 import { CHANGELOGS } from '../constants/collection'
 import { DESC } from '../constants/order'
 import { CardChangelog } from '../containers/CardChangelog'
@@ -30,8 +30,13 @@ class Component extends React.Component<any, any> {
 
     return (
       <Fade in>
-        <div className={classes.root}>
-          <Typography variant={'h4'}>アップデート履歴</Typography>
+        <main className={classes.root}>
+          <PageTitle
+            title={'アップデート履歴'}
+            description={
+              'バージョン3.0.0以降の過去のアップデート履歴を確認できます。'
+            }
+          />
           <ul className={classes.changelogs}>
             {changelogs.map(changelog => (
               <li key={changelog.id}>
@@ -43,7 +48,7 @@ class Component extends React.Component<any, any> {
               </li>
             ))}
           </ul>
-        </div>
+        </main>
       </Fade>
     )
   }
@@ -86,15 +91,14 @@ const styles = ({ spacing }) =>
   createStyles({
     root: {
       display: 'grid',
-      gridRowGap: px(spacing.unit * 4),
-      paddingTop: spacing.unit * 4,
-      paddingLeft: spacing.unit * 2,
-      paddingRight: spacing.unit * 2
+      gridRowGap: px(spacing.unit * 4)
     },
     changelogs: {
       ...resetList(),
       display: 'grid',
-      gridRowGap: px(spacing.unit * 2)
+      gridRowGap: px(spacing.unit * 2),
+      paddingLeft: spacing.unit * 2,
+      paddingRight: spacing.unit * 2
     },
     progress: {
       display: 'block',

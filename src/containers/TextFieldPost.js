@@ -191,7 +191,7 @@ class Component extends React.Component {
 const styles = ({ spacing }) =>
   createStyles({
     root: {
-      marginTop: spacing.unit,
+      paddingTop: spacing.unit,
       display: 'grid',
       gridRowGap: px(spacing.unit)
     },
@@ -215,7 +215,7 @@ const styles = ({ spacing }) =>
       right: 0,
       bottom: 0,
       margin: 'auto'
-    },
+    }
   })
 
 export const TextFieldPost = withStyles(styles)(Component)

@@ -5,21 +5,20 @@ import withStyles from '@material-ui/core/styles/withStyles'
 import Tab from '@material-ui/core/Tab/Tab'
 import Tabs from '@material-ui/core/Tabs/Tabs'
 import { firestore } from 'firebase/app'
-import React, { Fragment } from 'react'
+import React from 'react'
 import { collectionData } from 'rxfire/firestore'
+import { CardImages } from '../components/CardImages'
+import { PageTitle } from '../components/PageTitle'
 import { POSTS_AS_IMAGE } from '../constants/collection'
 import { DESC } from '../constants/order'
-import { CardImages } from '../components/CardImages'
 import { createdAt } from '../libs/createdAt'
+import { px } from '../libs/styles/px'
 
 class Component extends React.Component<any, any> {
   isUnmounted = false
   subscription
-  state = {
-    posts: [],
-    inProgressSubmit: true,
-    orderBy: 'updatedAt'
-  }
+  state = { posts: [], inProgressSubmit: true, orderBy: 'updatedAt' }
+
   onChangeTab = (event, orderBy) => {
     this.setState({ orderBy, inProgressSubmit: true })
 
@@ -35,7 +34,11 @@ class Component extends React.Component<any, any> {
     const { posts, inProgress } = this.state
 
     return (
-      <Fragment>
+      <main className={classes.root}>
+        <PageTitle
+          title={'フォトグラフィ'}
+          description={'画像の添付された書き込みはここに表示されます。'}
+        />
         <Tabs
           value={this.state.orderBy}
           indicatorColor="primary"
@@ -53,7 +56,7 @@ class Component extends React.Component<any, any> {
             <CardImages posts={posts} />
           </Fade>
         )}
-      </Fragment>
+      </main>
     )
   }
 
@@ -87,6 +90,7 @@ class Component extends React.Component<any, any> {
 
 const styles = ({ spacing }) =>
   createStyles({
+    root: { display: 'grid', gridRowGap: px(spacing.unit * 2) },
     progress: {
       display: 'block',
       marginTop: spacing.unit * 10,

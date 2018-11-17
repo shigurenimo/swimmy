@@ -3,8 +3,9 @@ import Fade from '@material-ui/core/Fade/Fade'
 import createStyles from '@material-ui/core/styles/createStyles'
 import withStyles from '@material-ui/core/styles/withStyles'
 import { firestore } from 'firebase/app'
-import React, { Fragment } from 'react'
+import React from 'react'
 import { collectionData } from 'rxfire/firestore'
+import { PageTitle } from '../components/PageTitle'
 import { POSTS_AS_ANONYM } from '../constants/collection'
 import { DESC } from '../constants/order'
 import { ExpansionPanelPost } from '../containers/ExpansionPanelPost'
@@ -23,7 +24,14 @@ class Component extends React.Component<any, any> {
     const { posts, inProgress } = this.state
 
     return (
-      <Fragment>
+      <main className={classes.root}>
+        <PageTitle
+          title={'タイムライン'}
+          description={
+            'レス以外の書き込みはこのページに表示されます。' +
+            '書き込みを選択すると評価やレスが表示されます。'
+          }
+        />
         <TextFieldPost />
         {inProgress && <CircularProgress className={classes.progress} />}
         {!inProgress && (
@@ -35,7 +43,7 @@ class Component extends React.Component<any, any> {
             </section>
           </Fade>
         )}
-      </Fragment>
+      </main>
     )
   }
 
@@ -81,7 +89,7 @@ class Component extends React.Component<any, any> {
 
 const styles = ({ spacing }) =>
   createStyles({
-    root: {},
+    root: { display: 'grid' },
     progress: {
       display: 'block',
       marginTop: spacing.unit * 10,

@@ -48,7 +48,7 @@ class Component extends React.Component {
           <TextField
             fullWidth
             className={classes.textField}
-            placeholder="リプライ"
+            placeholder="新しいレス"
             value={postText}
             onChange={this.onChangePostText}
             disabled={inProgress}

@@ -7,6 +7,7 @@ import { firestore } from 'firebase/app'
 import React, { Fragment } from 'react'
 import { collectionData, docData } from 'rxfire/firestore'
 import { take } from 'rxjs/operators'
+import { PageTitle } from '../components/PageTitle'
 import { POSTS, POSTS_AS_ANONYM } from '../constants/collection'
 import { DESC } from '../constants/order'
 import { ListItemPost } from '../containers/ListItemPost'
@@ -31,24 +32,29 @@ class Component extends React.Component<any, any> {
     const { posts, thread, inProgressPosts, inProgressThread } = this.state
     const inProgress = inProgressPosts || inProgressThread
 
+    if (inProgress) {
+      return <CircularProgress className={classes.progress} />
+    }
+
     return (
-      <Fragment>
+      <main>
+        <PageTitle
+          title={'スレッド'}
+          description={`書き込みとそれに対するレスが表示されています。このページの右上のアイコンから前のページに戻ることができます。`}
+        />
         <TextFieldPost replyPostId={match.params.threadId} />
-        {inProgress && <CircularProgress className={classes.progress} />}
-        {!inProgress && (
-          <Fade in>
-            <div>
-              {posts.map((post, i) => (
-                <Fragment key={post.id}>
-                  <ListItemPost post={post} />
-                  <Divider />
-                </Fragment>
-              ))}
-              {thread && <ListItemPost post={thread} />}
-            </div>
-          </Fade>
-        )}
-      </Fragment>
+        <Fade in>
+          <div>
+            {posts.map((post, i) => (
+              <Fragment key={post.id}>
+                <ListItemPost post={post} />
+                <Divider />
+              </Fragment>
+            ))}
+            {thread && <ListItemPost post={thread} />}
+          </div>
+        </Fade>
+      </main>
     )
   }
 
