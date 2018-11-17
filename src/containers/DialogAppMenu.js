@@ -11,6 +11,7 @@ import Email from '@material-ui/icons/Email'
 import Equalizer from '@material-ui/icons/Equalizer'
 import Home from '@material-ui/icons/Home'
 import PowerSettingsNew from '@material-ui/icons/PowerSettingsNew'
+import PriorityHigh from '@material-ui/icons/PriorityHigh'
 import Search from '@material-ui/icons/Search'
 import Update from '@material-ui/icons/Update'
 import VpnKey from '@material-ui/icons/VpnKey'
@@ -70,6 +71,14 @@ class Component extends React.Component {
                   <Update />
                 </ListItemIcon>
                 <ListItemText inset primary="アップデート" />
+              </ListItem>
+            </Link>
+            <Link to={'/policy'}>
+              <ListItem button onClick={onClose}>
+                <ListItemIcon>
+                  <PriorityHigh />
+                </ListItemIcon>
+                <ListItemText inset primary="プライバシーポリシー" />
               </ListItem>
             </Link>
           </List>

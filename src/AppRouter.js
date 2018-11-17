@@ -7,7 +7,7 @@ import { PageChangelogCreate } from './pages/PageChangelogCreate'
 import { PageChangelogs } from './pages/PageChangelogs'
 import { PageHome } from './pages/PageHome'
 import { PageImages } from './pages/PageImages'
-import { PageIssues } from './pages/PageIssues'
+import { PagePolicy } from './pages/PagePolicy'
 import { PageSearch } from './pages/PageSearch'
 import { PageSettingsEmail } from './pages/PageSettingsEmail'
 import { PageSettingsPassword } from './pages/PageSettingsPassword'
@@ -31,7 +31,7 @@ class Component extends React.Component<any, any> {
               component={PageChangelogCreate}
             />
             <Route exact path="/images" component={PageImages} />
-            <Route exact path="/issues" component={PageIssues} />
+            <Route exact path="/policy" component={PagePolicy} />
             <Route exact path="/search" component={PageSearch} />
             <Route exact path="/settings/email" component={PageSettingsEmail} />
             <Route
