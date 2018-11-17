@@ -16,7 +16,11 @@ const Component = ({
 }) => {
   return (
     <div className={classes.root}>
-      <IconButton className={classes.iconButton} disabled>
+      <IconButton
+        className={classes.iconButton}
+        disabled
+        aria-label={'Delete this post'}
+      >
         <Delete />
       </IconButton>
       <IconButton
@@ -24,6 +28,7 @@ const Component = ({
         color={hasLike ? 'secondary' : 'default'}
         disabled={inProgressLike}
         onClick={onClickLike}
+        aria-label={'Add like to this post'}
       >
         <Favorite />
       </IconButton>
@@ -31,6 +36,7 @@ const Component = ({
         className={classes.iconButton}
         component={Link}
         to={`/threads/${postId}`}
+        aria-label={'Go thread page'}
       >
         <Launch />
       </IconButton>

@@ -61,6 +61,7 @@ class Component extends React.Component {
             disabled={!postText || inProgress}
             variant={postText ? 'contained' : 'text'}
             onClick={this.onSubmitPost}
+            aria-label={'Send a reply'}
           >
             GO
             {inProgress && (

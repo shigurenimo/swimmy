@@ -8,7 +8,7 @@ const Component = ({ classes }) => {
   return (
     <div className={classes.root}>
       <Link to={'/'}>
-        <IconButton className={classes.button}>
+        <IconButton className={classes.button} aria-label={'Go home page'}>
           <img className={classes.img} src={'/images/app.png'} alt={'swimmy'} />
         </IconButton>
       </Link>

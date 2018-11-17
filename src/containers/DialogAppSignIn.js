@@ -121,7 +121,11 @@ class Component extends React.Component {
           </DialogContent>
         )}
         <DialogActions>
-          <Button onClick={this.onSignUp} disabled={inProgress}>
+          <Button
+            onClick={this.onSignUp}
+            disabled={inProgress}
+            aria-label={'Sign up with email or username'}
+          >
             SIGN UP
           </Button>
           <Button
@@ -129,6 +133,7 @@ class Component extends React.Component {
             disabled={inProgress}
             variant="contained"
             color="primary"
+            aria-label={'Sign in with email or username'}
           >
             SIGN IN
           </Button>

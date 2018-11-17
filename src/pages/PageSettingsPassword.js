@@ -115,6 +115,7 @@ class Component extends React.Component<any, any> {
                 color={'primary'}
                 disabled={this.disabled}
                 onClick={this.onSubmit}
+                aria-label={'Update your password'}
               >
                 変更する
               </Button>

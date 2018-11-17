@@ -61,23 +61,29 @@ class Component extends React.Component {
           <Toolbar>
             <AppTitle />
             {this.isDetailPage && (
-              <IconButton onClick={this.onGoBack}>
+              <IconButton
+                onClick={this.onGoBack}
+                aria-label={'Close this page'}
+              >
                 <Close />
               </IconButton>
             )}
             {!this.isDetailPage && (
               <div className={classes.actions}>
                 <Link to={'/images'}>
-                  <IconButton>
+                  <IconButton aria-label={'Open images page'}>
                     <Photo />
                   </IconButton>
                 </Link>
                 <Link to={'/threads'}>
-                  <IconButton>
+                  <IconButton aria-label={'Open threads page'}>
                     <TurnedIn />
                   </IconButton>
                 </Link>
-                <IconButton onClick={this.onOpenMenuDialog}>
+                <IconButton
+                  onClick={this.onOpenMenuDialog}
+                  aria-label={'Open a menu'}
+                >
                   <MoreHoriz />
                 </IconButton>
               </div>
@@ -89,7 +95,10 @@ class Component extends React.Component {
                 }
                 return (
                   !auth.isLogged && (
-                    <IconButton onClick={this.onOpenSignInDialog}>
+                    <IconButton
+                      onClick={this.onOpenSignInDialog}
+                      aria-label={'Open a login dialog'}
+                    >
                       <PowerSettingsNew />
                     </IconButton>
                   )

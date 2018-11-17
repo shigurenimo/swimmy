@@ -5,7 +5,7 @@ import Input from '@material-ui/core/Input'
 import createStyles from '@material-ui/core/styles/createStyles'
 import withStyles from '@material-ui/core/styles/withStyles'
 import { firestore, storage } from 'firebase/app'
-import React, { Fragment } from 'react'
+import React from 'react'
 import { doc, snapToData } from 'rxfire/firestore'
 import { put } from 'rxfire/storage'
 import { InputFile } from '../components/InputFile'
@@ -126,54 +126,54 @@ class Component extends React.Component {
     const inProgress = inProgressSubmit || inProgressImage
 
     return (
-      <Fragment>
+      <section className={classes.root}>
         <InputFile inputRef={this.inputFileRef} onChange={this.onChangeImage} />
-        <div className={classes.root}>
-          <div className={classes.actions}>
-            <Button color={'primary'} disabled={true}>
-              PUBLIC
-            </Button>
-            <Button
-              color={'primary'}
-              onClick={this.onSelectImage}
-              disabled={inProgress}
-            >
-              IMAGE
-            </Button>
-            <Button
-              color={'primary'}
-              className={classes.submitButton}
-              disabled={this.disabled()}
-              variant={this.disabled() ? 'text' : 'contained'}
-              onClick={this.onSubmitPost}
-            >
-              GO
-              {inProgressSubmit && (
-                <CircularProgress
-                  size={24}
-                  className={classes.buttonProgress}
-                />
-              )}
-            </Button>
-          </div>
-          {postImages.length !== 0 && (
-            <PreviewImages
-              photoURLs={postImages.map(image => image.imageURL)}
-            />
-          )}
-          <FormControl fullWidth>
-            <Input
-              classes={{ root: classes.textField }}
-              placeholder="新しい書き込み"
-              fullWidth
-              multiline
-              onChange={this.onChangePostText}
-              value={postText}
-              disabled={inProgress}
-            />
-          </FormControl>
+        <div className={classes.actions}>
+          <Button
+            aria-label={'Add an user name to post'}
+            color={'primary'}
+            disabled={true}
+          >
+            PUBLIC
+          </Button>
+          <Button
+            aria-label={'Add an image to post'}
+            color={'primary'}
+            onClick={this.onSelectImage}
+            disabled={inProgress}
+          >
+            IMAGE
+          </Button>
+          <Button
+            color={'primary'}
+            aria-label={'Send a post'}
+            className={classes.submitButton}
+            disabled={this.disabled()}
+            variant={this.disabled() ? 'text' : 'contained'}
+            onClick={this.onSubmitPost}
+          >
+            GO
+            {inProgressSubmit && (
+              <CircularProgress size={24} className={classes.buttonProgress} />
+            )}
+          </Button>
         </div>
-      </Fragment>
+        {postImages.length !== 0 && (
+          <PreviewImages photoURLs={postImages.map(image => image.imageURL)} />
+        )}
+        <label className={classes.label}>Text</label>
+        <FormControl fullWidth>
+          <Input
+            classes={{ root: classes.textField }}
+            placeholder="新しい書き込み"
+            fullWidth
+            multiline
+            onChange={this.onChangePostText}
+            value={postText}
+            disabled={inProgress}
+          />
+        </FormControl>
+      </section>
     )
   }
 
@@ -205,7 +205,8 @@ const styles = ({ spacing }) =>
       right: 0,
       bottom: 0,
       margin: 'auto'
-    }
+    },
+    label: { display: 'none' }
   })
 
 export const TextFieldPost = withStyles(styles)(Component)

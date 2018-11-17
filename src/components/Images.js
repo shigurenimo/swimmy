@@ -1,4 +1,5 @@
 import createStyles from '@material-ui/core/es/styles/createStyles'
+import Paper from '@material-ui/core/Paper/Paper'
 import withStyles from '@material-ui/core/styles/withStyles'
 import React from 'react'
 import { pct } from '../libs/styles/pct'
@@ -8,12 +9,13 @@ const Component = ({ classes, photoURLs }) => {
   return (
     <div className={classes.root}>
       {photoURLs.map(photoURL => (
-        <img
-          key={photoURL}
-          className={classes.img}
-          src={photoURL + '=s400'}
-          alt={photoURL}
-        />
+        <Paper key={photoURL}>
+          <img
+            className={classes.img}
+            src={photoURL + '=s400'}
+            alt={photoURL}
+          />
+        </Paper>
       ))}
     </div>
   )

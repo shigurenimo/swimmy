@@ -1,7 +1,7 @@
 import createStyles from '@material-ui/core/styles/createStyles'
 import withStyles from '@material-ui/core/styles/withStyles'
 import React from 'react'
-import { FormIssueCreate } from '../containers/FormIssueCreate'
+import { FormChangelogCreate } from '../containers/FormChangelogCreate'
 
 class Component extends React.Component<any, any> {
   state = {}
@@ -11,7 +11,7 @@ class Component extends React.Component<any, any> {
 
     return (
       <div className={classes.root}>
-        <FormIssueCreate />
+        <FormChangelogCreate />
       </div>
     )
   }

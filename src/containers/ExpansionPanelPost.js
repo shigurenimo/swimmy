@@ -109,7 +109,7 @@ class Component extends React.Component<any, any> {
 const styles = ({ spacing }) =>
   createStyles({
     summary: { padding: `0 ${px(spacing.unit * 1.5)}` },
-    content: { cursor: 'default' },
+    content: { cursor: 'default', userSelect: 'text' },
     textField: { marginTop: spacing.unit }
   })
 

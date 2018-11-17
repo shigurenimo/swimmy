@@ -5,24 +5,21 @@ import Typography from '@material-ui/core/Typography'
 import React from 'react'
 import { Images } from '../components/Images'
 import { px } from '../libs/styles/px'
+import { PostCounts } from './PostCounts'
 
 const Component = ({ classes, post }) => {
   return (
     <div className={classes.root}>
+      <PostCounts
+        replyPostCount={post.replyPostCount}
+        likeCount={post.likeCount}
+      />
       <Typography className={classes.text} variant={'body2'}>
         {post.text}
-        {post.likeCount > 0 && (
-          <span className={classes.likeCount}>+ {post.likeCount}</span>
-        )}
-        {post.replyPostCount > 0 && (
-          <span className={classes.replyPostCount}>
-            + {post.replyPostCount}
-          </span>
-        )}
       </Typography>
       {post.photoURLs.length !== 0 && <Images photoURLs={post.photoURLs} />}
       <Typography color={'textSecondary'} variant={'caption'}>
-        {post.ui.createdAt} - {post.id}
+        {post.ui.createdAt}
       </Typography>
     </div>
   )

@@ -54,7 +54,12 @@ class Component extends React.Component<any, any> {
           />
         </div>
         <div>
-          <Button onClick={this.onSubmit} variant="outlined" color="primary">
+          <Button
+            onClick={this.onSubmit}
+            variant="outlined"
+            color="primary"
+            aria-label={'Send this changelog'}
+          >
             submit
           </Button>
         </div>
@@ -68,4 +73,4 @@ const styles = ({ spacing }) =>
     root: { display: 'grid', gridRowGap: px(spacing.unit * 2) }
   })
 
-export const FormIssueCreate = withStyles(styles)(Component)
+export const FormChangelogCreate = withStyles(styles)(Component)

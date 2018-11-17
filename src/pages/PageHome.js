@@ -28,11 +28,11 @@ class Component extends React.Component<any, any> {
         {inProgress && <CircularProgress className={classes.progress} />}
         {!inProgress && (
           <Fade in>
-            <div>
+            <section className={classes.posts}>
               {posts.map(post => (
                 <ExpansionPanelPost key={post.id} post={post} />
               ))}
-            </div>
+            </section>
           </Fade>
         )}
       </Fragment>
@@ -87,7 +87,8 @@ const styles = ({ spacing }) =>
       marginTop: spacing.unit * 10,
       marginLeft: 'auto',
       marginRight: 'auto'
-    }
+    },
+    posts: { display: 'grid' }
   })
 
 export const PageHome = withStyles(styles)(Component)

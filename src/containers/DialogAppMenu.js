@@ -34,7 +34,9 @@ class Component extends React.Component {
     return (
       <Dialog fullScreen open={isOpen} onClose={onClose}>
         <DialogActions>
-          <Button onClick={onClose}>CLOSE</Button>
+          <Button onClick={onClose} aria-label={'Close this menu'}>
+            CLOSE
+          </Button>
         </DialogActions>
         <DialogContent>
           <List>
