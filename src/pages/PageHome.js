@@ -17,7 +17,7 @@ class Component extends React.Component<any, any> {
   isUnmounted = false
   subscription = null
 
-  state = { posts: [], inProgressSubmit: true }
+  state = { posts: [], inProgress: true }
 
   render() {
     const { classes } = this.props
@@ -46,8 +46,13 @@ class Component extends React.Component<any, any> {
   }
 
   componentDidMount() {
+    const exists = this.restoreState()
+
+    if (exists) {
+      this.setState({ inProgress: false })
+    }
+
     this.subscription = this.subscribePosts()
-    this.onSave()
   }
 
   componentWillUnmount() {
@@ -55,7 +60,7 @@ class Component extends React.Component<any, any> {
     if (this.subscription) {
       this.subscription.unsubscribe()
     }
-    this.onRestore()
+    this.saveState()
   }
 
   subscribePosts() {
@@ -68,20 +73,28 @@ class Component extends React.Component<any, any> {
       const posts = docs.map(doc => {
         return { ...doc, ui: { createdAt: createdAt(doc.createdAt) } }
       })
-      this.setState({ posts, inProgressSubmit: false })
+      this.setState({ posts, inProgress: false })
     })
   }
 
-  onSave() {
-    const data = memory.get('pages/PageHome:default')
-    if (data) {
-      this.setState({ posts: data.posts })
+  restoreState() {
+    const { location } = this.props
+    const state = memory.get(location.pathname)
+
+    if (state) {
+      console.info('restore', location.pathname)
+      this.setState({ posts: state.posts })
     }
+
+    return Boolean(state)
   }
 
-  onRestore() {
+  saveState() {
     const { posts } = this.state
-    memory.set('pages/PageHome:default', { posts })
+    const { location } = this.props
+
+    console.info('save', location.pathname)
+    memory.set(location.pathname, { posts })
   }
 }
 

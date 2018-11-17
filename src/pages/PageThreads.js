@@ -12,23 +12,26 @@ import { POSTS_AS_THREAD } from '../constants/collection'
 import { DESC } from '../constants/order'
 import { CardThread } from '../containers/CardThread'
 import { createdAt } from '../libs/createdAt'
+import { memory } from '../libs/memory'
 import { px } from '../libs/styles/px'
 
 class Component extends React.Component<any, any> {
   isUnmounted = false
   subscription = null
+  state = { posts: [], inProgress: true, orderBy: 'updatedAt' }
 
-  state = {
-    posts: [],
-    replyPosts: [],
-    inProgressSubmit: true,
-    inProgressReply: false,
-    selectedPost: null,
-    orderBy: 'updatedAt'
-  }
   onChangeTab = (event, orderBy) => {
-    this.setState({ orderBy, inProgressSubmit: true })
-    this.subscribePosts(orderBy)
+    const { history } = this.props
+
+    history.push(`?orderBy=${orderBy}`)
+
+    if (this.subscription) {
+      this.subscription.unsubscribe()
+    }
+
+    this.subscription = this.subscribePosts(orderBy)
+    this.setState({ orderBy, inProgress: true })
+    this.saveState()
   }
 
   render() {
@@ -67,7 +70,14 @@ class Component extends React.Component<any, any> {
   }
 
   componentDidMount() {
-    const { orderBy } = this.state
+    const orderBy = this.getOrderBy()
+    const exists = this.restoreState()
+
+    this.setState({ orderBy })
+
+    if (exists) {
+      this.setState({ inProgress: false })
+    }
 
     this.subscription = this.subscribePosts(orderBy)
   }
@@ -77,6 +87,7 @@ class Component extends React.Component<any, any> {
     if (this.subscription) {
       this.subscription.unsubscribe()
     }
+    this.saveState()
   }
 
   subscribePosts(orderBy: string) {
@@ -89,8 +100,43 @@ class Component extends React.Component<any, any> {
       const posts = docs.map(doc => {
         return { ...doc, ui: { createdAt: createdAt(doc.createdAt) } }
       })
-      this.setState({ posts, inProgressSubmit: false })
+      this.setState({ posts, inProgress: false })
     })
+  }
+
+  getOrderBy() {
+    const { location } = this.props
+
+    switch (location.search.replace('?orderBy=', '')) {
+      case 'createdAt':
+        return 'createdAt'
+      case 'likeCount':
+        return 'likeCount'
+      case 'replyPostCount':
+        return 'replyPostCount'
+      default:
+        return 'updatedAt'
+    }
+  }
+
+  restoreState() {
+    const { location } = this.props
+    const state = memory.get(location.pathname)
+
+    if (state) {
+      console.info('restore', location.pathname)
+      this.setState({ posts: state.posts })
+    }
+
+    return Boolean(state)
+  }
+
+  saveState() {
+    const { posts } = this.state
+    const { location } = this.props
+
+    console.info('save', location.pathname)
+    memory.set(location.pathname, { posts })
   }
 }
 
