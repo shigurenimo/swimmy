@@ -33,8 +33,8 @@ const styles = ({ palette, spacing }) =>
       gridAutoFlow: 'column',
       gridColumnGap: px(spacing.unit)
     },
-    likeCount: { color: palette.secondary.light },
-    replyPostCount: { color: palette.primary.light }
+    likeCount: { color: palette.secondary.dark },
+    replyPostCount: { color: palette.primary.dark }
   })
 
 export const PostCounts = withStyles(styles)(Component)
