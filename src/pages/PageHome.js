@@ -10,6 +10,7 @@ import { DESC } from '../constants/order'
 import { ExpansionPanelPost } from '../containers/ExpansionPanelPost'
 import { TextFieldPost } from '../containers/TextFieldPost'
 import { createdAt } from '../libs/createdAt'
+import { memory } from '../libs/memory'
 
 class Component extends React.Component<any, any> {
   isUnmounted = false
@@ -40,6 +41,7 @@ class Component extends React.Component<any, any> {
 
   componentDidMount() {
     this.subscription = this.subscribePosts()
+    this.onSave()
   }
 
   componentWillUnmount() {
@@ -47,6 +49,7 @@ class Component extends React.Component<any, any> {
     if (this.subscription) {
       this.subscription.unsubscribe()
     }
+    this.onRestore()
   }
 
   subscribePosts() {
@@ -61,6 +64,18 @@ class Component extends React.Component<any, any> {
       })
       this.setState({ posts, inProgressSubmit: false })
     })
+  }
+
+  onSave() {
+    const data = memory.get('pages/PageHome:default')
+    if (data) {
+      this.setState({ posts: data.posts })
+    }
+  }
+
+  onRestore() {
+    const { posts } = this.state
+    memory.set('pages/PageHome:default', { posts })
   }
 }
 

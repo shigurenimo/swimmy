@@ -8,7 +8,6 @@ import { ExpansionPanelSummaryPost } from '../components/ExpansionPanelSummaryPo
 import { PostActions } from '../components/PostActions'
 import { LIKES, POSTS } from '../constants/collection'
 import { createPostLike } from '../libs/createPostLike'
-import { pct } from '../libs/styles/pct'
 import { px } from '../libs/styles/px'
 import { ListReplyPost } from './ListReplyPost'
 import { TextFieldReplyPost } from './TextFieldReplyPost'
@@ -76,6 +75,7 @@ class Component extends React.Component<any, any> {
       <ExpansionPanel expanded={expanded} onChange={this.onChangeExpand}>
         <ExpansionPanelSummary
           className={classes.summary}
+          classes={{ content: classes.content }}
           onClick={this.onClickPanelSummary}
         >
           <ExpansionPanelSummaryPost post={post} />
@@ -108,8 +108,8 @@ class Component extends React.Component<any, any> {
 
 const styles = ({ spacing }) =>
   createStyles({
-    root: { width: pct(100) },
     summary: { padding: `0 ${px(spacing.unit * 1.5)}` },
+    content: { cursor: 'default' },
     textField: { marginTop: spacing.unit }
   })
 

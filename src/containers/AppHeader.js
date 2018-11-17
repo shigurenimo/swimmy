@@ -47,6 +47,7 @@ class Component extends React.Component {
   render() {
     const { classes } = this.props
     const { isOpenSignInDialog, isOpenMenuDialog } = this.state
+    console.log(this.props.history)
 
     return (
       <Fragment>

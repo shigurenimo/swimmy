@@ -27,7 +27,7 @@ const styles = ({ breakpoints, spacing }) =>
       gridColumnGap: px(spacing.unit * 2),
       gridRowGap: px(spacing.unit * 2),
       [breakpoints.up('xs')]: { gridTemplateColumns: 'repeat(2, 1fr)' },
-      [breakpoints.up('md')]: { gridTemplateColumns: 'repeat(4, 1fr)' }
+      [breakpoints.up('sm')]: { gridTemplateColumns: 'repeat(4, 1fr)' }
     },
     img: { width: pct(100), borderRadius: px(4) }
   })
