@@ -3,12 +3,13 @@ import createStyles from '@material-ui/core/styles/createStyles'
 import withStyles from '@material-ui/core/styles/withStyles'
 import Typography from '@material-ui/core/Typography'
 import React from 'react'
-import { pct } from '../libs/styles/pct'
+import { Images } from '../components/Images'
+import { px } from '../libs/styles/px'
 
 const Component = ({ classes, post }) => {
   return (
     <div className={classes.root}>
-      <Typography className={classes.text} gutterBottom variant={'body2'}>
+      <Typography className={classes.text} variant={'body2'}>
         {post.text}
         {post.likeCount > 0 && (
           <span className={classes.likeCount}>+ {post.likeCount}</span>
@@ -19,6 +20,7 @@ const Component = ({ classes, post }) => {
           </span>
         )}
       </Typography>
+      {post.photoURLs.length !== 0 && <Images photoURLs={post.photoURLs} />}
       <Typography color={'textSecondary'} variant={'caption'}>
         {post.ui.createdAt} - {post.id}
       </Typography>
@@ -26,9 +28,13 @@ const Component = ({ classes, post }) => {
   )
 }
 
-const styles = ({ typography, palette, spacing }) =>
+const styles = ({ breakpoints, typography, palette, spacing }) =>
   createStyles({
-    root: { paddingRight: '0 !important', width: pct(100) },
+    root: {
+      paddingRight: '0 !important',
+      display: 'grid',
+      gridRowGap: px(8)
+    },
     text: {
       fontSize: typography.pxToRem(16),
       fontWeight: typography.fontWeightMedium,
