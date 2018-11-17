@@ -17,7 +17,7 @@ class Component extends React.Component {
     errorMessage: '',
     email: '',
     password: '',
-    inProgressSubmit: false
+    inProgress: false
   }
   onChangeEmail = event => {
     this.setState({
@@ -41,40 +41,40 @@ class Component extends React.Component {
       return
     }
 
-    this.setState({ inProgressSubmit: true, errorCode: '', errorMessage: '' })
+    this.setState({ inProgress: true, errorCode: '', errorMessage: '' })
 
     const username = email.includes('@') ? email : `${email}@swimmy.io`
 
     auth()
       .createUserWithEmailAndPassword(username, password)
       .then(() => {
-        this.setState({ inProgressSubmit: false, email: '', password: '' })
+        this.setState({ inProgress: false, email: '', password: '' })
         closeDialog()
       })
       .catch(err => {
         const errorCode = err.code
         const errorMessage = err.message
-        this.setState({ errorCode, errorMessage, inProgressSubmit: false })
+        this.setState({ errorCode, errorMessage, inProgress: false })
       })
   }
   onSignIn = () => {
     const { closeDialog } = this.props
     const { email, password } = this.state
 
-    this.setState({ inProgressSubmit: true, errorCode: '', errorMessage: '' })
+    this.setState({ inProgress: true, errorCode: '', errorMessage: '' })
 
     const username = email.includes('@') ? email : `${email}@swimmy.io`
 
     auth()
       .signInWithEmailAndPassword(username, password)
       .then(() => {
-        this.setState({ inProgressSubmit: false, email: '', password: '' })
+        this.setState({ inProgress: false, email: '', password: '' })
         closeDialog()
       })
       .catch(error => {
         const errorCode = error.code
         const errorMessage = error.message
-        this.setState({ inProgressSubmit: false, errorCode, errorMessage })
+        this.setState({ inProgress: false, errorCode, errorMessage })
       })
   }
 

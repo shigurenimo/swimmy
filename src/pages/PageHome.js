@@ -26,11 +26,9 @@ class Component extends React.Component<any, any> {
     return (
       <main className={classes.root}>
         <PageTitle
-          title={'電子掲示板にようこそ'}
-          description={
-            'レス以外の書き込みはこのページに表示されます。' +
-            '書き込みを選択すると評価やレスが表示されます。'
-          }
+          title={'スイミーにようこそ'}
+          description={`はじめまして。スイミーは完全な匿名の電子掲示板です。
+          ログインすることでSNSの真似事ができますが、SNSではないのでユーザと仲良くなることはありません。`}
         />
         <TextFieldPost />
         {inProgress && <CircularProgress className={classes.progress} />}

@@ -17,14 +17,13 @@ const Component = ({ classes, title, description, hide = true }) => {
       <Typography variant={'h5'} component={'h1'} color="inherit">
         {title}
       </Typography>
-      <Typography color="inherit" variant={'caption'}>
+      <Typography
+        color={'inherit'}
+        variant={'caption'}
+        className={classes.description}
+      >
         {description}
       </Typography>
-      {hide && (
-        <Typography color="inherit" variant={'caption'}>
-          ※この説明はログインすると消えます。
-        </Typography>
-      )}
     </div>
   )
 }
@@ -38,7 +37,7 @@ const styles = ({ spacing, palette }) =>
       backgroundColor: palette.primary.main,
       color: 'white'
     },
-    typography: {}
+    description: { whiteSpace: 'pre-line', wordBreak: 'break-all' }
   })
 
 export const PageTitle = withStyles(styles)(Component)

@@ -8,21 +8,20 @@ import { createPost } from '../libs/createPost'
 import { pct } from '../libs/styles/pct'
 
 class Component extends React.Component {
-  state = {
-    postText: '',
-    inProgressSubmit: false
-  }
+  state = { postText: '', inProgress: false }
+
   onChangePostText = event => {
     event.persist()
     this.setState({ postText: event.target.value })
   }
+
   onSubmitPost = () => {
     const { postId } = this.props
     const { postText, inProgress } = this.state
 
     if (!postText || inProgress) return
 
-    this.setState({ inProgressSubmit: true })
+    this.setState({ inProgress: true })
 
     createPost({
       fileIds: [],
@@ -30,11 +29,11 @@ class Component extends React.Component {
       replyPostId: postId
     })
       .then(() => {
-        this.setState({ postText: '', inProgressSubmit: false })
+        this.setState({ postText: '', inProgress: false })
       })
       .catch(err => {
         console.error(err)
-        this.setState({ inProgressSubmit: false })
+        this.setState({ inProgress: false })
       })
   }
 
