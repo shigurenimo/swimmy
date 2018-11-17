@@ -4,19 +4,19 @@ import createStyles from '@material-ui/core/styles/createStyles'
 import withStyles from '@material-ui/core/styles/withStyles'
 import { firestore } from 'firebase/app'
 import React from 'react'
+import { compose } from 'recompose'
 import { collectionData } from 'rxfire/firestore'
 import { PageTitle } from '../components/PageTitle'
 import { POSTS_AS_ANONYM } from '../constants/collection'
 import { DESC } from '../constants/order'
 import { ExpansionPanelPost } from '../containers/ExpansionPanelPost'
 import { TextFieldPost } from '../containers/TextFieldPost'
+import { withCache } from '../higher-order-components/withCache'
 import { createdAt } from '../libs/createdAt'
-import { memory } from '../libs/memory'
 
 class Component extends React.Component<any, any> {
   isUnmounted = false
   subscription = null
-
   state = { posts: [], inProgress: true }
 
   render() {
@@ -46,20 +46,17 @@ class Component extends React.Component<any, any> {
   }
 
   componentDidMount() {
-    const exists = this.restoreState()
-
-    if (exists) {
-      this.setState({ inProgress: false })
-    }
-
     this.subscription = this.subscribePosts()
+    this.restoreState()
   }
 
   componentWillUnmount() {
     this.isUnmounted = true
+
     if (this.subscription) {
       this.subscription.unsubscribe()
     }
+
     this.saveState()
   }
 
@@ -78,23 +75,18 @@ class Component extends React.Component<any, any> {
   }
 
   restoreState() {
-    const { location } = this.props
-    const state = memory.get(location.pathname)
+    const { cache } = this.props
 
-    if (state) {
-      console.info('restore', location.pathname)
-      this.setState({ posts: state.posts })
-    }
-
-    return Boolean(state)
+    cache.restore(state => {
+      this.setState({ posts: state.posts, inProgress: false })
+    })
   }
 
   saveState() {
     const { posts } = this.state
-    const { location } = this.props
+    const { cache } = this.props
 
-    console.info('save', location.pathname)
-    memory.set(location.pathname, { posts })
+    cache.save({ posts })
   }
 }
 
@@ -110,4 +102,7 @@ const styles = ({ spacing }) =>
     posts: { display: 'grid' }
   })
 
-export const PageHome = withStyles(styles)(Component)
+export const PageHome = compose(
+  withCache,
+  withStyles(styles)
+)(Component)

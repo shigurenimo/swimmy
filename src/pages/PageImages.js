@@ -6,13 +6,14 @@ import Tab from '@material-ui/core/Tab/Tab'
 import Tabs from '@material-ui/core/Tabs/Tabs'
 import { firestore } from 'firebase/app'
 import React from 'react'
+import { compose } from 'recompose'
 import { collectionData } from 'rxfire/firestore'
 import { CardImages } from '../components/CardImages'
 import { PageTitle } from '../components/PageTitle'
 import { POSTS_AS_IMAGE } from '../constants/collection'
 import { DESC } from '../constants/order'
+import { withCache } from '../higher-order-components/withCache'
 import { createdAt } from '../libs/createdAt'
-import { memory } from '../libs/memory'
 import { px } from '../libs/styles/px'
 
 class Component extends React.Component<any, any> {
@@ -23,7 +24,7 @@ class Component extends React.Component<any, any> {
   onChangeTab = (event, orderBy) => {
     const { history } = this.props
 
-    history.push(`?orderBy=${orderBy}`)
+    history.push(`?order=${orderBy}`)
 
     if (this.subscription) {
       this.subscription.unsubscribe()
@@ -67,15 +68,10 @@ class Component extends React.Component<any, any> {
 
   componentDidMount() {
     const orderBy = this.getOrderBy()
-    const exists = this.restoreState()
 
     this.setState({ orderBy })
-
-    if (exists) {
-      this.setState({ inProgress: false })
-    }
-
     this.subscription = this.subscribePosts(orderBy)
+    this.restoreState()
   }
 
   componentWillUnmount() {
@@ -103,7 +99,7 @@ class Component extends React.Component<any, any> {
   getOrderBy() {
     const { location } = this.props
 
-    switch (location.search.replace('?orderBy=', '')) {
+    switch (location.search.replace('?order=', '')) {
       case 'createdAt':
         return 'createdAt'
       case 'likeCount':
@@ -116,23 +112,18 @@ class Component extends React.Component<any, any> {
   }
 
   restoreState() {
-    const { location } = this.props
-    const state = memory.get(location.pathname)
+    const { cache } = this.props
 
-    if (state) {
-      console.info('restore', location.pathname)
-      this.setState({ posts: state.posts })
-    }
-
-    return Boolean(state)
+    cache.restore(state => {
+      this.setState({ posts: state.posts, inProgress: false })
+    })
   }
 
   saveState() {
     const { posts } = this.state
-    const { location } = this.props
+    const { cache } = this.props
 
-    console.info('save', location.pathname)
-    memory.set(location.pathname, { posts })
+    cache.save({ posts })
   }
 }
 
@@ -147,4 +138,7 @@ const styles = ({ spacing }) =>
     }
   })
 
-export const PageImages = withStyles(styles)(Component)
+export const PageImages = compose(
+  withCache,
+  withStyles(styles)
+)(Component)
