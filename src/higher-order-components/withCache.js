@@ -8,15 +8,14 @@ const create = location => {
       console.info('save', location.pathname)
       cacheMap.set(location.pathname, state)
     },
-    restore: use => {
+    restore: () => {
       const state = cacheMap.get(location.pathname)
 
       if (state) {
         console.info('restore', location.pathname)
-        use(state)
       }
 
-      return Boolean(state)
+      return state
     }
   }
 }

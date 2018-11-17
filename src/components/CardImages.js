@@ -22,6 +22,7 @@ const styles = ({ breakpoints, spacing }) =>
     posts: {
       ...resetList(),
       display: 'grid',
+      margin: 0,
       paddingLeft: spacing.unit * 2,
       paddingRight: spacing.unit * 2,
       alignItems: 'center',

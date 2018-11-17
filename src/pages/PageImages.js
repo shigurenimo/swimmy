@@ -8,6 +8,7 @@ import { firestore } from 'firebase/app'
 import React from 'react'
 import { compose } from 'recompose'
 import { collectionData } from 'rxfire/firestore'
+import { ButtonMore } from '../components/ButtonMore'
 import { CardImages } from '../components/CardImages'
 import { PageTitle } from '../components/PageTitle'
 import { POSTS_AS_IMAGE } from '../constants/collection'
@@ -19,8 +20,20 @@ import { px } from '../libs/styles/px'
 class Component extends React.Component<any, any> {
   isUnmounted = false
   subscription = null
-  state = { posts: [], inProgress: true, orderBy: 'updatedAt' }
-
+  state = {
+    posts: [],
+    inProgress: true,
+    inProgressMore: false,
+    orderBy: 'updatedAt',
+    limit: 16
+  }
+  onMore = () => {
+    const { limit, inProgressMore, orderBy } = this.state
+    if (inProgressMore) return
+    const nextLimit = limit + 16
+    this.setState({ inProgressMore: true, limit: nextLimit })
+    this.subscribePosts(orderBy, nextLimit)
+  }
   onChangeTab = (event, orderBy) => {
     const { history } = this.props
 
@@ -37,7 +50,7 @@ class Component extends React.Component<any, any> {
 
   render() {
     const { classes } = this.props
-    const { posts, inProgress } = this.state
+    const { posts, inProgress, inProgressMore, limit } = this.state
 
     return (
       <main className={classes.root}>
@@ -50,6 +63,7 @@ class Component extends React.Component<any, any> {
           indicatorColor="primary"
           textColor="primary"
           onChange={this.onChangeTab}
+          component={'nav'}
         >
           <Tab label="更新" value={'updatedAt'} />
           <Tab label="新着" value={'createdAt'} />
@@ -59,7 +73,12 @@ class Component extends React.Component<any, any> {
         {inProgress && <CircularProgress className={classes.progress} />}
         {!inProgress && (
           <Fade in>
-            <CardImages posts={posts} />
+            <section className={classes.section}>
+              <CardImages posts={posts} />
+              {limit < 200 && (
+                <ButtonMore onClick={this.onMore} inProgress={inProgressMore} />
+              )}
+            </section>
           </Fade>
         )}
       </main>
@@ -68,10 +87,10 @@ class Component extends React.Component<any, any> {
 
   componentDidMount() {
     const orderBy = this.getOrderBy()
-
+    const state = this.restoreState()
+    const limit = state ? state.limit : 16
     this.setState({ orderBy })
-    this.subscription = this.subscribePosts(orderBy)
-    this.restoreState()
+    this.subscription = this.subscribePosts(orderBy, limit)
   }
 
   componentWillUnmount() {
@@ -82,17 +101,17 @@ class Component extends React.Component<any, any> {
     this.saveState()
   }
 
-  subscribePosts(orderBy: string) {
+  subscribePosts(orderBy: string, limit = 16) {
     const query = firestore()
       .collection(POSTS_AS_IMAGE)
-      .limit(40)
+      .limit(limit)
       .orderBy(orderBy, DESC)
     return collectionData(query).subscribe(docs => {
       if (this.isUnmounted) return
       const posts = docs.map(doc => {
         return { ...doc, ui: { createdAt: createdAt(doc.createdAt) } }
       })
-      this.setState({ posts, inProgress: false })
+      this.setState({ posts, inProgress: false, inProgressMore: false })
     })
   }
 
@@ -113,17 +132,24 @@ class Component extends React.Component<any, any> {
 
   restoreState() {
     const { cache } = this.props
+    const state = cache.restore()
 
-    cache.restore(state => {
-      this.setState({ posts: state.posts, inProgress: false })
-    })
+    if (state) {
+      this.setState({
+        posts: state.posts,
+        limit: state.limit,
+        inProgress: false
+      })
+    }
+
+    return state
   }
 
   saveState() {
-    const { posts } = this.state
+    const { posts, limit } = this.state
     const { cache } = this.props
 
-    cache.save({ posts })
+    cache.save({ posts, limit })
   }
 }
 
@@ -135,7 +161,8 @@ const styles = ({ spacing }) =>
       marginTop: spacing.unit * 10,
       marginLeft: 'auto',
       marginRight: 'auto'
-    }
+    },
+    section: { display: 'grid', gridRowGap: px(spacing.unit * 2) }
   })
 
 export const PageImages = compose(
