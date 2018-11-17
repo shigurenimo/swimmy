@@ -26,7 +26,7 @@ class Component extends React.Component<any, any> {
     return (
       <main className={classes.root}>
         <PageTitle
-          title={'タイムライン'}
+          title={'電子掲示板にようこそ'}
           description={
             'レス以外の書き込みはこのページに表示されます。' +
             '書き込みを選択すると評価やレスが表示されます。'

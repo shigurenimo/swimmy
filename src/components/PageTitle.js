@@ -5,12 +5,12 @@ import React, { useContext } from 'react'
 import { AuthContext } from '../contexts/auth'
 import { px } from '../libs/styles/px'
 
-const Component = ({ classes, title, description }) => {
+const Component = ({ classes, title, description, hide = true }) => {
   const { isLogged, isLoggingIn } = useContext(AuthContext)
 
-  if (isLoggingIn) return null
+  if (hide && isLoggingIn) return null
 
-  if (isLogged) return null
+  if (hide && isLogged) return null
 
   return (
     <div className={classes.root}>
@@ -20,9 +20,11 @@ const Component = ({ classes, title, description }) => {
       <Typography color="inherit" variant={'caption'}>
         {description}
       </Typography>
-      <Typography color="inherit" variant={'caption'}>
-        ※この説明はログインすると消えます。
-      </Typography>
+      {hide && (
+        <Typography color="inherit" variant={'caption'}>
+          ※この説明はログインすると消えます。
+        </Typography>
+      )}
     </div>
   )
 }

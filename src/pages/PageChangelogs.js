@@ -32,6 +32,7 @@ class Component extends React.Component<any, any> {
       <Fade in>
         <main className={classes.root}>
           <PageTitle
+            hide={false}
             title={'アップデート履歴'}
             description={
               'バージョン3.0.0以降の過去のアップデート履歴を確認できます。'
@@ -91,7 +92,7 @@ const styles = ({ spacing }) =>
   createStyles({
     root: {
       display: 'grid',
-      gridRowGap: px(spacing.unit * 4)
+      gridRowGap: px(spacing.unit * 2)
     },
     changelogs: {
       ...resetList(),

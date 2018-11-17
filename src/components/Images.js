@@ -31,7 +31,7 @@ const styles = ({ breakpoints, spacing }) =>
       [breakpoints.up('xs')]: { gridTemplateColumns: 'repeat(2, 1fr)' },
       [breakpoints.up('sm')]: { gridTemplateColumns: 'repeat(4, 1fr)' }
     },
-    img: { width: pct(100), borderRadius: px(4) }
+    img: { width: pct(100), borderRadius: px(4), verticalAlign: 'bottom' }
   })
 
 export const Images = withStyles(styles)(Component)

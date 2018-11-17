@@ -1,3 +1,5 @@
+import Card from '@material-ui/core/Card/Card'
+import CardContent from '@material-ui/core/CardContent/CardContent'
 import CircularProgress from '@material-ui/core/CircularProgress/CircularProgress'
 import Fade from '@material-ui/core/Fade/Fade'
 import createStyles from '@material-ui/core/styles/createStyles'
@@ -42,24 +44,39 @@ class Component extends React.Component<any, any> {
       <Fade in>
         <main className={classes.root}>
           <PageTitle
+            hide={false}
             title={'統計データ'}
             description={'ちょっとした統計データをこのページで確認できます。'}
           />
           <section className={classes.section}>
-            <Typography>1日の平均の書き込み</Typography>
-            <Typography variant={'h3'}>{averagePerDay}</Typography>
+            <Card>
+              <CardContent>
+                <Typography>1日の平均の書き込み</Typography>
+                <Typography variant={'h3'}>{averagePerDay}</Typography>
+              </CardContent>
+            </Card>
           </section>
           <section className={classes.section}>
-            <Typography>今までの書き込み</Typography>
-            <Typography variant={'h3'}>{countTotal}</Typography>
+            <Card>
+              <CardContent>
+                <Typography>今までの書き込み</Typography>
+                <Typography variant={'h3'}>{countTotal}</Typography>
+              </CardContent>
+            </Card>
           </section>
           <section className={classes.section}>
-            <Typography>100日間の書き込み</Typography>
-            <Typography variant={'h3'}>{countWeek}</Typography>
+            <Card>
+              <CardContent>
+                <Typography>100日間の書き込み</Typography>
+                <Typography variant={'h3'}>{countWeek}</Typography>
+              </CardContent>
+            </Card>
           </section>
-          <div>
-            <ChartLine data={chartData} />
-          </div>
+          <section className={classes.section}>
+            <Card>
+              <ChartLine data={chartData} />
+            </Card>
+          </section>
         </main>
       </Fade>
     )
@@ -117,7 +134,7 @@ const styles = ({ spacing }) =>
     },
     root: {
       display: 'grid',
-      gridRowGap: px(spacing.unit * 4)
+      gridRowGap: px(spacing.unit * 2)
     },
     section: {
       display: 'grid',
