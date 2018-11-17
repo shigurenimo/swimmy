@@ -67,7 +67,8 @@ const shadows = [
 ]
 
 const typography = {
-  useNextVariants: true
+  useNextVariants: true,
+  fontFamily: ['Roboto', 'sans-serif'].join(',')
 }
 
 const shape = { borderRadius: 4 }

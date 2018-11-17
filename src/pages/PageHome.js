@@ -55,7 +55,7 @@ class Component extends React.Component<any, any> {
   subscribePosts() {
     const query = firestore()
       .collection(POSTS_AS_ANONYM)
-      .limit(40)
+      .limit(32)
       .orderBy('createdAt', DESC)
     return collectionData(query).subscribe(docs => {
       if (this.isUnmounted) return
