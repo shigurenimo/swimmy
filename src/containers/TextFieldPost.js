@@ -9,7 +9,7 @@ import { createPost } from '../libs/createPost'
 
 class Component extends React.Component {
   isUnmounted = false
-  state = { postText: '', inProgress: false }
+  state = { postText: '', inProgressPosts: false }
 
   disabled = () => {
     const { postText, inProgress } = this.state
@@ -28,17 +28,17 @@ class Component extends React.Component {
 
     if (this.disabled()) return
 
-    this.setState({ inProgress: true })
+    this.setState({ inProgressPosts: true })
 
     createPost({ fileIds: [], text: postText, replyPostId })
       .then(() => {
         if (this.isUnmounted) return
-        this.setState({ postText: '', inProgress: false })
+        this.setState({ postText: '', inProgressPosts: false })
       })
       .catch(err => {
         console.error(err)
         if (this.isUnmounted) return
-        this.setState({ inProgress: false })
+        this.setState({ inProgressPosts: false })
       })
   }
 

@@ -20,7 +20,7 @@ class Component extends React.Component<any, any> {
     averagePerDay: 0,
     countTotal: 0,
     countWeek: 0,
-    inProgress: true
+    inProgressPosts: true
   }
 
   render() {
@@ -93,7 +93,7 @@ class Component extends React.Component<any, any> {
           }
         ]
         this.setState({
-          inProgress: false,
+          inProgressPosts: false,
           averagePerDay,
           countTotal,
           countWeek,

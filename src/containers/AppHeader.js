@@ -4,6 +4,7 @@ import LinearProgress from '@material-ui/core/LinearProgress/LinearProgress'
 import createStyles from '@material-ui/core/styles/createStyles'
 import withStyles from '@material-ui/core/styles/withStyles'
 import Toolbar from '@material-ui/core/Toolbar/Toolbar'
+import Close from '@material-ui/icons/Close'
 import MoreHoriz from '@material-ui/icons/MoreHoriz'
 import Photo from '@material-ui/icons/Photo'
 import PowerSettingsNew from '@material-ui/icons/PowerSettingsNew'
@@ -14,6 +15,7 @@ import { compose } from 'recompose'
 import { AppTitle } from '../components/AppTitle'
 import { AuthContext } from '../contexts/auth'
 import { pct } from '../libs/styles/pct'
+import { px } from '../libs/styles/px'
 import { DialogAppMenu } from './DialogAppMenu'
 import { DialogAppSignIn } from './DialogAppSignIn'
 
@@ -36,6 +38,12 @@ class Component extends React.Component {
     this.setState({ isOpenSignInDialog: false })
   }
 
+  onGoBack = () => {
+    const { history } = this.props
+
+    history.goBack()
+  }
+
   render() {
     const { classes } = this.props
     const { isOpenSignInDialog, isOpenMenuDialog } = this.state
@@ -52,19 +60,28 @@ class Component extends React.Component {
           </AuthContext.Consumer>
           <Toolbar>
             <AppTitle />
-            <Link to={'/images'}>
-              <IconButton className={classes.iconButton}>
-                <Photo />
+            {this.isDetailPage && (
+              <IconButton onClick={this.onGoBack}>
+                <Close />
               </IconButton>
-            </Link>
-            <Link to={'/threads'}>
-              <IconButton className={classes.iconButton}>
-                <TurnedIn />
-              </IconButton>
-            </Link>
-            <IconButton onClick={this.onOpenMenuDialog}>
-              <MoreHoriz />
-            </IconButton>
+            )}
+            {!this.isDetailPage && (
+              <div className={classes.actions}>
+                <Link to={'/images'}>
+                  <IconButton>
+                    <Photo />
+                  </IconButton>
+                </Link>
+                <Link to={'/threads'}>
+                  <IconButton>
+                    <TurnedIn />
+                  </IconButton>
+                </Link>
+                <IconButton onClick={this.onOpenMenuDialog}>
+                  <MoreHoriz />
+                </IconButton>
+              </div>
+            )}
             <AuthContext.Consumer>
               {auth => {
                 if (auth.isLoggingIn) {
@@ -92,6 +109,11 @@ class Component extends React.Component {
       </Fragment>
     )
   }
+
+  get isDetailPage() {
+    const { location } = this.props
+    return location.pathname.includes('/threads/')
+  }
 }
 
 const styles = ({ spacing }) =>
@@ -104,7 +126,11 @@ const styles = ({ spacing }) =>
       marginLeft: spacing.unit * 1.5 * -1,
       marginRight: spacing.unit * 2.5
     },
-    iconButton: { marginRight: spacing.unit }
+    actions: {
+      display: 'grid',
+      gridColumnGap: px(spacing.unit),
+      gridAutoFlow: 'column'
+    }
   })
 
 export const AppHeader = compose(

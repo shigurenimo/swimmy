@@ -20,13 +20,13 @@ class Component extends React.Component<any, any> {
   state = {
     posts: [],
     replyPosts: [],
-    inProgress: true,
+    inProgressPosts: true,
     inProgressReply: false,
     selectedPost: null,
     orderBy: 'updatedAt'
   }
   onChangeTab = (event, orderBy) => {
-    this.setState({ orderBy, inProgress: true })
+    this.setState({ orderBy, inProgressPosts: true })
     this.subscribePosts(orderBy)
   }
 
@@ -84,7 +84,7 @@ class Component extends React.Component<any, any> {
       const posts = docs.map(doc => {
         return { ...doc, ui: { createdAt: createdAt(doc.createdAt) } }
       })
-      this.setState({ posts, inProgress: false })
+      this.setState({ posts, inProgressPosts: false })
     })
   }
 }

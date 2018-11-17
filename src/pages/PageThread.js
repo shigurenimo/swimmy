@@ -19,27 +19,35 @@ class Component extends React.Component<any, any> {
   subscription = null
   subscriptionThread = null
 
-  state = { posts: [], thread: null, inProgress: true }
+  state = {
+    posts: [],
+    thread: null,
+    inProgressPosts: true,
+    inProgressThread: true
+  }
 
   render() {
     const { classes, match } = this.props
-    const { posts, thread, inProgress } = this.state
+    const { posts, thread, inProgressPosts, inProgressThread } = this.state
+    const inProgress = inProgressPosts || inProgressThread
 
     return (
       <Fragment>
         <TextFieldPost replyPostId={match.params.threadId} />
         {inProgress && <CircularProgress className={classes.progress} />}
-        <Fade in>
-          <div>
-            {posts.map((post, i) => (
-              <Fragment key={post.id}>
-                <ListItemPost post={post} />
-                <Divider />
-              </Fragment>
-            ))}
-            {thread && <ListItemPost post={thread} />}
-          </div>
-        </Fade>
+        {!inProgress && (
+          <Fade in>
+            <div>
+              {posts.map((post, i) => (
+                <Fragment key={post.id}>
+                  <ListItemPost post={post} />
+                  <Divider />
+                </Fragment>
+              ))}
+              {thread && <ListItemPost post={thread} />}
+            </div>
+          </Fade>
+        )}
       </Fragment>
     )
   }
@@ -75,7 +83,7 @@ class Component extends React.Component<any, any> {
           ui: { createdAt: createdAt(doc.createdAt) }
         }
       })
-      this.setState({ posts, inProgress: false })
+      this.setState({ posts, inProgressPosts: false })
     })
   }
 
@@ -89,7 +97,7 @@ class Component extends React.Component<any, any> {
       .subscribe(doc => {
         if (this.isUnmounted) return
         const thread = { ...doc, ui: { createdAt: createdAt(doc.createdAt) } }
-        this.setState({ thread })
+        this.setState({ thread, inProgressThread: false })
       })
   }
 }

@@ -5,13 +5,14 @@ import Delete from '@material-ui/icons/Delete'
 import Favorite from '@material-ui/icons/Favorite'
 import Launch from '@material-ui/icons/Launch'
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 const Component = ({
   classes,
   inProgressLike,
   hasLike,
   onClickLike,
-  onSelectPost
+  postId
 }) => {
   return (
     <div className={classes.root}>
@@ -26,7 +27,11 @@ const Component = ({
       >
         <Favorite />
       </IconButton>
-      <IconButton className={classes.iconButton} onClick={onSelectPost}>
+      <IconButton
+        className={classes.iconButton}
+        component={Link}
+        to={`/threads/${postId}`}
+      >
         <Launch />
       </IconButton>
     </div>

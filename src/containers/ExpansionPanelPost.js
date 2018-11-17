@@ -16,16 +16,13 @@ import { TextFieldReplyPost } from './TextFieldReplyPost'
 class Component extends React.Component<any, any> {
   isUnmounted = false
   state = { expanded: false, hasLike: false, inProgressLike: true }
+
   onClickLike = () => {
     const { post } = this.props
 
     this.clickLike(post.id)
   }
-  onSelectPost = () => {
-    const { post, selectPost } = this.props
 
-    selectPost(post.id)
-  }
   onChangeExpand = (_, expanded) => {
     if (this.isUnmounted) return
 
@@ -84,7 +81,6 @@ class Component extends React.Component<any, any> {
           <ExpansionPanelSummaryPost post={post} />
         </ExpansionPanelSummary>
         <PostActions
-          onSelectPost={this.onSelectPost}
           onClickLike={this.onClickLike}
           postId={post.id}
           inProgressLike={inProgressLike}
