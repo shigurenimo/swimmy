@@ -9,7 +9,7 @@ import React, { Fragment } from 'react'
 import { collectionData } from 'rxfire/firestore'
 import { POSTS_AS_IMAGE } from '../constants/collection'
 import { DESC } from '../constants/order'
-import { CardImages } from '../containers/CardImages'
+import { CardImages } from '../components/CardImages'
 import { createdAt } from '../libs/createdAt'
 
 class Component extends React.Component<any, any> {

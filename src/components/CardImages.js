@@ -1,24 +1,20 @@
 import createStyles from '@material-ui/core/styles/createStyles'
 import withStyles from '@material-ui/core/styles/withStyles'
 import React from 'react'
-import { CardImage } from './CardImage'
+import { CardImage } from '../containers/CardImage'
 import { px } from '../libs/styles/px'
 import { resetList } from '../libs/styles/resetList'
 
-class Component extends React.Component<any, any> {
-  render() {
-    const { classes, posts } = this.props
-
-    return (
-      <ul className={classes.posts}>
-        {posts.map(post => (
-          <li key={post.id} className={classes.card}>
-            <CardImage post={post} />
-          </li>
-        ))}
-      </ul>
-    )
-  }
+const Component = ({ classes, posts }) => {
+  return (
+    <ul className={classes.posts}>
+      {posts.map(post => (
+        <li key={post.id} className={classes.card}>
+          <CardImage post={post} />
+        </li>
+      ))}
+    </ul>
+  )
 }
 
 const styles = ({ breakpoints, spacing }) =>
