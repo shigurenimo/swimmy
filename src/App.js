@@ -6,7 +6,7 @@ import React, { Fragment } from 'react'
 import JssProvider from 'react-jss/lib/JssProvider'
 import { AppRouter } from './AppRouter'
 import { AppAuthProvider } from './containers/AppAuthProvider'
-import { theme } from './theme'
+import { theme } from './libs/theme'
 
 const generateClassName = createGenerateClassName({
   dangerouslyUseGlobalCSS: false,

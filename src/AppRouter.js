@@ -2,6 +2,7 @@ import withStyles from '@material-ui/core/styles/withStyles'
 import React, { Fragment } from 'react'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import { AppHeader } from './containers/AppHeader'
+import { RouterListener } from './containers/RouteListener'
 import { PageAbout } from './pages/PageAbout'
 import { PageChangelogCreate } from './pages/PageChangelogCreate'
 import { PageChangelogs } from './pages/PageChangelogs'
@@ -20,6 +21,7 @@ class Component extends React.Component<any, any> {
     return (
       <BrowserRouter>
         <Fragment>
+          <RouterListener />
           <AppHeader />
           <Switch>
             <Route exact path="/" component={PageHome} />

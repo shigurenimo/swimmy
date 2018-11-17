@@ -37,7 +37,7 @@ class Component extends React.Component<any, any> {
         <PageTitle
           title={'スイミーにようこそ'}
           description={`はじめまして。スイミーは完全な匿名の電子掲示板です。
-          ログインすることでSNSの真似事ができますが、SNSではないのでユーザと仲良くなることはありません。`}
+          ログインすることでSNSの真似事ができますが、SNSではないです。`}
         />
         <TextFieldPost />
         {inProgress && <CircularProgress className={classes.progress} />}
@@ -122,11 +122,7 @@ const styles = ({ spacing }) =>
       marginLeft: 'auto',
       marginRight: 'auto'
     },
-    posts: {
-      display: 'grid',
-      margin: 0,
-      paddingLeft: 0
-    },
+    posts: { display: 'grid', margin: 0, paddingLeft: 0 },
     section: { display: 'grid', gridRowGap: px(spacing.unit * 2) }
   })
 
