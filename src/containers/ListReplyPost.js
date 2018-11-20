@@ -16,7 +16,7 @@ class Component extends React.Component<any, any> {
   isUnmounted = false
   subscription = null
 
-  state = { posts: [], inProgressSubmit: this.props.replyPostCount > 0 }
+  state = { posts: [], inProgress: this.props.replyPostCount > 0 }
 
   render() {
     const { classes } = this.props
@@ -48,20 +48,23 @@ class Component extends React.Component<any, any> {
   componentDidMount() {
     const { postId, replyPostCount } = this.props
 
-    setTimeout(() => {
-      if (this.isUnmounted) return
-      const query = firestore()
-        .collection(POSTS_AS_ANONYM)
-        .doc(postId)
-        .collection(POSTS)
-        .limit(24)
-        .orderBy('createdAt', DESC)
-      this.subscription = collectionData(query).subscribe(docs => {
+    setTimeout(
+      () => {
         if (this.isUnmounted) return
-        docs.reverse()
-        this.setState({ inProgressSubmit: false, posts: docs })
-      })
-    }, replyPostCount > 0 ? 400 : 0)
+        const query = firestore()
+          .collection(POSTS_AS_ANONYM)
+          .doc(postId)
+          .collection(POSTS)
+          .limit(24)
+          .orderBy('createdAt', DESC)
+        this.subscription = collectionData(query).subscribe(docs => {
+          if (this.isUnmounted) return
+          docs.reverse()
+          this.setState({ inProgress: false, posts: docs })
+        })
+      },
+      replyPostCount > 0 ? 400 : 0
+    )
   }
 
   componentWillUnmount() {
