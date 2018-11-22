@@ -62,13 +62,9 @@ class Component extends React.Component {
 
     this.setState({ inProgressImage: true })
 
-    console.log('fileId', fileId)
-
     const file$ = put(ref, file)
 
-    file$.subscribe(res => {
-      console.log('file$', res)
-    })
+    file$.subscribe()
 
     const imageRef = firestore()
       .collection(IMAGES)
@@ -81,9 +77,7 @@ class Component extends React.Component {
       image$$.unsubscribe()
       if (this.isUnmounted) return
       const image = snapToData(imageSnap)
-      console.log('image', image)
       this.setState(state => {
-        console.log('state', state)
         const postImages = [...state.postImages, image]
         return { inProgressImage: false, postImages }
       })
@@ -130,13 +124,6 @@ class Component extends React.Component {
       <section className={classes.root}>
         <InputFile inputRef={this.inputFileRef} onChange={this.onChangeImage} />
         <div className={classes.actions}>
-          <Button
-            aria-label={'Add an user name to post'}
-            color={'primary'}
-            disabled={true}
-          >
-            PUBLIC
-          </Button>
           <Button
             aria-label={'Add an image to post'}
             color={'primary'}

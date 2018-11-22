@@ -18,5 +18,5 @@ firestore().settings({ timestampsInSnapshots: true })
 firestore()
   .enablePersistence({ experimentalTabSynchronization: true })
   .catch(err => {
-    console.log(err)
+    console.error(err)
   })
