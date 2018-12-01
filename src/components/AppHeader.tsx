@@ -10,12 +10,12 @@ import TurnedIn from '@material-ui/icons/TurnedIn'
 import makeStyles from '@material-ui/styles/makeStyles'
 import React, { Fragment, SFC, useContext, useState } from 'react'
 import { Link, RouteComponentProps, withRouter } from 'react-router-dom'
-import AppTitle from '../components/AppTitle'
+import AppTitle from './AppTitle'
 import { AuthContext } from '../contexts/auth'
 import { pct } from '../libs/styles/pct'
 import { px } from '../libs/styles/px'
-import DialogAppMenu from './DialogAppMenu'
-import DialogAppSignIn from './DialogAppSignIn'
+import DialogAppMenu from '../containers/DialogAppMenu'
+import DialogAppSignIn from '../containers/DialogAppSignIn'
 
 interface Props extends RouteComponentProps {
   children?: any

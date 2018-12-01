@@ -4,11 +4,11 @@ import { RouteComponentProps, withRouter } from 'react-router-dom'
 interface Props extends RouteComponentProps {}
 
 class RouterListener extends React.Component<Props> {
-  render() {
+  public render() {
     return null
   }
 
-  componentDidMount() {
+  public componentDidMount() {
     if (process.env.NODE_ENV === 'development') return
     const { history } = this.props
     const dataLayer = window.dataLayer || []

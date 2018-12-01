@@ -1,6 +1,6 @@
 import React, { Fragment, SFC } from 'react'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
-import AppHeader from './containers/AppHeader'
+import AppHeader from './components/AppHeader'
 import RouterListener from './containers/RouteListener'
 import PageAbout from './pages/PageAbout'
 import PageChangelogCreate from './pages/PageChangelogCreate'

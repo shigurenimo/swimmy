@@ -1,6 +1,6 @@
 import { makeStyles } from '@material-ui/styles'
 import React, { SFC } from 'react'
-import CardImage from '../containers/CardImage'
+import CardImage from './CardImage'
 import { PostUi } from '../interfaces/models/post/postWithUi'
 import { px } from '../libs/styles/px'
 import { resetList } from '../libs/styles/resetList'
