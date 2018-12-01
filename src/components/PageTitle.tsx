@@ -1,6 +1,6 @@
 import Typography from '@material-ui/core/Typography'
 import { makeStyles } from '@material-ui/styles'
-import React, { SFC, useContext } from 'react'
+import React, { FunctionComponent, useContext } from 'react'
 import { AuthContext } from '../contexts/auth'
 import { px } from '../libs/styles/px'
 
@@ -10,7 +10,11 @@ interface Props {
   hide?: boolean
 }
 
-const PageTitle: SFC<Props> = ({ title, description, hide = true }) => {
+const PageTitle: FunctionComponent<Props> = ({
+  title,
+  description,
+  hide = true
+}) => {
   const classes = useStyles({})
 
   const { isLogged, isLoggingIn } = useContext(AuthContext)

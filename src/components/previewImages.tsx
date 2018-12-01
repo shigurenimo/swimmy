@@ -1,5 +1,5 @@
 import makeStyles from '@material-ui/styles/makeStyles'
-import React, { SFC } from 'react'
+import React, { FunctionComponent } from 'react'
 import { pct } from '../libs/styles/pct'
 import { px } from '../libs/styles/px'
 
@@ -7,7 +7,7 @@ interface Props {
   photoURLs: string[]
 }
 
-const PreviewImages: SFC<Props> = ({ photoURLs }) => {
+const PreviewImages: FunctionComponent<Props> = ({ photoURLs }) => {
   const classes = useStyles({})
 
   return (

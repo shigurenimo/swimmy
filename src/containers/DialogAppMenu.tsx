@@ -16,7 +16,7 @@ import Search from '@material-ui/icons/Search'
 import Update from '@material-ui/icons/Update'
 import VpnKey from '@material-ui/icons/VpnKey'
 import { auth } from 'firebase/app'
-import React, { SFC, useContext } from 'react'
+import React, { FunctionComponent, useContext } from 'react'
 import { Link } from 'react-router-dom'
 import { AuthContext } from '../contexts/auth'
 
@@ -25,7 +25,7 @@ interface Props {
   isOpen: boolean
 }
 
-const DialogAppMenu: SFC<Props> = props => {
+const DialogAppMenu: FunctionComponent<Props> = props => {
   const { onClose, isOpen } = props
   const authContext = useContext(AuthContext)
 

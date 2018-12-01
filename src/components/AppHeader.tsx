@@ -8,20 +8,20 @@ import Photo from '@material-ui/icons/Photo'
 import PowerSettingsNew from '@material-ui/icons/PowerSettingsNew'
 import TurnedIn from '@material-ui/icons/TurnedIn'
 import makeStyles from '@material-ui/styles/makeStyles'
-import React, { Fragment, SFC, useContext, useState } from 'react'
+import React, { Fragment, FunctionComponent, useContext, useState } from 'react'
 import { Link, RouteComponentProps, withRouter } from 'react-router-dom'
-import AppTitle from './AppTitle'
+import DialogAppMenu from '../containers/DialogAppMenu'
+import DialogAppSignIn from '../containers/DialogAppSignIn'
 import { AuthContext } from '../contexts/auth'
 import { pct } from '../libs/styles/pct'
 import { px } from '../libs/styles/px'
-import DialogAppMenu from '../containers/DialogAppMenu'
-import DialogAppSignIn from '../containers/DialogAppSignIn'
+import AppTitle from './AppTitle'
 
 interface Props extends RouteComponentProps {
   children?: any
 }
 
-const AppHeader: SFC<Props> = props => {
+const AppHeader: FunctionComponent<Props> = props => {
   const [isOpenSignInDialog, setIsOpenSignInDialog] = useState(false)
   const [isOpenMenuDialog, setIsOpenMenuDialog] = useState(false)
 

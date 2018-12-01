@@ -1,6 +1,6 @@
 import TextField from '@material-ui/core/TextField'
 import { makeStyles } from '@material-ui/styles'
-import React, { SFC } from 'react'
+import React, { FunctionComponent } from 'react'
 import { px } from '../libs/styles/px'
 
 interface Props {
@@ -8,7 +8,10 @@ interface Props {
   onChangeContents: any
 }
 
-const FormItemContents: SFC<Props> = ({ contents, onChangeContents }) => {
+const FormItemContents: FunctionComponent<Props> = ({
+  contents,
+  onChangeContents
+}) => {
   const classes = useStyles({})
 
   const onChange = (index: number) => (event: any) => {

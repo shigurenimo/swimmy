@@ -1,6 +1,6 @@
 import Typography from '@material-ui/core/Typography'
 import makeStyles from '@material-ui/styles/makeStyles'
-import React, { SFC } from 'react'
+import React, { FunctionComponent } from 'react'
 
 interface Props {
   description: string
@@ -8,7 +8,11 @@ interface Props {
   Icon: any
 }
 
-const UnderDevelopment: SFC<Props> = ({ description, title, Icon }) => {
+const UnderDevelopment: FunctionComponent<Props> = ({
+  description,
+  title,
+  Icon
+}) => {
   const classes = useStyles({})
 
   return (

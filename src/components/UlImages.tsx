@@ -1,15 +1,15 @@
 import { makeStyles } from '@material-ui/styles'
-import React, { SFC } from 'react'
-import CardImage from './CardImage'
+import React, { FunctionComponent } from 'react'
 import { PostUi } from '../interfaces/models/post/postWithUi'
 import { px } from '../libs/styles/px'
 import { resetList } from '../libs/styles/resetList'
+import CardImage from './CardImage'
 
 interface Props {
   posts: PostUi[]
 }
 
-const UlImages: SFC<Props> = ({ posts }) => {
+const UlImages: FunctionComponent<Props> = ({ posts }) => {
   const classes = useStyles({})
 
   return (

@@ -1,6 +1,6 @@
 import Typography from '@material-ui/core/Typography'
 import makeStyles from '@material-ui/styles/makeStyles'
-import React, { SFC } from 'react'
+import React, { FunctionComponent } from 'react'
 import { px } from '../libs/styles/px'
 
 interface Props {
@@ -8,7 +8,10 @@ interface Props {
   likeCount: number
 }
 
-const PostCounts: SFC<Props> = ({ replyPostCount, likeCount }) => {
+const PostCounts: FunctionComponent<Props> = ({
+  replyPostCount,
+  likeCount
+}) => {
   const classes = useStyles({})
 
   if (!replyPostCount && !likeCount) {

@@ -2,7 +2,12 @@ import CircularProgress from '@material-ui/core/CircularProgress/CircularProgres
 import Button from '@material-ui/core/es/Button'
 import TextField from '@material-ui/core/es/TextField'
 import { makeStyles } from '@material-ui/styles'
-import React, { ChangeEvent, Fragment, SFC, useState } from 'react'
+import React, {
+  ChangeEvent,
+  Fragment,
+  FunctionComponent,
+  useState
+} from 'react'
 import { createPost } from '../libs/createPost'
 import { pct } from '../libs/styles/pct'
 
@@ -36,7 +41,7 @@ interface Props {
   postId: string
 }
 
-const TextFieldReplyPost: SFC<Props> = props => {
+const TextFieldReplyPost: FunctionComponent<Props> = props => {
   const { postId } = props
   const classes = useStyles({})
   const [postText, setPostText] = useState('')

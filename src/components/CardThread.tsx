@@ -2,18 +2,18 @@ import Card from '@material-ui/core/Card/Card'
 import CardContent from '@material-ui/core/CardContent/CardContent'
 import Typography from '@material-ui/core/Typography'
 import makeStyles from '@material-ui/styles/makeStyles'
-import React, { SFC } from 'react'
+import React, { FunctionComponent } from 'react'
 import { Link } from 'react-router-dom'
-import PostCounts from './PostCounts'
 import { PostUi } from '../interfaces/models/post/postWithUi'
 import { pct } from '../libs/styles/pct'
 import { px } from '../libs/styles/px'
+import PostCounts from './PostCounts'
 
 interface Props {
   post: PostUi
 }
 
-const CardThread: SFC<Props> = props => {
+const CardThread: FunctionComponent<Props> = props => {
   const { post } = props
   const classes = useStyles({})
 

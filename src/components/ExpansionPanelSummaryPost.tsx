@@ -1,7 +1,7 @@
 import purple from '@material-ui/core/colors/purple'
 import Typography from '@material-ui/core/Typography'
 import { makeStyles } from '@material-ui/styles'
-import React, { SFC } from 'react'
+import React, { FunctionComponent } from 'react'
 import { PostUi } from '../interfaces/models/post/postWithUi'
 import { px } from '../libs/styles/px'
 import Images from './Images'
@@ -11,7 +11,7 @@ interface Props {
   post: PostUi
 }
 
-const ExpansionPanelSummaryPost: SFC<Props> = ({ post }) => {
+const ExpansionPanelSummaryPost: FunctionComponent<Props> = ({ post }) => {
   const classes = useStyles({})
 
   return (

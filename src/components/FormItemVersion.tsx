@@ -1,6 +1,6 @@
 import TextField from '@material-ui/core/TextField'
 import { makeStyles } from '@material-ui/styles'
-import React, { ChangeEvent, SFC } from 'react'
+import React, { ChangeEvent, FunctionComponent } from 'react'
 import { px } from '../libs/styles/px'
 
 interface Props {
@@ -8,7 +8,10 @@ interface Props {
   version: number
 }
 
-const FormItemVersion: SFC<Props> = ({ onChangeVersion, version }) => {
+const FormItemVersion: FunctionComponent<Props> = ({
+  onChangeVersion,
+  version
+}) => {
   const onChangeMajorVersion = (event: ChangeEvent<any>) => {
     const num = event.target.value
     if (num < 0) {

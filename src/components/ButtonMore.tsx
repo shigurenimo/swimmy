@@ -1,14 +1,14 @@
 import Button from '@material-ui/core/Button/Button'
 import CircularProgress from '@material-ui/core/CircularProgress/CircularProgress'
 import { makeStyles } from '@material-ui/styles'
-import React, { SFC } from 'react'
+import React, { FunctionComponent } from 'react'
 
 interface Props {
   onClick: () => void
   inProgress: boolean
 }
 
-const ButtonMore: SFC<Props> = ({ onClick, inProgress }) => {
+const ButtonMore: FunctionComponent<Props> = ({ onClick, inProgress }) => {
   const classes = useStyles({})
 
   return (

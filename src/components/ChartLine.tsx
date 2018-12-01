@@ -1,6 +1,6 @@
 import { makeStyles } from '@material-ui/styles'
 import { ResponsiveLine } from '@nivo/line'
-import React, { SFC } from 'react'
+import React, { FunctionComponent } from 'react'
 import { pct } from '../libs/styles/pct'
 import { px } from '../libs/styles/px'
 
@@ -8,7 +8,7 @@ interface Props {
   data: any
 }
 
-const ChartLine: SFC<Props> = ({ data }) => {
+const ChartLine: FunctionComponent<Props> = ({ data }) => {
   const classes = useStyles({})
 
   return (

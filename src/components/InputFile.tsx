@@ -1,12 +1,12 @@
 import { makeStyles } from '@material-ui/styles'
-import React, { SFC } from 'react'
+import React, { FunctionComponent } from 'react'
 
 interface Props {
   inputRef: any
   onChange: any
 }
 
-const InputFile: SFC<Props> = ({ inputRef, onChange }) => {
+const InputFile: FunctionComponent<Props> = ({ inputRef, onChange }) => {
   const classes = useStyles({})
 
   return (

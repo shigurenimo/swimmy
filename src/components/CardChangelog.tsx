@@ -2,7 +2,7 @@ import Card from '@material-ui/core/Card/Card'
 import CardContent from '@material-ui/core/CardContent/CardContent'
 import Typography from '@material-ui/core/Typography'
 import makeStyles from '@material-ui/styles/makeStyles'
-import React, { SFC } from 'react'
+import React, { FunctionComponent } from 'react'
 
 interface Props {
   version: string
@@ -10,7 +10,7 @@ interface Props {
   date: string
 }
 
-const CardChangelog: SFC<Props> = props => {
+const CardChangelog: FunctionComponent<Props> = props => {
   const { version, contents, date } = props
   const classes = useStyles({})
 

@@ -3,7 +3,7 @@ import Delete from '@material-ui/icons/Delete'
 import Favorite from '@material-ui/icons/Favorite'
 import Launch from '@material-ui/icons/Launch'
 import { makeStyles } from '@material-ui/styles'
-import React, { SFC } from 'react'
+import React, { FunctionComponent } from 'react'
 import { Link } from 'react-router-dom'
 
 interface Props {
@@ -13,7 +13,7 @@ interface Props {
   postId: string
 }
 
-const PostActions: SFC<Props> = ({
+const PostActions: FunctionComponent<Props> = ({
   inProgressLike,
   hasLike,
   onClickLike,

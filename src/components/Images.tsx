@@ -1,6 +1,6 @@
 import Paper from '@material-ui/core/Paper/Paper'
 import { makeStyles } from '@material-ui/styles'
-import React, { SFC } from 'react'
+import React, { FunctionComponent } from 'react'
 import { pct } from '../libs/styles/pct'
 import { px } from '../libs/styles/px'
 
@@ -8,7 +8,7 @@ interface Props {
   photoURLs: string[]
 }
 
-const Images: SFC<Props> = ({ photoURLs }) => {
+const Images: FunctionComponent<Props> = ({ photoURLs }) => {
   const classes = useStyles({})
 
   return (
