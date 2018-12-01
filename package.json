@@ -12,7 +12,7 @@
     "react-dom": "^16.7.0-alpha.0",
     "react-jss": "^8.6.1",
     "react-router-dom": "^4.3.1",
-    "react-scripts": "^2.0.2",
+    "react-scripts": "^2.1.1",
     "recompose": "^0.30.0",
     "rxfire": "^3.0.8",
     "rxjs": "^6.3.3"
