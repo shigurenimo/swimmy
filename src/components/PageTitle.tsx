@@ -36,7 +36,6 @@ const PageTitle: SFC<Props> = ({ title, description, hide = true }) => {
 }
 
 const useStyles = makeStyles(({ spacing, palette }) => {
-  console.log(palette)
   return {
     root: {
       display: 'grid',

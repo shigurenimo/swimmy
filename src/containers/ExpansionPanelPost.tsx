@@ -13,7 +13,7 @@ import { PostUi } from '../interfaces/models/post/postWithUi'
 import { createPostLike } from '../libs/createPostLike'
 import { px } from '../libs/styles/px'
 import ListReplyPost from './ListReplyPost'
-import TextFieldReplyPost from './TextFieldReplyPost'
+import TextFieldReplyPost from '../components/TextFieldReplyPost'
 
 const styles = ({ spacing }: Theme) => {
   return createStyles({
