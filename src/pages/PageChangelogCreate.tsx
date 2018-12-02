@@ -3,7 +3,7 @@ import createStyles from '@material-ui/core/styles/createStyles'
 import withStyles from '@material-ui/core/styles/withStyles'
 import { WithStyles } from '@material-ui/styles/withStyles'
 import React, { Component } from 'react'
-import FormChangelogCreate from '../containers/FormChangelogCreate'
+import FormChangelogCreate from '../components/FormChangelogCreate'
 
 const styles = ({ spacing }: Theme) => {
   return createStyles({

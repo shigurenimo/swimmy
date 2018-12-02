@@ -36,7 +36,6 @@ interface State {
 class ListReplyPost extends Component<Props, State> {
   public state = { posts: [], inProgress: this.props.replyPostCount > 0 }
 
-  private isUnmounted = false
   private subscription?: Subscription
 
   render() {
@@ -71,7 +70,6 @@ class ListReplyPost extends Component<Props, State> {
 
     setTimeout(
       () => {
-        if (this.isUnmounted) return
         const query = firestore()
           .collection(POSTS_AS_ANONYM)
           .doc(postId)
@@ -79,7 +77,6 @@ class ListReplyPost extends Component<Props, State> {
           .limit(24)
           .orderBy('createdAt', DESC)
         this.subscription = collectionData(query).subscribe((docs: any) => {
-          if (this.isUnmounted) return
           docs.reverse()
           this.setState({ inProgress: false, posts: docs })
         })
@@ -89,7 +86,6 @@ class ListReplyPost extends Component<Props, State> {
   }
 
   componentWillUnmount() {
-    this.isUnmounted = true
     if (this.subscription) {
       this.subscription.unsubscribe()
     }

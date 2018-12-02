@@ -7,8 +7,8 @@ interface State {
   isLogged: boolean
 }
 
-class AppAuthProvider extends Component<any, State> {
-  state = { isLoggingIn: true, isLogged: false }
+class AppAuthProvider extends Component {
+  state: State = { isLoggingIn: true, isLogged: false }
 
   render() {
     const { children } = this.props
