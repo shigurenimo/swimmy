@@ -3,14 +3,14 @@ import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary'
 import { makeStyles } from '@material-ui/styles'
 import { auth, firestore } from 'firebase/app'
 import React, { ChangeEvent, FunctionComponent, useState } from 'react'
-import ExpansionPanelSummaryPost from './ExpansionPanelSummaryPost'
-import PostActions from './PostActions'
-import TextFieldReplyPost from './TextFieldReplyPost'
 import { LIKES, POSTS } from '../constants/collection'
+import ListReplyPost from '../containers/ListReplyPost'
 import { PostUi } from '../interfaces/models/post/postWithUi'
 import { createPostLike } from '../libs/createPostLike'
 import { px } from '../libs/styles/px'
-import ListReplyPost from '../containers/ListReplyPost'
+import ExpansionPanelSummaryPost from './ExpansionPanelSummaryPost'
+import PostActions from './PostActions'
+import TextFieldReplyPost from './TextFieldReplyPost'
 
 const useStyle = makeStyles(({ spacing }) => {
   return {
@@ -52,13 +52,17 @@ const ExpansionPanelPost: FunctionComponent<Props> = ({ inProgress, post }) => {
       .where('docId', '==', post.id)
       .get()
       .then(res => {
-        setState({ ...state, inProgressLike: false, hasLike: !res.empty })
+        setState(state => ({
+          ...state,
+          inProgressLike: false,
+          hasLike: !res.empty
+        }))
       })
   }
 
   const onClickPanelSummary = (event: ChangeEvent<any>) => {
     if (event.target.tagName !== 'SPAN') {
-      setState({ ...state, expanded: !state.expanded })
+      setState(state => ({ ...state, expanded: !state.expanded }))
     }
   }
 

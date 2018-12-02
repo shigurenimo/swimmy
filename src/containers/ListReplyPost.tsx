@@ -1,9 +1,9 @@
-import { Theme } from '@material-ui/core/styles'
 import CircularProgress from '@material-ui/core/CircularProgress/CircularProgress'
 import Fade from '@material-ui/core/Fade/Fade'
 import List from '@material-ui/core/List/List'
 import ListItem from '@material-ui/core/ListItem/ListItem'
 import ListItemText from '@material-ui/core/ListItemText/ListItemText'
+import { Theme } from '@material-ui/core/styles'
 import createStyles from '@material-ui/core/styles/createStyles'
 import withStyles from '@material-ui/core/styles/withStyles'
 import { WithStyles } from '@material-ui/styles/withStyles'
@@ -50,18 +50,20 @@ class ListReplyPost extends Component<Props, State> {
       )
     }
 
+    if (!posts.length) {
+      return null
+    }
+
     return (
-      Boolean(posts.length) && (
-        <Fade in>
-          <List className={classes.root}>
-            {posts.map(post => (
-              <ListItem key={post.id} button>
-                <ListItemText>{post.text}</ListItemText>
-              </ListItem>
-            ))}
-          </List>
-        </Fade>
-      )
+      <Fade in>
+        <List className={classes.root}>
+          {posts.map(post => (
+            <ListItem key={post.id} button>
+              <ListItemText>{post.text}</ListItemText>
+            </ListItem>
+          ))}
+        </List>
+      </Fade>
     )
   }
 
