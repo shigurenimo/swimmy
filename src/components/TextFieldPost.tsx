@@ -8,12 +8,12 @@ import { firestore, storage } from 'firebase/app'
 import React, { ChangeEvent, FunctionComponent, useState } from 'react'
 import { doc, snapToData } from 'rxfire/firestore'
 import { put } from 'rxfire/storage'
-import InputFile from './InputFile'
-import PreviewImages from './previewImages'
 import { IMAGES } from '../constants/collection'
 import { createId } from '../libs/createId'
 import { createPost } from '../libs/createPost'
 import { px } from '../libs/styles/px'
+import InputFile from './InputFile'
+import PreviewImages from './previewImages'
 
 interface Props {
   replyPostId?: string

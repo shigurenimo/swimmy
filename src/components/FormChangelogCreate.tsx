@@ -2,10 +2,10 @@ import Button from '@material-ui/core/Button/Button'
 import TextField from '@material-ui/core/TextField'
 import { makeStyles } from '@material-ui/styles'
 import React, { ChangeEvent, FunctionComponent, useState } from 'react'
-import FormItemContents from './FormItemContents'
-import FormItemVersion from './FormItemVersion'
 import { createChangelog } from '../libs/createChangelog'
 import { px } from '../libs/styles/px'
+import FormItemContents from './FormItemContents'
+import FormItemVersion from './FormItemVersion'
 
 const useStyles = makeStyles(({ spacing }) => {
   return {

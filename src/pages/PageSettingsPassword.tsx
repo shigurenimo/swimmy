@@ -1,7 +1,7 @@
-import { Theme } from '@material-ui/core/styles'
 import Button from '@material-ui/core/Button/Button'
 import Snackbar from '@material-ui/core/Snackbar/Snackbar'
 import SnackbarContent from '@material-ui/core/SnackbarContent/SnackbarContent'
+import { Theme } from '@material-ui/core/styles'
 import createStyles from '@material-ui/core/styles/createStyles'
 import withStyles from '@material-ui/core/styles/withStyles'
 import TextField from '@material-ui/core/TextField'
