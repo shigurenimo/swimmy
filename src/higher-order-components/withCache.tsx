@@ -4,11 +4,11 @@ const cacheMap = new Map()
 
 const create = (location: any) => {
   return {
-    save: (state: any) => {
-      cacheMap.set(location.pathname, state)
-    },
     restore: () => {
       return cacheMap.get(location.pathname)
+    },
+    save: (state: any) => {
+      cacheMap.set(location.pathname, state)
     }
   }
 }

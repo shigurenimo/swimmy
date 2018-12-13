@@ -1,5 +1,5 @@
 import Typography from '@material-ui/core/Typography'
-import makeStyles from '@material-ui/styles/makeStyles'
+import { makeStyles } from '@material-ui/styles'
 import React, { FunctionComponent } from 'react'
 import { px } from '../libs/styles/px'
 
@@ -13,11 +13,9 @@ const PostCounts: FunctionComponent<Props> = ({
   likeCount
 }) => {
   const classes = useStyles({})
-
   if (!replyPostCount && !likeCount) {
     return null
   }
-
   return (
     <div className={classes.root}>
       {replyPostCount > 0 && (
@@ -36,14 +34,14 @@ const PostCounts: FunctionComponent<Props> = ({
 
 const useStyles = makeStyles(({ palette, spacing }) => {
   return {
+    likeCount: { color: palette.secondary.dark },
+    replyPostCount: { color: palette.primary.dark },
     root: {
       display: 'grid',
-      gridTemplateColumns: 'max-content',
       gridAutoFlow: 'column',
-      gridColumnGap: px(spacing.unit)
-    },
-    likeCount: { color: palette.secondary.dark },
-    replyPostCount: { color: palette.primary.dark }
+      gridColumnGap: px(spacing.unit),
+      gridTemplateColumns: 'max-content'
+    }
   }
 })
 

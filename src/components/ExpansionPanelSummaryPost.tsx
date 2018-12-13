@@ -13,7 +13,6 @@ interface Props {
 
 const ExpansionPanelSummaryPost: FunctionComponent<Props> = ({ post }) => {
   const classes = useStyles({})
-
   return (
     <div className={classes.root}>
       <PostCounts
@@ -46,7 +45,7 @@ const useStyles = makeStyles(
         wordBreak: 'break-all'
       },
       likeCount: { paddingLeft: spacing.unit, color: palette.secondary.light },
-      replyPostCount: { color: purple['A400'], paddingLeft: spacing.unit }
+      replyPostCount: { color: purple.A400, paddingLeft: spacing.unit }
     }
   }
 )

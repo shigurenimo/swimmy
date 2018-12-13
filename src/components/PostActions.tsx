@@ -1,4 +1,4 @@
-import IconButton from '@material-ui/core/IconButton/IconButton'
+import IconButton from '@material-ui/core/IconButton'
 import Delete from '@material-ui/icons/Delete'
 import Favorite from '@material-ui/icons/Favorite'
 import Launch from '@material-ui/icons/Launch'
@@ -20,7 +20,6 @@ const PostActions: FunctionComponent<Props> = ({
   postId
 }) => {
   const classes = useStyles({})
-
   return (
     <div className={classes.root}>
       <IconButton
@@ -52,12 +51,12 @@ const PostActions: FunctionComponent<Props> = ({
 
 const useStyles = makeStyles(({ spacing }) => {
   return {
+    iconButton: { marginRight: spacing.unit },
     root: {
+      paddingBottom: spacing.unit * 1.5,
       paddingLeft: spacing.unit * 1.5,
-      paddingRight: spacing.unit * 1.5,
-      paddingBottom: spacing.unit * 1.5
-    },
-    iconButton: { marginRight: spacing.unit }
+      paddingRight: spacing.unit * 1.5
+    }
   }
 })
 

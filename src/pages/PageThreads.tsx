@@ -1,14 +1,12 @@
-import CircularProgress from '@material-ui/core/CircularProgress/CircularProgress'
-import Fade from '@material-ui/core/Fade/Fade'
+import CircularProgress from '@material-ui/core/CircularProgress'
+import Fade from '@material-ui/core/Fade'
 import { Theme } from '@material-ui/core/styles'
-import createStyles from '@material-ui/core/styles/createStyles'
-import withStyles from '@material-ui/core/styles/withStyles'
-import Tab from '@material-ui/core/Tab/Tab'
-import Tabs from '@material-ui/core/Tabs/Tabs'
-import { WithStyles } from '@material-ui/styles/withStyles'
+import Tab from '@material-ui/core/Tab'
+import Tabs from '@material-ui/core/Tabs'
+import { createStyles, withStyles, WithStyles } from '@material-ui/styles'
 import { firestore } from 'firebase/app'
 import React, { Component } from 'react'
-import { RouteComponentProps } from 'react-router'
+import { RouteComponentProps } from 'react-router-dom'
 import { collectionData } from 'rxfire/firestore'
 import { Subscription } from 'rxjs'
 import ButtonMore from '../components/ButtonMore'
@@ -24,19 +22,19 @@ import { px } from '../libs/styles/px'
 
 const styles = ({ spacing }: Theme) => {
   return createStyles({
-    root: { display: 'grid', gridRowGap: px(spacing.unit * 2) },
-    progress: {
-      display: 'block',
-      marginTop: spacing.unit * 10,
-      marginLeft: 'auto',
-      marginRight: 'auto'
-    },
     posts: {
       display: 'grid',
       gridRowGap: px(spacing.unit * 2),
       marginLeft: spacing.unit * 2,
       marginRight: spacing.unit * 2
     },
+    progress: {
+      display: 'block',
+      marginLeft: 'auto',
+      marginRight: 'auto',
+      marginTop: spacing.unit * 10
+    },
+    root: { display: 'grid', gridRowGap: px(spacing.unit * 2) },
     section: { display: 'grid', gridRowGap: px(spacing.unit * 2) }
   })
 }
@@ -55,11 +53,11 @@ interface State {
 
 class PageThreads extends Component<Props> {
   public state: State = {
-    posts: [],
     inProgress: true,
     inProgressMore: false,
+    limit: 16,
     orderBy: 'updatedAt',
-    limit: 16
+    posts: []
   }
   private isUnmounted = false
   private subscription?: Subscription
@@ -67,7 +65,6 @@ class PageThreads extends Component<Props> {
   public render() {
     const { classes } = this.props
     const { posts, inProgress, inProgressMore, limit } = this.state
-
     return (
       <main className={classes.root}>
         <PageTitle
@@ -122,7 +119,9 @@ class PageThreads extends Component<Props> {
 
   private onMore = () => {
     const { limit, inProgressMore, orderBy } = this.state
-    if (inProgressMore) return
+    if (inProgressMore) {
+      return
+    }
     const nextLimit = limit + 16
     this.setState({ inProgressMore: true, limit: nextLimit })
     this.subscribePosts(orderBy, nextLimit)
@@ -130,13 +129,10 @@ class PageThreads extends Component<Props> {
 
   private onChangeTab = (_: any, orderBy: string) => {
     const { history } = this.props
-
     history.push(`?order=${orderBy}`)
-
     if (this.subscription) {
       this.subscription.unsubscribe()
     }
-
     this.subscription = this.subscribePosts(orderBy)
     this.setState({ orderBy, inProgress: true })
     this.saveState()
@@ -148,7 +144,9 @@ class PageThreads extends Component<Props> {
       .limit(limit)
       .orderBy(orderBy, DESC)
     return collectionData<Post>(query).subscribe(docs => {
-      if (this.isUnmounted) return
+      if (this.isUnmounted) {
+        return
+      }
       const posts = docs.map(doc => {
         return { ...doc, ui: { createdAt: createdAt(doc.createdAt) } }
       })
@@ -158,7 +156,6 @@ class PageThreads extends Component<Props> {
 
   private getOrderBy() {
     const { location } = this.props
-
     switch (location.search.replace('?order=', '')) {
       case 'createdAt':
         return 'createdAt'
@@ -174,22 +171,19 @@ class PageThreads extends Component<Props> {
   private restoreState() {
     const { cache } = this.props
     const state = cache.restore()
-
     if (state) {
       this.setState({
-        posts: state.posts,
+        inProgress: false,
         limit: state.limit,
-        inProgress: false
+        posts: state.posts
       })
     }
-
     return state
   }
 
   private saveState() {
     const { posts, limit } = this.state
     const { cache } = this.props
-
     cache.save({ posts, limit })
   }
 }

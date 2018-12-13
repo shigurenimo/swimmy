@@ -1,11 +1,10 @@
 import CircularProgress from '@material-ui/core/CircularProgress'
 import { makeStyles } from '@material-ui/styles'
-import React, { SFC } from 'react'
+import React, { FunctionComponent } from 'react'
 import { pct } from '../libs/styles/pct'
 
-const AppLoading: SFC = () => {
+const AppLoading: FunctionComponent = () => {
   const classes = useStyles({})
-
   return (
     <div className={classes.root}>
       <CircularProgress size={50} />

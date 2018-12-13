@@ -1,8 +1,8 @@
 import Button from '@material-ui/core/Button'
-import CircularProgress from '@material-ui/core/CircularProgress/CircularProgress'
+import CircularProgress from '@material-ui/core/CircularProgress'
 import FormControl from '@material-ui/core/FormControl'
 import Input from '@material-ui/core/Input'
-import InputLabel from '@material-ui/core/InputLabel/InputLabel'
+import InputLabel from '@material-ui/core/InputLabel'
 import { makeStyles } from '@material-ui/styles'
 import { firestore, storage } from 'firebase/app'
 import React, { ChangeEvent, FunctionComponent, useState } from 'react'
@@ -28,21 +28,21 @@ interface State {
 
 const TextFieldPost: FunctionComponent<Props> = props => {
   const { replyPostId = '' } = props
+
   const [state, setState] = useState<State>({
-    postText: '',
-    postImages: [],
+    inProgressImage: false,
     inProgressSubmit: false,
-    inProgressImage: false
+    postImages: [],
+    postText: ''
   })
+
   const inputFileRef = React.createRef()
+
   const classes = useStyle({})
+
   const inProgress = state.inProgressSubmit || state.inProgressImage
 
-  const disabled = () => {
-    const inProgress = state.inProgressSubmit || state.inProgressImage
-
-    return inProgress || state.postText.match(/\S/g) === null
-  }
+  const disabled = inProgress || state.postText.match(/\S/g) === null
 
   const onChangePostText = (event: ChangeEvent<any>) => {
     event.persist()
@@ -53,7 +53,6 @@ const TextFieldPost: FunctionComponent<Props> = props => {
     if (state.inProgressSubmit || state.inProgressImage) {
       return
     }
-
     if (inputFileRef.current) {
       const current = inputFileRef.current as any
       current.click()
@@ -64,23 +63,20 @@ const TextFieldPost: FunctionComponent<Props> = props => {
     if (state.inProgressSubmit || state.inProgressImage) {
       return
     }
-
     const [file] = event.target.files
     const fileId = createId()
     const ref = storage().ref(`posts/${fileId}`)
-
     setState({ ...state, inProgressImage: true })
-
     const file$ = put(ref, file)
-
     file$.subscribe()
-
     const imageRef = firestore()
       .collection(IMAGES)
       .doc(fileId)
     const image$ = doc(imageRef)
     const image$$ = image$.subscribe(imageSnap => {
-      if (!imageSnap.exists) return
+      if (!imageSnap.exists) {
+        return
+      }
       image$$.unsubscribe()
       const image = snapToData(imageSnap as any)
       const postImages = [...state.postImages, image]
@@ -89,12 +85,11 @@ const TextFieldPost: FunctionComponent<Props> = props => {
   }
 
   const onSubmitPost = () => {
-    if (disabled()) return
-
+    if (disabled) {
+      return
+    }
     setState({ ...state, inProgressSubmit: true })
-
     const fileIds = state.postImages.map(image => image.id)
-
     createPost({ fileIds, text: state.postText, replyPostId })
       .then(() => {
         setState({
@@ -126,8 +121,8 @@ const TextFieldPost: FunctionComponent<Props> = props => {
           color={'primary'}
           aria-label={'Send a post'}
           className={classes.submitButton}
-          disabled={disabled()}
-          variant={disabled() ? 'text' : 'contained'}
+          disabled={disabled}
+          variant={disabled ? 'text' : 'contained'}
           onClick={onSubmitPost}
         >
           GO
@@ -164,12 +159,21 @@ const TextFieldPost: FunctionComponent<Props> = props => {
 
 const useStyle = makeStyles(({ spacing }) => {
   return {
-    root: {
-      paddingTop: spacing.unit,
-      display: 'grid',
-      gridRowGap: px(spacing.unit)
-    },
     actions: { textAlign: 'right', paddingRight: spacing.unit },
+    buttonProgress: {
+      bottom: 0,
+      left: 0,
+      margin: 'auto',
+      position: 'absolute',
+      right: 0,
+      top: 0
+    },
+    root: {
+      display: 'grid',
+      gridRowGap: px(spacing.unit),
+      paddingTop: spacing.unit
+    },
+    submitButton: { marginLeft: spacing.unit, position: 'relative' },
     textField: {
       paddingLeft: spacing.unit * 1.5,
       paddingRight: spacing.unit * 1.5
@@ -177,15 +181,6 @@ const useStyle = makeStyles(({ spacing }) => {
     textFieldLabel: {
       paddingLeft: spacing.unit * 1.5,
       paddingRight: spacing.unit * 1.5
-    },
-    submitButton: { marginLeft: spacing.unit, position: 'relative' },
-    buttonProgress: {
-      position: 'absolute',
-      top: 0,
-      left: 0,
-      right: 0,
-      bottom: 0,
-      margin: 'auto'
     }
   }
 })

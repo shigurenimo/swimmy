@@ -1,12 +1,10 @@
-import Button from '@material-ui/core/Button/Button'
-import Snackbar from '@material-ui/core/Snackbar/Snackbar'
-import SnackbarContent from '@material-ui/core/SnackbarContent/SnackbarContent'
+import Button from '@material-ui/core/Button'
+import Snackbar from '@material-ui/core/Snackbar'
+import SnackbarContent from '@material-ui/core/SnackbarContent'
 import { Theme } from '@material-ui/core/styles'
-import createStyles from '@material-ui/core/styles/createStyles'
-import withStyles from '@material-ui/core/styles/withStyles'
 import TextField from '@material-ui/core/TextField'
 import Typography from '@material-ui/core/Typography'
-import { WithStyles } from '@material-ui/styles/withStyles'
+import { createStyles, withStyles, WithStyles } from '@material-ui/styles'
 import classnames from 'classnames'
 import { auth } from 'firebase/app'
 import React, { ChangeEvent, Component, Fragment } from 'react'
@@ -15,13 +13,7 @@ import { px } from '../libs/styles/px'
 
 const styles = ({ spacing, palette }: Theme) => {
   return createStyles({
-    root: {
-      display: 'grid',
-      gridRowGap: px(spacing.unit * 4),
-      paddingTop: spacing.unit * 4,
-      paddingLeft: spacing.unit * 2,
-      paddingRight: spacing.unit * 2
-    },
+    actions: { textAlign: 'right' },
     form: {
       display: 'grid',
       gridRowGap: px(spacing.unit * 2),
@@ -29,9 +21,15 @@ const styles = ({ spacing, palette }: Theme) => {
       width: pct(100),
       margin: '0 auto'
     },
-    actions: { textAlign: 'right' },
-    snackbarMessage: { color: 'tomato' },
-    snackbarError: { backgroundColor: palette.error.dark }
+    root: {
+      display: 'grid',
+      gridRowGap: px(spacing.unit * 4),
+      paddingLeft: spacing.unit * 2,
+      paddingRight: spacing.unit * 2,
+      paddingTop: spacing.unit * 4
+    },
+    snackbarError: { backgroundColor: palette.error.dark },
+    snackbarMessage: { color: 'tomato' }
   })
 }
 
@@ -48,19 +46,18 @@ interface State {
 
 class PageSettingsPassword extends Component<Props> {
   public state: State = {
-    password: '',
     currentPassword: '',
-    snackbarOpen: false,
+    inProgress: false,
+    password: '',
     snackbarMessage: '',
-    snackbarType: '',
-    inProgress: false
+    snackbarOpen: false,
+    snackbarType: ''
   }
 
   private isUnmounted = false
 
   get disabled() {
     const { password, currentPassword, inProgress } = this.state
-
     return (
       !password ||
       !currentPassword ||
@@ -79,7 +76,6 @@ class PageSettingsPassword extends Component<Props> {
       snackbarMessage,
       snackbarType
     } = this.state
-
     return (
       <Fragment>
         <div className={classes.root}>
@@ -136,7 +132,7 @@ class PageSettingsPassword extends Component<Props> {
     )
   }
 
-  componentWillUnmount() {
+  public componentWillUnmount() {
     this.isUnmounted = true
   }
 
@@ -150,47 +146,45 @@ class PageSettingsPassword extends Component<Props> {
 
   private onSubmit = () => {
     const { password, currentPassword } = this.state
-
-    if (password === currentPassword) return
-
+    if (password === currentPassword) {
+      return
+    }
     this.setState({ inProgressSubmit: true })
-
     const currentUser = auth().currentUser
-
     if (!currentUser) {
       throw new Error('currentUser not found')
     }
-
     const { email } = currentUser
-
     if (!email) {
       throw new Error('email not found')
     }
-
     const credential = auth.EmailAuthProvider.credential(email, currentPassword)
-
     currentUser
       .reauthenticateWithCredential(credential)
       .then(() => {
         return currentUser.updatePassword(password)
       })
       .then(() => {
-        if (this.isUnmounted) return
+        if (this.isUnmounted) {
+          return
+        }
         this.setState({
+          currentPassword: '',
           inProgressSubmit: false,
-          snackbarOpen: true,
-          snackbarMessage: 'パスワードを更新しました',
-          snackbarType: 'success',
           password: '',
-          currentPassword: ''
+          snackbarMessage: 'パスワードを更新しました',
+          snackbarOpen: true,
+          snackbarType: 'success'
         })
       })
       .catch(err => {
-        if (this.isUnmounted) return
+        if (this.isUnmounted) {
+          return
+        }
         this.setState({
           inProgressSubmit: false,
-          snackbarOpen: true,
           snackbarMessage: `ERROR: ${err.message}`,
+          snackbarOpen: true,
           snackbarType: 'error'
         })
       })

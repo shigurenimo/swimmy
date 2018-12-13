@@ -8,7 +8,6 @@ interface Props {
 
 const InputFile: FunctionComponent<Props> = ({ inputRef, onChange }) => {
   const classes = useStyles({})
-
   return (
     <input
       className={classes.root}
@@ -20,8 +19,6 @@ const InputFile: FunctionComponent<Props> = ({ inputRef, onChange }) => {
   )
 }
 
-const useStyles = makeStyles({
-  root: { display: 'none' }
-})
+const useStyles = makeStyles({ root: { display: 'none' } })
 
 export default InputFile

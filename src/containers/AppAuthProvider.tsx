@@ -8,16 +8,15 @@ interface State {
 }
 
 class AppAuthProvider extends Component {
-  state: State = { isLoggingIn: true, isLogged: false }
+  public state: State = { isLoggingIn: true, isLogged: false }
 
-  render() {
+  public render() {
     const { children } = this.props
-
     return (
       <AuthContext.Provider
         value={{
-          isLoggingIn: this.state.isLoggingIn,
-          isLogged: this.state.isLogged
+          isLogged: this.state.isLogged,
+          isLoggingIn: this.state.isLoggingIn
         }}
       >
         {children}
@@ -25,13 +24,10 @@ class AppAuthProvider extends Component {
     )
   }
 
-  componentDidMount() {
+  public componentDidMount() {
     auth().onAuthStateChanged(res => {
       this.setState(() => {
-        return {
-          isLoggingIn: false,
-          isLogged: Boolean(res)
-        }
+        return { isLogged: Boolean(res), isLoggingIn: false }
       })
     })
   }

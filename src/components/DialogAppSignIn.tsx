@@ -1,13 +1,12 @@
-import Button from '@material-ui/core/Button/Button'
-import Dialog from '@material-ui/core/Dialog/Dialog'
-import DialogActions from '@material-ui/core/DialogActions/DialogActions'
-import DialogContent from '@material-ui/core/DialogContent/DialogContent'
-import DialogContentText from '@material-ui/core/DialogContentText/DialogContentText'
-import DialogTitle from '@material-ui/core/DialogTitle/DialogTitle'
-import LinearProgress from '@material-ui/core/LinearProgress/LinearProgress'
-import createStyles from '@material-ui/core/styles/createStyles'
+import Button from '@material-ui/core/Button'
+import Dialog from '@material-ui/core/Dialog'
+import DialogActions from '@material-ui/core/DialogActions'
+import DialogContent from '@material-ui/core/DialogContent'
+import DialogContentText from '@material-ui/core/DialogContentText'
+import DialogTitle from '@material-ui/core/DialogTitle'
+import LinearProgress from '@material-ui/core/LinearProgress'
 import TextField from '@material-ui/core/TextField'
-import { makeStyles } from '@material-ui/styles'
+import { createStyles, makeStyles } from '@material-ui/styles'
 import { auth } from 'firebase/app'
 import React, { ChangeEvent, FunctionComponent, useState } from 'react'
 
@@ -26,7 +25,6 @@ interface State {
 
 const DialogAppSignIn: FunctionComponent<Props> = ({ isOpen, closeDialog }) => {
   const classes = useStyle({})
-
   const [state, setState] = useState<State>({
     errorCode: '',
     errorMessage: '',
@@ -34,7 +32,6 @@ const DialogAppSignIn: FunctionComponent<Props> = ({ isOpen, closeDialog }) => {
     password: '',
     inProgress: false
   })
-
   const onChangeEmail = (event: ChangeEvent<any>) => {
     setState({
       ...state,
@@ -43,7 +40,6 @@ const DialogAppSignIn: FunctionComponent<Props> = ({ isOpen, closeDialog }) => {
       errorMessage: ''
     })
   }
-
   const onChangePassword = (event: ChangeEvent<any>) => {
     setState({
       ...state,
@@ -52,7 +48,6 @@ const DialogAppSignIn: FunctionComponent<Props> = ({ isOpen, closeDialog }) => {
       errorMessage: ''
     })
   }
-
   const onSignUp = () => {
     if (state.inProgress) {
       return
@@ -73,7 +68,6 @@ const DialogAppSignIn: FunctionComponent<Props> = ({ isOpen, closeDialog }) => {
         setState({ ...state, errorCode, errorMessage, inProgress: false })
       })
   }
-
   const onSignIn = () => {
     setState({ ...state, inProgress: true, errorCode: '', errorMessage: '' })
     const username = state.email.includes('@')
@@ -91,7 +85,6 @@ const DialogAppSignIn: FunctionComponent<Props> = ({ isOpen, closeDialog }) => {
         setState({ ...state, inProgress: false, errorCode, errorMessage })
       })
   }
-
   return (
     <Dialog
       open={isOpen}

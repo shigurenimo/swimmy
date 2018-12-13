@@ -1,4 +1,4 @@
-import Button from '@material-ui/core/Button/Button'
+import Button from '@material-ui/core/Button'
 import TextField from '@material-ui/core/TextField'
 import { makeStyles } from '@material-ui/styles'
 import React, { ChangeEvent, FunctionComponent, useState } from 'react'
@@ -6,12 +6,6 @@ import { createChangelog } from '../libs/createChangelog'
 import { px } from '../libs/styles/px'
 import FormItemContents from './FormItemContents'
 import FormItemVersion from './FormItemVersion'
-
-const useStyles = makeStyles(({ spacing }) => {
-  return {
-    root: { display: 'grid', gridRowGap: px(spacing.unit * 2) }
-  }
-})
 
 interface Props {}
 
@@ -27,21 +21,16 @@ const FormChangelogCreate: FunctionComponent<Props> = () => {
     date: '2017-05-24',
     version: 1000000
   })
-
   const classes = useStyles({})
-
   const onChangeContents = (contents: string[]) => {
     setState({ ...state, contents })
   }
-
   const onChangeDate = (event: ChangeEvent<any>) => {
     setState({ ...state, date: event.target.value })
   }
-
   const onChangeVersion = (version: number) => {
     setState({ ...state, version })
   }
-
   const onSubmit = () => {
     createChangelog({
       contents: state.contents.filter(content => content),
@@ -51,7 +40,6 @@ const FormChangelogCreate: FunctionComponent<Props> = () => {
       setState({ ...state, contents: [''] })
     })
   }
-
   return (
     <form className={classes.root}>
       <FormItemVersion
@@ -83,5 +71,11 @@ const FormChangelogCreate: FunctionComponent<Props> = () => {
     </form>
   )
 }
+
+const useStyles = makeStyles(({ spacing }) => {
+  return {
+    root: { display: 'grid', gridRowGap: px(spacing.unit * 2) }
+  }
+})
 
 export default FormChangelogCreate

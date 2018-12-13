@@ -1,13 +1,13 @@
-import AppBar from '@material-ui/core/AppBar/AppBar'
-import IconButton from '@material-ui/core/IconButton/IconButton'
-import LinearProgress from '@material-ui/core/LinearProgress/LinearProgress'
-import Toolbar from '@material-ui/core/Toolbar/Toolbar'
+import AppBar from '@material-ui/core/AppBar'
+import IconButton from '@material-ui/core/IconButton'
+import LinearProgress from '@material-ui/core/LinearProgress'
+import Toolbar from '@material-ui/core/Toolbar'
 import Close from '@material-ui/icons/Close'
 import MoreHoriz from '@material-ui/icons/MoreHoriz'
 import Photo from '@material-ui/icons/Photo'
 import PowerSettingsNew from '@material-ui/icons/PowerSettingsNew'
 import TurnedIn from '@material-ui/icons/TurnedIn'
-import makeStyles from '@material-ui/styles/makeStyles'
+import { makeStyles } from '@material-ui/styles'
 import React, { Fragment, FunctionComponent, useContext, useState } from 'react'
 import { Link, RouteComponentProps, withRouter } from 'react-router-dom'
 import { AuthContext } from '../contexts/auth'
@@ -24,35 +24,25 @@ interface Props extends RouteComponentProps {
 const AppHeader: FunctionComponent<Props> = props => {
   const [isOpenSignInDialog, setIsOpenSignInDialog] = useState(false)
   const [isOpenMenuDialog, setIsOpenMenuDialog] = useState(false)
-
   const onOpenMenuDialog = () => {
     setIsOpenMenuDialog(true)
   }
-
   const onOpenSignInDialog = () => {
     setIsOpenSignInDialog(true)
   }
-
   const onCloseMenuDialog = () => {
     setIsOpenMenuDialog(false)
   }
-
   const closeDialog = () => {
     setIsOpenSignInDialog(false)
   }
-
   const onGoBack = () => {
     const { history } = props
-
     history.goBack()
   }
-
   const classes = useStyle({})
-
   const isDetailPage = location.pathname.includes('/threads/')
-
   const authContext = useContext(AuthContext)
-
   return (
     <Fragment>
       <AppBar position="sticky" color="default" className={classes.appBar}>

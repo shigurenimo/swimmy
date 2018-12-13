@@ -1,9 +1,7 @@
-import CircularProgress from '@material-ui/core/CircularProgress/CircularProgress'
-import Fade from '@material-ui/core/Fade/Fade'
+import CircularProgress from '@material-ui/core/CircularProgress'
+import Fade from '@material-ui/core/Fade'
 import { Theme } from '@material-ui/core/styles'
-import createStyles from '@material-ui/core/styles/createStyles'
-import withStyles from '@material-ui/core/styles/withStyles'
-import { WithStyles } from '@material-ui/styles/withStyles'
+import { createStyles, withStyles, WithStyles } from '@material-ui/styles'
 import { firestore } from 'firebase/app'
 import React, { Component } from 'react'
 import { collectionData } from 'rxfire/firestore'
@@ -22,10 +20,6 @@ import { toVersionStr } from '../libs/toVersionStr'
 
 const styles = ({ spacing }: Theme) => {
   return createStyles({
-    root: {
-      display: 'grid',
-      gridRowGap: px(spacing.unit * 2)
-    },
     changelogs: {
       ...resetList(),
       display: 'grid',
@@ -35,9 +29,13 @@ const styles = ({ spacing }: Theme) => {
     },
     progress: {
       display: 'block',
-      marginTop: spacing.unit * 10,
       marginLeft: 'auto',
-      marginRight: 'auto'
+      marginRight: 'auto',
+      marginTop: spacing.unit * 10
+    },
+    root: {
+      display: 'grid',
+      gridRowGap: px(spacing.unit * 2)
     }
   })
 }
@@ -58,11 +56,9 @@ class PageChangelogs extends Component<Props> {
   public render() {
     const { classes } = this.props
     const { changelogs, inProgress } = this.state
-
     if (inProgress) {
       return <CircularProgress className={classes.progress} />
     }
-
     return (
       <Fade in>
         <main className={classes.root}>
@@ -108,13 +104,15 @@ class PageChangelogs extends Component<Props> {
     return collectionData<Changelog>(query)
       .pipe(take(2))
       .subscribe(docs => {
-        if (this.isUnmounted) return
+        if (this.isUnmounted) {
+          return
+        }
         const changelogs = [
           ...docs.map(doc => ({
             ...doc,
             ui: {
-              version: toVersionStr(doc.version),
-              date: createdAt(doc.date, false)
+              date: createdAt(doc.date, false),
+              version: toVersionStr(doc.version)
             }
           }))
         ]

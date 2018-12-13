@@ -1,14 +1,12 @@
-import CircularProgress from '@material-ui/core/CircularProgress/CircularProgress'
-import Fade from '@material-ui/core/Fade/Fade'
+import CircularProgress from '@material-ui/core/CircularProgress'
+import Fade from '@material-ui/core/Fade'
 import { Theme } from '@material-ui/core/styles'
-import createStyles from '@material-ui/core/styles/createStyles'
-import withStyles from '@material-ui/core/styles/withStyles'
-import Tab from '@material-ui/core/Tab/Tab'
-import Tabs from '@material-ui/core/Tabs/Tabs'
-import { WithStyles } from '@material-ui/styles/withStyles'
+import Tab from '@material-ui/core/Tab'
+import Tabs from '@material-ui/core/Tabs'
+import { createStyles, withStyles, WithStyles } from '@material-ui/styles'
 import { firestore } from 'firebase/app'
 import React, { Component } from 'react'
-import { RouteComponentProps } from 'react-router'
+import { RouteComponentProps } from 'react-router-dom'
 import { collectionData } from 'rxfire/firestore'
 import { Subscription } from 'rxjs'
 import ButtonMore from '../components/ButtonMore'
@@ -49,11 +47,11 @@ interface State {
 
 class PageImages extends Component<Props> {
   public state: State = {
-    posts: [],
     inProgress: true,
     inProgressMore: false,
+    limit: 16,
     orderBy: 'updatedAt',
-    limit: 16
+    posts: []
   }
 
   private isUnmounted = false
@@ -62,7 +60,6 @@ class PageImages extends Component<Props> {
   public render() {
     const { classes } = this.props
     const { posts, inProgress, inProgressMore, limit } = this.state
-
     return (
       <main className={classes.root}>
         <PageTitle
@@ -111,16 +108,17 @@ class PageImages extends Component<Props> {
     this.saveState()
   }
 
-  saveState() {
+  public saveState() {
     const { posts, limit } = this.state
     const { cache } = this.props
-
     cache.save({ posts, limit })
   }
 
   private onMore = () => {
     const { limit, inProgressMore, orderBy } = this.state
-    if (inProgressMore) return
+    if (inProgressMore) {
+      return
+    }
     const nextLimit = limit + 16
     this.setState({ inProgressMore: true, limit: nextLimit })
     this.subscribePosts(orderBy, nextLimit)
@@ -128,13 +126,10 @@ class PageImages extends Component<Props> {
 
   private onChangeTab = (_: any, orderBy: string) => {
     const { history } = this.props
-
     history.push(`?order=${orderBy}`)
-
     if (this.subscription) {
       this.subscription.unsubscribe()
     }
-
     this.subscription = this.subscribePosts(orderBy)
     this.setState({ orderBy, inProgress: true })
     this.saveState()
@@ -146,7 +141,9 @@ class PageImages extends Component<Props> {
       .limit(limit)
       .orderBy(orderBy, DESC)
     return collectionData<Post>(query).subscribe(docs => {
-      if (this.isUnmounted) return
+      if (this.isUnmounted) {
+        return
+      }
       const posts = docs.map(doc => {
         return { ...doc, ui: { createdAt: createdAt(doc.createdAt) } }
       })
@@ -156,7 +153,6 @@ class PageImages extends Component<Props> {
 
   private getOrderBy() {
     const { location } = this.props
-
     switch (location.search.replace('?order=', '')) {
       case 'createdAt':
         return 'createdAt'
@@ -172,7 +168,6 @@ class PageImages extends Component<Props> {
   private restoreState() {
     const { cache } = this.props
     const state = cache.restore()
-
     if (state) {
       this.setState({
         posts: state.posts,
@@ -180,7 +175,6 @@ class PageImages extends Component<Props> {
         inProgress: false
       })
     }
-
     return state
   }
 }

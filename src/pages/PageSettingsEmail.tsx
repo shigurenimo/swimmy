@@ -1,8 +1,6 @@
 import { Theme } from '@material-ui/core/styles'
-import createStyles from '@material-ui/core/styles/createStyles'
-import withStyles from '@material-ui/core/styles/withStyles'
 import Email from '@material-ui/icons/Email'
-import { WithStyles } from '@material-ui/styles/withStyles'
+import { createStyles, withStyles, WithStyles } from '@material-ui/styles'
 import React, { Component } from 'react'
 import UnderDevelopment from '../components/UnderDevelopment'
 

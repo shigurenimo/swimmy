@@ -1,13 +1,11 @@
-import CircularProgress from '@material-ui/core/CircularProgress/CircularProgress'
+import CircularProgress from '@material-ui/core/CircularProgress'
 import Divider from '@material-ui/core/Divider'
-import Fade from '@material-ui/core/Fade/Fade'
+import Fade from '@material-ui/core/Fade'
 import { Theme } from '@material-ui/core/styles'
-import createStyles from '@material-ui/core/styles/createStyles'
-import withStyles from '@material-ui/core/styles/withStyles'
-import { WithStyles } from '@material-ui/styles/withStyles'
+import { createStyles, withStyles, WithStyles } from '@material-ui/styles'
 import { firestore } from 'firebase/app'
 import React, { Component, Fragment } from 'react'
-import { RouteComponentProps } from 'react-router'
+import { RouteComponentProps } from 'react-router-dom'
 import { collectionData, docData } from 'rxfire/firestore'
 import { Subscription } from 'rxjs'
 import { take } from 'rxjs/operators'
@@ -23,19 +21,18 @@ import { px } from '../libs/styles/px'
 
 const styles = ({ spacing }: Theme) => {
   return createStyles({
-    root: {},
     progress: {
       display: 'block',
-      marginTop: spacing.unit * 10,
       marginLeft: 'auto',
-      marginRight: 'auto'
+      marginRight: 'auto',
+      marginTop: spacing.unit * 10
     },
     posts: {
       display: 'grid',
       gridRowGap: px(spacing.unit * 2),
-      marginTop: spacing.unit * 2,
       marginLeft: spacing.unit * 2,
-      marginRight: spacing.unit * 2
+      marginRight: spacing.unit * 2,
+      marginTop: spacing.unit * 2
     }
   })
 }
@@ -51,25 +48,23 @@ interface State {
 
 class PageThread extends Component<Props> {
   public state: State = {
-    posts: [],
-    thread: null,
+    inProgressThread: true,
     inProgressPosts: true,
-    inProgressThread: true
+    posts: [],
+    thread: null
   }
 
   private isUnmounted = false
   private subscription?: Subscription
   private subscriptionThread?: Subscription
 
-  render() {
+  public render() {
     const { classes, match } = this.props
     const { posts, thread, inProgressPosts, inProgressThread } = this.state
     const inProgress = inProgressPosts || inProgressThread
-
     if (inProgress) {
       return <CircularProgress className={classes.progress} />
     }
-
     return (
       <main>
         <PageTitle
@@ -92,12 +87,12 @@ class PageThread extends Component<Props> {
     )
   }
 
-  componentDidMount() {
+  public componentDidMount() {
     this.subscription = this.subscribePosts()
     this.subscriptionThread = this.subscribeThread()
   }
 
-  componentWillUnmount() {
+  public componentWillUnmount() {
     this.isUnmounted = true
     if (this.subscription) {
       this.subscription.unsubscribe()
@@ -107,7 +102,7 @@ class PageThread extends Component<Props> {
     }
   }
 
-  subscribePosts() {
+  public subscribePosts() {
     const { match } = this.props
     const query = firestore()
       .collection(POSTS_AS_ANONYM)
@@ -116,7 +111,9 @@ class PageThread extends Component<Props> {
       .limit(120)
       .orderBy('createdAt', DESC)
     return collectionData<Post>(query).subscribe(docs => {
-      if (this.isUnmounted) return
+      if (this.isUnmounted) {
+        return
+      }
       const posts = docs.map(doc => {
         return {
           ...doc,
@@ -127,7 +124,7 @@ class PageThread extends Component<Props> {
     })
   }
 
-  subscribeThread() {
+  public subscribeThread() {
     const { match } = this.props
     const query = firestore()
       .collection(POSTS_AS_ANONYM)
@@ -135,7 +132,9 @@ class PageThread extends Component<Props> {
     return docData<Post>(query)
       .pipe(take(2))
       .subscribe(doc => {
-        if (this.isUnmounted) return
+        if (this.isUnmounted) {
+          return
+        }
         const thread = { ...doc, ui: { createdAt: createdAt(doc.createdAt) } }
         this.setState({ thread, inProgressThread: false })
       })

@@ -37,14 +37,18 @@ const ExpansionPanelPost: FunctionComponent<Props> = ({ inProgress, post }) => {
     hasLike: false,
     inProgressLike: true
   })
-
   const classes = useStyle({})
-
   const onChangeExpand = (_: any, expanded: boolean) => {
-    if (!expanded) return
-    if (!state.inProgressLike) return
+    if (!expanded) {
+      return
+    }
+    if (!state.inProgressLike) {
+      return
+    }
     const { currentUser } = auth()
-    if (!currentUser) return
+    if (!currentUser) {
+      return
+    }
     firestore()
       .collection(LIKES)
       .where('collectionId', '==', POSTS)
@@ -59,22 +63,21 @@ const ExpansionPanelPost: FunctionComponent<Props> = ({ inProgress, post }) => {
         }))
       })
   }
-
   const onClickPanelSummary = (event: ChangeEvent<any>) => {
     if (event.target.tagName !== 'SPAN') {
       setState(state => ({ ...state, expanded: !state.expanded }))
     }
   }
-
   const onClickLike = () => {
-    if (inProgress) return
+    if (inProgress) {
+      return
+    }
     const postId = post.id
     setState({ ...state, hasLike: !state.hasLike })
     createPostLike({ postId }).catch(err => {
       console.error(err)
     })
   }
-
   return (
     <ExpansionPanel expanded={state.expanded} onChange={onChangeExpand}>
       <ExpansionPanelSummary

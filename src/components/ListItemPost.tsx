@@ -1,4 +1,4 @@
-import makeStyles from '@material-ui/styles/makeStyles'
+import { makeStyles } from '@material-ui/styles'
 import React, { FunctionComponent } from 'react'
 import { PostUi } from '../interfaces/models/post/postWithUi'
 import { px } from '../libs/styles/px'
@@ -16,7 +16,6 @@ interface Props {
 
 const ListItemPost: FunctionComponent<Props> = ({ post }) => {
   const classes = useStyle({})
-
   return (
     <div className={classes.root}>
       <ExpansionPanelSummaryPost post={post} />

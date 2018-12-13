@@ -1,8 +1,7 @@
 import CssBaseline from '@material-ui/core/CssBaseline'
-import { createGenerateClassName } from '@material-ui/core/styles'
-import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider'
-import ThemeProvider from '@material-ui/styles/ThemeProvider'
-import React, { Fragment, SFC } from 'react'
+import { MuiThemeProvider } from '@material-ui/core/styles'
+import { createGenerateClassName, ThemeProvider } from '@material-ui/styles'
+import React, { Fragment, FunctionComponent } from 'react'
 import JssProvider from 'react-jss/lib/JssProvider'
 import AppRouter from './AppRouter'
 import AppAuthProvider from './containers/AppAuthProvider'
@@ -13,7 +12,7 @@ const generateClassName = createGenerateClassName({
   productionPrefix: 'c'
 })
 
-const App: SFC = () => {
+const App: FunctionComponent = () => {
   return (
     <JssProvider generateClassName={generateClassName}>
       <MuiThemeProvider theme={theme}>

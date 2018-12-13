@@ -1,4 +1,4 @@
-import makeStyles from '@material-ui/styles/makeStyles'
+import { makeStyles } from '@material-ui/styles'
 import React, { FunctionComponent } from 'react'
 import { pct } from '../libs/styles/pct'
 import { px } from '../libs/styles/px'
@@ -9,7 +9,6 @@ interface Props {
 
 const PreviewImages: FunctionComponent<Props> = ({ photoURLs }) => {
   const classes = useStyles({})
-
   return (
     <div className={classes.root}>
       {photoURLs.map(photoURL => (
@@ -26,16 +25,16 @@ const PreviewImages: FunctionComponent<Props> = ({ photoURLs }) => {
 
 const useStyles = makeStyles(({ breakpoints, spacing }) => {
   return {
+    img: { width: pct(100), borderRadius: px(4) },
     root: {
-      width: '100%',
       display: 'grid',
       gridColumnGap: px(spacing.unit * 2),
       gridRowGap: px(spacing.unit * 2),
       gridTemplateColumns: 'repeat(4, 1fr)',
       paddingLeft: spacing.unit,
-      paddingRight: spacing.unit
-    },
-    img: { width: pct(100), borderRadius: px(4) }
+      paddingRight: spacing.unit,
+      width: '100%'
+    }
   }
 })
 

@@ -13,7 +13,6 @@ const FormItemContents: FunctionComponent<Props> = ({
   onChangeContents
 }) => {
   const classes = useStyles({})
-
   const onChange = (index: number) => (event: any) => {
     contents[index] = event.target.value
     const blankContents = contents.filter(content => content === '')
@@ -26,7 +25,6 @@ const FormItemContents: FunctionComponent<Props> = ({
     }
     onChangeContents(contents)
   }
-
   return (
     <div className={classes.root}>
       {contents.map((content, i) => (

@@ -1,8 +1,6 @@
 import { Theme } from '@material-ui/core/styles'
-import createStyles from '@material-ui/core/styles/createStyles'
-import withStyles from '@material-ui/core/styles/withStyles'
 import BugReport from '@material-ui/icons/BugReport'
-import { WithStyles } from '@material-ui/styles/withStyles'
+import { createStyles, withStyles, WithStyles } from '@material-ui/styles'
 import React, { Component } from 'react'
 import UnderDevelopment from '../components/UnderDevelopment'
 
@@ -15,9 +13,8 @@ const styles = ({ spacing }: Theme) => {
 interface Props extends WithStyles<typeof styles> {}
 
 class PageIssues extends Component<Props> {
-  render() {
+  public render() {
     const { classes } = this.props
-
     return (
       <div className={classes.root}>
         <UnderDevelopment

@@ -1,7 +1,6 @@
 import { Theme } from '@material-ui/core/styles'
-import withStyles from '@material-ui/core/styles/withStyles'
 import Search from '@material-ui/icons/Search'
-import { WithStyles } from '@material-ui/styles/withStyles'
+import { withStyles, WithStyles } from '@material-ui/styles'
 import React, { Component } from 'react'
 import UnderDevelopment from '../components/UnderDevelopment'
 
@@ -14,7 +13,6 @@ interface Props extends WithStyles<typeof styles> {}
 class PageSearch extends Component<Props> {
   public render() {
     const { classes } = this.props
-
     return (
       <div className={classes.root}>
         <UnderDevelopment

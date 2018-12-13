@@ -1,5 +1,3 @@
-// @flow
-
 import { firestore } from 'firebase/app'
 
 export const createdAt = (

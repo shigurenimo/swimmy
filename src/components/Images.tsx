@@ -1,4 +1,4 @@
-import Paper from '@material-ui/core/Paper/Paper'
+import Paper from '@material-ui/core/Paper'
 import { makeStyles } from '@material-ui/styles'
 import React, { FunctionComponent } from 'react'
 import { pct } from '../libs/styles/pct'
@@ -10,7 +10,6 @@ interface Props {
 
 const Images: FunctionComponent<Props> = ({ photoURLs }) => {
   const classes = useStyles({})
-
   return (
     <div className={classes.root}>
       {photoURLs.map(photoURL => (
@@ -28,15 +27,15 @@ const Images: FunctionComponent<Props> = ({ photoURLs }) => {
 
 const useStyles = makeStyles(({ breakpoints, spacing }) => {
   return {
+    img: { width: pct(100), borderRadius: px(4), verticalAlign: 'bottom' },
     root: {
-      width: '100%',
       display: 'grid',
       gridColumnGap: px(spacing.unit * 2),
       gridRowGap: px(spacing.unit * 2),
+      width: '100%',
       [breakpoints.up('xs')]: { gridTemplateColumns: 'repeat(2, 1fr)' },
       [breakpoints.up('sm')]: { gridTemplateColumns: 'repeat(4, 1fr)' }
-    },
-    img: { width: pct(100), borderRadius: px(4), verticalAlign: 'bottom' }
+    }
   }
 })
 

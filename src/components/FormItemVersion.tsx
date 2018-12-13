@@ -66,7 +66,6 @@ const FormItemVersion: FunctionComponent<Props> = ({
   ]
     .map(f => f(dataVersion))
     .map(a => parseInt(a, 10))
-
   return (
     <div className={classes.root}>
       <TextField

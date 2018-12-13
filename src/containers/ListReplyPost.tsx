@@ -1,12 +1,10 @@
-import CircularProgress from '@material-ui/core/CircularProgress/CircularProgress'
-import Fade from '@material-ui/core/Fade/Fade'
+import CircularProgress from '@material-ui/core/CircularProgress'
+import Fade from '@material-ui/core/Fade'
 import List from '@material-ui/core/List/List'
-import ListItem from '@material-ui/core/ListItem/ListItem'
-import ListItemText from '@material-ui/core/ListItemText/ListItemText'
+import ListItem from '@material-ui/core/ListItem'
+import ListItemText from '@material-ui/core/ListItemText'
 import { Theme } from '@material-ui/core/styles'
-import createStyles from '@material-ui/core/styles/createStyles'
-import withStyles from '@material-ui/core/styles/withStyles'
-import { WithStyles } from '@material-ui/styles/withStyles'
+import { createStyles, withStyles, WithStyles } from '@material-ui/styles'
 import { firestore } from 'firebase/app'
 import React, { Component } from 'react'
 import { collectionData } from 'rxfire/firestore'
@@ -38,10 +36,9 @@ class ListReplyPost extends Component<Props, State> {
 
   private subscription?: Subscription
 
-  render() {
+  public render() {
     const { classes } = this.props
     const { posts, inProgress } = this.state as State
-
     if (inProgress) {
       return (
         <div className={classes.progress}>
@@ -49,11 +46,9 @@ class ListReplyPost extends Component<Props, State> {
         </div>
       )
     }
-
     if (!posts.length) {
       return null
     }
-
     return (
       <Fade in>
         <List className={classes.root}>
@@ -67,9 +62,8 @@ class ListReplyPost extends Component<Props, State> {
     )
   }
 
-  componentDidMount() {
+  public componentDidMount() {
     const { postId, replyPostCount } = this.props
-
     setTimeout(
       () => {
         const query = firestore()
@@ -87,7 +81,7 @@ class ListReplyPost extends Component<Props, State> {
     )
   }
 
-  componentWillUnmount() {
+  public componentWillUnmount() {
     if (this.subscription) {
       this.subscription.unsubscribe()
     }

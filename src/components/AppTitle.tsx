@@ -1,11 +1,10 @@
-import IconButton from '@material-ui/core/IconButton/IconButton'
-import makeStyles from '@material-ui/styles/makeStyles'
-import React, { SFC } from 'react'
+import IconButton from '@material-ui/core/IconButton'
+import { makeStyles } from '@material-ui/styles'
+import React, { FunctionComponent } from 'react'
 import { Link } from 'react-router-dom'
 
-const AppTitle: SFC = () => {
+const AppTitle: FunctionComponent = () => {
   const classes = useStyles({})
-
   return (
     <div className={classes.root}>
       <Link to={'/'}>

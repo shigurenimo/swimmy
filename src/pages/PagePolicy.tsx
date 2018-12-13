@@ -1,8 +1,6 @@
 import { Theme } from '@material-ui/core/styles'
-import createStyles from '@material-ui/core/styles/createStyles'
-import withStyles from '@material-ui/core/styles/withStyles'
 import Typography from '@material-ui/core/Typography'
-import { WithStyles } from '@material-ui/styles/withStyles'
+import { createStyles, withStyles, WithStyles } from '@material-ui/styles'
 import React, { Component } from 'react'
 import PageTitle from '../components/PageTitle'
 import { px } from '../libs/styles/px'
@@ -23,9 +21,8 @@ const styles = ({ spacing }: Theme) => {
 interface Props extends WithStyles<typeof styles> {}
 
 class PagePolicy extends Component<Props> {
-  render() {
+  public render() {
     const { classes } = this.props
-
     return (
       <main className={classes.root}>
         <PageTitle

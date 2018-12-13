@@ -27,13 +27,13 @@ const useStyles = makeStyles(({ breakpoints, spacing }) => {
   return {
     posts: {
       ...resetList(),
+      alignItems: 'center',
       display: 'grid',
+      gridColumnGap: px(spacing.unit * 2),
+      gridRowGap: px(spacing.unit * 2),
       margin: 0,
       paddingLeft: spacing.unit * 2,
       paddingRight: spacing.unit * 2,
-      alignItems: 'center',
-      gridColumnGap: px(spacing.unit * 2),
-      gridRowGap: px(spacing.unit * 2),
       [breakpoints.up('xs')]: { gridTemplateColumns: 'repeat(2, 1fr)' },
       [breakpoints.up('sm')]: { gridTemplateColumns: 'repeat(3, 1fr)' },
       [breakpoints.up('md')]: { gridTemplateColumns: 'repeat(5, 1fr)' },

@@ -1,6 +1,6 @@
 import blue from '@material-ui/core/colors/blue'
 import pink from '@material-ui/core/colors/pink'
-import createMuiTheme from '@material-ui/core/styles/createMuiTheme'
+import { createMuiTheme } from '@material-ui/core/styles'
 
 const shadowKeyUmbraOpacity = 0.2 // 0.2
 const shadowKeyPenumbraOpacity = 0 // 0.14
@@ -58,52 +58,34 @@ const shadows = [
 ]
 
 const typography = {
-  useNextVariants: true,
-  fontFamily: ['Roboto', 'sans-serif'].join(',')
+  fontFamily: ['Roboto', 'sans-serif'].join(','),
+  useNextVariants: true
 }
 
 const shape = { borderRadius: 4 }
 
 const overrides = {
-  MuiDivider: {
-    root: {
-      backgroundColor: 'rgba(0, 0, 0, 0.32)'
-    }
-  },
+  MuiAppBar: { root: { boxShadow: shadows[1] } },
+  MuiBackdrop: { root: { backgroundColor: 'rgba(255, 255, 255, 0.8)' } },
+  MuiDivider: { root: { backgroundColor: 'rgba(0, 0, 0, 0.32)' } },
   MuiDrawer: {
-    paper: {
-      backgroundColor: 'rgba(0, 0, 0, 0)'
-    },
-    paperAnchorDockedLeft: {
-      borderRight: 0
-    }
-  },
-  MuiBackdrop: {
-    root: {
-      backgroundColor: 'rgba(255, 255, 255, 0.8)'
-    }
-  },
-  MuiAppBar: {
-    root: {
-      boxShadow: shadows[1]
-    }
+    paper: { backgroundColor: 'rgba(0, 0, 0, 0)' },
+    paperAnchorDockedLeft: { borderRight: 0 }
   }
 }
 
 const palette = {
-  primary: {
-    main: blue['A700']
-  },
-  secondary: { main: pink[500] },
-  background: { default: '#ffffff' }
+  background: { default: '#ffffff' },
+  primary: { main: blue.A700 },
+  secondary: { main: pink[500] }
 }
 
 export const theme = createMuiTheme({
-  typography,
-  shape,
   overrides,
   palette,
-  shadows: shadows as any
+  shadows: shadows as any,
+  shape,
+  typography
 })
 
 if (process.env.NODE_ENV === 'development') {

@@ -1,5 +1,5 @@
 import Typography from '@material-ui/core/Typography'
-import makeStyles from '@material-ui/styles/makeStyles'
+import { makeStyles } from '@material-ui/styles'
 import React, { FunctionComponent } from 'react'
 
 interface Props {
@@ -35,8 +35,8 @@ const UnderDevelopment: FunctionComponent<Props> = ({
 
 const useStyles = makeStyles(({ spacing }) => {
   return {
-    root: { paddingLeft: spacing.unit * 1.5, paddingRight: spacing.unit * 1.5 },
     icon: { display: 'block', margin: 'auto', fontSize: 80 },
+    root: { paddingLeft: spacing.unit * 1.5, paddingRight: spacing.unit * 1.5 },
     title: { marginTop: spacing.unit * 2, fontWeight: 'bold' }
   }
 })

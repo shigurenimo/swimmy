@@ -1,4 +1,4 @@
-import ListItem from '@material-ui/core/ListItem/ListItem'
+import ListItem from '@material-ui/core/ListItem'
 import Typography from '@material-ui/core/Typography'
 import React, { FunctionComponent } from 'react'
 import { PostUi } from '../interfaces/models/post/postWithUi'

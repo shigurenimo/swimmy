@@ -1,12 +1,10 @@
-import Card from '@material-ui/core/Card/Card'
-import CardContent from '@material-ui/core/CardContent/CardContent'
-import CircularProgress from '@material-ui/core/CircularProgress/CircularProgress'
-import Fade from '@material-ui/core/Fade/Fade'
+import Card from '@material-ui/core/Card'
+import CardContent from '@material-ui/core/CardContent'
+import CircularProgress from '@material-ui/core/CircularProgress'
+import Fade from '@material-ui/core/Fade'
 import { Theme } from '@material-ui/core/styles'
-import createStyles from '@material-ui/core/styles/createStyles'
-import withStyles from '@material-ui/core/styles/withStyles'
 import Typography from '@material-ui/core/Typography'
-import { WithStyles } from '@material-ui/styles/withStyles'
+import { createStyles, withStyles, WithStyles } from '@material-ui/styles'
 import { firestore } from 'firebase/app'
 import React, { Component } from 'react'
 import { collectionData } from 'rxfire/firestore'
@@ -21,9 +19,9 @@ const styles = ({ spacing }: Theme) => {
   return createStyles({
     progress: {
       display: 'block',
-      marginTop: spacing.unit * 10,
       marginLeft: 'auto',
-      marginRight: 'auto'
+      marginRight: 'auto',
+      marginTop: spacing.unit * 10
     },
     root: {
       display: 'grid',
@@ -51,12 +49,12 @@ interface State {
 
 class PageStats extends Component<Props> {
   public state: State = {
-    stats: null,
-    chartData: null,
     averagePerDay: 0,
+    chartData: null,
     countTotal: 0,
     countWeek: 0,
-    inProgress: true
+    inProgress: true,
+    stats: null
   }
   private subscription?: Subscription
   private isUnmounted = false
@@ -70,11 +68,9 @@ class PageStats extends Component<Props> {
       countWeek,
       averagePerDay
     } = this.state
-
     if (inProgress) {
       return <CircularProgress className={classes.progress} />
     }
-
     return (
       <Fade in>
         <main className={classes.root}>
@@ -135,7 +131,9 @@ class PageStats extends Component<Props> {
     return collectionData<any>(query)
       .pipe(take(2))
       .subscribe(docs => {
-        if (this.isUnmounted) return
+        if (this.isUnmounted) {
+          return
+        }
         const sum = (a: any, b: any) =>
           a.postCount ? a.postCount : a + b.postCount
         const countTotal = docs.reduce(sum)
@@ -152,11 +150,11 @@ class PageStats extends Component<Props> {
           }
         ]
         this.setState({
-          inProgress: false,
           averagePerDay,
           countTotal,
           countWeek,
-          chartData
+          chartData,
+          inProgress: false
         })
       })
   }

@@ -1,9 +1,7 @@
-import CircularProgress from '@material-ui/core/CircularProgress/CircularProgress'
-import Fade from '@material-ui/core/Fade/Fade'
+import CircularProgress from '@material-ui/core/CircularProgress'
+import Fade from '@material-ui/core/Fade'
 import { Theme } from '@material-ui/core/styles'
-import createStyles from '@material-ui/core/styles/createStyles'
-import withStyles from '@material-ui/core/styles/withStyles'
-import { WithStyles } from '@material-ui/styles/withStyles'
+import { createStyles, withStyles, WithStyles } from '@material-ui/styles'
 import { firestore } from 'firebase/app'
 import React, { Component } from 'react'
 import { collectionData } from 'rxfire/firestore'
@@ -22,14 +20,14 @@ import { px } from '../libs/styles/px'
 
 const styles = ({ spacing }: Theme) => {
   return createStyles({
-    root: { display: 'grid' },
+    posts: { display: 'grid', margin: 0, paddingLeft: 0 },
     progress: {
       display: 'block',
-      marginTop: spacing.unit * 10,
       marginLeft: 'auto',
-      marginRight: 'auto'
+      marginRight: 'auto',
+      marginTop: spacing.unit * 10
     },
-    posts: { display: 'grid', margin: 0, paddingLeft: 0 },
+    root: { display: 'grid' },
     section: { display: 'grid', gridRowGap: px(spacing.unit * 2) }
   })
 }
@@ -47,10 +45,10 @@ interface State {
 
 class PageHome extends Component<Props> {
   public state: State = {
-    posts: [],
     inProgress: true,
     inProgressMore: false,
-    limit: 16
+    limit: 16,
+    posts: []
   }
 
   private isUnmounted = false
@@ -59,7 +57,6 @@ class PageHome extends Component<Props> {
   public render() {
     const { classes } = this.props
     const { posts, inProgress, inProgressMore, limit } = this.state
-
     return (
       <main className={classes.root}>
         <PageTitle
@@ -87,29 +84,29 @@ class PageHome extends Component<Props> {
     )
   }
 
-  componentDidMount() {
+  public componentDidMount() {
     const state = this.restoreState()
     const limit = state ? state.limit : 16
     this.subscription = this.subscribePosts(limit)
   }
 
-  componentWillUnmount() {
+  public componentWillUnmount() {
     this.isUnmounted = true
-
     if (this.subscription) {
       this.subscription.unsubscribe()
     }
-
     this.saveState()
   }
 
-  subscribePosts(limit = 16) {
+  public subscribePosts(limit = 16) {
     const query = firestore()
       .collection(POSTS_AS_ANONYM)
       .limit(limit)
       .orderBy('createdAt', DESC)
     return collectionData<Post>(query).subscribe(docs => {
-      if (this.isUnmounted) return
+      if (this.isUnmounted) {
+        return
+      }
       const posts = docs.map(doc => {
         return { ...doc, ui: { createdAt: createdAt(doc.createdAt) } }
       })
@@ -117,32 +114,30 @@ class PageHome extends Component<Props> {
     })
   }
 
-  restoreState() {
+  public restoreState() {
     const { cache } = this.props
-
     const state = cache.restore()
-
     if (state) {
       this.setState({
-        posts: state.posts,
+        inProgress: false,
         limit: state.limit,
-        inProgress: false
+        posts: state.posts
       })
     }
-
     return state
   }
 
-  saveState() {
+  public saveState() {
     const { posts, limit } = this.state
     const { cache } = this.props
-
     cache.save({ posts, limit })
   }
 
   private onMore = () => {
     const { limit, inProgressMore } = this.state
-    if (inProgressMore) return
+    if (inProgressMore) {
+      return
+    }
     const nextLimit = limit + 16
     this.setState({ inProgressMore: true, limit: nextLimit })
     this.subscribePosts(nextLimit)

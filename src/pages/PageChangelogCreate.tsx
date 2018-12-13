@@ -1,7 +1,5 @@
 import { Theme } from '@material-ui/core/styles'
-import createStyles from '@material-ui/core/styles/createStyles'
-import withStyles from '@material-ui/core/styles/withStyles'
-import { WithStyles } from '@material-ui/styles/withStyles'
+import { createStyles, withStyles, WithStyles } from '@material-ui/styles'
 import React, { Component } from 'react'
 import FormChangelogCreate from '../components/FormChangelogCreate'
 
@@ -20,9 +18,8 @@ const styles = ({ spacing }: Theme) => {
 interface Props extends WithStyles<typeof styles> {}
 
 class PageChangelogCreate extends Component<Props> {
-  render() {
+  public render() {
     const { classes } = this.props
-
     return (
       <div className={classes.root}>
         <FormChangelogCreate />

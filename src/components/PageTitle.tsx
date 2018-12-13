@@ -16,13 +16,13 @@ const PageTitle: FunctionComponent<Props> = ({
   hide = true
 }) => {
   const classes = useStyles({})
-
   const { isLogged, isLoggingIn } = useContext(AuthContext)
-
-  if (hide && isLoggingIn) return null
-
-  if (hide && isLogged) return null
-
+  if (hide && isLoggingIn) {
+    return null
+  }
+  if (hide && isLogged) {
+    return null
+  }
   return (
     <div className={classes.root}>
       <Typography variant={'h5'} component={'h1'} color="inherit">
@@ -41,14 +41,14 @@ const PageTitle: FunctionComponent<Props> = ({
 
 const useStyles = makeStyles(({ spacing, palette }) => {
   return {
+    description: { whiteSpace: 'pre-line', wordBreak: 'break-all' },
     root: {
+      backgroundColor: palette.primary.main,
+      color: 'white',
       display: 'grid',
       gridRowGap: px(spacing.unit),
-      padding: spacing.unit * 2,
-      backgroundColor: palette.primary.main,
-      color: 'white'
-    },
-    description: { whiteSpace: 'pre-line', wordBreak: 'break-all' }
+      padding: spacing.unit * 2
+    }
   }
 })
 
