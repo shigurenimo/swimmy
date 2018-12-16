@@ -17,7 +17,7 @@ import AppTitle from './AppTitle'
 import DialogAppMenu from './DialogAppMenu'
 import DialogAppSignIn from './DialogAppSignIn'
 
-interface Props extends RouteComponentProps {
+interface Props extends RouteComponentProps<any> {
   children?: any
 }
 
@@ -91,20 +91,20 @@ const AppHeader: FunctionComponent<Props> = props => {
 
 const useStyle = makeStyles(({ spacing }) => {
   return {
-    root: { flexGrow: 1 },
-    progress: { position: 'absolute', top: 0, left: 0, width: pct(100) },
-    title: { fontSize: 24, flexGrow: 1 },
+    actions: {
+      display: 'grid',
+      gridAutoFlow: 'column',
+      gridColumnGap: px(spacing.unit)
+    },
     appBar: { backgroundColor: 'rgba(255, 255, 255, 0.98)' },
     menuButton: {
       marginLeft: spacing.unit * 1.5 * -1,
       marginRight: spacing.unit * 2.5
     },
-    actions: {
-      display: 'grid',
-      gridColumnGap: px(spacing.unit),
-      gridAutoFlow: 'column'
-    }
+    progress: { position: 'absolute', top: 0, left: 0, width: pct(100) },
+    root: { flexGrow: 1 },
+    title: { fontSize: 24, flexGrow: 1 }
   }
 })
 
-export default withRouter(AppHeader)
+export default withRouter(AppHeader as any)
