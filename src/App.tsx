@@ -1,8 +1,11 @@
 import CssBaseline from '@material-ui/core/CssBaseline'
 import { MuiThemeProvider } from '@material-ui/core/styles'
-import { createGenerateClassName, ThemeProvider } from '@material-ui/styles'
+import {
+  createGenerateClassName,
+  StylesProvider,
+  ThemeProvider
+} from '@material-ui/styles'
 import React, { Fragment, FunctionComponent } from 'react'
-import JssProvider from 'react-jss/lib/JssProvider'
 import AppRouter from './AppRouter'
 import AppAuthProvider from './containers/AppAuthProvider'
 import { theme } from './libs/theme'
@@ -14,7 +17,7 @@ const generateClassName = createGenerateClassName({
 
 const App: FunctionComponent = () => {
   return (
-    <JssProvider generateClassName={generateClassName}>
+    <StylesProvider generateClassName={generateClassName}>
       <MuiThemeProvider theme={theme}>
         <ThemeProvider theme={theme}>
           <AppAuthProvider>
@@ -25,7 +28,7 @@ const App: FunctionComponent = () => {
           </AppAuthProvider>
         </ThemeProvider>
       </MuiThemeProvider>
-    </JssProvider>
+    </StylesProvider>
   )
 }
 
