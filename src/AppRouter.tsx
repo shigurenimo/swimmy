@@ -1,9 +1,4 @@
-import React, {
-  Component,
-  ComponentClass,
-  Fragment,
-  FunctionComponent
-} from 'react'
+import React, { Fragment, FunctionComponent } from 'react'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import AppHeader from './components/AppHeader'
 import RouterListener from './containers/RouteListener'
@@ -27,34 +22,26 @@ const AppRouter: FunctionComponent = () => {
         <RouterListener />
         <AppHeader />
         <Switch>
-          <Route exact path="/" component={PageHome as any} />
-          <Route exact path="/about" component={PageAbout as any} />
-          <Route exact path="/changelogs" component={PageChangelogs as any} />
+          <Route component={PageHome} exact path="/" />
+          <Route component={PageAbout} exact path="/about" />
+          <Route component={PageChangelogs} exact path="/changelogs" />
           <Route
-            component={PageChangelogCreate as any}
+            component={PageChangelogCreate}
             exact
             path="/changelogs/create"
           />
-          <Route exact path="/images" component={PageImages as any} />
-          <Route exact path="/policy" component={PagePolicy as any} />
-          <Route exact path="/search" component={PageSearch as any} />
+          <Route component={PageImages} exact path="/images" />
+          <Route component={PagePolicy} exact path="/policy" />
+          <Route component={PageSearch} exact path="/search" />
+          <Route component={PageSettingsEmail} exact path="/settings/email" />
           <Route
-            exact
-            path="/settings/email"
-            component={PageSettingsEmail as any}
-          />
-          <Route
-            component={PageSettingsPassword as any}
+            component={PageSettingsPassword}
             exact
             path="/settings/password"
           />
-          <Route exact path="/stats" component={PageStats as any} />
-          <Route exact path="/threads" component={PageThreads as any} />
-          <Route
-            exact
-            path="/threads/:threadId"
-            component={PageThread as any}
-          />
+          <Route component={PageStats} exact path="/stats" />
+          <Route component={PageThreads} exact path="/threads" />
+          <Route component={PageThread} exact path="/threads/:threadId" />
         </Switch>
         <footer />
       </Fragment>
