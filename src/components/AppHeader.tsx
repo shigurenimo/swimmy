@@ -43,9 +43,15 @@ const AppHeader: FunctionComponent<Props> = props => {
   const classes = useStyle({})
   const isDetailPage = location.pathname.includes('/threads/')
   const authContext = useContext(AuthContext)
+
   return (
     <Fragment>
-      <AppBar position="sticky" color="default" className={classes.appBar}>
+      <AppBar
+        position="sticky"
+        color="default"
+        className={classes.appBar}
+        elevation={8}
+      >
         {authContext.isLoggingIn && (
           <LinearProgress className={classes.progress} />
         )}
