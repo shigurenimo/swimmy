@@ -11,6 +11,7 @@
     "firebase": "^5.5.3",
     "react": "^16.7.0-alpha.2",
     "react-dom": "^16.7.0-alpha.2",
+    "react-headroom": "^2.2.4",
     "react-jss": "^8.6.1",
     "react-router-dom": "^4.4.0-beta.6",
     "recompose": "^0.30.0",

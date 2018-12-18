@@ -7,3 +7,33 @@ body {
 a {
   text-decoration: none;
 }
+
+.headroom {
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1100;
+}
+
+.headroom--unfixed {
+  position: fixed;
+  transform: translateY(0);
+}
+
+.headroom--unfixed.headroom--scrolled {
+  transition-duration: 0ms;
+}
+
+.headroom--scrolled {
+  transition: transform 200ms ease-in-out;
+}
+
+.headroom--unpinned {
+  position: fixed;
+  transform: translateY(-100%);
+}
+
+.headroom--pinned {
+  position: fixed;
+  transform: translateY(0%);
+}

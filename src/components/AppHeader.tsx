@@ -9,6 +9,7 @@ import PowerSettingsNew from '@material-ui/icons/PowerSettingsNew'
 import TurnedIn from '@material-ui/icons/TurnedIn'
 import { makeStyles } from '@material-ui/styles'
 import React, { Fragment, FunctionComponent, useContext, useState } from 'react'
+import Headroom from 'react-headroom'
 import { Link, RouteComponentProps, withRouter } from 'react-router-dom'
 import { AuthContext } from '../contexts/auth'
 import { pct } from '../libs/styles/pct'
@@ -46,49 +47,49 @@ const AppHeader: FunctionComponent<Props> = props => {
 
   return (
     <Fragment>
-      <AppBar
-        position="sticky"
-        color="default"
-        className={classes.appBar}
-        elevation={8}
-      >
-        {authContext.isLoggingIn && (
-          <LinearProgress className={classes.progress} />
-        )}
-        <Toolbar>
-          <AppTitle />
-          {isDetailPage && (
-            <IconButton onClick={onGoBack} aria-label={'Close this page'}>
-              <Close />
-            </IconButton>
+      <Headroom disableInlineStyles={true}>
+        <AppBar position="static" className={classes.appBar}>
+          {authContext.isLoggingIn && (
+            <LinearProgress className={classes.progress} />
           )}
-          {!isDetailPage && (
-            <div className={classes.actions}>
-              <Link to={'/images'}>
-                <IconButton aria-label={'Open images page'}>
-                  <Photo />
-                </IconButton>
-              </Link>
-              <Link to={'/threads'}>
-                <IconButton aria-label={'Open threads page'}>
-                  <TurnedIn />
-                </IconButton>
-              </Link>
-              <IconButton onClick={onOpenMenuDialog} aria-label={'Open a menu'}>
-                <MoreHoriz />
+          <Toolbar>
+            <AppTitle />
+            {isDetailPage && (
+              <IconButton onClick={onGoBack} aria-label={'Close this page'}>
+                <Close />
               </IconButton>
-              {!authContext.isLoggingIn && !authContext.isLogged && (
+            )}
+            {!isDetailPage && (
+              <div className={classes.actions}>
+                <Link to={'/images'}>
+                  <IconButton aria-label={'Open images page'}>
+                    <Photo />
+                  </IconButton>
+                </Link>
+                <Link to={'/threads'}>
+                  <IconButton aria-label={'Open threads page'}>
+                    <TurnedIn />
+                  </IconButton>
+                </Link>
                 <IconButton
-                  onClick={onOpenSignInDialog}
-                  aria-label={'Open a login dialog'}
+                  onClick={onOpenMenuDialog}
+                  aria-label={'Open a menu'}
                 >
-                  <PowerSettingsNew />
+                  <MoreHoriz />
                 </IconButton>
-              )}
-            </div>
-          )}
-        </Toolbar>
-      </AppBar>
+                {!authContext.isLoggingIn && !authContext.isLogged && (
+                  <IconButton
+                    onClick={onOpenSignInDialog}
+                    aria-label={'Open a login dialog'}
+                  >
+                    <PowerSettingsNew />
+                  </IconButton>
+                )}
+              </div>
+            )}
+          </Toolbar>
+        </AppBar>
+      </Headroom>
       <DialogAppMenu isOpen={isOpenMenuDialog} onClose={onCloseMenuDialog} />
       <DialogAppSignIn isOpen={isOpenSignInDialog} closeDialog={closeDialog} />
     </Fragment>
