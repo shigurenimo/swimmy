@@ -5,10 +5,18 @@ import Input from '@material-ui/core/Input'
 import InputLabel from '@material-ui/core/InputLabel'
 import { makeStyles } from '@material-ui/styles'
 import { firestore, storage } from 'firebase/app'
-import React, { ChangeEvent, FunctionComponent, useState } from 'react'
+import React, {
+  ChangeEvent,
+  FunctionComponent,
+  useEffect,
+  useMemo,
+  useState
+} from 'react'
 import { doc, snapToData } from 'rxfire/firestore'
 import { put } from 'rxfire/storage'
+import { from, Subscription } from 'rxjs'
 import { IMAGES } from '../constants/collection'
+import { useSubscription } from '../hooks/useSubscription'
 import { createId } from '../libs/createId'
 import { createPost } from '../libs/createPost'
 import { px } from '../libs/styles/px'
@@ -35,6 +43,8 @@ const TextFieldPost: FunctionComponent<Props> = props => {
     postImages: [],
     postText: ''
   })
+
+  const subscription = useSubscription(['createPost', 'image'])
 
   const inputFileRef = React.createRef()
 
@@ -72,8 +82,7 @@ const TextFieldPost: FunctionComponent<Props> = props => {
     const imageRef = firestore()
       .collection(IMAGES)
       .doc(fileId)
-    const image$ = doc(imageRef)
-    const image$$ = image$.subscribe(imageSnap => {
+    const image$$ = doc(imageRef).subscribe(imageSnap => {
       if (!imageSnap.exists) {
         return
       }
@@ -82,6 +91,7 @@ const TextFieldPost: FunctionComponent<Props> = props => {
       const postImages = [...state.postImages, image]
       setState({ ...state, inProgressImage: false, postImages })
     })
+    subscription.set('image', image$$)
   }
 
   const onSubmitPost = () => {
@@ -90,20 +100,28 @@ const TextFieldPost: FunctionComponent<Props> = props => {
     }
     setState({ ...state, inProgressSubmit: true })
     const fileIds = state.postImages.map(image => image.id)
-    createPost({ fileIds, text: state.postText, replyPostId })
-      .then(() => {
+    const createPost$$ = from(
+      createPost({ fileIds, replyPostId, text: state.postText })
+    ).subscribe(
+      () => {
         setState({
           ...state,
-          postText: '',
+          inProgressSubmit: false,
           postImages: [],
-          inProgressSubmit: false
+          postText: ''
         })
-      })
-      .catch(err => {
+      },
+      err => {
         console.error(err)
         setState({ ...state, inProgressSubmit: false })
-      })
+      }
+    )
+    subscription.set('createPost', createPost$$)
   }
+
+  useEffect(() => {
+    return () => subscription.forEach(i => i.unsubscribe())
+  }, [])
 
   return (
     <section className={classes.root}>

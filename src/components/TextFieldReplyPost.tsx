@@ -6,36 +6,13 @@ import React, {
   ChangeEvent,
   Fragment,
   FunctionComponent,
+  useEffect,
   useState
 } from 'react'
+import { from } from 'rxjs'
+import { useSubscription } from '../hooks/useSubscription'
 import { createPost } from '../libs/createPost'
 import { pct } from '../libs/styles/pct'
-
-const useStyles = makeStyles(({ spacing }) => {
-  return {
-    root: { width: pct(100) },
-    textField: {
-      paddingLeft: spacing.unit * 1.5,
-      paddingRight: spacing.unit * 1.5
-    },
-    actions: {
-      marginTop: spacing.unit,
-      paddingLeft: spacing.unit,
-      paddingRight: spacing.unit,
-      paddingBottom: spacing.unit,
-      textAlign: 'right'
-    },
-    submitButton: { marginLeft: spacing.unit, position: 'relative' },
-    buttonProgress: {
-      position: 'absolute',
-      top: 0,
-      left: 0,
-      right: 0,
-      bottom: 0,
-      margin: 'auto'
-    }
-  }
-})
 
 interface Props {
   postId: string
@@ -43,32 +20,46 @@ interface Props {
 
 const TextFieldReplyPost: FunctionComponent<Props> = props => {
   const { postId } = props
+
   const classes = useStyles({})
+
   const [postText, setPostText] = useState('')
+
   const [inProgress, setInProgress] = useState(false)
+
+  const subscription = useSubscription(['createPost'])
 
   const onChangePostText = (event: ChangeEvent<any>) => {
     event.persist()
     setPostText(event.target.value)
   }
-
   const onSubmitPost = () => {
     if (!postText || inProgress) {
       return
     }
-
     setInProgress(true)
-
-    createPost({ fileIds: [], text: postText, replyPostId: postId })
-      .then(() => {
+    const createPost$$ = from(
+      createPost({
+        fileIds: [],
+        replyPostId: postId,
+        text: postText
+      })
+    ).subscribe(
+      () => {
         setPostText('')
         setInProgress(false)
-      })
-      .catch(err => {
+      },
+      err => {
         console.error(err)
         setInProgress(false)
-      })
+      }
+    )
+    subscription.set('createPost', createPost$$)
   }
+
+  useEffect(() => {
+    return () => subscription.forEach(i => i.unsubscribe())
+  }, [])
 
   return (
     <Fragment>
@@ -100,5 +91,31 @@ const TextFieldReplyPost: FunctionComponent<Props> = props => {
     </Fragment>
   )
 }
+
+const useStyles = makeStyles(({ spacing }) => {
+  return {
+    actions: {
+      marginTop: spacing.unit,
+      paddingBottom: spacing.unit,
+      paddingLeft: spacing.unit,
+      paddingRight: spacing.unit,
+      textAlign: 'right'
+    },
+    buttonProgress: {
+      bottom: 0,
+      left: 0,
+      margin: 'auto',
+      position: 'absolute',
+      right: 0,
+      top: 0
+    },
+    root: { width: pct(100) },
+    submitButton: { marginLeft: spacing.unit, position: 'relative' },
+    textField: {
+      paddingLeft: spacing.unit * 1.5,
+      paddingRight: spacing.unit * 1.5
+    }
+  }
+})
 
 export default TextFieldReplyPost
