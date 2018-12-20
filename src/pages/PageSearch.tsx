@@ -1,9 +1,9 @@
 import Search from '@material-ui/icons/Search'
 import { makeStyles } from '@material-ui/styles'
-import React from 'react'
+import React, { FunctionComponent } from 'react'
 import UnderDevelopment from '../components/UnderDevelopment'
 
-const PageSearch = () => {
+const PageSearch: FunctionComponent = () => {
   const classes = useStyles({})
 
   return (

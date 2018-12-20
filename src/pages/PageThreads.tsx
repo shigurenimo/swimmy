@@ -32,7 +32,7 @@ const PageThreads: FunctionComponent<Props> = ({ location, history }) => {
 
   const [posts, setPosts] = useState<PostUi[]>([])
 
-  const [posts$$, setPosts$$] = useSubscription()
+  const [subscription, setSubscription] = useSubscription()
 
   const classes = useStyles({})
 
@@ -43,22 +43,10 @@ const PageThreads: FunctionComponent<Props> = ({ location, history }) => {
     return () => componentWillUnmount()
   }, [])
 
-  const onMore = () => {
-    if (inProgressMore) {
-      return
-    }
-    const nextLimit = limit + 16
-    setInProgressMore(true)
-    setLimit(nextLimit)
-    const subscription = subscribePosts(orderBy, nextLimit)
-    setPosts$$(subscription)
-  }
-
   const onChangeTab = (_: any, _orderBy: string) => {
     history.push(`?order=${_orderBy}`)
-    posts$$.unsubscribe()
-    const subscription = subscribePosts(_orderBy)
-    setPosts$$(subscription)
+    const _subscription = subscribePosts(_orderBy)
+    setSubscription(_subscription)
     setOrderBy(_orderBy)
     setInProgress(true)
     saveState()
@@ -92,6 +80,10 @@ const PageThreads: FunctionComponent<Props> = ({ location, history }) => {
     }
   }
 
+  const saveState = () => {
+    setCache({ posts, limit })
+  }
+
   const restoreState = () => {
     if (cache) {
       setInProgress(false)
@@ -100,22 +92,29 @@ const PageThreads: FunctionComponent<Props> = ({ location, history }) => {
     }
   }
 
-  const saveState = () => {
-    setCache({ posts, limit })
-  }
-
   const componentDidMount = () => {
     const _orderBy = getOrderBy()
     restoreState()
-    const _limit = cache ? limit : 40
+    const _limit = cache ? cache.limit : 40
     setOrderBy(_orderBy)
-    const subscription = subscribePosts(_orderBy, _limit)
-    setPosts$$(subscription)
+    const _subscription = subscribePosts(_orderBy, _limit)
+    setSubscription(_subscription)
   }
 
   const componentWillUnmount = () => {
-    posts$$.unsubscribe()
+    subscription.unsubscribe()
     saveState()
+  }
+
+  const onMore = () => {
+    if (inProgressMore) {
+      return
+    }
+    const _limit = limit + 16
+    setInProgressMore(true)
+    setLimit(_limit)
+    const _subscription = subscribePosts(orderBy, _limit)
+    setSubscription(_subscription)
   }
 
   return (
@@ -125,10 +124,10 @@ const PageThreads: FunctionComponent<Props> = ({ location, history }) => {
         description={'レスのある書き込みはこのページで確認できます。'}
       />
       <Tabs
-        value={orderBy}
-        indicatorColor="primary"
-        textColor="primary"
+        indicatorColor={'primary'}
         onChange={onChangeTab}
+        textColor={'primary'}
+        value={orderBy}
       >
         <Tab label="新着" value={'createdAt'} />
         <Tab label="評価数" value={'likeCount'} />
