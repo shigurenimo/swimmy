@@ -1,27 +1,160 @@
 import CircularProgress from '@material-ui/core/CircularProgress'
 import Fade from '@material-ui/core/Fade'
-import { Theme } from '@material-ui/core/styles'
 import Tab from '@material-ui/core/Tab'
 import Tabs from '@material-ui/core/Tabs'
-import { createStyles, withStyles, WithStyles } from '@material-ui/styles'
+import { makeStyles } from '@material-ui/styles'
 import { firestore } from 'firebase/app'
-import React, { Component } from 'react'
+import React, { FunctionComponent, useEffect, useState } from 'react'
 import { RouteComponentProps } from 'react-router-dom'
 import { collectionData } from 'rxfire/firestore'
-import { Subscription } from 'rxjs'
 import ButtonMore from '../components/ButtonMore'
 import CardThread from '../components/CardThread'
 import PageTitle from '../components/PageTitle'
 import { POSTS_AS_THREAD } from '../constants/collection'
 import { DESC } from '../constants/order'
-import { withCache } from '../higher-order-components/withCache'
+import { useCache } from '../hooks/useCache'
+import { useSubscription } from '../hooks/useSubscription'
 import { Post } from '../interfaces/models/post/post'
 import { PostUi } from '../interfaces/models/post/postWithUi'
 import { createdAt } from '../libs/createdAt'
 import { px } from '../libs/styles/px'
 
-const styles = ({ spacing }: Theme) => {
-  return createStyles({
+type Props = RouteComponentProps
+
+const PageThreads: FunctionComponent<Props> = ({ location, history }) => {
+  const [inProgress, setInProgress] = useState(true)
+
+  const [inProgressMore, setInProgressMore] = useState(false)
+
+  const [limit, setLimit] = useState(16)
+
+  const [orderBy, setOrderBy] = useState('createdAt')
+
+  const [posts, setPosts] = useState<PostUi[]>([])
+
+  const [posts$$, setPosts$$] = useSubscription()
+
+  const classes = useStyles({})
+
+  const [cache, setCache] = useCache(location.pathname + location.search)
+
+  useEffect(() => {
+    componentDidMount()
+    return () => componentWillUnmount()
+  }, [])
+
+  const onMore = () => {
+    if (inProgressMore) {
+      return
+    }
+    const nextLimit = limit + 16
+    setInProgressMore(true)
+    setLimit(nextLimit)
+    const subscription = subscribePosts(orderBy, nextLimit)
+    setPosts$$(subscription)
+  }
+
+  const onChangeTab = (_: any, _orderBy: string) => {
+    history.push(`?order=${_orderBy}`)
+    posts$$.unsubscribe()
+    const subscription = subscribePosts(_orderBy)
+    setPosts$$(subscription)
+    setOrderBy(_orderBy)
+    setInProgress(true)
+    saveState()
+  }
+
+  const subscribePosts = (_orderBy: string, _limit = 16) => {
+    const query = firestore()
+      .collection(POSTS_AS_THREAD)
+      .limit(_limit)
+      .orderBy(_orderBy, DESC)
+    return collectionData<Post>(query).subscribe(docs => {
+      const _posts = docs.map(doc => {
+        return { ...doc, ui: { createdAt: createdAt(doc.createdAt) } }
+      })
+      setPosts(_posts)
+      setInProgress(false)
+      setInProgressMore(false)
+    })
+  }
+
+  const getOrderBy = () => {
+    switch (location.search.replace('?order=', '')) {
+      case 'createdAt':
+        return 'createdAt'
+      case 'likeCount':
+        return 'likeCount'
+      case 'replyPostCount':
+        return 'replyPostCount'
+      default:
+        return 'createdAt'
+    }
+  }
+
+  const restoreState = () => {
+    if (cache) {
+      setInProgress(false)
+      setLimit(cache.limit)
+      setPosts(cache.posts)
+    }
+  }
+
+  const saveState = () => {
+    setCache({ posts, limit })
+  }
+
+  const componentDidMount = () => {
+    const _orderBy = getOrderBy()
+    restoreState()
+    const _limit = cache ? limit : 40
+    setOrderBy(_orderBy)
+    const subscription = subscribePosts(_orderBy, _limit)
+    setPosts$$(subscription)
+  }
+
+  const componentWillUnmount = () => {
+    posts$$.unsubscribe()
+    saveState()
+  }
+
+  return (
+    <main className={classes.root}>
+      <PageTitle
+        title={'スレッド'}
+        description={'レスのある書き込みはこのページで確認できます。'}
+      />
+      <Tabs
+        value={orderBy}
+        indicatorColor="primary"
+        textColor="primary"
+        onChange={onChangeTab}
+      >
+        <Tab label="新着" value={'createdAt'} />
+        <Tab label="評価数" value={'likeCount'} />
+        <Tab label="レス数" value={'replyPostCount'} />
+      </Tabs>
+      {inProgress && <CircularProgress className={classes.progress} />}
+      {!inProgress && (
+        <Fade in>
+          <section className={classes.section}>
+            <div className={classes.posts}>
+              {posts.map(post => (
+                <CardThread key={post.id} post={post} />
+              ))}
+            </div>
+            {limit < 200 && (
+              <ButtonMore onClick={onMore} inProgress={inProgressMore} />
+            )}
+          </section>
+        </Fade>
+      )}
+    </main>
+  )
+}
+
+const useStyles = makeStyles(({ spacing }) => {
+  return {
     posts: {
       display: 'grid',
       gridRowGap: px(spacing.unit * 2),
@@ -36,156 +169,7 @@ const styles = ({ spacing }: Theme) => {
     },
     root: { display: 'grid', gridRowGap: px(spacing.unit * 2) },
     section: { display: 'grid', gridRowGap: px(spacing.unit * 2) }
-  })
-}
-
-interface Props extends WithStyles<typeof styles>, RouteComponentProps {
-  cache: any
-}
-
-interface State {
-  posts: PostUi[]
-  inProgress: boolean
-  inProgressMore: boolean
-  orderBy: string
-  limit: number
-}
-
-class PageThreads extends Component<Props> {
-  public state: State = {
-    inProgress: true,
-    inProgressMore: false,
-    limit: 16,
-    orderBy: 'updatedAt',
-    posts: []
   }
-  private isUnmounted = false
-  private subscription?: Subscription
+})
 
-  public render() {
-    const { classes } = this.props
-    const { posts, inProgress, inProgressMore, limit } = this.state
-    return (
-      <main className={classes.root}>
-        <PageTitle
-          title={'スレッド'}
-          description={'レスのある書き込みはこのページで確認できます。'}
-        />
-        <Tabs
-          value={this.state.orderBy}
-          indicatorColor="primary"
-          textColor="primary"
-          onChange={this.onChangeTab}
-        >
-          <Tab label="更新" value={'updatedAt'} />
-          <Tab label="新着" value={'createdAt'} />
-          <Tab label="評価数" value={'likeCount'} />
-          <Tab label="レス数" value={'replyPostCount'} />
-        </Tabs>
-        {inProgress && <CircularProgress className={classes.progress} />}
-        {!inProgress && (
-          <Fade in>
-            <section className={classes.section}>
-              <div className={classes.posts}>
-                {posts.map(post => (
-                  <CardThread key={post.id} post={post} />
-                ))}
-              </div>
-              {limit < 200 && (
-                <ButtonMore onClick={this.onMore} inProgress={inProgressMore} />
-              )}
-            </section>
-          </Fade>
-        )}
-      </main>
-    )
-  }
-
-  public componentDidMount() {
-    const orderBy = this.getOrderBy()
-    const state = this.restoreState()
-    const limit = state ? state.limit : 40
-    this.setState({ orderBy })
-    this.subscription = this.subscribePosts(orderBy, limit)
-  }
-
-  public componentWillUnmount() {
-    this.isUnmounted = true
-    if (this.subscription) {
-      this.subscription.unsubscribe()
-    }
-    this.saveState()
-  }
-
-  private onMore = () => {
-    const { limit, inProgressMore, orderBy } = this.state
-    if (inProgressMore) {
-      return
-    }
-    const nextLimit = limit + 16
-    this.setState({ inProgressMore: true, limit: nextLimit })
-    this.subscribePosts(orderBy, nextLimit)
-  }
-
-  private onChangeTab = (_: any, orderBy: string) => {
-    const { history } = this.props
-    history.push(`?order=${orderBy}`)
-    if (this.subscription) {
-      this.subscription.unsubscribe()
-    }
-    this.subscription = this.subscribePosts(orderBy)
-    this.setState({ orderBy, inProgress: true })
-    this.saveState()
-  }
-
-  private subscribePosts(orderBy: string, limit = 16) {
-    const query = firestore()
-      .collection(POSTS_AS_THREAD)
-      .limit(limit)
-      .orderBy(orderBy, DESC)
-    return collectionData<Post>(query).subscribe(docs => {
-      if (this.isUnmounted) {
-        return
-      }
-      const posts = docs.map(doc => {
-        return { ...doc, ui: { createdAt: createdAt(doc.createdAt) } }
-      })
-      this.setState({ posts, inProgress: false, inProgressMore: false })
-    })
-  }
-
-  private getOrderBy() {
-    const { location } = this.props
-    switch (location.search.replace('?order=', '')) {
-      case 'createdAt':
-        return 'createdAt'
-      case 'likeCount':
-        return 'likeCount'
-      case 'replyPostCount':
-        return 'replyPostCount'
-      default:
-        return 'updatedAt'
-    }
-  }
-
-  private restoreState() {
-    const { cache } = this.props
-    const state = cache.restore()
-    if (state) {
-      this.setState({
-        inProgress: false,
-        limit: state.limit,
-        posts: state.posts
-      })
-    }
-    return state
-  }
-
-  private saveState() {
-    const { posts, limit } = this.state
-    const { cache } = this.props
-    cache.save({ posts, limit })
-  }
-}
-
-export default withCache(withStyles(styles)(PageThreads))
+export default PageThreads

@@ -5,6 +5,7 @@
     "prettier": [true, { "singleQuote": true, "semi": false }],
     "interface-name": false,
     "no-submodule-imports": false,
-    "no-console": false
+    "no-console": false,
+    "variable-name": false
   }
 }

@@ -1,12 +1,16 @@
 import { useMemo } from 'react'
 import { Subscription } from 'rxjs'
 
-export const useSubscription = (keys: string[]) => {
-  return useMemo<Map<string, Subscription>>(() => {
-    const map = new Map()
-    keys.forEach(key => {
-      map.set(key, new Subscription())
-    })
-    return map
+type SetSubscription = (value: Subscription) => void
+
+export const useSubscription = (): [Subscription, SetSubscription] => {
+  const map = useMemo<Map<string, Subscription>>(() => {
+    return new Map([['root', new Subscription()]])
   }, [])
+  const subscription = map.get('root')!
+  const setSubscription = (value: Subscription) => {
+    subscription.unsubscribe()
+    map.set('root', value)
+  }
+  return [subscription, setSubscription]
 }

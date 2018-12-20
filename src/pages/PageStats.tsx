@@ -151,9 +151,9 @@ class PageStats extends Component<Props> {
         ]
         this.setState({
           averagePerDay,
+          chartData,
           countTotal,
           countWeek,
-          chartData,
           inProgress: false
         })
       })

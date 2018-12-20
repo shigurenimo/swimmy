@@ -22,13 +22,13 @@ import { px } from '../libs/styles/px'
 
 const styles = ({ spacing }: Theme) => {
   return createStyles({
-    root: { display: 'grid', gridRowGap: px(spacing.unit * 2) },
     progress: {
       display: 'block',
-      marginTop: spacing.unit * 10,
       marginLeft: 'auto',
-      marginRight: 'auto'
+      marginRight: 'auto',
+      marginTop: spacing.unit * 10
     },
+    root: { display: 'grid', gridRowGap: px(spacing.unit * 2) },
     section: { display: 'grid', gridRowGap: px(spacing.unit * 2) }
   })
 }
@@ -50,7 +50,7 @@ class PageImages extends Component<Props> {
     inProgress: true,
     inProgressMore: false,
     limit: 16,
-    orderBy: 'updatedAt',
+    orderBy: 'createdAt',
     posts: []
   }
 
@@ -72,7 +72,6 @@ class PageImages extends Component<Props> {
           textColor="primary"
           onChange={this.onChangeTab}
         >
-          <Tab label="更新" value={'updatedAt'} />
           <Tab label="新着" value={'createdAt'} />
           <Tab label="評価数" value={'likeCount'} />
           <Tab label="レス数" value={'replyPostCount'} />
@@ -161,7 +160,7 @@ class PageImages extends Component<Props> {
       case 'replyPostCount':
         return 'replyPostCount'
       default:
-        return 'updatedAt'
+        return 'createdAt'
     }
   }
 
@@ -170,9 +169,9 @@ class PageImages extends Component<Props> {
     const state = cache.restore()
     if (state) {
       this.setState({
-        posts: state.posts,
+        inProgress: false,
         limit: state.limit,
-        inProgress: false
+        posts: state.posts
       })
     }
     return state

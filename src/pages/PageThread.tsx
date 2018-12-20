@@ -21,18 +21,18 @@ import { px } from '../libs/styles/px'
 
 const styles = ({ spacing }: Theme) => {
   return createStyles({
-    progress: {
-      display: 'block',
-      marginLeft: 'auto',
-      marginRight: 'auto',
-      marginTop: spacing.unit * 10
-    },
     posts: {
       display: 'grid',
       gridRowGap: px(spacing.unit * 2),
       marginLeft: spacing.unit * 2,
       marginRight: spacing.unit * 2,
       marginTop: spacing.unit * 2
+    },
+    progress: {
+      display: 'block',
+      marginLeft: 'auto',
+      marginRight: 'auto',
+      marginTop: spacing.unit * 10
     }
   })
 }
@@ -48,8 +48,8 @@ interface State {
 
 class PageThread extends Component<Props> {
   public state: State = {
-    inProgressThread: true,
     inProgressPosts: true,
+    inProgressThread: true,
     posts: [],
     thread: null
   }

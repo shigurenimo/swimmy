@@ -11,6 +11,7 @@ import React, {
 } from 'react'
 import { from } from 'rxjs'
 import { useSubscription } from '../hooks/useSubscription'
+import { useSubscriptionMap } from '../hooks/useSubscriptionMap'
 import { createPost } from '../libs/createPost'
 import { pct } from '../libs/styles/pct'
 
@@ -18,8 +19,10 @@ interface Props {
   postId: string
 }
 
-const TextFieldReplyPost: FunctionComponent<Props> = props => {
-  const { postId } = props
+const TextFieldReplyPost: FunctionComponent<Props> = ({ postId }) => {
+  useEffect(() => {
+    return () => subscription.unsubscribe()
+  }, [])
 
   const classes = useStyles({})
 
@@ -27,7 +30,7 @@ const TextFieldReplyPost: FunctionComponent<Props> = props => {
 
   const [inProgress, setInProgress] = useState(false)
 
-  const subscription = useSubscription(['createPost'])
+  const [subscription, setSubscription] = useSubscription()
 
   const onChangePostText = (event: ChangeEvent<any>) => {
     event.persist()
@@ -39,11 +42,7 @@ const TextFieldReplyPost: FunctionComponent<Props> = props => {
     }
     setInProgress(true)
     const createPost$$ = from(
-      createPost({
-        fileIds: [],
-        replyPostId: postId,
-        text: postText
-      })
+      createPost({ fileIds: [], replyPostId: postId, text: postText })
     ).subscribe(
       () => {
         setPostText('')
@@ -54,12 +53,8 @@ const TextFieldReplyPost: FunctionComponent<Props> = props => {
         setInProgress(false)
       }
     )
-    subscription.set('createPost', createPost$$)
+    setSubscription(createPost$$)
   }
-
-  useEffect(() => {
-    return () => subscription.forEach(i => i.unsubscribe())
-  }, [])
 
   return (
     <Fragment>

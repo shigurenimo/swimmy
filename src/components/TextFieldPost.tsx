@@ -16,7 +16,7 @@ import { doc, snapToData } from 'rxfire/firestore'
 import { put } from 'rxfire/storage'
 import { from, Subscription } from 'rxjs'
 import { IMAGES } from '../constants/collection'
-import { useSubscription } from '../hooks/useSubscription'
+import { useSubscriptionMap } from '../hooks/useSubscriptionMap'
 import { createId } from '../libs/createId'
 import { createPost } from '../libs/createPost'
 import { px } from '../libs/styles/px'
@@ -44,7 +44,7 @@ const TextFieldPost: FunctionComponent<Props> = props => {
     postText: ''
   })
 
-  const subscription = useSubscription(['createPost', 'image'])
+  const subscription = useSubscriptionMap(['createPost', 'image'])
 
   const inputFileRef = React.createRef()
 
