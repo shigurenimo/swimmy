@@ -1,5 +1,4 @@
 import IconButton from '@material-ui/core/IconButton'
-import Delete from '@material-ui/icons/Delete'
 import Favorite from '@material-ui/icons/Favorite'
 import Launch from '@material-ui/icons/Launch'
 import { makeStyles } from '@material-ui/styles'
@@ -22,13 +21,6 @@ const PostActions: FunctionComponent<Props> = ({
   const classes = useStyles({})
   return (
     <div className={classes.root}>
-      <IconButton
-        className={classes.iconButton}
-        disabled
-        aria-label={'Delete this post'}
-      >
-        <Delete />
-      </IconButton>
       <IconButton
         className={classes.iconButton}
         color={hasLike ? 'secondary' : 'default'}
