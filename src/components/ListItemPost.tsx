@@ -4,12 +4,6 @@ import { PostUi } from '../interfaces/models/post/postWithUi'
 import { px } from '../libs/styles/px'
 import ExpansionPanelSummaryPost from './ExpansionPanelSummaryPost'
 
-const useStyle = makeStyles(({ spacing }) => {
-  return {
-    root: { padding: px(spacing.unit * 2) }
-  }
-})
-
 interface Props {
   post: PostUi
 }
@@ -22,5 +16,11 @@ const ListItemPost: FunctionComponent<Props> = ({ post }) => {
     </div>
   )
 }
+
+const useStyle = makeStyles(({ spacing }) => {
+  return {
+    root: { padding: px(spacing.unit * 2) }
+  }
+})
 
 export default ListItemPost

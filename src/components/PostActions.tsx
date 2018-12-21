@@ -38,13 +38,14 @@ const PostActions: FunctionComponent<Props> = ({
       >
         <Favorite />
       </IconButton>
-      <IconButton
-        className={classes.iconButton}
-        component={() => <Link to={`/threads/${postId}`} />}
-        aria-label={'Go thread page'}
-      >
-        <Launch />
-      </IconButton>
+      <Link to={`/threads/${postId}`}>
+        <IconButton
+          className={classes.iconButton}
+          aria-label={'Go thread page'}
+        >
+          <Launch />
+        </IconButton>
+      </Link>
     </div>
   )
 }
