@@ -1,7 +1,7 @@
 import React, { Fragment, FunctionComponent } from 'react'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import AppHeader from './components/AppHeader'
-import RouterListener from './containers/RouteListener'
+import RouterListener from './components/RouteListener'
 import PageAbout from './pages/PageAbout'
 import PageChangelogCreate from './pages/PageChangelogCreate'
 import PageChangelogs from './pages/PageChangelogs'

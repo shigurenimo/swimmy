@@ -3,6 +3,7 @@
 interface Window {
   theme: any
   dataLayer: any
+  gtag: any
 }
 
 declare var window: Window

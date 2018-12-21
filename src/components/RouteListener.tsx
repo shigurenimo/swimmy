@@ -1,18 +1,13 @@
-import React from 'react'
+import React, { FunctionComponent, useEffect } from 'react'
 import { RouteComponentProps, withRouter } from 'react-router-dom'
 
 type Props = RouteComponentProps
 
-class RouterListener extends React.Component<Props> {
-  public render() {
-    return null
-  }
-
-  public componentDidMount() {
+const RouterListener: FunctionComponent<Props> = ({ history }) => {
+  const componentDidMount = () => {
     if (process.env.NODE_ENV === 'development') {
       return
     }
-    const { history } = this.props
     const dataLayer = window.dataLayer || []
     const gtag: any = function() {
       dataLayer.push(arguments)
@@ -23,6 +18,12 @@ class RouterListener extends React.Component<Props> {
       gtag('config', 'UA-129399085-1', { page_path: pathname + search })
     })
   }
+
+  useEffect(() => {
+    componentDidMount()
+  }, [])
+
+  return null
 }
 
 export default withRouter(RouterListener)

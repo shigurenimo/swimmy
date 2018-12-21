@@ -7,7 +7,7 @@ import {
 } from '@material-ui/styles'
 import React, { Fragment, FunctionComponent } from 'react'
 import AppRouter from './AppRouter'
-import AppAuthProvider from './containers/AppAuthProvider'
+import AppAuthProvider from './components/AppAuthProvider'
 import { theme } from './libs/theme'
 
 const generateClassName = createGenerateClassName({
