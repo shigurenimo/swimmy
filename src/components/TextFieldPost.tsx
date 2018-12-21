@@ -9,14 +9,14 @@ import React, {
   ChangeEvent,
   FunctionComponent,
   useEffect,
-  useMemo,
   useState
 } from 'react'
 import { doc, snapToData } from 'rxfire/firestore'
 import { put } from 'rxfire/storage'
-import { from, Subscription } from 'rxjs'
+import { from } from 'rxjs'
+import { filter } from 'rxjs/operators'
 import { IMAGES } from '../constants/collection'
-import { useSubscriptionMap } from '../hooks/useSubscriptionMap'
+import { useSubscription } from '../hooks/useSubscription'
 import { createId } from '../libs/createId'
 import { createPost } from '../libs/createPost'
 import { px } from '../libs/styles/px'
@@ -34,33 +34,34 @@ interface State {
   inProgressImage: boolean
 }
 
-const TextFieldPost: FunctionComponent<Props> = props => {
-  const { replyPostId = '' } = props
+const TextFieldPost: FunctionComponent<Props> = ({ replyPostId = '' }) => {
+  const [postText, setPostText] = useState('')
 
-  const [state, setState] = useState<State>({
-    inProgressImage: false,
-    inProgressSubmit: false,
-    postImages: [],
-    postText: ''
-  })
+  const [postImages, setPostImages] = useState<any[]>([])
 
-  const subscription = useSubscriptionMap(['createPost', 'image'])
+  const [inProgressImage, setInProgressImage] = useState(false)
+
+  const [inProgressSubmit, setInProgressSubmit] = useState(false)
+
+  const [subscriptionCreatePost, setSubscriptionCreatePost] = useSubscription()
+
+  const [subscriptionImage, setSubscriptionImage] = useSubscription()
 
   const inputFileRef = React.createRef()
 
   const classes = useStyle({})
 
-  const inProgress = state.inProgressSubmit || state.inProgressImage
+  const inProgress = inProgressSubmit || inProgressImage
 
-  const disabled = inProgress || state.postText.match(/\S/g) === null
+  const disabled = inProgress || postText.match(/\S/g) === null
 
   const onChangePostText = (event: ChangeEvent<any>) => {
     event.persist()
-    setState({ ...state, postText: event.target.value })
+    setPostText(event.target.value)
   }
 
   const onSelectImage = () => {
-    if (state.inProgressSubmit || state.inProgressImage) {
+    if (inProgressSubmit || inProgressImage) {
       return
     }
     if (inputFileRef.current) {
@@ -70,57 +71,57 @@ const TextFieldPost: FunctionComponent<Props> = props => {
   }
 
   const onChangeImage = (event: ChangeEvent<any>) => {
-    if (state.inProgressSubmit || state.inProgressImage) {
+    if (inProgressSubmit || inProgressImage) {
       return
     }
     const [file] = event.target.files
     const fileId = createId()
     const ref = storage().ref(`posts/${fileId}`)
-    setState({ ...state, inProgressImage: true })
+    setInProgressImage(true)
     const file$ = put(ref, file)
     file$.subscribe()
     const imageRef = firestore()
       .collection(IMAGES)
       .doc(fileId)
-    const image$$ = doc(imageRef).subscribe(imageSnap => {
-      if (!imageSnap.exists) {
-        return
-      }
-      image$$.unsubscribe()
-      const image = snapToData(imageSnap as any)
-      const postImages = [...state.postImages, image]
-      setState({ ...state, inProgressImage: false, postImages })
-    })
-    subscription.set('image', image$$)
+    const subscription = doc(imageRef)
+      .pipe(filter(imageSnap => imageSnap.exists))
+      .subscribe(imageSnap => {
+        subscription.unsubscribe()
+        const image = snapToData(imageSnap as any)
+        const _postImages = [...postImages, image]
+        setInProgressImage(false)
+        setPostImages(_postImages)
+      })
+    setSubscriptionImage(subscription)
   }
 
   const onSubmitPost = () => {
     if (disabled) {
       return
     }
-    setState({ ...state, inProgressSubmit: true })
-    const fileIds = state.postImages.map(image => image.id)
-    const createPost$$ = from(
-      createPost({ fileIds, replyPostId, text: state.postText })
+    setInProgressSubmit(true)
+    const fileIds = postImages.map(image => image.id)
+    const subscription = from(
+      createPost({ fileIds, replyPostId, text: postText })
     ).subscribe(
       () => {
-        setState({
-          ...state,
-          inProgressSubmit: false,
-          postImages: [],
-          postText: ''
-        })
+        setInProgressSubmit(false)
+        setPostImages([])
+        setPostText('')
       },
       err => {
         console.error(err)
-        setState({ ...state, inProgressSubmit: false })
+        setInProgressSubmit(false)
       }
     )
-    subscription.set('createPost', createPost$$)
+    setSubscriptionCreatePost(subscription)
   }
 
   useEffect(() => {
-    return () => subscription.forEach(i => i.unsubscribe())
+    return () => {
+      subscriptionCreatePost.unsubscribe()
+      subscriptionImage.unsubscribe()
+    }
   }, [])
 
   return (
@@ -144,15 +145,13 @@ const TextFieldPost: FunctionComponent<Props> = props => {
           onClick={onSubmitPost}
         >
           GO
-          {state.inProgressSubmit && (
+          {inProgressSubmit && (
             <CircularProgress size={24} className={classes.buttonProgress} />
           )}
         </Button>
       </div>
-      {state.postImages.length !== 0 && (
-        <PreviewImages
-          photoURLs={state.postImages.map(image => image.imageURL)}
-        />
+      {postImages.length !== 0 && (
+        <PreviewImages photoURLs={postImages.map(image => image.imageURL)} />
       )}
       <FormControl fullWidth>
         <InputLabel
@@ -167,7 +166,7 @@ const TextFieldPost: FunctionComponent<Props> = props => {
           fullWidth
           multiline
           onChange={onChangePostText}
-          value={state.postText}
+          value={postText}
           disabled={inProgress}
         />
       </FormControl>
