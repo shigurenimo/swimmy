@@ -11,7 +11,6 @@ import React, {
 } from 'react'
 import { from } from 'rxjs'
 import { useSubscription } from '../hooks/useSubscription'
-import { useSubscriptionMap } from '../hooks/useSubscriptionMap'
 import { createPost } from '../libs/createPost'
 import { pct } from '../libs/styles/pct'
 
