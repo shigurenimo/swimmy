@@ -11,8 +11,7 @@ interface Props {
   post: PostUi
 }
 
-const CardImage: FunctionComponent<Props> = props => {
-  const { post } = props
+const CardImage: FunctionComponent<Props> = ({ post }) => {
   const classes = useStyles({})
 
   return (

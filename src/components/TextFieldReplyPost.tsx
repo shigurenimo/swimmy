@@ -19,18 +19,10 @@ interface Props {
 }
 
 const TextFieldReplyPost: FunctionComponent<Props> = ({ postId }) => {
-  useEffect(() => {
-    return () => subscription.unsubscribe()
-  }, [])
-
   const classes = useStyles({})
-
   const [postText, setPostText] = useState('')
-
   const [inProgress, setInProgress] = useState(false)
-
   const [subscription, setSubscription] = useSubscription()
-
   const onChangePostText = (event: ChangeEvent<any>) => {
     event.persist()
     setPostText(event.target.value)
@@ -54,6 +46,10 @@ const TextFieldReplyPost: FunctionComponent<Props> = ({ postId }) => {
     )
     setSubscription(createPost$$)
   }
+
+  useEffect(() => {
+    return () => subscription.unsubscribe()
+  }, [])
 
   return (
     <Fragment>

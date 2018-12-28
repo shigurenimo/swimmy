@@ -26,11 +26,11 @@ interface State {
 const DialogAppSignIn: FunctionComponent<Props> = ({ isOpen, closeDialog }) => {
   const classes = useStyle({})
   const [state, setState] = useState<State>({
+    email: '',
     errorCode: '',
     errorMessage: '',
-    email: '',
-    password: '',
-    inProgress: false
+    inProgress: false,
+    password: ''
   })
   const onChangeEmail = (event: ChangeEvent<any>) => {
     setState({
@@ -85,6 +85,7 @@ const DialogAppSignIn: FunctionComponent<Props> = ({ isOpen, closeDialog }) => {
         setState({ ...state, inProgress: false, errorCode, errorMessage })
       })
   }
+
   return (
     <Dialog
       open={isOpen}

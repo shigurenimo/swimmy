@@ -13,8 +13,7 @@ interface Props {
   post: PostUi
 }
 
-const CardThread: FunctionComponent<Props> = props => {
-  const { post } = props
+const CardThread: FunctionComponent<Props> = ({ post }) => {
   const classes = useStyles({})
 
   return (
@@ -40,9 +39,9 @@ const CardThread: FunctionComponent<Props> = props => {
 const useStyles = makeStyles(({ typography, palette, spacing }) => {
   return {
     root: {
-      width: pct(100),
       display: 'grid',
-      gridRowGap: px(spacing.unit)
+      gridRowGap: px(spacing.unit),
+      width: pct(100)
     },
     text: {
       fontSize: typography.pxToRem(16),

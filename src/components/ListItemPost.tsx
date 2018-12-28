@@ -10,6 +10,7 @@ interface Props {
 
 const ListItemPost: FunctionComponent<Props> = ({ post }) => {
   const classes = useStyle({})
+
   return (
     <div className={classes.root}>
       <ExpansionPanelSummaryPost post={post} />

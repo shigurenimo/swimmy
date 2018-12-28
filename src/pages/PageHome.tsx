@@ -18,27 +18,14 @@ import { createdAt } from '../libs/createdAt'
 import { px } from '../libs/styles/px'
 
 const PageHome: FunctionComponent = () => {
-  useEffect(() => {
-    componentDidMount()
-    return () => componentWillUnmount()
-  }, [])
-
   const [inProgress, setInProgress] = useState(true)
-
   const [inProgressMore, setInProgressMore] = useState(false)
-
   const [limit, setLimit] = useState(16)
-
   const [orderBy, setOrderBy] = useState('createdAt')
-
   const [posts, setPosts] = useState<PostUi[]>([])
-
   const [subscription, setSubscription] = useSubscription()
-
   const classes = useStyles({})
-
   const [cache, setCache] = useCache(location.pathname)
-
   const subscribePosts = (_limit = 16) => {
     const query = firestore()
       .collection(POSTS_AS_ANONYM)
@@ -53,7 +40,6 @@ const PageHome: FunctionComponent = () => {
       setInProgressMore(false)
     })
   }
-
   const restoreState = () => {
     if (cache) {
       setInProgress(false)
@@ -61,23 +47,19 @@ const PageHome: FunctionComponent = () => {
       setPosts(cache.posts)
     }
   }
-
   const saveState = () => {
     setCache({ posts, limit })
   }
-
   const componentDidMount = () => {
     restoreState()
     const _limit = cache ? cache.limit : 16
     const _subscription = subscribePosts(_limit)
     setSubscription(_subscription)
   }
-
   const componentWillUnmount = () => {
     subscription.unsubscribe()
     saveState()
   }
-
   const onMore = () => {
     if (inProgressMore) {
       return
@@ -88,6 +70,11 @@ const PageHome: FunctionComponent = () => {
     const _subscription = subscribePosts(_limit)
     setSubscription(_subscription)
   }
+
+  useEffect(() => {
+    componentDidMount()
+    return () => componentWillUnmount()
+  }, [])
 
   return (
     <main className={classes.root}>

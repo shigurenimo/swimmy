@@ -8,6 +8,7 @@ interface Props {
 
 const InputFile: FunctionComponent<Props> = ({ inputRef, onChange }) => {
   const classes = useStyles({})
+
   return (
     <input
       className={classes.root}

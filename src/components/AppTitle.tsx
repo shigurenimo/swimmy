@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom'
 
 const AppTitle: FunctionComponent = () => {
   const classes = useStyles({})
+
   return (
     <div className={classes.root}>
       <Link to={'/'}>
@@ -18,9 +19,9 @@ const AppTitle: FunctionComponent = () => {
 
 const useStyles = makeStyles(({ spacing }) => {
   return {
-    root: { flexGrow: 1 },
     button: { padding: 0 },
-    img: { height: spacing.unit * 3 + spacing.unit * 3 }
+    img: { height: spacing.unit * 3 + spacing.unit * 3 },
+    root: { flexGrow: 1 }
   }
 })
 

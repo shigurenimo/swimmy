@@ -23,26 +23,13 @@ type Props = RouteComponentProps
 
 const PageImages: FunctionComponent<Props> = ({ location, history }) => {
   const [inProgress, setInProgress] = useState(true)
-
   const [inProgressMore, setInProgressMore] = useState(false)
-
   const [limit, setLimit] = useState(16)
-
   const [orderBy, setOrderBy] = useState('createdAt')
-
   const [posts, setPosts] = useState<PostUi[]>([])
-
   const [subscription, setSubscription] = useSubscription()
-
   const classes = useStyles({})
-
   const [cache, setCache] = useCache(location.pathname + location.search)
-
-  useEffect(() => {
-    componentDidMount()
-    return () => componentWillUnmount()
-  }, [])
-
   const onChangeTab = (_: any, _orderBy: string) => {
     history.push(`?order=${orderBy}`)
     const _subscription = subscribePosts(_orderBy)
@@ -51,7 +38,6 @@ const PageImages: FunctionComponent<Props> = ({ location, history }) => {
     setInProgress(true)
     saveState()
   }
-
   const subscribePosts = (_orderBy: string, _limit = 16) => {
     const query = firestore()
       .collection(POSTS_AS_IMAGE)
@@ -66,7 +52,6 @@ const PageImages: FunctionComponent<Props> = ({ location, history }) => {
       setInProgressMore(false)
     })
   }
-
   const getOrderBy = () => {
     switch (location.search.replace('?order=', '')) {
       case 'createdAt':
@@ -79,11 +64,9 @@ const PageImages: FunctionComponent<Props> = ({ location, history }) => {
         return 'createdAt'
     }
   }
-
   const saveState = () => {
     setCache({ posts, limit })
   }
-
   const restoreState = () => {
     if (cache) {
       setInProgress(false)
@@ -91,7 +74,6 @@ const PageImages: FunctionComponent<Props> = ({ location, history }) => {
       setPosts(cache.posts)
     }
   }
-
   const componentDidMount = () => {
     const _orderBy = getOrderBy()
     restoreState()
@@ -100,12 +82,10 @@ const PageImages: FunctionComponent<Props> = ({ location, history }) => {
     const _subscription = subscribePosts(_orderBy, _limit)
     setSubscription(_subscription)
   }
-
   const componentWillUnmount = () => {
     subscription.unsubscribe()
     saveState()
   }
-
   const onMore = () => {
     if (inProgressMore) {
       return
@@ -116,6 +96,11 @@ const PageImages: FunctionComponent<Props> = ({ location, history }) => {
     const _subscription = subscribePosts(orderBy, _limit)
     setSubscription(_subscription)
   }
+
+  useEffect(() => {
+    componentDidMount()
+    return () => componentWillUnmount()
+  }, [])
 
   return (
     <main className={classes.root}>

@@ -10,9 +10,13 @@ interface Props {
   date: string
 }
 
-const CardChangelog: FunctionComponent<Props> = props => {
-  const { version, contents, date } = props
+const CardChangelog: FunctionComponent<Props> = ({
+  version,
+  contents,
+  date
+}) => {
   const classes = useStyles({})
+
   return (
     <Card>
       <CardContent>
@@ -32,9 +36,9 @@ const CardChangelog: FunctionComponent<Props> = props => {
 
 const useStyles = makeStyles(({ spacing }) => {
   return {
-    version: { flexBasis: '33.33%', flexShrink: 0 },
     date: { opacity: 0.65, fontSize: 12, marginBottom: spacing.unit },
-    description: { whiteSpace: 'pre-line', wordBreak: 'break-all' }
+    description: { whiteSpace: 'pre-line', wordBreak: 'break-all' },
+    version: { flexBasis: '33.33%', flexShrink: 0 }
   }
 })
 

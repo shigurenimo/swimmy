@@ -23,13 +23,9 @@ const ListReplyPost: FunctionComponent<Props> = ({
   replyPostCount
 }) => {
   const [posts, setPosts] = useState<Post[]>([])
-
   const [inProgress, setInProgress] = useState(replyPostCount > 0)
-
   const classes = useStyles({})
-
   const [subscription, setSubscription] = useSubscription()
-
   const componentDidMount = () => {
     setTimeout(
       () => {
@@ -49,7 +45,6 @@ const ListReplyPost: FunctionComponent<Props> = ({
       replyPostCount > 0 ? 400 : 0
     )
   }
-
   const componentWillUnmount = () => {
     subscription.unsubscribe()
   }

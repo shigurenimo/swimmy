@@ -78,6 +78,7 @@ const ExpansionPanelPost: FunctionComponent<Props> = ({ inProgress, post }) => {
       console.error(err)
     })
   }
+
   return (
     <ExpansionPanel expanded={state.expanded} onChange={onChangeExpand}>
       <ExpansionPanelSummary

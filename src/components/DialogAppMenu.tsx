@@ -25,10 +25,8 @@ interface Props {
   isOpen: boolean
 }
 
-const DialogAppMenu: FunctionComponent<Props> = props => {
-  const { onClose, isOpen } = props
+const DialogAppMenu: FunctionComponent<Props> = ({ onClose, isOpen }) => {
   const authContext = useContext(AuthContext)
-
   const onSignOut = () => {
     auth()
       .signOut()

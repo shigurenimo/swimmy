@@ -15,36 +15,21 @@ import { useSubscription } from '../hooks/useSubscription'
 import { px } from '../libs/styles/px'
 
 const PageStats: FunctionComponent = () => {
-  useEffect(() => {
-    componentDidMount()
-    return () => componentWillUnmount()
-  }, [])
-
   const [averagePerDay, setAveragePerDay] = useState<any>(0)
-
   const [chartData, setChartData] = useState<any>(null)
-
   const [countTotal, setCountTotal] = useState(0)
-
   const [countWeek, setCountWeek] = useState(0)
-
   const [inProgress, setInProgress] = useState(true)
-
   const [stats, setStats] = useState(null)
-
   const classes = useStyles({})
-
   const [subscription, setSubscription] = useSubscription()
-
   const componentDidMount = () => {
     const _subscription = subscribeStats()
     setSubscription(_subscription)
   }
-
   const componentWillUnmount = () => {
     subscription.unsubscribe()
   }
-
   const subscribeStats = () => {
     const query = firestore()
       .collection(STATS)
@@ -74,6 +59,11 @@ const PageStats: FunctionComponent = () => {
         setInProgress(false)
       })
   }
+
+  useEffect(() => {
+    componentDidMount()
+    return () => componentWillUnmount()
+  }, [])
 
   if (inProgress) {
     return <CircularProgress className={classes.progress} />

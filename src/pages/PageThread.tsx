@@ -21,35 +21,21 @@ import { px } from '../libs/styles/px'
 type Props = RouteComponentProps
 
 const PageThread: FunctionComponent<Props> = ({ match }) => {
-  useEffect(() => {
-    componentDidMount()
-    return () => componentWillUnmount()
-  }, [])
-
   const [inProgressPosts, setInProgressPosts] = useState(true)
-
   const [inProgressThread, setInProgressThread] = useState(true)
-
   const [posts, setPosts] = useState<PostUi[]>([])
-
   const [thread, setThread] = useState<PostUi | null>(null)
-
   const classes = useStyles({})
-
   const [subscription, setSubscription] = useSubscription()
-
   const [subscriptionThread, setSubscriptionThread] = useSubscription()
-
   const componentDidMount = () => {
     setSubscription(subscribePosts())
     setSubscriptionThread(subscribeThread())
   }
-
   const componentWillUnmount = () => {
     subscription.unsubscribe()
     subscriptionThread.unsubscribe()
   }
-
   const subscribePosts = () => {
     const query = firestore()
       .collection(POSTS_AS_ANONYM)
@@ -65,7 +51,6 @@ const PageThread: FunctionComponent<Props> = ({ match }) => {
       setInProgressPosts(false)
     })
   }
-
   const subscribeThread = () => {
     const query = firestore()
       .collection(POSTS_AS_ANONYM)
@@ -78,8 +63,12 @@ const PageThread: FunctionComponent<Props> = ({ match }) => {
         setInProgressThread(false)
       })
   }
-
   const inProgress = inProgressPosts || inProgressThread
+
+  useEffect(() => {
+    componentDidMount()
+    return () => componentWillUnmount()
+  }, [])
 
   if (inProgress) {
     return <CircularProgress className={classes.progress} />

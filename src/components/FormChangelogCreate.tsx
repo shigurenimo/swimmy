@@ -7,15 +7,13 @@ import { px } from '../libs/styles/px'
 import FormItemContents from './FormItemContents'
 import FormItemVersion from './FormItemVersion'
 
-interface Props {}
-
 interface State {
   contents: string[]
   date: string
   version: number
 }
 
-const FormChangelogCreate: FunctionComponent<Props> = () => {
+const FormChangelogCreate: FunctionComponent = () => {
   const [state, setState] = useState<State>({
     contents: [''],
     date: '2017-05-24',
@@ -40,6 +38,7 @@ const FormChangelogCreate: FunctionComponent<Props> = () => {
       setState({ ...state, contents: [''] })
     })
   }
+
   return (
     <form className={classes.root}>
       <FormItemVersion

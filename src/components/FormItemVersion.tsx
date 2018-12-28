@@ -66,6 +66,7 @@ const FormItemVersion: FunctionComponent<Props> = ({
   ]
     .map(f => f(dataVersion))
     .map(a => parseInt(a, 10))
+
   return (
     <div className={classes.root}>
       <TextField
@@ -95,10 +96,10 @@ const FormItemVersion: FunctionComponent<Props> = ({
 const useStyles = makeStyles(({ spacing }) => {
   return {
     root: {
-      display: 'grid',
-      gridTemplateColumns: '80px 16px 80px 16px 80px',
-      gridColumnGap: px(spacing.unit * 2),
       alignItems: 'flex-end',
+      display: 'grid',
+      gridColumnGap: px(spacing.unit * 2),
+      gridTemplateColumns: '80px 16px 80px 16px 80px',
       textAlign: 'center'
     }
   }

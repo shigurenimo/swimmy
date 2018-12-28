@@ -20,41 +20,25 @@ import { pct } from '../libs/styles/pct'
 import { px } from '../libs/styles/px'
 
 const PageSettingsPassword: FunctionComponent = () => {
-  useEffect(() => {
-    return () => componentWillUnmount()
-  }, [])
-
   const [currentPassword, setCurrentPassword] = useState('')
-
   const [inProgress, setInProgress] = useState(false)
-
   const [password, setPassword] = useState('')
-
   const [snackbarMessage, setSnackbarMessage] = useState('')
-
   const [snackbarOpen, setSnackbarOpen] = useState(false)
-
   const [snackbarType, setSnackbarType] = useState('')
-
   const classes = useStyles({})
-
   const [subscription, setSubscription] = useSubscription()
-
   const disabled =
     !password || !currentPassword || password === currentPassword || inProgress
-
   const componentWillUnmount = () => {
     subscription.unsubscribe()
   }
-
   const onChangePassword = (event: ChangeEvent<any>) => {
     setPassword(event.target.value)
   }
-
   const onChangePasswordRetype = (event: ChangeEvent<any>) => {
     setCurrentPassword(event.target.value)
   }
-
   const onSubmit = () => {
     if (password === currentPassword) {
       return
@@ -95,10 +79,13 @@ const PageSettingsPassword: FunctionComponent = () => {
       )
     setSubscription(_subscription)
   }
-
   const onCloseSnackbar = () => {
     setSnackbarOpen(false)
   }
+
+  useEffect(() => {
+    return () => componentWillUnmount()
+  }, [])
 
   return (
     <Fragment>

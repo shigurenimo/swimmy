@@ -10,6 +10,7 @@ interface Props {
 
 const Images: FunctionComponent<Props> = ({ photoURLs }) => {
   const classes = useStyles({})
+
   return (
     <div className={classes.root}>
       {photoURLs.map(photoURL => (

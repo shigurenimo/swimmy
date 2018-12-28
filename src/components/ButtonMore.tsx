@@ -10,6 +10,7 @@ interface Props {
 
 const ButtonMore: FunctionComponent<Props> = ({ onClick, inProgress }) => {
   const classes = useStyles({})
+
   return (
     <div className={classes.root}>
       <Button onClick={onClick} className={classes.button}>
@@ -24,7 +25,6 @@ const ButtonMore: FunctionComponent<Props> = ({ onClick, inProgress }) => {
 
 const useStyles = makeStyles(({ spacing }) => {
   return {
-    root: { display: 'grid', justifyContent: 'center' },
     button: { position: 'relative' },
     buttonProgress: {
       position: 'absolute',
@@ -33,7 +33,8 @@ const useStyles = makeStyles(({ spacing }) => {
       right: 0,
       bottom: 0,
       margin: 'auto'
-    }
+    },
+    root: { display: 'grid', justifyContent: 'center' }
   }
 })
 

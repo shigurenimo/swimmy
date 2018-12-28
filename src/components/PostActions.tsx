@@ -19,6 +19,7 @@ const PostActions: FunctionComponent<Props> = ({
   postId
 }) => {
   const classes = useStyles({})
+
   return (
     <div className={classes.root}>
       <IconButton

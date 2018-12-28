@@ -19,26 +19,15 @@ import { toVersionStr } from '../libs/toVersionStr'
 
 const PageChangelogs: FunctionComponent = () => {
   const classes = useStyles({})
-
   const [changelogs, setChangelogs] = useState<ChangelogUi[]>([])
-
   const [inProgress, setInProgress] = useState(true)
-
   const [subscription, setSubscription] = useSubscription()
-
-  useEffect(() => {
-    componentDidMount()
-    return () => componentWillUnmount()
-  }, [])
-
   const componentDidMount = () => {
     setSubscription(subscribe())
   }
-
   const componentWillUnmount = () => {
     subscription.unsubscribe()
   }
-
   const subscribe = () => {
     const query = firestore()
       .collection(CHANGELOGS)
@@ -59,6 +48,11 @@ const PageChangelogs: FunctionComponent = () => {
         setInProgress(false)
       })
   }
+
+  useEffect(() => {
+    componentDidMount()
+    return () => componentWillUnmount()
+  }, [])
 
   if (inProgress) {
     return <CircularProgress className={classes.progress} />

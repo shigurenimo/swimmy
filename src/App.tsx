@@ -10,10 +10,7 @@ import AppRouter from './AppRouter'
 import AppAuthProvider from './components/AppAuthProvider'
 import { theme } from './libs/theme'
 
-const generateClassName = createGenerateClassName({
-  dangerouslyUseGlobalCSS: false,
-  productionPrefix: 'c'
-})
+const generateClassName = createGenerateClassName({ productionPrefix: 'c' })
 
 const App: FunctionComponent = () => {
   return (

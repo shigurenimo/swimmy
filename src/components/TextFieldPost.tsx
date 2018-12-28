@@ -36,30 +36,19 @@ interface State {
 
 const TextFieldPost: FunctionComponent<Props> = ({ replyPostId = '' }) => {
   const [postText, setPostText] = useState('')
-
   const [postImages, setPostImages] = useState<any[]>([])
-
   const [inProgressImage, setInProgressImage] = useState(false)
-
   const [inProgressSubmit, setInProgressSubmit] = useState(false)
-
   const [subscriptionCreatePost, setSubscriptionCreatePost] = useSubscription()
-
   const [subscriptionImage, setSubscriptionImage] = useSubscription()
-
   const inputFileRef = React.createRef()
-
   const classes = useStyle({})
-
   const inProgress = inProgressSubmit || inProgressImage
-
   const disabled = inProgress || postText.match(/\S/g) === null
-
   const onChangePostText = (event: ChangeEvent<any>) => {
     event.persist()
     setPostText(event.target.value)
   }
-
   const onSelectImage = () => {
     if (inProgressSubmit || inProgressImage) {
       return
@@ -69,7 +58,6 @@ const TextFieldPost: FunctionComponent<Props> = ({ replyPostId = '' }) => {
       current.click()
     }
   }
-
   const onChangeImage = (event: ChangeEvent<any>) => {
     if (inProgressSubmit || inProgressImage) {
       return
@@ -94,7 +82,6 @@ const TextFieldPost: FunctionComponent<Props> = ({ replyPostId = '' }) => {
       })
     setSubscriptionImage(subscription)
   }
-
   const onSubmitPost = () => {
     if (disabled) {
       return

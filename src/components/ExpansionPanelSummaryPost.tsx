@@ -13,6 +13,7 @@ interface Props {
 
 const ExpansionPanelSummaryPost: FunctionComponent<Props> = ({ post }) => {
   const classes = useStyles({})
+
   return (
     <div className={classes.root}>
       <PostCounts
@@ -33,19 +34,19 @@ const ExpansionPanelSummaryPost: FunctionComponent<Props> = ({ post }) => {
 const useStyles = makeStyles(
   ({ breakpoints, typography, palette, spacing }) => {
     return {
+      likeCount: { paddingLeft: spacing.unit, color: palette.secondary.light },
+      replyPostCount: { color: purple.A400, paddingLeft: spacing.unit },
       root: {
-        paddingRight: '0 !important',
         display: 'grid',
-        gridRowGap: px(8)
+        gridRowGap: px(8),
+        paddingRight: '0 !important'
       },
       text: {
         fontSize: typography.pxToRem(16),
         fontWeight: typography.fontWeightMedium,
         whiteSpace: 'pre-line',
         wordBreak: 'break-all'
-      },
-      likeCount: { paddingLeft: spacing.unit, color: palette.secondary.light },
-      replyPostCount: { color: purple.A400, paddingLeft: spacing.unit }
+      }
     }
   }
 )

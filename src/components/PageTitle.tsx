@@ -17,12 +17,15 @@ const PageTitle: FunctionComponent<Props> = ({
 }) => {
   const classes = useStyles({})
   const { isLogged, isLoggingIn } = useContext(AuthContext)
+
   if (hide && isLoggingIn) {
     return null
   }
+
   if (hide && isLogged) {
     return null
   }
+
   return (
     <div className={classes.root}>
       <Typography variant={'h5'} component={'h1'} color="inherit">

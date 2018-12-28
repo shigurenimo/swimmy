@@ -30,10 +30,10 @@ const ChartLine: FunctionComponent<Props> = ({ data }) => {
 const useStyles = makeStyles(({ spacing }) => {
   return {
     root: {
-      width: pct(100),
-      height: px(spacing.unit * 20),
       border: '1px solid lightgray',
-      borderRadius: 4
+      borderRadius: 4,
+      height: px(spacing.unit * 20),
+      width: pct(100)
     }
   }
 })

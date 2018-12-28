@@ -5,6 +5,7 @@ import { pct } from '../libs/styles/pct'
 
 const AppLoading: FunctionComponent = () => {
   const classes = useStyles({})
+
   return (
     <div className={classes.root}>
       <CircularProgress size={50} />
@@ -14,14 +15,14 @@ const AppLoading: FunctionComponent = () => {
 
 const useStyles = makeStyles({
   root: {
+    alignItems: 'center',
+    display: 'flex',
+    height: pct(100),
+    justifyContent: 'center',
+    left: 0,
     position: 'fixed',
     top: 0,
-    left: 0,
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
     width: pct(100),
-    height: pct(100),
     zIndex: -1
   }
 })

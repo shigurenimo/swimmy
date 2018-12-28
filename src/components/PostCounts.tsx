@@ -13,9 +13,11 @@ const PostCounts: FunctionComponent<Props> = ({
   likeCount
 }) => {
   const classes = useStyles({})
+
   if (!replyPostCount && !likeCount) {
     return null
   }
+
   return (
     <div className={classes.root}>
       {replyPostCount > 0 && (
