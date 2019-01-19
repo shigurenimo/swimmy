@@ -14,55 +14,50 @@ interface State {
 }
 
 const FormChangelogCreate: FunctionComponent = () => {
-  const [state, setState] = useState<State>({
-    contents: [''],
-    date: '2017-05-24',
-    version: 1000000
-  })
+  const [contents, setContents] = useState<string[]>([])
+  const [date, setDate] = useState<string>('2017-05-24')
+  const [version, setVersion] = useState<number>(1000000)
   const classes = useStyles({})
-  const onChangeContents = (contents: string[]) => {
-    setState({ ...state, contents })
+  const onChangeContents = (_contents: string[]) => {
+    setContents(_contents)
   }
   const onChangeDate = (event: ChangeEvent<any>) => {
-    setState({ ...state, date: event.target.value })
+    setDate(event.target.value)
   }
-  const onChangeVersion = (version: number) => {
-    setState({ ...state, version })
+  const onChangeVersion = (_version: number) => {
+    setVersion(_version)
   }
   const onSubmit = () => {
     createChangelog({
-      contents: state.contents.filter(content => content),
-      date: new Date(state.date).getTime(),
-      version: state.version
+      contents: contents.filter(content => content),
+      date: new Date(date).getTime(),
+      version
     }).then(() => {
-      setState({ ...state, contents: [''] })
+      setContents([''])
     })
   }
 
   return (
     <form className={classes.root}>
-      <FormItemVersion
-        onChangeVersion={onChangeVersion}
-        version={state.version}
-      />
+      <FormItemVersion onChangeVersion={onChangeVersion} version={version} />
       <FormItemContents
         onChangeContents={onChangeContents}
-        contents={state.contents}
+        contents={contents}
       />
       <div>
         <TextField
           onChange={onChangeDate}
-          value={state.date}
-          type="date"
-          variant="outlined"
+          type={'date'}
+          value={date}
+          variant={'outlined'}
         />
       </div>
       <div>
         <Button
-          onClick={onSubmit}
-          variant="outlined"
-          color="primary"
           aria-label={'Send this changelog'}
+          color={'primary'}
+          onClick={onSubmit}
+          variant={'outlined'}
         >
           submit
         </Button>

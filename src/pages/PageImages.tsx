@@ -74,18 +74,6 @@ const PageImages: FunctionComponent<Props> = ({ location, history }) => {
       setPosts(cache.posts)
     }
   }
-  const componentDidMount = () => {
-    const _orderBy = getOrderBy()
-    restoreState()
-    const _limit = cache ? cache.limit : 40
-    setOrderBy(_orderBy)
-    const _subscription = subscribePosts(_orderBy, _limit)
-    setSubscription(_subscription)
-  }
-  const componentWillUnmount = () => {
-    subscription.unsubscribe()
-    saveState()
-  }
   const onMore = () => {
     if (inProgressMore) {
       return
@@ -98,8 +86,16 @@ const PageImages: FunctionComponent<Props> = ({ location, history }) => {
   }
 
   useEffect(() => {
-    componentDidMount()
-    return () => componentWillUnmount()
+    const _orderBy = getOrderBy()
+    restoreState()
+    const _limit = cache ? cache.limit : 40
+    setOrderBy(_orderBy)
+    const _subscription = subscribePosts(_orderBy, _limit)
+    setSubscription(_subscription)
+    return () => {
+      subscription.unsubscribe()
+      saveState()
+    }
   }, [])
 
   return (

@@ -11,133 +11,119 @@ import { auth } from 'firebase/app'
 import React, { ChangeEvent, FunctionComponent, useState } from 'react'
 
 interface Props {
-  closeDialog: any
+  closeDialog: () => void
   isOpen: boolean
-}
-
-interface State {
-  errorCode: string
-  errorMessage: string
-  email: string
-  password: string
-  inProgress: boolean
 }
 
 const DialogAppSignIn: FunctionComponent<Props> = ({ isOpen, closeDialog }) => {
   const classes = useStyle({})
-  const [state, setState] = useState<State>({
-    email: '',
-    errorCode: '',
-    errorMessage: '',
-    inProgress: false,
-    password: ''
-  })
+  const [email, setEmail] = useState('')
+  const [errorCode, setErrorCode] = useState('')
+  const [errorMessage, setErrorMessage] = useState('')
+  const [inProgress, setInProgress] = useState(false)
+  const [password, setPassword] = useState('')
   const onChangeEmail = (event: ChangeEvent<any>) => {
-    setState({
-      ...state,
-      email: event.target.value,
-      errorCode: '',
-      errorMessage: ''
-    })
+    setEmail(event.target.value)
+    setErrorCode('')
+    setErrorMessage('')
   }
   const onChangePassword = (event: ChangeEvent<any>) => {
-    setState({
-      ...state,
-      password: event.target.value,
-      errorCode: '',
-      errorMessage: ''
-    })
+    setErrorCode('')
+    setErrorMessage('')
+    setPassword(event.target.value)
   }
   const onSignUp = () => {
-    if (state.inProgress) {
+    if (inProgress) {
       return
     }
-    setState({ ...state, inProgress: true, errorCode: '', errorMessage: '' })
-    const username = state.email.includes('@')
-      ? state.email
-      : `${state.email}@swimmy.io`
+    setInProgress(true)
+    setErrorCode('')
+    setErrorMessage('')
+    const username = email.includes('@') ? email : `${email}@swimmy.io`
     auth()
-      .createUserWithEmailAndPassword(username, state.password)
+      .createUserWithEmailAndPassword(username, password)
       .then(() => {
-        setState({ ...state, inProgress: false, email: '', password: '' })
+        setInProgress(false)
+        setEmail('')
+        setPassword('')
         closeDialog()
       })
       .catch(err => {
-        const errorCode = err.code
-        const errorMessage = err.message
-        setState({ ...state, errorCode, errorMessage, inProgress: false })
+        setErrorCode(err.code)
+        setErrorMessage(err.message)
+        setInProgress(false)
       })
   }
   const onSignIn = () => {
-    setState({ ...state, inProgress: true, errorCode: '', errorMessage: '' })
-    const username = state.email.includes('@')
-      ? state.email
-      : `${state.email}@swimmy.io`
+    setInProgress(true)
+    setErrorCode('')
+    setErrorMessage('')
+    const username = email.includes('@') ? email : `${email}@swimmy.io`
     auth()
-      .signInWithEmailAndPassword(username, state.password)
+      .signInWithEmailAndPassword(username, password)
       .then(() => {
-        setState({ ...state, inProgress: false, email: '', password: '' })
+        setInProgress(false)
+        setEmail('')
+        setPassword('')
         closeDialog()
       })
       .catch(error => {
-        const errorCode = error.code
-        const errorMessage = error.message
-        setState({ ...state, inProgress: false, errorCode, errorMessage })
+        setInProgress(false)
+        setErrorCode(error.code)
+        setErrorMessage(error.message)
       })
   }
 
   return (
     <Dialog
-      open={isOpen}
+      disableBackdropClick={inProgress}
+      disableEscapeKeyDown={inProgress}
       onClose={closeDialog}
-      disableBackdropClick={state.inProgress}
-      disableEscapeKeyDown={state.inProgress}
+      open={isOpen}
     >
-      <div className={classes.progress}>
-        {state.inProgress && <LinearProgress />}
-      </div>
+      <div className={classes.progress}>{inProgress && <LinearProgress />}</div>
       <DialogTitle>Hello</DialogTitle>
       <DialogContent>
         <TextField
-          margin="dense"
-          label="Email or Username"
-          type="email"
-          fullWidth
-          value={state.email}
+          disabled={inProgress}
+          fullWidth={true}
+          label={'Email or Username'}
+          margin={'dense'}
           onChange={onChangeEmail}
-          disabled={state.inProgress}
+          type={'email'}
+          value={email}
         />
         <TextField
-          value={state.password}
-          margin="dense"
-          label="Password"
-          type="password"
-          fullWidth
+          disabled={inProgress}
+          fullWidth={true}
+          label={'Password'}
+          margin={'dense'}
           onChange={onChangePassword}
-          disabled={state.inProgress}
+          type={'password'}
+          value={password}
         />
       </DialogContent>
-      {state.errorMessage && (
+      {errorMessage && (
         <DialogContent>
           <DialogContentText className={classes.errorMassage}>
-            ! {state.errorMessage}
+            ! {errorMessage}
           </DialogContentText>
         </DialogContent>
       )}
       <DialogActions>
         <Button
-          onClick={onSignUp}
-          disabled={state.inProgress}
           aria-label={'Sign up with email or username'}
+          disabled={inProgress}
+          onClick={onSignUp}
         >
           SIGN UP
         </Button>
         <Button
-          onClick={onSignIn}
-          disabled={state.inProgress}
-          variant="contained"
-          color="primary"
           aria-label={'Sign in with email or username'}
+          color={'primary'}
+          disabled={inProgress}
+          onClick={onSignIn}
+          variant={'contained'}
         >
           SIGN IN
         </Button>
@@ -148,8 +134,8 @@ const DialogAppSignIn: FunctionComponent<Props> = ({ isOpen, closeDialog }) => {
 
 const useStyle = makeStyles(({ palette }) => {
   return createStyles({
-    progress: { height: 5 },
-    errorMassage: { color: palette.error.light }
+    errorMassage: { color: palette.error.light },
+    progress: { height: 5 }
   })
 })
 

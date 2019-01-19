@@ -21,19 +21,13 @@ const PageChangelogs: FunctionComponent = () => {
   const classes = useStyles({})
   const [changelogs, setChangelogs] = useState<ChangelogUi[]>([])
   const [inProgress, setInProgress] = useState(true)
-  const [subscription, setSubscription] = useSubscription()
-  const componentDidMount = () => {
-    setSubscription(subscribe())
-  }
-  const componentWillUnmount = () => {
-    subscription.unsubscribe()
-  }
-  const subscribe = () => {
+
+  useEffect(() => {
     const query = firestore()
       .collection(CHANGELOGS)
       .limit(40)
       .orderBy('version', DESC)
-    return collectionData<Changelog>(query)
+    const subscription = collectionData<Changelog>(query)
       .pipe(take(2))
       .subscribe(docs => {
         setChangelogs([
@@ -47,11 +41,9 @@ const PageChangelogs: FunctionComponent = () => {
         ])
         setInProgress(false)
       })
-  }
-
-  useEffect(() => {
-    componentDidMount()
-    return () => componentWillUnmount()
+    return () => {
+      subscription.unsubscribe()
+    }
   }, [])
 
   if (inProgress) {

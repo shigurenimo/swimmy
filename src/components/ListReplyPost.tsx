@@ -7,6 +7,8 @@ import { makeStyles } from '@material-ui/styles'
 import { firestore } from 'firebase/app'
 import React, { FunctionComponent, useEffect, useState } from 'react'
 import { collectionData } from 'rxfire/firestore'
+import { Subscription } from 'rxjs'
+import { delay } from 'rxjs/operators'
 import { POSTS, POSTS_AS_ANONYM } from '../constants/collection'
 import { DESC } from '../constants/order'
 import { useSubscription } from '../hooks/useSubscription'
@@ -25,33 +27,24 @@ const ListReplyPost: FunctionComponent<Props> = ({
   const [posts, setPosts] = useState<Post[]>([])
   const [inProgress, setInProgress] = useState(replyPostCount > 0)
   const classes = useStyles({})
-  const [subscription, setSubscription] = useSubscription()
-  const componentDidMount = () => {
-    setTimeout(
-      () => {
-        const query = firestore()
-          .collection(POSTS_AS_ANONYM)
-          .doc(postId)
-          .collection(POSTS)
-          .limit(24)
-          .orderBy('createdAt', DESC)
-        const _subscription = collectionData(query).subscribe((docs: any) => {
-          docs.reverse()
-          setPosts(docs)
-          setInProgress(false)
-        })
-        setSubscription(_subscription)
-      },
-      replyPostCount > 0 ? 400 : 0
-    )
-  }
-  const componentWillUnmount = () => {
-    subscription.unsubscribe()
-  }
 
   useEffect(() => {
-    componentDidMount()
-    return () => componentWillUnmount()
+    const query = firestore()
+      .collection(POSTS_AS_ANONYM)
+      .doc(postId)
+      .collection(POSTS)
+      .limit(24)
+      .orderBy('createdAt', DESC)
+    const subscription = collectionData(query)
+      .pipe(delay(replyPostCount > 0 ? 400 : 0))
+      .subscribe((docs: any) => {
+        docs.reverse()
+        setPosts(docs)
+        setInProgress(false)
+      })
+    return () => {
+      subscription.unsubscribe()
+    }
   }, [])
 
   if (inProgress) {

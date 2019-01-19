@@ -4,7 +4,7 @@ import React, { ChangeEvent, FunctionComponent } from 'react'
 import { px } from '../libs/styles/px'
 
 interface Props {
-  onChangeVersion: any
+  onChangeVersion: (a: any) => void
   version: number
 }
 
@@ -18,14 +18,14 @@ const FormItemVersion: FunctionComponent<Props> = ({
       return
     }
     const dataVersion: any = ('00000000' + version).slice(-9)
-    const a = [
+    const list = [
       num * 1000000,
       dataVersion.slice(-6).slice(0, 3) * 1000,
       dataVersion.slice(-3)
     ]
       .map(a => Number(a))
       .reduce((a, b) => a + b)
-    onChangeVersion(a)
+    onChangeVersion(list)
   }
   const onChangeMinerVersion = (event: ChangeEvent<any>) => {
     const num = event.target.value
@@ -33,14 +33,14 @@ const FormItemVersion: FunctionComponent<Props> = ({
       return
     }
     const dataVersion: any = ('00000000' + version).slice(-9)
-    const a = [
+    const list = [
       dataVersion.slice(0, 3) * 1000000,
       num * 1000,
       dataVersion.slice(-3)
     ]
       .map(a => Number(a))
       .reduce((a, b) => a + b)
-    onChangeVersion(a)
+    onChangeVersion(list)
   }
   const onChangePatchVersion = (event: ChangeEvent<any>) => {
     const num = event.target.value
@@ -48,23 +48,23 @@ const FormItemVersion: FunctionComponent<Props> = ({
       return
     }
     const dataVersion: any = ('00000000' + version).slice(-9)
-    const a = [
+    const list = [
       dataVersion.slice(0, 3) * 1000000,
       dataVersion.slice(-6).slice(0, 3) * 1000,
       num
     ]
       .map(a => Number(a))
       .reduce((a, b) => a + b)
-    onChangeVersion(a)
+    onChangeVersion(list)
   }
   const classes = useStyles({})
-  const dataVersion = ('00000000' + version).slice(-9)
+  const _dataVersion = ('00000000' + version).slice(-9)
   const [major, miner, patch] = [
     (x: any) => x.slice(0, 3),
     (x: any) => x.slice(-6).slice(0, 3),
     (x: any) => x.slice(-3)
   ]
-    .map(f => f(dataVersion))
+    .map(f => f(_dataVersion))
     .map(a => parseInt(a, 10))
 
   return (

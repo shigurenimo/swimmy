@@ -22,14 +22,6 @@ const PageStats: FunctionComponent = () => {
   const [inProgress, setInProgress] = useState(true)
   const [stats, setStats] = useState(null)
   const classes = useStyles({})
-  const [subscription, setSubscription] = useSubscription()
-  const componentDidMount = () => {
-    const _subscription = subscribeStats()
-    setSubscription(_subscription)
-  }
-  const componentWillUnmount = () => {
-    subscription.unsubscribe()
-  }
   const subscribeStats = () => {
     const query = firestore()
       .collection(STATS)
@@ -61,8 +53,10 @@ const PageStats: FunctionComponent = () => {
   }
 
   useEffect(() => {
-    componentDidMount()
-    return () => componentWillUnmount()
+    const subscription = subscribeStats()
+    return () => {
+      subscription.unsubscribe()
+    }
   }, [])
 
   if (inProgress) {

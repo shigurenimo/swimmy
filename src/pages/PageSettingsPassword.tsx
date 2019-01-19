@@ -30,9 +30,6 @@ const PageSettingsPassword: FunctionComponent = () => {
   const [subscription, setSubscription] = useSubscription()
   const disabled =
     !password || !currentPassword || password === currentPassword || inProgress
-  const componentWillUnmount = () => {
-    subscription.unsubscribe()
-  }
   const onChangePassword = (event: ChangeEvent<any>) => {
     setPassword(event.target.value)
   }
@@ -84,7 +81,9 @@ const PageSettingsPassword: FunctionComponent = () => {
   }
 
   useEffect(() => {
-    return () => componentWillUnmount()
+    return () => {
+      subscription.unsubscribe()
+    }
   }, [])
 
   return (

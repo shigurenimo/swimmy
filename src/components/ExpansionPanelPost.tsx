@@ -14,39 +14,25 @@ import TextFieldReplyPost from './TextFieldReplyPost'
 
 const useStyle = makeStyles(({ spacing }) => {
   return {
-    summary: { padding: `0 ${px(spacing.unit * 1.5)}` },
     content: { cursor: 'default', userSelect: 'text' },
+    summary: { padding: `0 ${px(spacing.unit * 1.5)}` },
     textField: { marginTop: spacing.unit }
   }
 })
 
 interface Props {
-  post: PostUi
   inProgress?: boolean
-}
-
-interface State {
-  expanded: boolean
-  hasLike: boolean
-  inProgressLike: boolean
+  post: PostUi
 }
 
 const ExpansionPanelPost: FunctionComponent<Props> = ({ inProgress, post }) => {
-  const [state, setState] = useState<State>({
-    expanded: false,
-    hasLike: false,
-    inProgressLike: true
-  })
+  const [expanded, setExpanded] = useState(false)
+  const [hasLike, setHasLike] = useState(false)
+  const [inProgressLike, setInProgressLike] = useState(true)
   const classes = useStyle({})
-  const onChangeExpand = (_: any, expanded: boolean) => {
-    if (!expanded) {
-      return
-    }
-    if (!state.inProgressLike) {
-      return
-    }
+  const onChangeExpand = (_: any, _expanded: boolean) => {
     const { currentUser } = auth()
-    if (!currentUser) {
+    if (!_expanded || !inProgressLike || !currentUser) {
       return
     }
     firestore()
@@ -56,16 +42,13 @@ const ExpansionPanelPost: FunctionComponent<Props> = ({ inProgress, post }) => {
       .where('docId', '==', post.id)
       .get()
       .then(res => {
-        setState(state => ({
-          ...state,
-          inProgressLike: false,
-          hasLike: !res.empty
-        }))
+        setInProgressLike(false)
+        setHasLike(!res.empty)
       })
   }
   const onClickPanelSummary = (event: ChangeEvent<any>) => {
     if (event.target.tagName !== 'SPAN') {
-      setState(state => ({ ...state, expanded: !state.expanded }))
+      setExpanded(state => !state)
     }
   }
   const onClickLike = () => {
@@ -73,14 +56,14 @@ const ExpansionPanelPost: FunctionComponent<Props> = ({ inProgress, post }) => {
       return
     }
     const postId = post.id
-    setState({ ...state, hasLike: !state.hasLike })
+    setHasLike(state => !state)
     createPostLike({ postId }).catch(err => {
       console.error(err)
     })
   }
 
   return (
-    <ExpansionPanel expanded={state.expanded} onChange={onChangeExpand}>
+    <ExpansionPanel expanded={expanded} onChange={onChangeExpand}>
       <ExpansionPanelSummary
         className={classes.summary}
         classes={{ content: classes.content }}
@@ -91,10 +74,10 @@ const ExpansionPanelPost: FunctionComponent<Props> = ({ inProgress, post }) => {
       <PostActions
         onClickLike={onClickLike}
         postId={post.id}
-        inProgressLike={state.inProgressLike}
-        hasLike={state.hasLike}
+        inProgressLike={inProgressLike}
+        hasLike={hasLike}
       />
-      {state.expanded && (
+      {expanded && (
         <ListReplyPost postId={post.id} replyPostCount={post.replyPostCount} />
       )}
       <div className={classes.textField}>

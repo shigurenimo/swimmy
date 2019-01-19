@@ -26,16 +26,6 @@ const PageThread: FunctionComponent<Props> = ({ match }) => {
   const [posts, setPosts] = useState<PostUi[]>([])
   const [thread, setThread] = useState<PostUi | null>(null)
   const classes = useStyles({})
-  const [subscription, setSubscription] = useSubscription()
-  const [subscriptionThread, setSubscriptionThread] = useSubscription()
-  const componentDidMount = () => {
-    setSubscription(subscribePosts())
-    setSubscriptionThread(subscribeThread())
-  }
-  const componentWillUnmount = () => {
-    subscription.unsubscribe()
-    subscriptionThread.unsubscribe()
-  }
   const subscribePosts = () => {
     const query = firestore()
       .collection(POSTS_AS_ANONYM)
@@ -66,8 +56,12 @@ const PageThread: FunctionComponent<Props> = ({ match }) => {
   const inProgress = inProgressPosts || inProgressThread
 
   useEffect(() => {
-    componentDidMount()
-    return () => componentWillUnmount()
+    const posts$$ = subscribePosts()
+    const threads$$ = subscribeThread()
+    return () => {
+      posts$$.unsubscribe()
+      threads$$.unsubscribe()
+    }
   }, [])
 
   if (inProgress) {
