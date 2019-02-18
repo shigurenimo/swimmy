@@ -1,8 +1,7 @@
-import { Document } from '../system/document'
-import { Node } from '../system/node'
+import { Doc } from './doc'
 import { UserLink } from './userLink'
 
-export interface User extends Node, Document {
+export interface User extends Doc {
   description: string
   displayName: string
   followeeCount: number

@@ -12,7 +12,7 @@ import { delay } from 'rxjs/operators'
 import { POSTS, POSTS_AS_ANONYM } from '../constants/collection'
 import { DESC } from '../constants/order'
 import { useSubscription } from '../hooks/useSubscription'
-import { Post } from '../interfaces/models/post/post'
+import { Post } from '../interfaces/models/post'
 import { pct } from '../libs/styles/pct'
 
 interface Props {

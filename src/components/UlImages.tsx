@@ -1,6 +1,6 @@
 import { makeStyles } from '@material-ui/styles'
 import React, { FunctionComponent } from 'react'
-import { PostUi } from '../interfaces/models/post/postWithUi'
+import { PostUi } from '../interfaces/models/postUi'
 import { px } from '../libs/styles/px'
 import { resetList } from '../libs/styles/resetList'
 import CardImage from './CardImage'

@@ -4,7 +4,7 @@ import CardMedia from '@material-ui/core/CardMedia'
 import { makeStyles } from '@material-ui/styles'
 import React, { FunctionComponent } from 'react'
 import { Link } from 'react-router-dom'
-import { PostUi } from '../interfaces/models/post/postWithUi'
+import { PostUi } from '../interfaces/models/postUi'
 import { pct } from '../libs/styles/pct'
 
 interface Props {
