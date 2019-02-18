@@ -11,7 +11,7 @@ import React, {
 } from 'react'
 import { from } from 'rxjs'
 import { useSubscription } from '../hooks/useSubscription'
-import { createPost } from '../libs/createPost'
+import { createPost } from '../helpers/createPost'
 import { pct } from '../libs/styles/pct'
 
 interface Props {

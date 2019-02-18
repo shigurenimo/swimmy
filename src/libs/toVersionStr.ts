@@ -1,7 +1,6 @@
-type CreateVersion = (num: number) => string
-
-export const toVersionStr: CreateVersion = num => {
+export const toVersionStr = (num: number): string => {
   const dataVersion = ('00000000' + num).slice(-9)
+
   return [
     (x: string) => x.slice(0, 3),
     (x: string) => x.slice(-6).slice(0, 3),

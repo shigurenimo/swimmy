@@ -28,14 +28,16 @@ const props = {
   MuiButtonBase: { disableRipple: true }
 }
 
-export const theme = createMuiTheme({
-  overrides,
-  palette,
-  props,
-  shape,
-  typography
-})
+export const createTheme = () => {
+  return createMuiTheme({
+    overrides,
+    palette,
+    props,
+    shape,
+    typography
+  })
+}
 
 if (process.env.NODE_ENV === 'development') {
-  window.theme = theme
+  window.theme = createTheme()
 }

@@ -2,7 +2,7 @@ import React from 'react'
 import { render } from 'react-dom'
 import App from './App'
 import './index.css'
-import './libs/initializeApp'
+import './helpers/initializeApp'
 import * as serviceWorker from './serviceWorker'
 
 render(<App /> as any, document.getElementById('root'))

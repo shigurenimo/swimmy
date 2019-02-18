@@ -8,9 +8,9 @@ initializeApp({
   apiKey: 'AIzaSyD5ApayvhirvS8kST4l3VyyTwUUWQZXgWU',
   authDomain: 'umfzwkzvrtpe.firebaseapp.com',
   databaseURL: 'https://umfzwkzvrtpe.firebaseio.com',
+  messagingSenderId: '974311466905',
   projectId: 'umfzwkzvrtpe',
-  storageBucket: 'umfzwkzvrtpe.appspot.com',
-  messagingSenderId: '974311466905'
+  storageBucket: 'umfzwkzvrtpe.appspot.com'
 })
 
 firestore().settings({ timestampsInSnapshots: true })

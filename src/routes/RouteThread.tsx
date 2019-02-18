@@ -15,7 +15,7 @@ import { DESC } from '../constants/order'
 import { useSubscription } from '../hooks/useSubscription'
 import { Post } from '../interfaces/models/post'
 import { PostUi } from '../interfaces/models/postUi'
-import { createdAt } from '../libs/createdAt'
+import { createdAt } from '../helpers/createdAt'
 import { px } from '../libs/styles/px'
 
 type Props = RouteComponentProps

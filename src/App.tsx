@@ -6,11 +6,13 @@ import {
   ThemeProvider
 } from '@material-ui/styles'
 import React, { FunctionComponent } from 'react'
-import RouteIndex from './routes/RouteIndex'
 import AppAuthProvider from './components/AppAuthProvider'
-import { theme } from './libs/theme'
+import { createTheme } from './helpers/createTheme'
+import RouteIndex from './routes/RouteIndex'
 
 const generateClassName = createGenerateClassName({ productionPrefix: 'c' })
+
+const theme = createTheme()
 
 const App: FunctionComponent = () => {
   return (
