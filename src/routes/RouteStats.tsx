@@ -11,7 +11,6 @@ import { take } from 'rxjs/operators'
 import ChartLine from '../components/ChartLine'
 import ViewTitle from '../components/ViewTitle'
 import { STATS } from '../constants/collection'
-import { useSubscription } from '../hooks/useSubscription'
 import { px } from '../libs/styles/px'
 
 const RouteStats: FunctionComponent = () => {

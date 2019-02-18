@@ -1,5 +1,3 @@
-import { useMemo } from 'react'
-
 const cacheMap = new Map<string, any>()
 
 export const useCache = (key: string) => {

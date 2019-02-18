@@ -12,11 +12,11 @@ import CardThread from '../components/CardThread'
 import ViewTitle from '../components/ViewTitle'
 import { POSTS_AS_THREAD } from '../constants/collection'
 import { DESC } from '../constants/order'
+import { createdAt } from '../helpers/createdAt'
 import { useCache } from '../hooks/useCache'
 import { useSubscription } from '../hooks/useSubscription'
 import { Post } from '../interfaces/models/post'
 import { PostUi } from '../interfaces/models/postUi'
-import { createdAt } from '../helpers/createdAt'
 import { px } from '../libs/styles/px'
 
 type Props = RouteComponentProps
