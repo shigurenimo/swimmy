@@ -21,7 +21,7 @@ import { createId } from '../libs/createId'
 import { createPost } from '../libs/createPost'
 import { px } from '../libs/styles/px'
 import InputFile from './InputFile'
-import PreviewImages from './previewImages'
+import PreviewImages from './PreviewImages'
 
 interface Props {
   replyPostId?: string

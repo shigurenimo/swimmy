@@ -13,7 +13,7 @@ const UlImages: FunctionComponent<Props> = ({ posts }) => {
   const classes = useStyles({})
 
   return (
-    <ul className={classes.posts}>
+    <ul className={classes.root}>
       {posts.map(post => (
         <li key={post.id}>
           <CardImage post={post} />
@@ -25,7 +25,7 @@ const UlImages: FunctionComponent<Props> = ({ posts }) => {
 
 const useStyles = makeStyles(({ breakpoints, spacing }) => {
   return {
-    posts: {
+    root: {
       ...resetList(),
       alignItems: 'center',
       display: 'grid',

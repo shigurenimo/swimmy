@@ -29,10 +29,10 @@ const useStyles = makeStyles(({ spacing }) => {
     buttonProgress: {
       bottom: 0,
       left: 0,
+      margin: 'auto',
       position: 'absolute',
       right: 0,
-      top: 0,
-      margin: 'auto'
+      top: 0
     },
     root: { display: 'grid', justifyContent: 'center' }
   }

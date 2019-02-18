@@ -11,18 +11,18 @@ import { makeStyles } from '@material-ui/styles'
 import React, { Fragment, FunctionComponent, useContext, useState } from 'react'
 import Headroom from 'react-headroom'
 import { Link, RouteComponentProps, withRouter } from 'react-router-dom'
-import { AuthContext } from '../contexts/auth'
+import { AuthContext } from '../contexts/authContext'
 import { pct } from '../libs/styles/pct'
 import { px } from '../libs/styles/px'
 import AppTitle from './AppTitle'
-import DialogAppMenu from './DialogAppMenu'
-import DialogAppSignIn from './DialogAppSignIn'
+import DialogMenu from './DialogMenu'
+import DialogSignIn from './DialogSignIn'
 
 interface Props extends RouteComponentProps<any> {
   children?: any
 }
 
-const AppHeader: FunctionComponent<Props> = props => {
+const LayoutHeader: FunctionComponent<Props> = props => {
   const [isOpenSignInDialog, setIsOpenSignInDialog] = useState(false)
   const [isOpenMenuDialog, setIsOpenMenuDialog] = useState(false)
   const onOpenMenuDialog = () => {
@@ -90,8 +90,8 @@ const AppHeader: FunctionComponent<Props> = props => {
           </Toolbar>
         </AppBar>
       </Headroom>
-      <DialogAppMenu isOpen={isOpenMenuDialog} onClose={onCloseMenuDialog} />
-      <DialogAppSignIn isOpen={isOpenSignInDialog} closeDialog={closeDialog} />
+      <DialogMenu isOpen={isOpenMenuDialog} onClose={onCloseMenuDialog} />
+      <DialogSignIn isOpen={isOpenSignInDialog} closeDialog={closeDialog} />
     </Fragment>
   )
 }
@@ -114,4 +114,4 @@ const useStyle = makeStyles(({ spacing }) => {
   }
 })
 
-export default withRouter(AppHeader as any)
+export default withRouter(LayoutHeader as any)

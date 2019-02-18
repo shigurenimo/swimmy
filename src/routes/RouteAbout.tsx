@@ -6,7 +6,7 @@ import React, { FunctionComponent } from 'react'
 import { px } from '../libs/styles/px'
 import { resetList } from '../libs/styles/resetList'
 
-const PageAbout: FunctionComponent = () => {
+const RouteAbout: FunctionComponent = () => {
   const classes = useStyles({})
 
   return (
@@ -47,4 +47,4 @@ const useStyles = makeStyles(({ spacing }) => {
   }
 })
 
-export default PageAbout
+export default RouteAbout

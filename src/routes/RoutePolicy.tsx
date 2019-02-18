@@ -1,15 +1,15 @@
 import Typography from '@material-ui/core/Typography'
 import { makeStyles } from '@material-ui/styles'
 import React, { FunctionComponent } from 'react'
-import PageTitle from '../components/PageTitle'
+import ViewTitle from '../components/ViewTitle'
 import { px } from '../libs/styles/px'
 
-const PagePolicy: FunctionComponent = () => {
+const RoutePolicy: FunctionComponent = () => {
   const classes = useStyles({})
 
   return (
     <main className={classes.root}>
-      <PageTitle
+      <ViewTitle
         hide={false}
         title={'プライバシーポリシー'}
         description={
@@ -77,4 +77,4 @@ const useStyles = makeStyles(({ spacing }) => {
   }
 })
 
-export default PagePolicy
+export default RoutePolicy

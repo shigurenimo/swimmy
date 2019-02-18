@@ -5,8 +5,8 @@ import {
   StylesProvider,
   ThemeProvider
 } from '@material-ui/styles'
-import React, { Fragment, FunctionComponent } from 'react'
-import AppRouter from './AppRouter'
+import React, { FunctionComponent } from 'react'
+import RouteIndex from './routes/RouteIndex'
 import AppAuthProvider from './components/AppAuthProvider'
 import { theme } from './libs/theme'
 
@@ -18,10 +18,8 @@ const App: FunctionComponent = () => {
       <MuiThemeProvider theme={theme}>
         <ThemeProvider theme={theme}>
           <AppAuthProvider>
-            <Fragment>
-              <CssBaseline />
-              <AppRouter />
-            </Fragment>
+            <CssBaseline />
+            <RouteIndex />
           </AppAuthProvider>
         </ThemeProvider>
       </MuiThemeProvider>

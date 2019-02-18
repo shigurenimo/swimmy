@@ -6,7 +6,7 @@ import React, { FunctionComponent, useEffect, useState } from 'react'
 import { collectionData } from 'rxfire/firestore'
 import ButtonMore from '../components/ButtonMore'
 import ExpansionPanelPost from '../components/ExpansionPanelPost'
-import PageTitle from '../components/PageTitle'
+import ViewTitle from '../components/ViewTitle'
 import TextFieldPost from '../components/TextFieldPost'
 import { POSTS_AS_ANONYM } from '../constants/collection'
 import { DESC } from '../constants/order'
@@ -17,7 +17,7 @@ import { PostUi } from '../interfaces/models/post/postWithUi'
 import { createdAt } from '../libs/createdAt'
 import { px } from '../libs/styles/px'
 
-const PageHome: FunctionComponent = () => {
+const RouteHome: FunctionComponent = () => {
   const classes = useStyles({})
   const [inProgress, setInProgress] = useState(true)
   const [inProgressMore, setInProgressMore] = useState(false)
@@ -74,7 +74,7 @@ const PageHome: FunctionComponent = () => {
 
   return (
     <main className={classes.root}>
-      <PageTitle
+      <ViewTitle
         title={'スイミーにようこそ'}
         description={`はじめまして。スイミーは完全な匿名の電子掲示板です。
           ログインすることでSNSの真似事ができますが、SNSではないです。`}
@@ -113,4 +113,4 @@ const useStyles = makeStyles(({ spacing }) => {
   }
 })
 
-export default PageHome
+export default RouteHome

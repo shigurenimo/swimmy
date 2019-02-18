@@ -1,6 +1,6 @@
 import { auth } from 'firebase/app'
 import React, { FunctionComponent, useEffect, useState } from 'react'
-import { AuthContext } from '../contexts/auth'
+import { AuthContext } from '../contexts/authContext'
 
 const AppAuthProvider: FunctionComponent = ({ children }) => {
   const [isLoggingIn, setIsLoggingIn] = useState(true)

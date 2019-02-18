@@ -9,7 +9,7 @@ import { RouteComponentProps } from 'react-router-dom'
 import { collectionData } from 'rxfire/firestore'
 import ButtonMore from '../components/ButtonMore'
 import CardThread from '../components/CardThread'
-import PageTitle from '../components/PageTitle'
+import ViewTitle from '../components/ViewTitle'
 import { POSTS_AS_THREAD } from '../constants/collection'
 import { DESC } from '../constants/order'
 import { useCache } from '../hooks/useCache'
@@ -21,7 +21,7 @@ import { px } from '../libs/styles/px'
 
 type Props = RouteComponentProps
 
-const PageThreads: FunctionComponent<Props> = ({ location, history }) => {
+const RouteThreads: FunctionComponent<Props> = ({ location, history }) => {
   const [inProgress, setInProgress] = useState(true)
   const [inProgressMore, setInProgressMore] = useState(false)
   const [limit, setLimit] = useState(16)
@@ -100,7 +100,7 @@ const PageThreads: FunctionComponent<Props> = ({ location, history }) => {
 
   return (
     <main className={classes.root}>
-      <PageTitle
+      <ViewTitle
         title={'スレッド'}
         description={'レスのある書き込みはこのページで確認できます。'}
       />
@@ -152,4 +152,4 @@ const useStyles = makeStyles(({ spacing }) => {
   }
 })
 
-export default PageThreads
+export default RouteThreads

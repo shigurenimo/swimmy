@@ -6,7 +6,7 @@ import React, { FunctionComponent, useEffect, useState } from 'react'
 import { collectionData } from 'rxfire/firestore'
 import { take } from 'rxjs/operators'
 import CardChangelog from '../components/CardChangelog'
-import PageTitle from '../components/PageTitle'
+import ViewTitle from '../components/ViewTitle'
 import { CHANGELOGS } from '../constants/collection'
 import { DESC } from '../constants/order'
 import { useSubscription } from '../hooks/useSubscription'
@@ -17,7 +17,7 @@ import { px } from '../libs/styles/px'
 import { resetList } from '../libs/styles/resetList'
 import { toVersionStr } from '../libs/toVersionStr'
 
-const PageChangelogs: FunctionComponent = () => {
+const RouteChangelogs: FunctionComponent = () => {
   const classes = useStyles({})
   const [changelogs, setChangelogs] = useState<ChangelogUi[]>([])
   const [inProgress, setInProgress] = useState(true)
@@ -53,7 +53,7 @@ const PageChangelogs: FunctionComponent = () => {
   return (
     <Fade in>
       <main className={classes.root}>
-        <PageTitle
+        <ViewTitle
           hide={false}
           title={'アップデート履歴'}
           description={
@@ -98,4 +98,4 @@ const useStyles = makeStyles(({ spacing }) => {
   }
 })
 
-export default PageChangelogs
+export default RouteChangelogs

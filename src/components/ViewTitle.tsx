@@ -1,7 +1,7 @@
 import Typography from '@material-ui/core/Typography'
 import { makeStyles } from '@material-ui/styles'
 import React, { FunctionComponent, useContext } from 'react'
-import { AuthContext } from '../contexts/auth'
+import { AuthContext } from '../contexts/authContext'
 import { px } from '../libs/styles/px'
 
 interface Props {
@@ -10,7 +10,7 @@ interface Props {
   hide?: boolean
 }
 
-const PageTitle: FunctionComponent<Props> = ({
+const ViewTitle: FunctionComponent<Props> = ({
   title,
   description,
   hide = true
@@ -28,13 +28,13 @@ const PageTitle: FunctionComponent<Props> = ({
 
   return (
     <div className={classes.root}>
-      <Typography variant={'h5'} component={'h1'} color="inherit">
+      <Typography color={'inherit'} component={'h1'} variant={'h5'}>
         {title}
       </Typography>
       <Typography
+        className={classes.description}
         color={'inherit'}
         variant={'caption'}
-        className={classes.description}
       >
         {description}
       </Typography>
@@ -55,4 +55,4 @@ const useStyles = makeStyles(({ spacing, palette }) => {
   }
 })
 
-export default PageTitle
+export default ViewTitle

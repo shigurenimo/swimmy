@@ -15,7 +15,7 @@ interface Props {
   isOpen: boolean
 }
 
-const DialogAppSignIn: FunctionComponent<Props> = ({ isOpen, closeDialog }) => {
+const DialogSignIn: FunctionComponent<Props> = ({ isOpen, closeDialog }) => {
   const classes = useStyle({})
   const [email, setEmail] = useState('')
   const [errorCode, setErrorCode] = useState('')
@@ -139,4 +139,4 @@ const useStyle = makeStyles(({ palette }) => {
   })
 })
 
-export default DialogAppSignIn
+export default DialogSignIn

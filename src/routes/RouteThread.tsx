@@ -8,7 +8,7 @@ import { RouteComponentProps } from 'react-router-dom'
 import { collectionData, docData } from 'rxfire/firestore'
 import { take } from 'rxjs/operators'
 import ListItemPost from '../components/ListItemPost'
-import PageTitle from '../components/PageTitle'
+import ViewTitle from '../components/ViewTitle'
 import TextFieldPost from '../components/TextFieldPost'
 import { POSTS, POSTS_AS_ANONYM } from '../constants/collection'
 import { DESC } from '../constants/order'
@@ -20,7 +20,7 @@ import { px } from '../libs/styles/px'
 
 type Props = RouteComponentProps
 
-const PageThread: FunctionComponent<Props> = ({ match }) => {
+const RouteThread: FunctionComponent<Props> = ({ match }) => {
   const [inProgressPosts, setInProgressPosts] = useState(true)
   const [inProgressThread, setInProgressThread] = useState(true)
   const [posts, setPosts] = useState<PostUi[]>([])
@@ -70,7 +70,7 @@ const PageThread: FunctionComponent<Props> = ({ match }) => {
 
   return (
     <main>
-      <PageTitle
+      <ViewTitle
         title={'スレッド'}
         description={`書き込みとそれに対するレスが表示されています。このページの右上のアイコンから前のページに戻ることができます。`}
       />
@@ -108,4 +108,4 @@ const useStyles = makeStyles(({ spacing }) => {
   }
 })
 
-export default PageThread
+export default RouteThread

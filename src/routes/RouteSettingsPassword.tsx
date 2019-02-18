@@ -19,7 +19,7 @@ import { useSubscription } from '../hooks/useSubscription'
 import { pct } from '../libs/styles/pct'
 import { px } from '../libs/styles/px'
 
-const PageSettingsPassword: FunctionComponent = () => {
+const RouteSettingsPassword: FunctionComponent = () => {
   const [currentPassword, setCurrentPassword] = useState('')
   const [inProgress, setInProgress] = useState(false)
   const [password, setPassword] = useState('')
@@ -164,4 +164,4 @@ const useStyles = makeStyles(({ spacing, palette }) => {
   }
 })
 
-export default PageSettingsPassword
+export default RouteSettingsPassword

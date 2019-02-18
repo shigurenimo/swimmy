@@ -9,12 +9,12 @@ import React, { FunctionComponent, useEffect, useState } from 'react'
 import { collectionData } from 'rxfire/firestore'
 import { take } from 'rxjs/operators'
 import ChartLine from '../components/ChartLine'
-import PageTitle from '../components/PageTitle'
+import ViewTitle from '../components/ViewTitle'
 import { STATS } from '../constants/collection'
 import { useSubscription } from '../hooks/useSubscription'
 import { px } from '../libs/styles/px'
 
-const PageStats: FunctionComponent = () => {
+const RouteStats: FunctionComponent = () => {
   const [averagePerDay, setAveragePerDay] = useState<any>(0)
   const [chartData, setChartData] = useState<any>(null)
   const [countTotal, setCountTotal] = useState(0)
@@ -66,7 +66,7 @@ const PageStats: FunctionComponent = () => {
   return (
     <Fade in>
       <main className={classes.root}>
-        <PageTitle
+        <ViewTitle
           hide={false}
           title={'統計データ'}
           description={'ちょっとした統計データをこのページで確認できます。'}
@@ -126,4 +126,4 @@ const useStyles = makeStyles(({ spacing }) => {
   }
 })
 
-export default PageStats
+export default RouteStats

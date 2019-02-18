@@ -2,7 +2,7 @@ import { makeStyles } from '@material-ui/styles'
 import React, { FunctionComponent } from 'react'
 import FormChangelogCreate from '../components/FormChangelogCreate'
 
-const PageChangelogCreate: FunctionComponent = () => {
+const RouteChangelogCreate: FunctionComponent = () => {
   const classes = useStyles({})
 
   return (
@@ -24,4 +24,4 @@ const useStyles = makeStyles(({ spacing }) => {
   }
 })
 
-export default PageChangelogCreate
+export default RouteChangelogCreate

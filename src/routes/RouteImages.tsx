@@ -8,8 +8,8 @@ import React, { FunctionComponent, useEffect, useState } from 'react'
 import { RouteComponentProps } from 'react-router'
 import { collectionData } from 'rxfire/firestore'
 import ButtonMore from '../components/ButtonMore'
-import PageTitle from '../components/PageTitle'
-import CardImages from '../components/UlImages'
+import ViewTitle from '../components/ViewTitle'
+import UlImages from '../components/UlImages'
 import { POSTS_AS_IMAGE } from '../constants/collection'
 import { DESC } from '../constants/order'
 import { useCache } from '../hooks/useCache'
@@ -21,7 +21,7 @@ import { px } from '../libs/styles/px'
 
 type Props = RouteComponentProps
 
-const PageImages: FunctionComponent<Props> = ({ location, history }) => {
+const RouteImages: FunctionComponent<Props> = ({ location, history }) => {
   const [inProgress, setInProgress] = useState(true)
   const [inProgressMore, setInProgressMore] = useState(false)
   const [limit, setLimit] = useState(16)
@@ -100,7 +100,7 @@ const PageImages: FunctionComponent<Props> = ({ location, history }) => {
 
   return (
     <main className={classes.root}>
-      <PageTitle
+      <ViewTitle
         title={'フォトグラフィ'}
         description={'画像の添付された書き込みはここに表示されます。'}
       />
@@ -118,7 +118,7 @@ const PageImages: FunctionComponent<Props> = ({ location, history }) => {
       {!inProgress && (
         <Fade in>
           <section className={classes.section}>
-            <CardImages posts={posts} />
+            <UlImages posts={posts} />
             {limit < 200 && (
               <ButtonMore onClick={onMore} inProgress={inProgressMore} />
             )}
@@ -142,4 +142,4 @@ const useStyles = makeStyles(({ spacing }) => {
   }
 })
 
-export default PageImages
+export default RouteImages

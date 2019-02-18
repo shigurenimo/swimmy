@@ -18,14 +18,14 @@ import VpnKey from '@material-ui/icons/VpnKey'
 import { auth } from 'firebase/app'
 import React, { FunctionComponent, useContext } from 'react'
 import { Link } from 'react-router-dom'
-import { AuthContext } from '../contexts/auth'
+import { AuthContext } from '../contexts/authContext'
 
 interface Props {
   onClose: any
   isOpen: boolean
 }
 
-const DialogAppMenu: FunctionComponent<Props> = ({ onClose, isOpen }) => {
+const DialogMenu: FunctionComponent<Props> = ({ onClose, isOpen }) => {
   const authContext = useContext(AuthContext)
   const onSignOut = () => {
     auth()
@@ -116,4 +116,4 @@ const DialogAppMenu: FunctionComponent<Props> = ({ onClose, isOpen }) => {
   )
 }
 
-export default DialogAppMenu
+export default DialogMenu
