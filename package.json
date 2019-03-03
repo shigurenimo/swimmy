@@ -7,6 +7,16 @@
     "@material-ui/icons": "^3.0.1",
     "@material-ui/styles": "^3.0.0-alpha.2",
     "@nivo/line": "^0.52.0",
+    "@types/classnames": "^2.2.6",
+    "@types/immutable": "^3.8.7",
+    "@types/jest": "23.3.10",
+    "@types/node": "^10.12.11",
+    "@types/react": "^16.7.17",
+    "@types/react-dom": "^16.0.11",
+    "@types/react-jss": "^8.6.0",
+    "@types/react-router-dom": "^4.3.1",
+    "@types/recompose": "^0.30.0",
+    "@types/webpack-env": "^1.13.6",
     "classnames": "^2.2.6",
     "firebase": "^5.5.3",
     "react": "^16.7.0-alpha.2",
@@ -14,9 +24,11 @@
     "react-headroom": "^2.2.4",
     "react-jss": "^8.6.1",
     "react-router-dom": "^4.4.0-beta.6",
+    "react-scripts": "2.1.1",
     "recompose": "^0.30.0",
     "rxfire": "^3.0.8",
-    "rxjs": "^6.3.3"
+    "rxjs": "^6.3.3",
+    "typescript": "^3.3.3"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -43,29 +55,16 @@
     "not ie <= 11",
     "not op_mini all"
   ],
-  "main": "index.js",
   "author": "uufish <uufish.io@gmail.com>",
   "license": "MIT",
   "devDependencies": {
-    "@types/classnames": "^2.2.6",
-    "@types/immutable": "^3.8.7",
-    "@types/jest": "23.3.10",
-    "@types/node": "^10.12.11",
-    "@types/react": "^16.7.17",
-    "@types/react-dom": "^16.0.11",
-    "@types/react-jss": "^8.6.0",
-    "@types/react-router-dom": "^4.3.1",
-    "@types/recompose": "^0.30.0",
-    "@types/webpack-env": "^1.13.6",
     "firebase-tools": "^6.1.2",
     "husky": "^1.2.0",
     "prettier": "^1.15.2",
     "pretty-quick": "^1.8.0",
-    "react-scripts": "2.1.1",
     "tslint": "^5.11.0",
     "tslint-config-prettier": "^1.16.0",
-    "tslint-plugin-prettier": "^2.0.1",
-    "typescript": "3.2.2"
+    "tslint-plugin-prettier": "^2.0.1"
   },
   "husky": {
     "hooks": {
