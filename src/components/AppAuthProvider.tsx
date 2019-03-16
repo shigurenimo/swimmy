@@ -5,15 +5,12 @@ import { AuthContext } from '../contexts/authContext'
 const AppAuthProvider: FunctionComponent = ({ children }) => {
   const [isLoggingIn, setIsLoggingIn] = useState(true)
   const [isLogged, setIsLogged] = useState(false)
-  const componentDidMount = () => {
+
+  useEffect(() => {
     auth().onAuthStateChanged(res => {
       setIsLogged(Boolean(res))
       setIsLoggingIn(false)
     })
-  }
-
-  useEffect(() => {
-    componentDidMount()
   }, [])
 
   return (
