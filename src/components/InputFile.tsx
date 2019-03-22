@@ -1,7 +1,7 @@
 import { makeStyles } from '@material-ui/styles'
 import React, { FunctionComponent } from 'react'
 
-interface Props {
+type Props = {
   inputRef: any
   onChange: any
 }

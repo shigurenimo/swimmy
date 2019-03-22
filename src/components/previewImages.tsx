@@ -3,7 +3,7 @@ import React, { FunctionComponent } from 'react'
 import { pct } from '../libs/styles/pct'
 import { px } from '../libs/styles/px'
 
-interface Props {
+type Props = {
   photoURLs: string[]
 }
 

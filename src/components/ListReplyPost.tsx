@@ -13,7 +13,7 @@ import { DESC } from '../constants/order'
 import { Post } from '../interfaces/models/post'
 import { pct } from '../libs/styles/pct'
 
-interface Props {
+type Props = {
   postId: string
   replyPostCount: number
 }

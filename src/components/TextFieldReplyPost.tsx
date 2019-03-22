@@ -14,7 +14,7 @@ import { createPost } from '../helpers/createPost'
 import { useSubscription } from '../hooks/useSubscription'
 import { pct } from '../libs/styles/pct'
 
-interface Props {
+type Props = {
   postId: string
 }
 

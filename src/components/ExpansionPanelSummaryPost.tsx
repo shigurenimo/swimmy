@@ -7,7 +7,7 @@ import { px } from '../libs/styles/px'
 import Images from './Images'
 import PostCounts from './PostCounts'
 
-interface Props {
+type Props = {
   post: PostUi
 }
 

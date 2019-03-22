@@ -2,7 +2,7 @@ import Typography from '@material-ui/core/Typography'
 import { makeStyles } from '@material-ui/styles'
 import React, { FunctionComponent } from 'react'
 
-interface Props {
+type Props = {
   description: string
   title: string
   Icon: any

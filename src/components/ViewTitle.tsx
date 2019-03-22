@@ -4,7 +4,7 @@ import React, { FunctionComponent, useContext } from 'react'
 import { AuthContext } from '../contexts/authContext'
 import { px } from '../libs/styles/px'
 
-interface Props {
+type Props = {
   title: string
   description: string
   hide?: boolean

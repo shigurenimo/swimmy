@@ -3,7 +3,7 @@ import Typography from '@material-ui/core/Typography'
 import React, { FunctionComponent } from 'react'
 import { PostUi } from '../interfaces/models/postUi'
 
-interface Props {
+type Props = {
   post: PostUi
 }
 

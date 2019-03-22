@@ -23,15 +23,8 @@ import { px } from '../libs/styles/px'
 import InputFile from './InputFile'
 import PreviewImages from './PreviewImages'
 
-interface Props {
+type Props = {
   replyPostId?: string
-}
-
-interface State {
-  postText: string
-  postImages: any[]
-  inProgressSubmit: boolean
-  inProgressImage: boolean
 }
 
 const TextFieldPost: FunctionComponent<Props> = ({ replyPostId = '' }) => {

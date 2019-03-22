@@ -7,12 +7,6 @@ import { px } from '../libs/styles/px'
 import FormItemContents from './FormItemContents'
 import FormItemVersion from './FormItemVersion'
 
-interface State {
-  contents: string[]
-  date: string
-  version: number
-}
-
 const FormChangelogCreate: FunctionComponent = () => {
   const [contents, setContents] = useState<string[]>([])
   const [date, setDate] = useState<string>('2017-05-24')

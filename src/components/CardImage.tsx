@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom'
 import { PostUi } from '../interfaces/models/postUi'
 import { pct } from '../libs/styles/pct'
 
-interface Props {
+type Props = {
   post: PostUi
 }
 

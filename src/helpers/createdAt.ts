@@ -10,5 +10,6 @@ export const createdAt = (
   const D = date.getDate()
   const h = date.getHours()
   const m = date.getMinutes()
+
   return hasTime ? `${Y}年${M}月${D}日 ${h}時${m}分` : `${Y}年${M}月${D}日`
 }

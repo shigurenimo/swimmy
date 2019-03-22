@@ -4,7 +4,7 @@ import { PostUi } from '../interfaces/models/postUi'
 import { px } from '../libs/styles/px'
 import ExpansionPanelSummaryPost from './ExpansionPanelSummaryPost'
 
-interface Props {
+type Props = {
   post: PostUi
 }
 

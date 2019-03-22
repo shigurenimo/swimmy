@@ -5,7 +5,7 @@ import { makeStyles } from '@material-ui/styles'
 import React, { FunctionComponent } from 'react'
 import { Link } from 'react-router-dom'
 
-interface Props {
+type Props = {
   inProgressLike: boolean
   hasLike: boolean
   onClickLike: any

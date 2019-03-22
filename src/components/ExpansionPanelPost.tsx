@@ -12,15 +12,7 @@ import ListReplyPost from './ListReplyPost'
 import PostActions from './PostActions'
 import TextFieldReplyPost from './TextFieldReplyPost'
 
-const useStyle = makeStyles(({ spacing }) => {
-  return {
-    content: { cursor: 'default', userSelect: 'text' },
-    summary: { padding: `0 ${px(spacing.unit * 1.5)}` },
-    textField: { marginTop: spacing.unit }
-  }
-})
-
-interface Props {
+type Props = {
   inProgress?: boolean
   post: PostUi
 }
@@ -86,5 +78,13 @@ const ExpansionPanelPost: FunctionComponent<Props> = ({ inProgress, post }) => {
     </ExpansionPanel>
   )
 }
+
+const useStyle = makeStyles(({ spacing }) => {
+  return {
+    content: { cursor: 'default', userSelect: 'text' },
+    summary: { padding: `0 ${px(spacing.unit * 1.5)}` },
+    textField: { marginTop: spacing.unit }
+  }
+})
 
 export default ExpansionPanelPost

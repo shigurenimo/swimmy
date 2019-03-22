@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/styles'
 import React, { FunctionComponent } from 'react'
 import { px } from '../libs/styles/px'
 
-interface Props {
+type Props = {
   contents: any[]
   onChangeContents: any
 }

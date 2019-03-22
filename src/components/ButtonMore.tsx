@@ -3,7 +3,7 @@ import CircularProgress from '@material-ui/core/CircularProgress'
 import { makeStyles } from '@material-ui/styles'
 import React, { FunctionComponent } from 'react'
 
-interface Props {
+type Props = {
   onClick: () => void
   inProgress: boolean
 }

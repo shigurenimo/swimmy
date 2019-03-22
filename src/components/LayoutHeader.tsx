@@ -18,11 +18,9 @@ import AppTitle from './AppTitle'
 import DialogMenu from './DialogMenu'
 import DialogSignIn from './DialogSignIn'
 
-interface Props extends RouteComponentProps<any> {
-  children?: any
-}
+type Props = RouteComponentProps
 
-const LayoutHeader: FunctionComponent<Props> = props => {
+const LayoutHeader: FunctionComponent<Props> = ({ history }) => {
   const [isOpenSignInDialog, setIsOpenSignInDialog] = useState(false)
   const [isOpenMenuDialog, setIsOpenMenuDialog] = useState(false)
   const onOpenMenuDialog = () => {
@@ -38,7 +36,6 @@ const LayoutHeader: FunctionComponent<Props> = props => {
     setIsOpenSignInDialog(false)
   }
   const onGoBack = () => {
-    const { history } = props
     history.goBack()
   }
   const classes = useStyle({})

@@ -10,7 +10,7 @@ import { createStyles, makeStyles } from '@material-ui/styles'
 import { auth } from 'firebase/app'
 import React, { ChangeEvent, FunctionComponent, useState } from 'react'
 
-interface Props {
+type Props = {
   closeDialog: () => void
   isOpen: boolean
 }

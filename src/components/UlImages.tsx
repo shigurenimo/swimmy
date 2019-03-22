@@ -5,7 +5,7 @@ import { px } from '../libs/styles/px'
 import { resetList } from '../libs/styles/resetList'
 import CardImage from './CardImage'
 
-interface Props {
+type Props = {
   posts: PostUi[]
 }
 
