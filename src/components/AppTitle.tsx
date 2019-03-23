@@ -20,7 +20,7 @@ const AppTitle: FunctionComponent = () => {
 const useStyles = makeStyles(({ spacing }) => {
   return {
     button: { padding: 0 },
-    img: { height: spacing.unit * 3 + spacing.unit * 3 },
+    img: { height: spacing(3 + 3) },
     root: { flexGrow: 1 }
   }
 })

@@ -79,19 +79,19 @@ const useStyles = makeStyles(({ spacing }) => {
     changelogs: {
       ...resetList(),
       display: 'grid',
-      gridRowGap: px(spacing.unit * 2),
-      paddingLeft: spacing.unit * 2,
-      paddingRight: spacing.unit * 2
+      gridRowGap: px(spacing(2)),
+      paddingLeft: spacing(2),
+      paddingRight: spacing(2)
     },
     progress: {
       display: 'block',
       marginLeft: 'auto',
       marginRight: 'auto',
-      marginTop: spacing.unit * 10
+      marginTop: spacing(10)
     },
     root: {
       display: 'grid',
-      gridRowGap: px(spacing.unit * 2)
+      gridRowGap: px(spacing(2))
     }
   }
 })

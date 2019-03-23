@@ -16,10 +16,10 @@ const useStyles = makeStyles(({ spacing }) => {
   return {
     root: {
       margin: 'auto',
-      maxWidth: spacing.unit * 100,
-      paddingLeft: spacing.unit * 2,
-      paddingRight: spacing.unit * 2,
-      paddingTop: spacing.unit * 10
+      maxWidth: spacing(100),
+      paddingLeft: spacing(2),
+      paddingRight: spacing(2),
+      paddingTop: spacing(10)
     }
   }
 })

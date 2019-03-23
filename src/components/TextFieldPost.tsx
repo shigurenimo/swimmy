@@ -158,7 +158,7 @@ const TextFieldPost: FunctionComponent<Props> = ({ replyPostId = '' }) => {
 
 const useStyle = makeStyles(({ spacing }) => {
   return {
-    actions: { textAlign: 'right', paddingRight: spacing.unit },
+    actions: { textAlign: 'right', paddingRight: spacing(1) },
     buttonProgress: {
       bottom: 0,
       left: 0,
@@ -169,17 +169,17 @@ const useStyle = makeStyles(({ spacing }) => {
     },
     root: {
       display: 'grid',
-      gridRowGap: px(spacing.unit),
-      paddingTop: spacing.unit
+      gridRowGap: px(spacing(1)),
+      paddingTop: spacing(1)
     },
-    submitButton: { marginLeft: spacing.unit, position: 'relative' },
+    submitButton: { marginLeft: spacing(1), position: 'relative' },
     textField: {
-      paddingLeft: spacing.unit * 1.5,
-      paddingRight: spacing.unit * 1.5
+      paddingLeft: spacing(1.5),
+      paddingRight: spacing(1.5)
     },
     textFieldLabel: {
-      paddingLeft: spacing.unit * 1.5,
-      paddingRight: spacing.unit * 1.5
+      paddingLeft: spacing(1.5),
+      paddingRight: spacing(1.5)
     }
   }
 })

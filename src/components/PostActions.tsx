@@ -45,11 +45,11 @@ const PostActions: FunctionComponent<Props> = ({
 
 const useStyles = makeStyles(({ spacing }) => {
   return {
-    iconButton: { marginRight: spacing.unit },
+    iconButton: { marginRight: spacing(1) },
     root: {
-      paddingBottom: spacing.unit * 1.5,
-      paddingLeft: spacing.unit * 1.5,
-      paddingRight: spacing.unit * 1.5
+      paddingBottom: spacing(1.5),
+      paddingLeft: spacing(1.5),
+      paddingRight: spacing(1.5)
     }
   }
 })

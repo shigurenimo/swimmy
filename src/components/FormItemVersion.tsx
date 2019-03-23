@@ -98,7 +98,7 @@ const useStyles = makeStyles(({ spacing }) => {
     root: {
       alignItems: 'flex-end',
       display: 'grid',
-      gridColumnGap: px(spacing.unit * 2),
+      gridColumnGap: px(spacing(2)),
       gridTemplateColumns: '80px 16px 80px 16px 80px',
       textAlign: 'center'
     }

@@ -83,10 +83,10 @@ const TextFieldReplyPost: FunctionComponent<Props> = ({ postId }) => {
 const useStyles = makeStyles(({ spacing }) => {
   return {
     actions: {
-      marginTop: spacing.unit,
-      paddingBottom: spacing.unit,
-      paddingLeft: spacing.unit,
-      paddingRight: spacing.unit,
+      marginTop: spacing(1),
+      paddingBottom: spacing(1),
+      paddingLeft: spacing(1),
+      paddingRight: spacing(1),
       textAlign: 'right'
     },
     buttonProgress: {
@@ -98,10 +98,10 @@ const useStyles = makeStyles(({ spacing }) => {
       top: 0
     },
     root: { width: pct(100) },
-    submitButton: { marginLeft: spacing.unit, position: 'relative' },
+    submitButton: { marginLeft: spacing(1), position: 'relative' },
     textField: {
-      paddingLeft: spacing.unit * 1.5,
-      paddingRight: spacing.unit * 1.5
+      paddingLeft: spacing(1.5),
+      paddingRight: spacing(1.5)
     }
   }
 })

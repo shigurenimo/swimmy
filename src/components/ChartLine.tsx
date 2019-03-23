@@ -32,7 +32,7 @@ const useStyles = makeStyles(({ spacing }) => {
     root: {
       border: '1px solid lightgray',
       borderRadius: 4,
-      height: px(spacing.unit * 20),
+      height: px(spacing(20)),
       width: pct(100)
     }
   }

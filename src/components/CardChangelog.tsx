@@ -34,7 +34,7 @@ const CardChangelog: FunctionComponent<Props> = ({
 
 const useStyles = makeStyles(({ spacing }) => {
   return {
-    date: { opacity: 0.65, fontSize: 12, marginBottom: spacing.unit },
+    date: { opacity: 0.65, fontSize: 12, marginBottom: spacing(1) },
     description: { whiteSpace: 'pre-line', wordBreak: 'break-all' },
     version: { flexBasis: '33.33%', flexShrink: 0 }
   }

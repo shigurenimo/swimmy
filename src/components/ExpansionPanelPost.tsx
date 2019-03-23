@@ -81,8 +81,8 @@ const ExpansionPanelPost: FunctionComponent<Props> = ({ inProgress, post }) => {
 const useStyle = makeStyles(({ spacing }) => {
   return {
     content: { cursor: 'default', userSelect: 'text' },
-    summary: { padding: `0 ${px(spacing.unit * 1.5)}` },
-    textField: { marginTop: spacing.unit }
+    summary: { padding: `0 ${px(spacing(1.5))}` },
+    textField: { marginTop: spacing(1) }
   }
 })
 

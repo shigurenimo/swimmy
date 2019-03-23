@@ -95,12 +95,12 @@ const useStyle = makeStyles(({ spacing }) => {
     actions: {
       display: 'grid',
       gridAutoFlow: 'column',
-      gridColumnGap: px(spacing.unit)
+      gridColumnGap: px(spacing(1))
     },
     appBar: { backgroundColor: 'rgba(255, 255, 255, 0.98)' },
     menuButton: {
-      marginLeft: spacing.unit * 1.5 * -1,
-      marginRight: spacing.unit * 2.5
+      marginLeft: spacing(-1.5),
+      marginRight: spacing(2.5)
     },
     progress: { position: 'absolute', top: 0, left: 0, width: pct(100) },
     root: { flexGrow: 1 },

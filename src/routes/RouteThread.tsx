@@ -91,16 +91,16 @@ const useStyles = makeStyles(({ spacing }) => {
   return {
     posts: {
       display: 'grid',
-      gridRowGap: px(spacing.unit * 2),
-      marginLeft: spacing.unit * 2,
-      marginRight: spacing.unit * 2,
-      marginTop: spacing.unit * 2
+      gridRowGap: px(spacing(2)),
+      marginLeft: spacing(2),
+      marginRight: spacing(2),
+      marginTop: spacing(2)
     },
     progress: {
       display: 'block',
       marginLeft: 'auto',
       marginRight: 'auto',
-      marginTop: spacing.unit * 10
+      marginTop: spacing(10)
     }
   }
 })

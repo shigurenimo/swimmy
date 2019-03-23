@@ -149,17 +149,17 @@ const useStyles = makeStyles(({ spacing, palette }) => {
     actions: { textAlign: 'right' },
     form: {
       display: 'grid',
-      gridRowGap: px(spacing.unit * 2),
+      gridRowGap: px(spacing(2)),
       margin: '0 auto',
-      maxWidth: spacing.unit * 100,
+      maxWidth: spacing(100),
       width: pct(100)
     },
     root: {
       display: 'grid',
-      gridRowGap: px(spacing.unit * 4),
-      paddingLeft: spacing.unit * 2,
-      paddingRight: spacing.unit * 2,
-      paddingTop: spacing.unit * 4
+      gridRowGap: px(spacing(4)),
+      paddingLeft: spacing(2),
+      paddingRight: spacing(2),
+      paddingTop: spacing(4)
     },
     snackbarError: { backgroundColor: palette.error.dark },
     snackbarMessage: { color: 'tomato' }

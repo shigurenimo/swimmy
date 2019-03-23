@@ -61,7 +61,7 @@ const FormChangelogCreate: FunctionComponent = () => {
 
 const useStyles = makeStyles(({ spacing }) => {
   return {
-    root: { display: 'grid', gridRowGap: px(spacing.unit * 2) }
+    root: { display: 'grid', gridRowGap: px(spacing(2)) }
   }
 })
 

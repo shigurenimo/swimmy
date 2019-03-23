@@ -38,7 +38,7 @@ const useStyles = makeStyles(({ typography, palette, spacing }) => {
   return {
     root: {
       display: 'grid',
-      gridRowGap: px(spacing.unit),
+      gridRowGap: px(spacing(1)),
       width: pct(100)
     },
     text: {

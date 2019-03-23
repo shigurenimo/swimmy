@@ -49,8 +49,8 @@ const useStyles = makeStyles(({ spacing, palette }) => {
       backgroundColor: palette.primary.main,
       color: 'white',
       display: 'grid',
-      gridRowGap: px(spacing.unit),
-      padding: spacing.unit * 2
+      gridRowGap: px(spacing(1)),
+      padding: spacing(2)
     }
   }
 })

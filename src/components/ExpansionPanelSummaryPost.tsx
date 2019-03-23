@@ -34,8 +34,8 @@ const ExpansionPanelSummaryPost: FunctionComponent<Props> = ({ post }) => {
 const useStyles = makeStyles(
   ({ breakpoints, typography, palette, spacing }) => {
     return {
-      likeCount: { paddingLeft: spacing.unit, color: palette.secondary.light },
-      replyPostCount: { color: purple.A400, paddingLeft: spacing.unit },
+      likeCount: { paddingLeft: spacing(1), color: palette.secondary.light },
+      replyPostCount: { color: purple.A400, paddingLeft: spacing(1) },
       root: {
         display: 'grid',
         gridRowGap: px(8),

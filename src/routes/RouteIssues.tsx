@@ -18,7 +18,7 @@ const RouteIssues: FunctionComponent = () => {
 }
 
 const useStyles = makeStyles(({ spacing }) => {
-  return { root: { paddingTop: spacing.unit * 10 } }
+  return { root: { paddingTop: spacing(10) } }
 })
 
 export default RouteIssues

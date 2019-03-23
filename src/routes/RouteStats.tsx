@@ -112,17 +112,17 @@ const useStyles = makeStyles(({ spacing }) => {
       display: 'block',
       marginLeft: 'auto',
       marginRight: 'auto',
-      marginTop: spacing.unit * 10
+      marginTop: spacing(10)
     },
     root: {
       display: 'grid',
-      gridRowGap: px(spacing.unit * 2)
+      gridRowGap: px(spacing(2))
     },
     section: {
       display: 'grid',
-      gridRowGap: px(spacing.unit),
-      paddingLeft: spacing.unit * 2,
-      paddingRight: spacing.unit * 2
+      gridRowGap: px(spacing(1)),
+      paddingLeft: spacing(2),
+      paddingRight: spacing(2)
     }
   }
 })

@@ -31,8 +31,8 @@ const useStyles = makeStyles(({ breakpoints, spacing }) => {
     img: { width: pct(100), borderRadius: px(4), verticalAlign: 'bottom' },
     root: {
       display: 'grid',
-      gridColumnGap: px(spacing.unit * 2),
-      gridRowGap: px(spacing.unit * 2),
+      gridColumnGap: px(spacing(2)),
+      gridRowGap: px(spacing(2)),
       width: '100%',
       [breakpoints.up('xs')]: { gridTemplateColumns: 'repeat(2, 1fr)' },
       [breakpoints.up('sm')]: { gridTemplateColumns: 'repeat(4, 1fr)' }

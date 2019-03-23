@@ -41,7 +41,7 @@ const useStyles = makeStyles(({ palette, spacing }) => {
     root: {
       display: 'grid',
       gridAutoFlow: 'column',
-      gridColumnGap: px(spacing.unit),
+      gridColumnGap: px(spacing(1)),
       gridTemplateColumns: 'max-content'
     }
   }

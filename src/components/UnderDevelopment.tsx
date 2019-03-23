@@ -36,8 +36,8 @@ const UnderDevelopment: FunctionComponent<Props> = ({
 const useStyles = makeStyles(({ spacing }) => {
   return {
     icon: { display: 'block', margin: 'auto', fontSize: 80 },
-    root: { paddingLeft: spacing.unit * 1.5, paddingRight: spacing.unit * 1.5 },
-    title: { marginTop: spacing.unit * 2, fontWeight: 'bold' }
+    root: { paddingLeft: spacing(1.5), paddingRight: spacing(1.5) },
+    title: { marginTop: spacing(2), fontWeight: 'bold' }
   }
 })
 

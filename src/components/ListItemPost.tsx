@@ -20,7 +20,7 @@ const ListItemPost: FunctionComponent<Props> = ({ post }) => {
 
 const useStyle = makeStyles(({ spacing }) => {
   return {
-    root: { padding: px(spacing.unit * 2) }
+    root: { padding: px(spacing(2)) }
   }
 })
 

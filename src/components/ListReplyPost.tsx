@@ -74,7 +74,7 @@ const ListReplyPost: FunctionComponent<Props> = ({
 
 const useStyles = makeStyles(({ spacing }) => {
   return {
-    progress: { marginTop: spacing.unit * 2, textAlign: 'center' },
+    progress: { marginTop: spacing(2), textAlign: 'center' },
     root: { width: pct(100) }
   }
 })

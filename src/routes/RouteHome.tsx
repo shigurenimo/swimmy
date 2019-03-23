@@ -105,10 +105,10 @@ const useStyles = makeStyles(({ spacing }) => {
       display: 'block',
       marginLeft: 'auto',
       marginRight: 'auto',
-      marginTop: spacing.unit * 10
+      marginTop: spacing(10)
     },
     root: { display: 'grid' },
-    section: { display: 'grid', gridRowGap: px(spacing.unit * 2) }
+    section: { display: 'grid', gridRowGap: px(spacing(2)) }
   }
 })
 

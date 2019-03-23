@@ -29,11 +29,11 @@ const useStyles = makeStyles(({ breakpoints, spacing }) => {
     img: { width: pct(100), borderRadius: px(4) },
     root: {
       display: 'grid',
-      gridColumnGap: px(spacing.unit * 2),
-      gridRowGap: px(spacing.unit * 2),
+      gridColumnGap: px(spacing(2)),
+      gridRowGap: px(spacing(2)),
       gridTemplateColumns: 'repeat(4, 1fr)',
-      paddingLeft: spacing.unit,
-      paddingRight: spacing.unit,
+      paddingLeft: spacing(1),
+      paddingRight: spacing(1),
       width: '100%'
     }
   }

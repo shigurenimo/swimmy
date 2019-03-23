@@ -67,12 +67,12 @@ const RoutePolicy: FunctionComponent = () => {
 const useStyles = makeStyles(({ spacing }) => {
   return {
     description: { whiteSpace: 'pre-line', wordBreak: 'break-all' },
-    root: { display: 'grid', gridRowGap: px(spacing.unit * 2) },
+    root: { display: 'grid', gridRowGap: px(spacing(2)) },
     section: {
       display: 'grid',
-      gridRowGap: px(spacing.unit * 2),
-      paddingLeft: spacing.unit * 2,
-      paddingRight: spacing.unit * 2
+      gridRowGap: px(spacing(2)),
+      paddingLeft: spacing(2),
+      paddingRight: spacing(2)
     }
   }
 })
