@@ -1,8 +1,10 @@
-import Button from '@material-ui/core/Button'
-import CircularProgress from '@material-ui/core/CircularProgress'
-import FormControl from '@material-ui/core/FormControl'
-import Input from '@material-ui/core/Input'
-import InputLabel from '@material-ui/core/InputLabel'
+import {
+  Button,
+  CircularProgress,
+  FormControl,
+  Input,
+  InputLabel
+} from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
 import { firestore, storage } from 'firebase/app'
 import React, {

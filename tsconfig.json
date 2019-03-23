@@ -11,7 +11,7 @@
     "jsx": "preserve",
     "lib": ["es7", "dom"],
     "allowJs": true,
-    "skipLibCheck": false,
+    "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
     "isolatedModules": true
   },

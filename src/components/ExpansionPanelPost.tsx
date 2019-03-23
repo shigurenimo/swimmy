@@ -1,5 +1,4 @@
-import ExpansionPanel from '@material-ui/core/ExpansionPanel'
-import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary'
+import { ExpansionPanel, ExpansionPanelSummary } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
 import { auth, firestore } from 'firebase/app'
 import React, { ChangeEvent, FunctionComponent, useState } from 'react'

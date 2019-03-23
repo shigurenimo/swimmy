@@ -1,4 +1,4 @@
-import Paper from '@material-ui/core/Paper'
+import { Paper } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
 import React, { FunctionComponent } from 'react'
 import { pct } from '../libs/styles/pct'

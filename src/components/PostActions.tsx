@@ -1,4 +1,4 @@
-import IconButton from '@material-ui/core/IconButton'
+import { IconButton } from '@material-ui/core'
 import Favorite from '@material-ui/icons/Favorite'
 import Launch from '@material-ui/icons/Launch'
 import { makeStyles } from '@material-ui/styles'

@@ -1,8 +1,10 @@
-import Button from '@material-ui/core/Button'
-import Snackbar from '@material-ui/core/Snackbar'
-import SnackbarContent from '@material-ui/core/SnackbarContent'
-import TextField from '@material-ui/core/TextField'
-import Typography from '@material-ui/core/Typography'
+import {
+  Button,
+  Snackbar,
+  SnackbarContent,
+  TextField,
+  Typography
+} from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
 import classnames from 'classnames'
 import { auth } from 'firebase/app'

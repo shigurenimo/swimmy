@@ -1,6 +1,4 @@
-import CircularProgress from '@material-ui/core/CircularProgress'
-import Button from '@material-ui/core/es/Button'
-import TextField from '@material-ui/core/es/TextField'
+import { Button, CircularProgress, TextField } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
 import React, {
   ChangeEvent,

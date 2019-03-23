@@ -1,8 +1,10 @@
-import Card from '@material-ui/core/Card'
-import CardContent from '@material-ui/core/CardContent'
-import CircularProgress from '@material-ui/core/CircularProgress'
-import Fade from '@material-ui/core/Fade'
-import Typography from '@material-ui/core/Typography'
+import {
+  Card,
+  CardContent,
+  CircularProgress,
+  Fade,
+  Typography
+} from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
 import { firestore } from 'firebase/app'
 import React, { FunctionComponent, useEffect, useState } from 'react'

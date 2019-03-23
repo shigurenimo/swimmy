@@ -1,5 +1,4 @@
-import CssBaseline from '@material-ui/core/CssBaseline'
-import { MuiThemeProvider } from '@material-ui/core/styles'
+import { CssBaseline } from '@material-ui/core'
 import {
   createGenerateClassName,
   StylesProvider,
@@ -17,14 +16,12 @@ const theme = createTheme()
 const App: FunctionComponent = () => {
   return (
     <StylesProvider generateClassName={generateClassName}>
-      <MuiThemeProvider theme={theme}>
-        <ThemeProvider theme={theme}>
-          <AppAuthProvider>
-            <CssBaseline />
-            <RouteIndex />
-          </AppAuthProvider>
-        </ThemeProvider>
-      </MuiThemeProvider>
+      <ThemeProvider theme={theme}>
+        <AppAuthProvider>
+          <CssBaseline />
+          <RouteIndex />
+        </AppAuthProvider>
+      </ThemeProvider>
     </StylesProvider>
   )
 }

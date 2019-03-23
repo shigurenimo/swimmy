@@ -1,7 +1,4 @@
-import AppBar from '@material-ui/core/AppBar'
-import IconButton from '@material-ui/core/IconButton'
-import LinearProgress from '@material-ui/core/LinearProgress'
-import Toolbar from '@material-ui/core/Toolbar'
+import { AppBar, IconButton, LinearProgress, Toolbar } from '@material-ui/core'
 import Close from '@material-ui/icons/Close'
 import MoreHoriz from '@material-ui/icons/MoreHoriz'
 import Photo from '@material-ui/icons/Photo'

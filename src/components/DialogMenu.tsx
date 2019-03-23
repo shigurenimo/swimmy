@@ -1,12 +1,14 @@
-import Button from '@material-ui/core/Button'
-import Dialog from '@material-ui/core/Dialog'
-import DialogActions from '@material-ui/core/DialogActions'
-import DialogContent from '@material-ui/core/DialogContent'
-import List from '@material-ui/core/List/List'
-import ListItem from '@material-ui/core/ListItem'
-import ListItemIcon from '@material-ui/core/ListItemIcon'
-import ListItemText from '@material-ui/core/ListItemText'
-import ListSubheader from '@material-ui/core/ListSubheader'
+import {
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  List,
+  ListItem,
+  ListItemIcon,
+  ListItemText,
+  ListSubheader
+} from '@material-ui/core'
 import Email from '@material-ui/icons/Email'
 import Equalizer from '@material-ui/icons/Equalizer'
 import Home from '@material-ui/icons/Home'

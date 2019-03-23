@@ -1,5 +1,5 @@
-import purple from '@material-ui/core/colors/purple'
-import Typography from '@material-ui/core/Typography'
+import { Typography } from '@material-ui/core'
+import { purple } from '@material-ui/core/colors'
 import { makeStyles } from '@material-ui/styles'
 import React, { FunctionComponent } from 'react'
 import { PostUi } from '../interfaces/models/postUi'

@@ -13,8 +13,6 @@ initializeApp({
   storageBucket: 'umfzwkzvrtpe.appspot.com'
 })
 
-firestore().settings({ timestampsInSnapshots: true })
-
 firestore()
   .enablePersistence({ experimentalTabSynchronization: true })
   .catch(err => {
