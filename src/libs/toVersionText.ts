@@ -1,4 +1,4 @@
-export const toVersionStr = (num: number): string => {
+export const toVersionText = (num: number): string => {
   const dataVersion = ('00000000' + num).slice(-9)
 
   return [

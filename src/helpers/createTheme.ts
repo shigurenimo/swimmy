@@ -1,8 +1,6 @@
 import { blue, pink } from '@material-ui/core/colors'
 import { createMuiTheme } from '@material-ui/core/styles'
 
-const shape = { borderRadius: 4 }
-
 export const createTheme = () => {
   return createMuiTheme({
     overrides: {
@@ -11,6 +9,11 @@ export const createTheme = () => {
       MuiDrawer: {
         paper: { backgroundColor: 'rgba(0, 0, 0, 0)' },
         paperAnchorDockedLeft: { borderRight: 0 }
+      },
+      MuiCard: { root: { boxShadow: '0 2px 8px rgba(214, 214, 224, 1)' } },
+      MuiPaper: {
+        elevation2: { boxShadow: '0 2px 8px rgba(214, 214, 224, 1)' },
+        elevation4: { boxShadow: '0 2px 8px rgba(0, 0, 0, 0.1)' }
       }
     },
     palette: {
@@ -19,7 +22,7 @@ export const createTheme = () => {
       secondary: { main: pink[500] }
     },
     props: { MuiButtonBase: { disableRipple: true } },
-    shape,
+    shape: { borderRadius: 4 },
     typography: { fontFamily: ['Roboto', 'sans-serif'].join(',') }
   })
 }

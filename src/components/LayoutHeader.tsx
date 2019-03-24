@@ -42,7 +42,7 @@ const LayoutHeader: FunctionComponent<Props> = ({ history }) => {
   return (
     <Fragment>
       <Headroom disableInlineStyles={true}>
-        <AppBar position="static" className={classes.appBar}>
+        <AppBar position={'static'} className={classes.appBar}>
           {authContext.isLoggingIn && (
             <LinearProgress className={classes.progress} />
           )}
@@ -98,14 +98,11 @@ const useStyle = makeStyles(({ spacing }) => {
       gridColumnGap: px(spacing(1))
     },
     appBar: { backgroundColor: 'rgba(255, 255, 255, 0.98)' },
-    menuButton: {
-      marginLeft: spacing(-1.5),
-      marginRight: spacing(2.5)
-    },
+    menuButton: { marginLeft: spacing(-1.5), marginRight: spacing(2.5) },
     progress: { position: 'absolute', top: 0, left: 0, width: pct(100) },
     root: { flexGrow: 1 },
     title: { fontSize: 24, flexGrow: 1 }
   }
 })
 
-export default withRouter(LayoutHeader as any)
+export default withRouter(LayoutHeader)

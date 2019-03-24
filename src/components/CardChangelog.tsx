@@ -2,8 +2,8 @@ import { Card, CardContent, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
 import React, { FunctionComponent } from 'react'
 import { Changelog } from '../interfaces/models/changelog'
-import { toDateStringFromPrismicDate } from '../libs/toDateStringFromPrismicDate'
-import { toVersionStr } from '../libs/toVersionStr'
+import { toDateTextFromPrismicDate } from '../libs/toDateTextFromPrismicDate'
+import { toVersionText } from '../libs/toVersionText'
 
 type Props = { changelog: Changelog }
 
@@ -14,10 +14,10 @@ const CardChangelog: FunctionComponent<Props> = ({ changelog }) => {
     <Card>
       <CardContent>
         <Typography variant={'h5'} component={'h2'}>
-          {toVersionStr(changelog.version)}
+          {toVersionText(changelog.version)}
         </Typography>
         <Typography className={classes.date}>
-          {toDateStringFromPrismicDate(changelog.date)}
+          {toDateTextFromPrismicDate(changelog.date)}
         </Typography>
         <ul className={classes.list}>
           {changelog.contents.map((content, i) => (
