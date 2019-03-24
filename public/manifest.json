@@ -1,21 +1,12 @@
 {
-  "short_name": "Swimmy",
-  "name": "Swimmy",
+  "display": "standalone",
+  "short_name": "Sw",
+  "name": "Sw",
   "icons": [
-    {
-      "src": "/icons/android-chrome-192x192.png",
-      "sizes": "192x192",
-      "type": "image/png"
-    },
-    {
-      "src": "/icons/android-chrome-512x512.png",
-      "sizes": "512x512",
-      "type": "image/png"
-    }
+    { "src": "/icons/icon-128.png", "sizes": "128x128" },
+    { "src": "/icons/icon-256.png", "sizes": "256x256" }
   ],
   "start_url": "/",
-  "display": "standalone",
-  "theme_color": "#2962FF",
-  "background_color": "#ffffff",
+  "theme_color": "#69f0ae",
   "orientation": "portrait"
 }
