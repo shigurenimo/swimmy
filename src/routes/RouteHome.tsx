@@ -75,8 +75,8 @@ const RouteHome: FunctionComponent = () => {
     <main className={classes.root}>
       <ViewTitle
         title={'スイミーにようこそ'}
-        description={`はじめまして。スイミーは完全な匿名の電子掲示板です。
-          ログインすることでSNSの真似事ができますが、SNSではないです。`}
+        description={`スイミーは完全な匿名の電子掲示板です。
+          ログインすることでSNSのような機能が使えたりもします。`}
       />
       <TextFieldPost />
       {inProgress && <CircularProgress className={classes.progress} />}
