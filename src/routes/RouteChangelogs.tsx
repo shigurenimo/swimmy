@@ -1,48 +1,15 @@
 import { CircularProgress, Fade } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
-import { firestore } from 'firebase/app'
-import React, { FunctionComponent, useEffect, useState } from 'react'
-import { collectionData } from 'rxfire/firestore'
-import { take } from 'rxjs/operators'
+import React, { FunctionComponent } from 'react'
 import CardChangelog from '../components/CardChangelog'
 import ViewTitle from '../components/ViewTitle'
-import { CHANGELOGS } from '../constants/collection'
-import { DESC } from '../constants/order'
-import { createdAt } from '../helpers/createdAt'
-import { Changelog } from '../interfaces/models/changelog'
-import { ChangelogUi } from '../interfaces/models/changelogUi'
+import { usePrismicChangelogs } from '../hooks/usePrismicChangelogs'
 import { px } from '../libs/styles/px'
 import { resetList } from '../libs/styles/resetList'
-import { toVersionStr } from '../libs/toVersionStr'
 
 const RouteChangelogs: FunctionComponent = () => {
   const classes = useStyles({})
-  const [changelogs, setChangelogs] = useState<ChangelogUi[]>([])
-  const [inProgress, setInProgress] = useState(true)
-
-  useEffect(() => {
-    const query = firestore()
-      .collection(CHANGELOGS)
-      .limit(40)
-      .orderBy('version', DESC)
-    const subscription = collectionData<Changelog>(query)
-      .pipe(take(2))
-      .subscribe(docs => {
-        setChangelogs([
-          ...docs.map(doc => ({
-            ...doc,
-            ui: {
-              date: createdAt(doc.date, false),
-              version: toVersionStr(doc.version)
-            }
-          }))
-        ])
-        setInProgress(false)
-      })
-    return () => {
-      subscription.unsubscribe()
-    }
-  }, [])
+  const [[changelogs, inProgress]] = usePrismicChangelogs()
 
   if (inProgress) {
     return <CircularProgress className={classes.progress} />
@@ -60,12 +27,8 @@ const RouteChangelogs: FunctionComponent = () => {
         />
         <ul className={classes.changelogs}>
           {changelogs.map(changelog => (
-            <li key={changelog.id}>
-              <CardChangelog
-                version={changelog.ui.version}
-                date={changelog.ui.date}
-                contents={changelog.contents}
-              />
+            <li key={changelog.version}>
+              <CardChangelog changelog={changelog} />
             </li>
           ))}
         </ul>
