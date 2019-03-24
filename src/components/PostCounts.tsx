@@ -22,12 +22,12 @@ const PostCounts: FunctionComponent<Props> = ({
     <div className={classes.root}>
       {replyPostCount > 0 && (
         <Typography className={classes.replyPostCount}>
-          {`RES ${replyPostCount}`}
+          {`レス ${replyPostCount}`}
         </Typography>
       )}
       {likeCount > 0 && (
         <Typography className={classes.likeCount}>
-          {`HEART ${likeCount}`}
+          {`スキ ${likeCount}`}
         </Typography>
       )}
     </div>
