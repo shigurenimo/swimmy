@@ -4,16 +4,14 @@ import { auth, firestore } from 'firebase/app'
 import React, { ChangeEvent, FunctionComponent, useState } from 'react'
 import { LIKES, POSTS } from '../constants/collection'
 import { createPostLike } from '../helpers/createPostLike'
-import { PostUi } from '../types/models/postUi'
 import { px } from '../libs/px'
+import { Post } from '../types/models/post'
 import ExpansionPanelSummaryPost from './ExpansionPanelSummaryPost'
-import ListReplyPost from './ListReplyPost'
 import PostActions from './PostActions'
-import TextFieldReplyPost from './TextFieldReplyPost'
 
 type Props = {
   inProgress?: boolean
-  post: PostUi
+  post: Post
 }
 
 const ExpansionPanelPost: FunctionComponent<Props> = ({ inProgress, post }) => {

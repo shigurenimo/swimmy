@@ -2,11 +2,11 @@ import { Card, CardActionArea, CardMedia } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
 import React, { FunctionComponent } from 'react'
 import { Link } from 'react-router-dom'
-import { PostUi } from '../types/models/postUi'
 import { pct } from '../libs/pct'
+import { Post } from '../types/models/post'
 
 type Props = {
-  post: PostUi
+  post: Post
 }
 
 const CardImage: FunctionComponent<Props> = ({ post }) => {

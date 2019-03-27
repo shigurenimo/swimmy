@@ -12,9 +12,8 @@ import { DESC } from '../constants/order'
 import { createdAt } from '../helpers/createdAt'
 import { useCache } from '../hooks/useCache'
 import { useSubscription } from '../hooks/useSubscription'
-import { Post } from '../types/models/post'
-import { PostUi } from '../types/models/postUi'
 import { px } from '../libs/px'
+import { Post } from '../types/models/post'
 
 type Props = RouteComponentProps
 
@@ -23,7 +22,7 @@ const RouteThreads: FunctionComponent<Props> = ({ location, history }) => {
   const [inProgressMore, setInProgressMore] = useState(false)
   const [limit, setLimit] = useState(16)
   const [orderBy, setOrderBy] = useState('createdAt')
-  const [posts, setPosts] = useState<PostUi[]>([])
+  const [posts, setPosts] = useState<Post[]>([])
   const [subscription, setSubscription] = useSubscription()
   const classes = useStyles({})
   const [cache, setCache] = useCache(location.pathname + location.search)

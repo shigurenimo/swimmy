@@ -13,7 +13,6 @@ import { createdAt } from '../helpers/createdAt'
 import { useCache } from '../hooks/useCache'
 import { px } from '../libs/px'
 import { Post } from '../types/models/post'
-import { PostUi } from '../types/models/postUi'
 
 const RouteHome: FunctionComponent = () => {
   const classes = useStyles({})
@@ -21,16 +20,13 @@ const RouteHome: FunctionComponent = () => {
   const [limit, setLimit] = useState<number>(cache.limit)
   const [inProgress, setInProgress] = useState(cache.posts.length === 0)
   const [inProgressMore, setInProgressMore] = useState(false)
-  const [posts, setPosts] = useState<PostUi[]>(cache.posts || [])
+  const [posts, setPosts] = useState<Post[]>(cache.posts || [])
   const subscribePosts = (_limit = 16) => {
     const query = firestore()
       .collection(POSTS_AS_ANONYM)
       .limit(_limit)
       .orderBy('createdAt', DESC)
-    return collectionData<Post>(query).subscribe(docs => {
-      const _posts = docs.map(doc => {
-        return { ...doc, ui: { createdAt: createdAt(doc.createdAt) } }
-      })
+    return collectionData<Post>(query).subscribe(_posts => {
       setPosts(_posts)
       setInProgress(false)
       setInProgressMore(false)

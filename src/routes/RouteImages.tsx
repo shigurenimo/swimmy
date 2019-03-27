@@ -5,16 +5,16 @@ import React, { FunctionComponent, useEffect, useState } from 'react'
 import { RouteComponentProps } from 'react-router'
 import { collectionData } from 'rxfire/firestore'
 import ButtonMore from '../components/ButtonMore'
-import UlImages from '../components/UlImages'
+import CardImage from '../components/CardImage'
 import SectionTitle from '../components/SectionTitle'
 import { POSTS_AS_IMAGE } from '../constants/collection'
 import { DESC } from '../constants/order'
 import { createdAt } from '../helpers/createdAt'
 import { useCache } from '../hooks/useCache'
 import { useSubscription } from '../hooks/useSubscription'
-import { Post } from '../types/models/post'
-import { PostUi } from '../types/models/postUi'
 import { px } from '../libs/px'
+import { resetList } from '../libs/resetList'
+import { Post } from '../types/models/post'
 
 type Props = RouteComponentProps
 
@@ -23,7 +23,7 @@ const RouteImages: FunctionComponent<Props> = ({ location, history }) => {
   const [inProgressMore, setInProgressMore] = useState(false)
   const [limit, setLimit] = useState(16)
   const [orderBy, setOrderBy] = useState('createdAt')
-  const [posts, setPosts] = useState<PostUi[]>([])
+  const [posts, setPosts] = useState<Post[]>([])
   const [subscription, setSubscription] = useSubscription()
   const classes = useStyles({})
   const [cache, setCache] = useCache(location.pathname + location.search)
@@ -115,7 +115,13 @@ const RouteImages: FunctionComponent<Props> = ({ location, history }) => {
       {!inProgress && (
         <Fade in>
           <section className={classes.section}>
-            <UlImages posts={posts} />
+            <ul className={classes.ul}>
+              {posts.map(post => (
+                <li key={post.id}>
+                  <CardImage post={post} />
+                </li>
+              ))}
+            </ul>
             {limit < 200 && (
               <ButtonMore onClick={onMore} inProgress={inProgressMore} />
             )}
@@ -126,7 +132,7 @@ const RouteImages: FunctionComponent<Props> = ({ location, history }) => {
   )
 }
 
-const useStyles = makeStyles(({ spacing }) => {
+const useStyles = makeStyles(({ breakpoints, spacing }) => {
   return {
     progress: {
       display: 'block',
@@ -135,7 +141,21 @@ const useStyles = makeStyles(({ spacing }) => {
       marginTop: spacing(10)
     },
     root: { display: 'grid', gridRowGap: px(spacing(2)) },
-    section: { display: 'grid', gridRowGap: px(spacing(2)) }
+    section: { display: 'grid', gridRowGap: px(spacing(2)) },
+    ul: {
+      ...resetList(),
+      alignItems: 'center',
+      display: 'grid',
+      gridColumnGap: px(spacing(2)),
+      gridRowGap: px(spacing(2)),
+      margin: 0,
+      paddingLeft: spacing(2),
+      paddingRight: spacing(2),
+      [breakpoints.up('xs')]: { gridTemplateColumns: 'repeat(2, 1fr)' },
+      [breakpoints.up('sm')]: { gridTemplateColumns: 'repeat(3, 1fr)' },
+      [breakpoints.up('md')]: { gridTemplateColumns: 'repeat(5, 1fr)' },
+      [breakpoints.up('lg')]: { gridTemplateColumns: 'repeat(7, 1fr)' }
+    }
   }
 })
 

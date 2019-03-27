@@ -2,13 +2,14 @@ import { Card, CardContent, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
 import React, { FunctionComponent } from 'react'
 import { Link } from 'react-router-dom'
-import { PostUi } from '../types/models/postUi'
+import { createdAt } from '../helpers/createdAt'
 import { pct } from '../libs/pct'
 import { px } from '../libs/px'
+import { Post } from '../types/models/post'
 import PostCounts from './PostCounts'
 
 type Props = {
-  post: PostUi
+  post: Post
 }
 
 const CardThread: FunctionComponent<Props> = ({ post }) => {
@@ -26,7 +27,7 @@ const CardThread: FunctionComponent<Props> = ({ post }) => {
             {post.text}
           </Typography>
           <Typography color={'textSecondary'} variant={'caption'}>
-            {post.ui.createdAt}
+            {createdAt(post.createdAt)}
           </Typography>
         </CardContent>
       </Card>

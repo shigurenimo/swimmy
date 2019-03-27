@@ -1,9 +1,8 @@
 import { Post } from '../types/models/post'
-import { PostUi } from '../types/models/postUi'
 
 type Value = {
   limit: number
-  posts: PostUi[]
+  posts: Post[]
 }
 
 const cacheMap = new Map<string, Value>()

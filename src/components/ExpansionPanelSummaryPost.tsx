@@ -2,13 +2,14 @@ import { Typography } from '@material-ui/core'
 import { purple } from '@material-ui/core/colors'
 import { makeStyles } from '@material-ui/styles'
 import React, { FunctionComponent } from 'react'
-import { PostUi } from '../types/models/postUi'
+import { createdAt } from '../helpers/createdAt'
 import { px } from '../libs/px'
+import { Post } from '../types/models/post'
 import Images from './Images'
 import PostCounts from './PostCounts'
 
 type Props = {
-  post: PostUi
+  post: Post
 }
 
 const ExpansionPanelSummaryPost: FunctionComponent<Props> = ({ post }) => {
@@ -25,7 +26,7 @@ const ExpansionPanelSummaryPost: FunctionComponent<Props> = ({ post }) => {
       </Typography>
       {post.photoURLs.length !== 0 && <Images photoURLs={post.photoURLs} />}
       <Typography color={'textSecondary'} variant={'caption'}>
-        {post.ui.createdAt}
+        {createdAt(post.createdAt)}
       </Typography>
     </div>
   )
