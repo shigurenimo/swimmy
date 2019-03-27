@@ -20,7 +20,7 @@ const RouteHome: FunctionComponent = () => {
   const [limit, setLimit] = useState<number>(cache.limit)
   const [inProgress, setInProgress] = useState(cache.posts.length === 0)
   const [inProgressMore, setInProgressMore] = useState(false)
-  const [posts, setPosts] = useState<Post[]>(cache.posts || [])
+  const [posts, setPosts] = useState<Post[]>(cache.posts)
   const subscribePosts = (_limit = 16) => {
     const query = firestore()
       .collection(POSTS_AS_ANONYM)

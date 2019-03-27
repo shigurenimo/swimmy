@@ -17,82 +17,63 @@ import { Post } from '../types/models/post'
 
 type Props = RouteComponentProps
 
+const getOrderBy = () => {
+  switch (location.search.replace('?order=', '')) {
+    case 'createdAt':
+      return 'createdAt'
+    case 'likeCount':
+      return 'likeCount'
+    case 'replyPostCount':
+      return 'replyPostCount'
+    default:
+      return 'createdAt'
+  }
+}
+
 const RouteThreads: FunctionComponent<Props> = ({ location, history }) => {
-  const [inProgress, setInProgress] = useState(true)
-  const [inProgressMore, setInProgressMore] = useState(false)
-  const [limit, setLimit] = useState(16)
-  const [orderBy, setOrderBy] = useState('createdAt')
-  const [posts, setPosts] = useState<Post[]>([])
-  const [subscription, setSubscription] = useSubscription()
   const classes = useStyles({})
   const [cache, setCache] = useCache(location.pathname + location.search)
+  const [limit, setLimit] = useState(cache.limit)
+  const [inProgress, setInProgress] = useState(cache.posts.length === 0)
+  const [inProgressMore, setInProgressMore] = useState(false)
+  const [orderBy, setOrderBy] = useState(getOrderBy())
+  const [posts, setPosts] = useState<Post[]>(cache.posts)
   const onChangeTab = (_: any, _orderBy: string) => {
     history.push(`?order=${_orderBy}`)
-    const _subscription = subscribePosts(_orderBy)
-    setSubscription(_subscription)
     setOrderBy(_orderBy)
     setInProgress(true)
-    saveState()
   }
   const subscribePosts = (_orderBy: string, _limit = 16) => {
     const query = firestore()
       .collection(POSTS_AS_THREAD)
       .limit(_limit)
       .orderBy(_orderBy, DESC)
-    return collectionData<Post>(query).subscribe(docs => {
-      const _posts = docs.map(doc => {
-        return { ...doc, ui: { createdAt: createdAt(doc.createdAt) } }
-      })
+    return collectionData<Post>(query).subscribe(_posts => {
       setPosts(_posts)
       setInProgress(false)
       setInProgressMore(false)
     })
   }
-  const getOrderBy = () => {
-    switch (location.search.replace('?order=', '')) {
-      case 'createdAt':
-        return 'createdAt'
-      case 'likeCount':
-        return 'likeCount'
-      case 'replyPostCount':
-        return 'replyPostCount'
-      default:
-        return 'createdAt'
-    }
-  }
-  const saveState = () => {
-    setCache({ posts, limit })
-  }
-  const restoreState = () => {
-    if (cache) {
-      setInProgress(false)
-      setLimit(cache.limit)
-      setPosts(cache.posts)
-    }
-  }
   const onMore = () => {
     if (inProgressMore) {
       return
     }
-    const _limit = limit + 16
     setInProgressMore(true)
-    setLimit(_limit)
-    const _subscription = subscribePosts(orderBy, _limit)
-    setSubscription(_subscription)
+    setLimit(limit + 16)
   }
 
   useEffect(() => {
-    const _orderBy = getOrderBy()
-    restoreState()
-    const _limit = cache ? cache.limit : 40
-    setOrderBy(_orderBy)
-    const _subscription = subscribePosts(_orderBy, _limit)
-    setSubscription(_subscription)
+    const posts$ = subscribePosts(orderBy, limit)
     return () => {
-      subscription.unsubscribe()
-      saveState()
+      posts$.unsubscribe()
     }
-  }, [])
+  }, [limit, orderBy])
+
+  useEffect(() => {
+    return () => {
+      setCache({ posts, limit })
+    }
+  }, [posts])
 
   return (
     <main className={classes.root}>
@@ -106,9 +87,9 @@ const RouteThreads: FunctionComponent<Props> = ({ location, history }) => {
         textColor={'primary'}
         value={orderBy}
       >
-        <Tab label="新着" value={'createdAt'} />
-        <Tab label="評価数" value={'likeCount'} />
-        <Tab label="レス数" value={'replyPostCount'} />
+        <Tab label={'新着'} value={'createdAt'} />
+        <Tab label={'評価数'} value={'likeCount'} />
+        <Tab label={'レス数'} value={'replyPostCount'} />
       </Tabs>
       {inProgress && <CircularProgress className={classes.progress} />}
       {!inProgress && (
