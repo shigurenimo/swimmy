@@ -12,6 +12,7 @@ export const createTheme = () => {
       },
       MuiCard: { root: { boxShadow: '0 2px 8px rgba(214, 214, 224, 1)' } },
       MuiPaper: {
+        elevation1: { boxShadow: '0 2px 8px rgba(214, 214, 224, 1)' },
         elevation2: { boxShadow: '0 2px 8px rgba(214, 214, 224, 1)' },
         elevation4: { boxShadow: '0 2px 8px rgba(0, 0, 0, 0.1)' }
       }

@@ -5,26 +5,23 @@ import React, { FunctionComponent, useEffect, useState } from 'react'
 import { collectionData } from 'rxfire/firestore'
 import ButtonMore from '../components/ButtonMore'
 import ExpansionPanelPost from '../components/ExpansionPanelPost'
-import TextFieldPost from '../components/TextFieldPost'
 import SectionTitle from '../components/SectionTitle'
+import TextFieldPost from '../components/TextFieldPost'
 import { POSTS_AS_ANONYM } from '../constants/collection'
 import { DESC } from '../constants/order'
 import { createdAt } from '../helpers/createdAt'
 import { useCache } from '../hooks/useCache'
-import { useSubscription } from '../hooks/useSubscription'
+import { px } from '../libs/px'
 import { Post } from '../types/models/post'
 import { PostUi } from '../types/models/postUi'
-import { px } from '../libs/px'
 
 const RouteHome: FunctionComponent = () => {
   const classes = useStyles({})
-  const [inProgress, setInProgress] = useState(true)
-  const [inProgressMore, setInProgressMore] = useState(false)
-  const [limit, setLimit] = useState(16)
-  const [orderBy, setOrderBy] = useState('createdAt')
-  const [posts, setPosts] = useState<PostUi[]>([])
-  const [subscription, setSubscription] = useSubscription()
   const [cache, setCache] = useCache(location.pathname)
+  const [limit, setLimit] = useState<number>(cache.limit)
+  const [inProgress, setInProgress] = useState(cache.posts.length === 0)
+  const [inProgressMore, setInProgressMore] = useState(false)
+  const [posts, setPosts] = useState<PostUi[]>(cache.posts || [])
   const subscribePosts = (_limit = 16) => {
     const query = firestore()
       .collection(POSTS_AS_ANONYM)
@@ -39,37 +36,26 @@ const RouteHome: FunctionComponent = () => {
       setInProgressMore(false)
     })
   }
-  const restoreState = () => {
-    if (cache) {
-      setInProgress(false)
-      setLimit(cache.limit)
-      setPosts(cache.posts)
-    }
-  }
-  const saveState = () => {
-    setCache({ posts, limit })
-  }
   const onMore = () => {
     if (inProgressMore) {
       return
     }
-    const _limit = limit + 16
     setInProgressMore(true)
-    setLimit(_limit)
-    const _subscription = subscribePosts(_limit)
-    setSubscription(_subscription)
+    setLimit(limit + 16)
   }
 
   useEffect(() => {
-    restoreState()
-    const _limit = cache ? cache.limit : 16
-    const _subscription = subscribePosts(_limit)
-    setSubscription(_subscription)
+    const posts$ = subscribePosts(limit)
     return () => {
-      subscription.unsubscribe()
-      saveState()
+      posts$.unsubscribe()
     }
-  }, [])
+  }, [limit])
+
+  useEffect(() => {
+    return () => {
+      setCache({ posts, limit })
+    }
+  }, [posts])
 
   return (
     <main className={classes.root}>

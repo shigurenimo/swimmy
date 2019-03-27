@@ -68,12 +68,6 @@ const ExpansionPanelPost: FunctionComponent<Props> = ({ inProgress, post }) => {
         inProgressLike={inProgressLike}
         hasLike={hasLike}
       />
-      {expanded && (
-        <ListReplyPost postId={post.id} replyPostCount={post.replyPostCount} />
-      )}
-      <div className={classes.textField}>
-        <TextFieldReplyPost postId={post.id} />
-      </div>
     </ExpansionPanel>
   )
 }

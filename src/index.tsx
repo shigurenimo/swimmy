@@ -13,6 +13,10 @@ serviceWorker.register({
   }
 })
 
+if ('scrollRestoration' in history) {
+  history.scrollRestoration = 'auto'
+}
+
 if (module.hot) {
   module.hot.accept()
 }
