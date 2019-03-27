@@ -1,6 +1,6 @@
 import { Doc } from './doc'
 
-export interface Changelog extends Doc {
+export type Changelog = Doc & {
   contents: { text: string }[]
   date: string
   version: number

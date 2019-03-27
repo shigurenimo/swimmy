@@ -21,7 +21,7 @@ import { IMAGES } from '../constants/collection'
 import { createPost } from '../helpers/createPost'
 import { useSubscription } from '../hooks/useSubscription'
 import { createId } from '../libs/createId'
-import { px } from '../libs/styles/px'
+import { px } from '../libs/px'
 import InputFile from './InputFile'
 import PreviewImages from './PreviewImages'
 

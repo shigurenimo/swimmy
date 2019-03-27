@@ -2,7 +2,7 @@ import { Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
 import React, { FunctionComponent, useContext } from 'react'
 import { AuthContext } from '../contexts/authContext'
-import { px } from '../libs/styles/px'
+import { px } from '../libs/px'
 
 type Props = {
   title: string

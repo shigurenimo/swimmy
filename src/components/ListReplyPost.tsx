@@ -12,8 +12,8 @@ import { collectionData } from 'rxfire/firestore'
 import { delay } from 'rxjs/operators'
 import { POSTS, POSTS_AS_ANONYM } from '../constants/collection'
 import { DESC } from '../constants/order'
-import { Post } from '../interfaces/models/post'
-import { pct } from '../libs/styles/pct'
+import { Post } from '../types/models/post'
+import { pct } from '../libs/pct'
 
 type Props = {
   postId: string

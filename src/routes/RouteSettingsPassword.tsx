@@ -18,8 +18,8 @@ import React, {
 import { from } from 'rxjs'
 import { mergeMap } from 'rxjs/operators'
 import { useSubscription } from '../hooks/useSubscription'
-import { pct } from '../libs/styles/pct'
-import { px } from '../libs/styles/px'
+import { pct } from '../libs/pct'
+import { px } from '../libs/px'
 
 const RouteSettingsPassword: FunctionComponent = () => {
   const [currentPassword, setCurrentPassword] = useState('')

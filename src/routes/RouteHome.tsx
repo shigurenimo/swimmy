@@ -12,9 +12,9 @@ import { DESC } from '../constants/order'
 import { createdAt } from '../helpers/createdAt'
 import { useCache } from '../hooks/useCache'
 import { useSubscription } from '../hooks/useSubscription'
-import { Post } from '../interfaces/models/post'
-import { PostUi } from '../interfaces/models/postUi'
-import { px } from '../libs/styles/px'
+import { Post } from '../types/models/post'
+import { PostUi } from '../types/models/postUi'
+import { px } from '../libs/px'
 
 const RouteHome: FunctionComponent = () => {
   const classes = useStyles({})

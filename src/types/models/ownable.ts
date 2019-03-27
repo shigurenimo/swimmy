@@ -1,6 +1,6 @@
 import { Owner } from './owner'
 
-export interface Ownable {
+export type Ownable = {
   owner: Owner | null
   ownerId: string | null
 }

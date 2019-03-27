@@ -1,4 +1,4 @@
-export interface UpdateChangelog {
+export type UpdateChangelog = {
   contents: string[]
   date: number
   changelogId: string

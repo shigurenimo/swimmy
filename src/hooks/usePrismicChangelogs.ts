@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { from } from 'rxjs'
 import { map, mergeMap } from 'rxjs/operators'
-import { Changelog } from '../interfaces/models/changelog'
+import { Changelog } from '../types/models/changelog'
 
 export const usePrismicChangelogs = (): [[Changelog[], boolean]] => {
   const [changelogs, setChangelogs] = useState<Changelog[]>([])

@@ -1,6 +1,6 @@
 import { Changelog } from './changelog'
 
-export interface ChangelogUi extends Changelog {
+export type ChangelogUi = Changelog & {
   ui: {
     version: string
     date: string

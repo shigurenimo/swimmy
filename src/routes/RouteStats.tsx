@@ -13,7 +13,7 @@ import { take } from 'rxjs/operators'
 import ChartLine from '../components/ChartLine'
 import SectionTitle from '../components/SectionTitle'
 import { STATS } from '../constants/collection'
-import { px } from '../libs/styles/px'
+import { px } from '../libs/px'
 
 const RouteStats: FunctionComponent = () => {
   const [averagePerDay, setAveragePerDay] = useState<any>(0)

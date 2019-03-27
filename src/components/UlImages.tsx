@@ -1,8 +1,8 @@
 import { makeStyles } from '@material-ui/styles'
 import React, { FunctionComponent } from 'react'
-import { PostUi } from '../interfaces/models/postUi'
-import { px } from '../libs/styles/px'
-import { resetList } from '../libs/styles/resetList'
+import { PostUi } from '../types/models/postUi'
+import { px } from '../libs/px'
+import { resetList } from '../libs/resetList'
 import CardImage from './CardImage'
 
 type Props = {

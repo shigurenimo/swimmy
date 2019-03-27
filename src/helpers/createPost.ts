@@ -1,7 +1,7 @@
 import { app } from 'firebase/app'
 import { CREATE_POST } from '../constants/functions'
 import { ASIA_NORTHEAST1 } from '../constants/region'
-import { CreatePostData } from '../interfaces/https/createPostData'
+import { CreatePostData } from '../types/https/createPostData'
 
 export const createPost = (data: CreatePostData) => {
   return app()

@@ -2,7 +2,7 @@ import { Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
 import React, { FunctionComponent } from 'react'
 import SectionTitle from '../components/SectionTitle'
-import { px } from '../libs/styles/px'
+import { px } from '../libs/px'
 
 const RoutePolicy: FunctionComponent = () => {
   const classes = useStyles({})

@@ -1,8 +1,8 @@
 import { Paper } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
 import React, { FunctionComponent } from 'react'
-import { pct } from '../libs/styles/pct'
-import { px } from '../libs/styles/px'
+import { pct } from '../libs/pct'
+import { px } from '../libs/px'
 
 type Props = {
   photoURLs: string[]

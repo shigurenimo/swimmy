@@ -4,8 +4,8 @@ import React, { FunctionComponent } from 'react'
 import CardChangelog from '../components/CardChangelog'
 import SectionTitle from '../components/SectionTitle'
 import { usePrismicChangelogs } from '../hooks/usePrismicChangelogs'
-import { px } from '../libs/styles/px'
-import { resetList } from '../libs/styles/resetList'
+import { px } from '../libs/px'
+import { resetList } from '../libs/resetList'
 
 const RouteChangelogs: FunctionComponent = () => {
   const classes = useStyles({})

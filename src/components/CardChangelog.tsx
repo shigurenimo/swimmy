@@ -1,7 +1,7 @@
 import { Card, CardContent, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
 import React, { FunctionComponent } from 'react'
-import { Changelog } from '../interfaces/models/changelog'
+import { Changelog } from '../types/models/changelog'
 import { toDateTextFromPrismicDate } from '../libs/toDateTextFromPrismicDate'
 import { toVersionText } from '../libs/toVersionText'
 

@@ -1,8 +1,8 @@
 import { Card, CardContent, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
 import React, { FunctionComponent } from 'react'
-import { px } from '../libs/styles/px'
-import { resetList } from '../libs/styles/resetList'
+import { px } from '../libs/px'
+import { resetList } from '../libs/resetList'
 
 const RouteAbout: FunctionComponent = () => {
   const classes = useStyles({})

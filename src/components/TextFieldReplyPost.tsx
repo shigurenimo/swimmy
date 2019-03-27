@@ -10,7 +10,7 @@ import React, {
 import { from } from 'rxjs'
 import { createPost } from '../helpers/createPost'
 import { useSubscription } from '../hooks/useSubscription'
-import { pct } from '../libs/styles/pct'
+import { pct } from '../libs/pct'
 
 type Props = {
   postId: string

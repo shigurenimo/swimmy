@@ -1,6 +1,6 @@
 import { Post } from './post'
 
-export interface PostUi extends Post {
+export type PostUi = Post & {
   ui: {
     createdAt: string
   }

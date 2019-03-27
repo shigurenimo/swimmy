@@ -1,8 +1,8 @@
 import { makeStyles } from '@material-ui/styles'
 import { ResponsiveLine } from '@nivo/line'
 import React, { FunctionComponent } from 'react'
-import { pct } from '../libs/styles/pct'
-import { px } from '../libs/styles/px'
+import { pct } from '../libs/pct'
+import { px } from '../libs/px'
 
 type Props = {
   data: any

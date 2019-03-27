@@ -1,7 +1,7 @@
 import { Doc } from './doc'
 import { UserLink } from './userLink'
 
-export interface User extends Doc {
+export type User = Doc & {
   description: string
   displayName: string
   followeeCount: number

@@ -2,9 +2,9 @@ import { Card, CardContent, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
 import React, { FunctionComponent } from 'react'
 import { Link } from 'react-router-dom'
-import { PostUi } from '../interfaces/models/postUi'
-import { pct } from '../libs/styles/pct'
-import { px } from '../libs/styles/px'
+import { PostUi } from '../types/models/postUi'
+import { pct } from '../libs/pct'
+import { px } from '../libs/px'
 import PostCounts from './PostCounts'
 
 type Props = {

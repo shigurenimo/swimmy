@@ -11,9 +11,9 @@ import SectionTitle from '../components/SectionTitle'
 import { POSTS, POSTS_AS_ANONYM } from '../constants/collection'
 import { DESC } from '../constants/order'
 import { createdAt } from '../helpers/createdAt'
-import { Post } from '../interfaces/models/post'
-import { PostUi } from '../interfaces/models/postUi'
-import { px } from '../libs/styles/px'
+import { Post } from '../types/models/post'
+import { PostUi } from '../types/models/postUi'
+import { px } from '../libs/px'
 
 type Props = RouteComponentProps
 

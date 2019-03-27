@@ -1,7 +1,7 @@
 import { makeStyles } from '@material-ui/styles'
 import React, { FunctionComponent } from 'react'
-import { PostUi } from '../interfaces/models/postUi'
-import { px } from '../libs/styles/px'
+import { PostUi } from '../types/models/postUi'
+import { px } from '../libs/px'
 import ExpansionPanelSummaryPost from './ExpansionPanelSummaryPost'
 
 type Props = {
