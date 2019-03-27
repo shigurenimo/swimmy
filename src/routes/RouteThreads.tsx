@@ -10,25 +10,12 @@ import SectionTitle from '../components/SectionTitle'
 import { POSTS_AS_THREAD } from '../constants/collection'
 import { DESC } from '../constants/order'
 import { createdAt } from '../helpers/createdAt'
+import { getOrderBy } from '../helpers/getOrderBy'
 import { useCache } from '../hooks/useCache'
-import { useSubscription } from '../hooks/useSubscription'
 import { px } from '../libs/px'
 import { Post } from '../types/models/post'
 
 type Props = RouteComponentProps
-
-const getOrderBy = () => {
-  switch (location.search.replace('?order=', '')) {
-    case 'createdAt':
-      return 'createdAt'
-    case 'likeCount':
-      return 'likeCount'
-    case 'replyPostCount':
-      return 'replyPostCount'
-    default:
-      return 'createdAt'
-  }
-}
 
 const RouteThreads: FunctionComponent<Props> = ({ location, history }) => {
   const classes = useStyles({})
