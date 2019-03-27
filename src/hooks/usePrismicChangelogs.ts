@@ -1,6 +1,9 @@
 import { useEffect, useState } from 'react'
 import { from } from 'rxjs'
 import { map, mergeMap } from 'rxjs/operators'
+import { createQueryParams } from '../helpers/createQueryParams'
+import { getPrismicEndpoint } from '../helpers/getPrismicEndpoint'
+import { getPrismicRef } from '../helpers/getPrismicRef'
 import { Changelog } from '../types/models/changelog'
 
 export const usePrismicChangelogs = (): [[Changelog[], boolean]] => {
@@ -8,18 +11,21 @@ export const usePrismicChangelogs = (): [[Changelog[], boolean]] => {
   const [inProgress, setInProgress] = useState(true)
 
   useEffect(() => {
-    const endpoint =
-      'https://umfzwkzvrtpe.cdn.prismic.io/api/v2/documents/search'
-    const params = [
-      ['ref', 'XJe41RIAANWu9VKB'],
-      ['q', '[[at(document.type,"changelog")]]'],
-      ['orderings', '[my.changelog.version desc]']
-    ]
-      .map(param => param.join('='))
-      .join('&')
-    const url = `${endpoint}?${params}`
-    const fetch$$ = from(fetch(url))
+    const endpoint = getPrismicEndpoint()
+    const fetch$$ = getPrismicRef()
       .pipe(
+        mergeMap(promise => promise.json()),
+        map(res => res.refs[0].ref),
+        map(ref =>
+          createQueryParams([
+            ['ref', ref],
+            ['q', '[[at(document.type,"changelog")]]'],
+            ['orderings', '[my.changelog.version desc]']
+          ])
+        ),
+        mergeMap(params =>
+          from(fetch(`${endpoint}/documents/search?${params}`))
+        ),
         mergeMap(promise => promise.json()),
         map(res => res.results),
         map(results => results.map((result: any) => result.data)),
