@@ -21,9 +21,9 @@ import { IMAGES } from '../constants/collection'
 import { createPost } from '../helpers/createPost'
 import { useSubscription } from '../hooks/useSubscription'
 import { createId } from '../libs/createId'
+import { pct } from '../libs/pct'
 import { px } from '../libs/px'
 import InputFile from './InputFile'
-import PreviewImages from './PreviewImages'
 
 type Props = {
   replyPostId?: string
@@ -106,6 +106,8 @@ const TextFieldPost: FunctionComponent<Props> = ({ replyPostId = '' }) => {
     }
   }, [])
 
+  const photoURLs = postImages.map(image => image.imageURL)
+
   return (
     <section className={classes.root}>
       <InputFile inputRef={inputFileRef} onChange={onChangeImage} />
@@ -133,7 +135,16 @@ const TextFieldPost: FunctionComponent<Props> = ({ replyPostId = '' }) => {
         </Button>
       </div>
       {postImages.length !== 0 && (
-        <PreviewImages photoURLs={postImages.map(image => image.imageURL)} />
+        <div className={classes.images}>
+          {photoURLs.map(photoURL => (
+            <img
+              key={photoURL}
+              className={classes.img}
+              src={photoURL + '=s400'}
+              alt={photoURL}
+            />
+          ))}
+        </div>
       )}
       <FormControl fullWidth>
         <InputLabel
@@ -180,6 +191,16 @@ const useStyle = makeStyles(({ spacing }) => {
     textFieldLabel: {
       paddingLeft: spacing(1.5),
       paddingRight: spacing(1.5)
+    },
+    img: { width: pct(100), borderRadius: px(4) },
+    images: {
+      display: 'grid',
+      gridColumnGap: px(spacing(2)),
+      gridRowGap: px(spacing(2)),
+      gridTemplateColumns: 'repeat(4, 1fr)',
+      paddingLeft: spacing(1),
+      paddingRight: spacing(1),
+      width: '100%'
     }
   }
 })
