@@ -12,31 +12,30 @@ const RouteChangelogs: FunctionComponent = () => {
   const classes = useStyles({})
   const [[changelogs, inProgress]] = usePrismicChangelogs()
 
-  if (inProgress) {
-    return <CircularProgress className={classes.progress} />
-  }
-
   return (
     <Fragment>
       <Header />
-      <Fade in>
-        <main className={classes.root}>
-          <SectionTitle
-            hide={false}
-            title={'アップデート履歴'}
-            description={
-              'バージョン3.0.0以降の過去のアップデート履歴を確認できます。'
-            }
-          />
-          <ul className={classes.changelogs}>
-            {changelogs.map(changelog => (
-              <li key={changelog.version}>
-                <CardChangelog changelog={changelog} />
-              </li>
-            ))}
-          </ul>
-        </main>
-      </Fade>
+      {inProgress && <CircularProgress className={classes.progress} />}
+      {!inProgress && (
+        <Fade in>
+          <main className={classes.root}>
+            <SectionTitle
+              hide={false}
+              title={'アップデート履歴'}
+              description={
+                'バージョン3.0.0以降の過去のアップデート履歴を確認できます。'
+              }
+            />
+            <ul className={classes.changelogs}>
+              {changelogs.map(changelog => (
+                <li key={changelog.version}>
+                  <CardChangelog changelog={changelog} />
+                </li>
+              ))}
+            </ul>
+          </main>
+        </Fade>
+      )}
     </Fragment>
   )
 }

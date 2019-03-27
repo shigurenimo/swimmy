@@ -68,44 +68,47 @@ const RouteStats: FunctionComponent = () => {
   return (
     <Fragment>
       <Header />
-      <Fade in>
-        <main className={classes.root}>
-          <SectionTitle
-            hide={false}
-            title={'統計データ'}
-            description={'ちょっとした統計データをこのページで確認できます。'}
-          />
-          <section className={classes.section}>
-            <Card>
-              <CardContent>
-                <Typography>1日の平均の書き込み</Typography>
-                <Typography variant={'h3'}>{averagePerDay}</Typography>
-              </CardContent>
-            </Card>
-          </section>
-          <section className={classes.section}>
-            <Card>
-              <CardContent>
-                <Typography>今までの書き込み</Typography>
-                <Typography variant={'h3'}>{countTotal}</Typography>
-              </CardContent>
-            </Card>
-          </section>
-          <section className={classes.section}>
-            <Card>
-              <CardContent>
-                <Typography>100日間の書き込み</Typography>
-                <Typography variant={'h3'}>{countWeek}</Typography>
-              </CardContent>
-            </Card>
-          </section>
-          <section className={classes.section}>
-            <Card>
-              <ChartLine data={chartData} />
-            </Card>
-          </section>
-        </main>
-      </Fade>
+      {inProgress && <CircularProgress className={classes.progress} />}
+      {!inProgress && (
+        <Fade in>
+          <main className={classes.root}>
+            <SectionTitle
+              hide={false}
+              title={'統計データ'}
+              description={'ちょっとした統計データをこのページで確認できます。'}
+            />
+            <section className={classes.section}>
+              <Card>
+                <CardContent>
+                  <Typography>1日の平均の書き込み</Typography>
+                  <Typography variant={'h3'}>{averagePerDay}</Typography>
+                </CardContent>
+              </Card>
+            </section>
+            <section className={classes.section}>
+              <Card>
+                <CardContent>
+                  <Typography>今までの書き込み</Typography>
+                  <Typography variant={'h3'}>{countTotal}</Typography>
+                </CardContent>
+              </Card>
+            </section>
+            <section className={classes.section}>
+              <Card>
+                <CardContent>
+                  <Typography>100日間の書き込み</Typography>
+                  <Typography variant={'h3'}>{countWeek}</Typography>
+                </CardContent>
+              </Card>
+            </section>
+            <section className={classes.section}>
+              <Card>
+                <ChartLine data={chartData} />
+              </Card>
+            </section>
+          </main>
+        </Fade>
+      )}
     </Fragment>
   )
 }
