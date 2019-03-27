@@ -11,7 +11,7 @@ import React, { FunctionComponent, useEffect, useState } from 'react'
 import { collectionData } from 'rxfire/firestore'
 import { take } from 'rxjs/operators'
 import ChartLine from '../components/ChartLine'
-import ViewTitle from '../components/ViewTitle'
+import SectionTitle from '../components/SectionTitle'
 import { STATS } from '../constants/collection'
 import { px } from '../libs/styles/px'
 
@@ -67,7 +67,7 @@ const RouteStats: FunctionComponent = () => {
   return (
     <Fade in>
       <main className={classes.root}>
-        <ViewTitle
+        <SectionTitle
           hide={false}
           title={'統計データ'}
           description={'ちょっとした統計データをこのページで確認できます。'}

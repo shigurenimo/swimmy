@@ -2,7 +2,7 @@ import { CircularProgress, Fade } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
 import React, { FunctionComponent } from 'react'
 import CardChangelog from '../components/CardChangelog'
-import ViewTitle from '../components/ViewTitle'
+import SectionTitle from '../components/SectionTitle'
 import { usePrismicChangelogs } from '../hooks/usePrismicChangelogs'
 import { px } from '../libs/styles/px'
 import { resetList } from '../libs/styles/resetList'
@@ -18,7 +18,7 @@ const RouteChangelogs: FunctionComponent = () => {
   return (
     <Fade in>
       <main className={classes.root}>
-        <ViewTitle
+        <SectionTitle
           hide={false}
           title={'アップデート履歴'}
           description={

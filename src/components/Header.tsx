@@ -17,7 +17,7 @@ import DialogSignIn from './DialogSignIn'
 
 type Props = RouteComponentProps
 
-const LayoutHeader: FunctionComponent<Props> = ({ history }) => {
+const Header: FunctionComponent<Props> = ({ history }) => {
   const [isOpenSignInDialog, setIsOpenSignInDialog] = useState(false)
   const [isOpenMenuDialog, setIsOpenMenuDialog] = useState(false)
   const onOpenMenuDialog = () => {
@@ -105,4 +105,4 @@ const useStyle = makeStyles(({ spacing }) => {
   }
 })
 
-export default withRouter(LayoutHeader)
+export default withRouter(Header)

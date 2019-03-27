@@ -10,7 +10,7 @@ type Props = {
   hide?: boolean
 }
 
-const ViewTitle: FunctionComponent<Props> = ({
+const SectionTitle: FunctionComponent<Props> = ({
   title,
   description,
   hide = true
@@ -55,4 +55,4 @@ const useStyles = makeStyles(({ spacing, palette }) => {
   }
 })
 
-export default ViewTitle
+export default SectionTitle

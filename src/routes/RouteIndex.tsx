@@ -1,13 +1,12 @@
 import React, { Fragment, FunctionComponent } from 'react'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
-import AppHeader from '../components/LayoutHeader'
+import AppHeader from '../components/Header'
 import RouteAbout from './RouteAbout'
 import RouteChangelogs from './RouteChangelogs'
 import RouteHome from './RouteHome'
 import RouteImages from './RouteImages'
 import RouterListener from './RouteListener'
 import RoutePolicy from './RoutePolicy'
-import RouteSearch from './RouteSearch'
 import RouteSettingsEmail from './RouteSettingsEmail'
 import RouteSettingsPassword from './RouteSettingsPassword'
 import RouteStats from './RouteStats'
@@ -26,7 +25,6 @@ const RouteIndex: FunctionComponent = () => {
           <Route component={RouteChangelogs} exact path={'/changelogs'} />
           <Route component={RouteImages} exact path={'/images'} />
           <Route component={RoutePolicy} exact path={'/policy'} />
-          <Route component={RouteSearch} exact path={'/search'} />
           <Route
             component={RouteSettingsEmail}
             exact

@@ -54,14 +54,6 @@ const DialogMenu: FunctionComponent<Props> = ({ onClose, isOpen }) => {
               <ListItemText inset primary="ホーム" />
             </ListItem>
           </Link>
-          <Link to={'/search'}>
-            <ListItem button onClick={onClose}>
-              <ListItemIcon>
-                <Search />
-              </ListItemIcon>
-              <ListItemText inset primary="検索" />
-            </ListItem>
-          </Link>
           <Link to={'/stats'}>
             <ListItem button onClick={onClose}>
               <ListItemIcon>

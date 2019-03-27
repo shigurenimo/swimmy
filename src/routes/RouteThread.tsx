@@ -7,7 +7,7 @@ import { collectionData, docData } from 'rxfire/firestore'
 import { take } from 'rxjs/operators'
 import ListItemPost from '../components/ListItemPost'
 import TextFieldPost from '../components/TextFieldPost'
-import ViewTitle from '../components/ViewTitle'
+import SectionTitle from '../components/SectionTitle'
 import { POSTS, POSTS_AS_ANONYM } from '../constants/collection'
 import { DESC } from '../constants/order'
 import { createdAt } from '../helpers/createdAt'
@@ -67,7 +67,7 @@ const RouteThread: FunctionComponent<Props> = ({ match }) => {
 
   return (
     <main>
-      <ViewTitle
+      <SectionTitle
         title={'スレッド'}
         description={`書き込みとそれに対するレスが表示されています。このページの右上のアイコンから前のページに戻ることができます。`}
       />

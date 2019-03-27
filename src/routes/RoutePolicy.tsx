@@ -1,7 +1,7 @@
 import { Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
 import React, { FunctionComponent } from 'react'
-import ViewTitle from '../components/ViewTitle'
+import SectionTitle from '../components/SectionTitle'
 import { px } from '../libs/styles/px'
 
 const RoutePolicy: FunctionComponent = () => {
@@ -9,7 +9,7 @@ const RoutePolicy: FunctionComponent = () => {
 
   return (
     <main className={classes.root}>
-      <ViewTitle
+      <SectionTitle
         hide={false}
         title={'プライバシーポリシー'}
         description={

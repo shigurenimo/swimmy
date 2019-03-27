@@ -6,7 +6,7 @@ import { RouteComponentProps } from 'react-router'
 import { collectionData } from 'rxfire/firestore'
 import ButtonMore from '../components/ButtonMore'
 import UlImages from '../components/UlImages'
-import ViewTitle from '../components/ViewTitle'
+import SectionTitle from '../components/SectionTitle'
 import { POSTS_AS_IMAGE } from '../constants/collection'
 import { DESC } from '../constants/order'
 import { createdAt } from '../helpers/createdAt'
@@ -97,7 +97,7 @@ const RouteImages: FunctionComponent<Props> = ({ location, history }) => {
 
   return (
     <main className={classes.root}>
-      <ViewTitle
+      <SectionTitle
         title={'フォトグラフィ'}
         description={'画像の添付された書き込みはここに表示されます。'}
       />

@@ -6,7 +6,7 @@ import { collectionData } from 'rxfire/firestore'
 import ButtonMore from '../components/ButtonMore'
 import ExpansionPanelPost from '../components/ExpansionPanelPost'
 import TextFieldPost from '../components/TextFieldPost'
-import ViewTitle from '../components/ViewTitle'
+import SectionTitle from '../components/SectionTitle'
 import { POSTS_AS_ANONYM } from '../constants/collection'
 import { DESC } from '../constants/order'
 import { createdAt } from '../helpers/createdAt'
@@ -73,7 +73,7 @@ const RouteHome: FunctionComponent = () => {
 
   return (
     <main className={classes.root}>
-      <ViewTitle
+      <SectionTitle
         title={'スイミーにようこそ'}
         description={`スイミーは完全な匿名の電子掲示板です。
           ログインすることでSNSのような機能が使えたりもします。`}
