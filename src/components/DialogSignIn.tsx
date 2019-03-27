@@ -89,7 +89,7 @@ const DialogSignIn: FunctionComponent<Props> = ({ isOpen, closeDialog }) => {
         <TextField
           disabled={inProgress}
           fullWidth={true}
-          label={'メールアドレス または ユーザ名'}
+          label={'メールアドレス or ユーザ名'}
           margin={'dense'}
           onChange={onChangeEmail}
           type={'email'}
