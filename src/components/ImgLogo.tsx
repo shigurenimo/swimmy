@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/styles'
 import React, { FunctionComponent } from 'react'
 import { Link } from 'react-router-dom'
 
-const AppTitle: FunctionComponent = () => {
+const ImgLogo: FunctionComponent = () => {
   const classes = useStyles({})
 
   return (
@@ -25,4 +25,4 @@ const useStyles = makeStyles(({ spacing }) => {
   }
 })
 
-export default AppTitle
+export default ImgLogo

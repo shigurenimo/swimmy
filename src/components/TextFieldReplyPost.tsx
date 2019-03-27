@@ -55,7 +55,7 @@ const TextFieldReplyPost: FunctionComponent<Props> = ({ postId }) => {
         <TextField
           fullWidth
           className={classes.textField}
-          placeholder="新しいレス"
+          placeholder={'新しいレス'}
           value={postText}
           onChange={onChangePostText}
           disabled={inProgress}
@@ -70,7 +70,7 @@ const TextFieldReplyPost: FunctionComponent<Props> = ({ postId }) => {
           onClick={onSubmitPost}
           aria-label={'Send a reply'}
         >
-          GO
+          {'送信'}
           {inProgress && (
             <CircularProgress size={24} className={classes.buttonProgress} />
           )}

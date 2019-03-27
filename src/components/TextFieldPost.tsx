@@ -116,7 +116,7 @@ const TextFieldPost: FunctionComponent<Props> = ({ replyPostId = '' }) => {
           onClick={onSelectImage}
           disabled={inProgress}
         >
-          IMAGE
+          {'画像添付'}
         </Button>
         <Button
           color={'primary'}
@@ -126,7 +126,7 @@ const TextFieldPost: FunctionComponent<Props> = ({ replyPostId = '' }) => {
           variant={disabled ? 'text' : 'contained'}
           onClick={onSubmitPost}
         >
-          GO
+          {'書き込み'}
           {inProgressSubmit && (
             <CircularProgress size={24} className={classes.buttonProgress} />
           )}
@@ -140,7 +140,7 @@ const TextFieldPost: FunctionComponent<Props> = ({ replyPostId = '' }) => {
           htmlFor="textarea"
           classes={{ root: classes.textFieldLabel }}
         >
-          新しい書き込み
+          {'新しい書き込み'}
         </InputLabel>
         <Input
           id={'textarea'}

@@ -33,7 +33,7 @@ const FormItemContents: FunctionComponent<Props> = ({
           key={i}
           onChange={onChange(i)}
           value={content}
-          variant="outlined"
+          variant={'outlined'}
         />
       ))}
     </div>

@@ -118,7 +118,7 @@ const DialogSignIn: FunctionComponent<Props> = ({ isOpen, closeDialog }) => {
           disabled={inProgress}
           onClick={onSignUp}
         >
-          SIGN UP
+          {'新しいユーザ'}
         </Button>
         <Button
           aria-label={'Sign in with email or username'}
@@ -127,7 +127,7 @@ const DialogSignIn: FunctionComponent<Props> = ({ isOpen, closeDialog }) => {
           onClick={onSignIn}
           variant={'contained'}
         >
-          SIGN IN
+          {'ログイン'}
         </Button>
       </DialogActions>
     </Dialog>

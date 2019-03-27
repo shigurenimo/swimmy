@@ -13,7 +13,7 @@ const ButtonMore: FunctionComponent<Props> = ({ onClick, inProgress }) => {
   return (
     <div className={classes.root}>
       <Button onClick={onClick} className={classes.button}>
-        MORE
+        {'MORE'}
         {inProgress && (
           <CircularProgress size={24} className={classes.buttonProgress} />
         )}

@@ -16,7 +16,7 @@ const CardImage: FunctionComponent<Props> = ({ post }) => {
     <Link to={`/threads/${post.id}`}>
       <Card>
         <CardActionArea className={classes.actionArea}>
-          <CardMedia component="img" image={post.photoURLs[0] + '=s400'} />
+          <CardMedia component={'img'} image={`${post.photoURLs[0]}=s400`} />
         </CardActionArea>
       </Card>
     </Link>

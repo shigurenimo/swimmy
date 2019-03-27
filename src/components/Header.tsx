@@ -11,9 +11,9 @@ import { Link, RouteComponentProps, withRouter } from 'react-router-dom'
 import { AuthContext } from '../contexts/authContext'
 import { pct } from '../libs/styles/pct'
 import { px } from '../libs/styles/px'
-import AppTitle from './AppTitle'
 import DialogMenu from './DialogMenu'
 import DialogSignIn from './DialogSignIn'
+import ImgLogo from './ImgLogo'
 
 type Props = RouteComponentProps
 
@@ -47,7 +47,7 @@ const Header: FunctionComponent<Props> = ({ history }) => {
             <LinearProgress className={classes.progress} />
           )}
           <Toolbar>
-            <AppTitle />
+            <ImgLogo />
             {isDetailPage && (
               <IconButton onClick={onGoBack} aria-label={'Close this page'}>
                 <Close />

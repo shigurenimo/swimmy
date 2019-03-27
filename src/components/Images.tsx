@@ -17,7 +17,7 @@ const Images: FunctionComponent<Props> = ({ photoURLs }) => {
         <Paper key={photoURL}>
           <img
             className={classes.img}
-            src={photoURL + '=s400'}
+            src={`${photoURL}=s400`}
             alt={photoURL}
           />
         </Paper>

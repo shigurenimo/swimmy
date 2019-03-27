@@ -14,7 +14,6 @@ import Equalizer from '@material-ui/icons/Equalizer'
 import Home from '@material-ui/icons/Home'
 import PowerSettingsNew from '@material-ui/icons/PowerSettingsNew'
 import PriorityHigh from '@material-ui/icons/PriorityHigh'
-import Search from '@material-ui/icons/Search'
 import Update from '@material-ui/icons/Update'
 import VpnKey from '@material-ui/icons/VpnKey'
 import { auth } from 'firebase/app'
@@ -41,7 +40,7 @@ const DialogMenu: FunctionComponent<Props> = ({ onClose, isOpen }) => {
     <Dialog fullScreen open={isOpen} onClose={onClose}>
       <DialogActions>
         <Button onClick={onClose} aria-label={'Close this menu'}>
-          CLOSE
+          {'CLOSE'}
         </Button>
       </DialogActions>
       <DialogContent>
@@ -51,7 +50,7 @@ const DialogMenu: FunctionComponent<Props> = ({ onClose, isOpen }) => {
               <ListItemIcon>
                 <Home />
               </ListItemIcon>
-              <ListItemText inset primary="ホーム" />
+              <ListItemText inset primary={'ホーム'} />
             </ListItem>
           </Link>
           <Link to={'/stats'}>
@@ -59,7 +58,7 @@ const DialogMenu: FunctionComponent<Props> = ({ onClose, isOpen }) => {
               <ListItemIcon>
                 <Equalizer />
               </ListItemIcon>
-              <ListItemText inset primary="統計" />
+              <ListItemText inset primary={'統計'} />
             </ListItem>
           </Link>
           <Link to={'/changelogs'}>
@@ -67,7 +66,7 @@ const DialogMenu: FunctionComponent<Props> = ({ onClose, isOpen }) => {
               <ListItemIcon>
                 <Update />
               </ListItemIcon>
-              <ListItemText inset primary="アップデート" />
+              <ListItemText inset primary={'アップデート'} />
             </ListItem>
           </Link>
           <Link to={'/policy'}>
@@ -75,18 +74,18 @@ const DialogMenu: FunctionComponent<Props> = ({ onClose, isOpen }) => {
               <ListItemIcon>
                 <PriorityHigh />
               </ListItemIcon>
-              <ListItemText inset primary="プライバシーポリシー" />
+              <ListItemText inset primary={'プライバシーポリシー'} />
             </ListItem>
           </Link>
         </List>
         {authContext.isLogged && (
-          <List subheader={<ListSubheader>アカウント</ListSubheader>}>
+          <List subheader={<ListSubheader>{'アカウント'}</ListSubheader>}>
             <Link to={'/settings/email'}>
               <ListItem button onClick={onClose}>
                 <ListItemIcon>
                   <Email />
                 </ListItemIcon>
-                <ListItemText inset primary="メールアドレスの更新" />
+                <ListItemText inset primary={'メールアドレスの更新'} />
               </ListItem>
             </Link>
             <Link to={'/settings/password'}>
@@ -94,14 +93,14 @@ const DialogMenu: FunctionComponent<Props> = ({ onClose, isOpen }) => {
                 <ListItemIcon>
                   <VpnKey />
                 </ListItemIcon>
-                <ListItemText inset primary="パスワードの更新" />
+                <ListItemText inset primary={'パスワードの更新'} />
               </ListItem>
             </Link>
             <ListItem button onClick={onSignOut}>
               <ListItemIcon>
                 <PowerSettingsNew />
               </ListItemIcon>
-              <ListItemText inset primary="サインアウト" />
+              <ListItemText inset primary={'ログアウト'} />
             </ListItem>
           </List>
         )}

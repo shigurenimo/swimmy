@@ -18,11 +18,7 @@ const SectionTitle: FunctionComponent<Props> = ({
   const classes = useStyles({})
   const { isLogged, isLoggingIn } = useContext(AuthContext)
 
-  if (hide && isLoggingIn) {
-    return null
-  }
-
-  if (hide && isLogged) {
+  if (hide && (isLoggingIn || isLogged)) {
     return null
   }
 

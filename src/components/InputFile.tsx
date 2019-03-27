@@ -11,11 +11,11 @@ const InputFile: FunctionComponent<Props> = ({ inputRef, onChange }) => {
 
   return (
     <input
+      accept={'image/*'}
       className={classes.root}
-      type={'file'}
-      ref={inputRef}
-      accept="image/*"
       onChange={onChange}
+      ref={inputRef}
+      type={'file'}
     />
   )
 }
