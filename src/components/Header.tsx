@@ -1,9 +1,9 @@
 import { AppBar, IconButton, LinearProgress, Toolbar } from '@material-ui/core'
-import Close from '@material-ui/icons/Close'
-import MoreHoriz from '@material-ui/icons/MoreHoriz'
-import Photo from '@material-ui/icons/Photo'
-import PowerSettingsNew from '@material-ui/icons/PowerSettingsNew'
-import TurnedIn from '@material-ui/icons/TurnedIn'
+import CloseIcon from '@material-ui/icons/Close'
+import MoreHorizIcon from '@material-ui/icons/MoreHoriz'
+import PhotoIcon from '@material-ui/icons/Photo'
+import PowerSettingsNewIcon from '@material-ui/icons/PowerSettingsNew'
+import WhatshotIcon from '@material-ui/icons/Whatshot'
 import { makeStyles } from '@material-ui/styles'
 import React, { Fragment, FunctionComponent, useContext, useState } from 'react'
 import Headroom from 'react-headroom'
@@ -15,9 +15,11 @@ import DialogMenu from './DialogMenu'
 import DialogSignIn from './DialogSignIn'
 import ImgLogo from './ImgLogo'
 
-type Props = RouteComponentProps
+type Props = RouteComponentProps & {
+  isClose?: boolean
+}
 
-const Header: FunctionComponent<Props> = ({ history }) => {
+const Header: FunctionComponent<Props> = ({ history, isClose }) => {
   const authContext = useContext(AuthContext)
   const [isOpenSignInDialog, setIsOpenSignInDialog] = useState(false)
   const [isOpenMenuDialog, setIsOpenMenuDialog] = useState(false)
@@ -37,7 +39,6 @@ const Header: FunctionComponent<Props> = ({ history }) => {
     history.goBack()
   }
   const classes = useStyle({})
-  const isDetailPage = location.pathname.includes('/threads/')
 
   return (
     <Fragment>
@@ -48,35 +49,35 @@ const Header: FunctionComponent<Props> = ({ history }) => {
           )}
           <Toolbar>
             <ImgLogo />
-            {isDetailPage && (
+            {isClose && (
               <IconButton onClick={onGoBack} aria-label={'Close this page'}>
-                <Close />
+                <CloseIcon />
               </IconButton>
             )}
-            {!isDetailPage && (
+            {!isClose && (
               <div className={classes.actions}>
                 <Link to={'/images'}>
                   <IconButton aria-label={'Open images page'}>
-                    <Photo />
+                    <PhotoIcon />
                   </IconButton>
                 </Link>
                 <Link to={'/threads'}>
                   <IconButton aria-label={'Open threads page'}>
-                    <TurnedIn />
+                    <WhatshotIcon />
                   </IconButton>
                 </Link>
                 <IconButton
                   onClick={onOpenMenuDialog}
                   aria-label={'Open a menu'}
                 >
-                  <MoreHoriz />
+                  <MoreHorizIcon />
                 </IconButton>
                 {!authContext.isLoggingIn && !authContext.isLogged && (
                   <IconButton
                     onClick={onOpenSignInDialog}
                     aria-label={'Open a login dialog'}
                   >
-                    <PowerSettingsNew />
+                    <PowerSettingsNewIcon />
                   </IconButton>
                 )}
               </div>

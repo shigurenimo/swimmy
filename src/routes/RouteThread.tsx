@@ -67,7 +67,7 @@ const RouteThread: FunctionComponent<Props> = ({ match }) => {
 
   return (
     <Fragment>
-      <Header />
+      <Header isClose={true} />
       <main>
         <SectionTitle
           title={'スレッド'}
