@@ -1,6 +1,5 @@
 import React, { Fragment, FunctionComponent } from 'react'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
-import AppHeader from '../components/Header'
 import RouteAbout from './RouteAbout'
 import RouteChangelogs from './RouteChangelogs'
 import RouteHome from './RouteHome'
@@ -18,7 +17,6 @@ const RouteIndex: FunctionComponent = () => {
     <BrowserRouter>
       <Fragment>
         <RouterListener />
-        <AppHeader />
         <Switch>
           <Route component={RouteHome} exact path={'/'} />
           <Route component={RouteAbout} exact path={'/about'} />

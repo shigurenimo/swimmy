@@ -1,10 +1,11 @@
 import { CircularProgress, Fade } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
 import { firestore } from 'firebase/app'
-import React, { FunctionComponent, useEffect, useState } from 'react'
+import React, { Fragment, FunctionComponent, useEffect, useState } from 'react'
 import { collectionData } from 'rxfire/firestore'
 import ButtonMore from '../components/ButtonMore'
 import ExpansionPanelPost from '../components/ExpansionPanelPost'
+import Header from '../components/Header'
 import SectionTitle from '../components/SectionTitle'
 import TextFieldPost from '../components/TextFieldPost'
 import { POSTS_AS_ANONYM } from '../constants/collection'
@@ -54,29 +55,32 @@ const RouteHome: FunctionComponent = () => {
   }, [posts])
 
   return (
-    <main className={classes.root}>
-      <SectionTitle
-        title={'スイミーにようこそ'}
-        description={`スイミーは完全な匿名の電子掲示板です。
+    <Fragment>
+      <Header />
+      <main className={classes.root}>
+        <SectionTitle
+          title={'スイミーにようこそ'}
+          description={`スイミーは完全な匿名の電子掲示板です。
           ログインすることでSNSのような機能が使えたりもします。`}
-      />
-      <TextFieldPost />
-      {inProgress && <CircularProgress className={classes.progress} />}
-      {!inProgress && (
-        <Fade in>
-          <section className={classes.section}>
-            <ul className={classes.posts}>
-              {posts.map(post => (
-                <ExpansionPanelPost key={post.id} post={post} />
-              ))}
-            </ul>
-            {limit < 120 && (
-              <ButtonMore onClick={onMore} inProgress={inProgressMore} />
-            )}
-          </section>
-        </Fade>
-      )}
-    </main>
+        />
+        <TextFieldPost />
+        {inProgress && <CircularProgress className={classes.progress} />}
+        {!inProgress && (
+          <Fade in>
+            <section className={classes.section}>
+              <ul className={classes.posts}>
+                {posts.map(post => (
+                  <ExpansionPanelPost key={post.id} post={post} />
+                ))}
+              </ul>
+              {limit < 120 && (
+                <ButtonMore onClick={onMore} inProgress={inProgressMore} />
+              )}
+            </section>
+          </Fade>
+        )}
+      </main>
+    </Fragment>
   )
 }
 

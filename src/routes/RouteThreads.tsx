@@ -1,11 +1,12 @@
 import { CircularProgress, Fade, Tab, Tabs } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
 import { firestore } from 'firebase/app'
-import React, { FunctionComponent, useEffect, useState } from 'react'
+import React, { Fragment, FunctionComponent, useEffect, useState } from 'react'
 import { RouteComponentProps } from 'react-router-dom'
 import { collectionData } from 'rxfire/firestore'
 import ButtonMore from '../components/ButtonMore'
 import CardThread from '../components/CardThread'
+import Header from '../components/Header'
 import SectionTitle from '../components/SectionTitle'
 import { POSTS_AS_THREAD } from '../constants/collection'
 import { DESC } from '../constants/order'
@@ -63,37 +64,40 @@ const RouteThreads: FunctionComponent<Props> = ({ location, history }) => {
   }, [posts])
 
   return (
-    <main className={classes.root}>
-      <SectionTitle
-        title={'スレッド'}
-        description={'レスのある書き込みはこのページで確認できます。'}
-      />
-      <Tabs
-        indicatorColor={'primary'}
-        onChange={onChangeTab}
-        textColor={'primary'}
-        value={orderBy}
-      >
-        <Tab label={'新着'} value={'createdAt'} />
-        <Tab label={'評価数'} value={'likeCount'} />
-        <Tab label={'レス数'} value={'replyPostCount'} />
-      </Tabs>
-      {inProgress && <CircularProgress className={classes.progress} />}
-      {!inProgress && (
-        <Fade in>
-          <section className={classes.section}>
-            <div className={classes.posts}>
-              {posts.map(post => (
-                <CardThread key={post.id} post={post} />
-              ))}
-            </div>
-            {limit < 200 && (
-              <ButtonMore onClick={onMore} inProgress={inProgressMore} />
-            )}
-          </section>
-        </Fade>
-      )}
-    </main>
+    <Fragment>
+      <Header />
+      <main className={classes.root}>
+        <SectionTitle
+          title={'スレッド'}
+          description={'レスのある書き込みはこのページで確認できます。'}
+        />
+        <Tabs
+          indicatorColor={'primary'}
+          onChange={onChangeTab}
+          textColor={'primary'}
+          value={orderBy}
+        >
+          <Tab label={'新着'} value={'createdAt'} />
+          <Tab label={'評価数'} value={'likeCount'} />
+          <Tab label={'レス数'} value={'replyPostCount'} />
+        </Tabs>
+        {inProgress && <CircularProgress className={classes.progress} />}
+        {!inProgress && (
+          <Fade in>
+            <section className={classes.section}>
+              <div className={classes.posts}>
+                {posts.map(post => (
+                  <CardThread key={post.id} post={post} />
+                ))}
+              </div>
+              {limit < 200 && (
+                <ButtonMore onClick={onMore} inProgress={inProgressMore} />
+              )}
+            </section>
+          </Fade>
+        )}
+      </main>
+    </Fragment>
   )
 }
 

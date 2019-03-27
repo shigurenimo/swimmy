@@ -18,6 +18,7 @@ import ImgLogo from './ImgLogo'
 type Props = RouteComponentProps
 
 const Header: FunctionComponent<Props> = ({ history }) => {
+  const authContext = useContext(AuthContext)
   const [isOpenSignInDialog, setIsOpenSignInDialog] = useState(false)
   const [isOpenMenuDialog, setIsOpenMenuDialog] = useState(false)
   const onOpenMenuDialog = () => {
@@ -37,7 +38,6 @@ const Header: FunctionComponent<Props> = ({ history }) => {
   }
   const classes = useStyle({})
   const isDetailPage = location.pathname.includes('/threads/')
-  const authContext = useContext(AuthContext)
 
   return (
     <Fragment>

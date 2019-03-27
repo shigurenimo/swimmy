@@ -7,10 +7,11 @@ import {
 } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
 import { firestore } from 'firebase/app'
-import React, { FunctionComponent, useEffect, useState } from 'react'
+import React, { Fragment, FunctionComponent, useEffect, useState } from 'react'
 import { collectionData } from 'rxfire/firestore'
 import { take } from 'rxjs/operators'
 import ChartLine from '../components/ChartLine'
+import Header from '../components/Header'
 import SectionTitle from '../components/SectionTitle'
 import { STATS } from '../constants/collection'
 import { px } from '../libs/px'
@@ -65,44 +66,47 @@ const RouteStats: FunctionComponent = () => {
   }
 
   return (
-    <Fade in>
-      <main className={classes.root}>
-        <SectionTitle
-          hide={false}
-          title={'統計データ'}
-          description={'ちょっとした統計データをこのページで確認できます。'}
-        />
-        <section className={classes.section}>
-          <Card>
-            <CardContent>
-              <Typography>1日の平均の書き込み</Typography>
-              <Typography variant={'h3'}>{averagePerDay}</Typography>
-            </CardContent>
-          </Card>
-        </section>
-        <section className={classes.section}>
-          <Card>
-            <CardContent>
-              <Typography>今までの書き込み</Typography>
-              <Typography variant={'h3'}>{countTotal}</Typography>
-            </CardContent>
-          </Card>
-        </section>
-        <section className={classes.section}>
-          <Card>
-            <CardContent>
-              <Typography>100日間の書き込み</Typography>
-              <Typography variant={'h3'}>{countWeek}</Typography>
-            </CardContent>
-          </Card>
-        </section>
-        <section className={classes.section}>
-          <Card>
-            <ChartLine data={chartData} />
-          </Card>
-        </section>
-      </main>
-    </Fade>
+    <Fragment>
+      <Header />
+      <Fade in>
+        <main className={classes.root}>
+          <SectionTitle
+            hide={false}
+            title={'統計データ'}
+            description={'ちょっとした統計データをこのページで確認できます。'}
+          />
+          <section className={classes.section}>
+            <Card>
+              <CardContent>
+                <Typography>1日の平均の書き込み</Typography>
+                <Typography variant={'h3'}>{averagePerDay}</Typography>
+              </CardContent>
+            </Card>
+          </section>
+          <section className={classes.section}>
+            <Card>
+              <CardContent>
+                <Typography>今までの書き込み</Typography>
+                <Typography variant={'h3'}>{countTotal}</Typography>
+              </CardContent>
+            </Card>
+          </section>
+          <section className={classes.section}>
+            <Card>
+              <CardContent>
+                <Typography>100日間の書き込み</Typography>
+                <Typography variant={'h3'}>{countWeek}</Typography>
+              </CardContent>
+            </Card>
+          </section>
+          <section className={classes.section}>
+            <Card>
+              <ChartLine data={chartData} />
+            </Card>
+          </section>
+        </main>
+      </Fade>
+    </Fragment>
   )
 }
 

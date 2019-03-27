@@ -17,6 +17,7 @@ import React, {
 } from 'react'
 import { from } from 'rxjs'
 import { mergeMap } from 'rxjs/operators'
+import Header from '../components/Header'
 import { useSubscription } from '../hooks/useSubscription'
 import { pct } from '../libs/pct'
 import { px } from '../libs/px'
@@ -90,7 +91,8 @@ const RouteSettingsPassword: FunctionComponent = () => {
 
   return (
     <Fragment>
-      <div className={classes.root}>
+      <Header />
+      <main className={classes.root}>
         <Typography variant={'h4'}>パスワードの変更</Typography>
         <form className={classes.form}>
           <div>
@@ -127,7 +129,7 @@ const RouteSettingsPassword: FunctionComponent = () => {
             </Button>
           </div>
         </form>
-      </div>
+      </main>
       <Snackbar
         anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
         open={snackbarOpen}

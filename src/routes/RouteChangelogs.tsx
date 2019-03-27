@@ -1,7 +1,8 @@
 import { CircularProgress, Fade } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
-import React, { FunctionComponent } from 'react'
+import React, { Fragment, FunctionComponent } from 'react'
 import CardChangelog from '../components/CardChangelog'
+import Header from '../components/Header'
 import SectionTitle from '../components/SectionTitle'
 import { usePrismicChangelogs } from '../hooks/usePrismicChangelogs'
 import { px } from '../libs/px'
@@ -16,24 +17,27 @@ const RouteChangelogs: FunctionComponent = () => {
   }
 
   return (
-    <Fade in>
-      <main className={classes.root}>
-        <SectionTitle
-          hide={false}
-          title={'アップデート履歴'}
-          description={
-            'バージョン3.0.0以降の過去のアップデート履歴を確認できます。'
-          }
-        />
-        <ul className={classes.changelogs}>
-          {changelogs.map(changelog => (
-            <li key={changelog.version}>
-              <CardChangelog changelog={changelog} />
-            </li>
-          ))}
-        </ul>
-      </main>
-    </Fade>
+    <Fragment>
+      <Header />
+      <Fade in>
+        <main className={classes.root}>
+          <SectionTitle
+            hide={false}
+            title={'アップデート履歴'}
+            description={
+              'バージョン3.0.0以降の過去のアップデート履歴を確認できます。'
+            }
+          />
+          <ul className={classes.changelogs}>
+            {changelogs.map(changelog => (
+              <li key={changelog.version}>
+                <CardChangelog changelog={changelog} />
+              </li>
+            ))}
+          </ul>
+        </main>
+      </Fade>
+    </Fragment>
   )
 }
 

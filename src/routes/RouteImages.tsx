@@ -1,18 +1,18 @@
 import { CircularProgress, Fade, Tab, Tabs } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
 import { firestore } from 'firebase/app'
-import React, { FunctionComponent, useEffect, useState } from 'react'
+import React, { Fragment, FunctionComponent, useEffect, useState } from 'react'
 import { RouteComponentProps } from 'react-router'
 import { collectionData } from 'rxfire/firestore'
 import ButtonMore from '../components/ButtonMore'
 import CardImage from '../components/CardImage'
+import Header from '../components/Header'
 import SectionTitle from '../components/SectionTitle'
 import { POSTS_AS_IMAGE } from '../constants/collection'
 import { DESC } from '../constants/order'
 import { createdAt } from '../helpers/createdAt'
 import { getOrderBy } from '../helpers/getOrderBy'
 import { useCache } from '../hooks/useCache'
-import { useSubscription } from '../hooks/useSubscription'
 import { px } from '../libs/px'
 import { resetList } from '../libs/resetList'
 import { Post } from '../types/models/post'
@@ -68,39 +68,42 @@ const RouteImages: FunctionComponent<Props> = ({ location, history }) => {
   }, [posts])
 
   return (
-    <main className={classes.root}>
-      <SectionTitle
-        title={'フォトグラフィ'}
-        description={'画像の添付された書き込みはここに表示されます。'}
-      />
-      <Tabs
-        indicatorColor={'primary'}
-        onChange={onChangeTab}
-        textColor={'primary'}
-        value={orderBy}
-      >
-        <Tab label={'新着'} value={'createdAt'} />
-        <Tab label={'評価数'} value={'likeCount'} />
-        <Tab label={'レス数'} value={'replyPostCount'} />
-      </Tabs>
-      {inProgress && <CircularProgress className={classes.progress} />}
-      {!inProgress && (
-        <Fade in>
-          <section className={classes.section}>
-            <ul className={classes.ul}>
-              {posts.map(post => (
-                <li key={post.id}>
-                  <CardImage post={post} />
-                </li>
-              ))}
-            </ul>
-            {limit < 200 && (
-              <ButtonMore onClick={onMore} inProgress={inProgressMore} />
-            )}
-          </section>
-        </Fade>
-      )}
-    </main>
+    <Fragment>
+      <Header />
+      <main className={classes.root}>
+        <SectionTitle
+          title={'フォトグラフィ'}
+          description={'画像の添付された書き込みはここに表示されます。'}
+        />
+        <Tabs
+          indicatorColor={'primary'}
+          onChange={onChangeTab}
+          textColor={'primary'}
+          value={orderBy}
+        >
+          <Tab label={'新着'} value={'createdAt'} />
+          <Tab label={'評価数'} value={'likeCount'} />
+          <Tab label={'レス数'} value={'replyPostCount'} />
+        </Tabs>
+        {inProgress && <CircularProgress className={classes.progress} />}
+        {!inProgress && (
+          <Fade in>
+            <section className={classes.section}>
+              <ul className={classes.ul}>
+                {posts.map(post => (
+                  <li key={post.id}>
+                    <CardImage post={post} />
+                  </li>
+                ))}
+              </ul>
+              {limit < 200 && (
+                <ButtonMore onClick={onMore} inProgress={inProgressMore} />
+              )}
+            </section>
+          </Fade>
+        )}
+      </main>
+    </Fragment>
   )
 }
 

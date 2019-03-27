@@ -1,11 +1,11 @@
 import { makeStyles } from '@material-ui/styles'
 import React, { FunctionComponent } from 'react'
-import { PostUi } from '../types/models/postUi'
 import { px } from '../libs/px'
 import ExpansionPanelSummaryPost from './ExpansionPanelSummaryPost'
+import { Post } from '../types/models/post'
 
 type Props = {
-  post: PostUi
+  post: Post
 }
 
 const ListItemPost: FunctionComponent<Props> = ({ post }) => {
