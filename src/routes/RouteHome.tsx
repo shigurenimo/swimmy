@@ -1,10 +1,10 @@
-import { CircularProgress, Fade } from '@material-ui/core'
+import { CircularProgress, Divider, Fade } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
 import { firestore } from 'firebase/app'
 import React, { Fragment, FunctionComponent, useEffect, useState } from 'react'
 import { collectionData } from 'rxfire/firestore'
 import ButtonMore from '../components/ButtonMore'
-import ExpansionPanelPost from '../components/ExpansionPanelPost'
+import CardPost from '../components/CardPost'
 import Head from '../components/Head'
 import Header from '../components/Header'
 import SectionTitle from '../components/SectionTitle'
@@ -71,8 +71,11 @@ const RouteHome: FunctionComponent = () => {
           <Fade in>
             <section className={classes.section}>
               <ul className={classes.posts}>
-                {posts.map(post => (
-                  <ExpansionPanelPost key={post.id} post={post} />
+                {posts.map((post, index) => (
+                  <li key={post.id}>
+                    <CardPost post={post} />
+                    <Divider />
+                  </li>
                 ))}
               </ul>
               {limit < 120 && (

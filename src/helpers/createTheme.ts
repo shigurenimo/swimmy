@@ -10,7 +10,6 @@ export const createTheme = () => {
         paper: { backgroundColor: 'rgba(0, 0, 0, 0)' },
         paperAnchorDockedLeft: { borderRight: 0 }
       },
-      MuiCard: { root: { boxShadow: '0 2px 8px rgba(214, 214, 224, 1)' } },
       MuiPaper: {
         elevation1: { boxShadow: '0 2px 8px rgba(214, 214, 224, 1)' },
         elevation2: { boxShadow: '0 2px 8px rgba(214, 214, 224, 1)' },

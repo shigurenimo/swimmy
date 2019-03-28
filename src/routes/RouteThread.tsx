@@ -73,10 +73,12 @@ const RouteThread: FunctionComponent<Props> = ({ match }) => {
       <main>
         <SectionTitle
           title={'スレッド'}
-          description={`書き込みとそれに対するレスが表示されています。このページの右上のアイコンから前のページに戻ることができます。`}
+          description={
+            '書き込みとそれに対するレスが表示されています。このページの右上のアイコンから前のページに戻ることができます。'
+          }
         />
-        {inProgress && <CircularProgress className={classes.progress} />}
         <TextFieldPost replyPostId={match.params.threadId} />
+        {inProgress && <CircularProgress className={classes.progress} />}
         {!inProgress && (
           <Fade in>
             <div>
