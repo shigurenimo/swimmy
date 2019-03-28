@@ -62,10 +62,6 @@ const RouteStats: FunctionComponent = () => {
     }
   }, [])
 
-  if (inProgress) {
-    return <CircularProgress className={classes.progress} />
-  }
-
   return (
     <Fragment>
       <Head title={'統計データ'} />

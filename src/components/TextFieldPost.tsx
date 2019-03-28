@@ -125,10 +125,10 @@ const TextFieldPost: FunctionComponent<Props> = ({ replyPostId = '' }) => {
           aria-label={'Send a post'}
           className={classes.submitButton}
           disabled={disabled}
-          variant={disabled ? 'text' : 'contained'}
+          variant={'outlined'}
           onClick={onSubmitPost}
         >
-          {'書き込み'}
+          {'送信'}
           {inProgressSubmit && (
             <CircularProgress size={24} className={classes.buttonProgress} />
           )}

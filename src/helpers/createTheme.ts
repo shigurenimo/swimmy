@@ -5,7 +5,6 @@ export const createTheme = () => {
   return createMuiTheme({
     overrides: {
       MuiBackdrop: { root: { backgroundColor: 'rgba(255, 255, 255, 0.8)' } },
-      MuiDivider: { root: { backgroundColor: 'rgba(0, 0, 0, 0.32)' } },
       MuiDrawer: {
         paper: { backgroundColor: 'rgba(0, 0, 0, 0)' },
         paperAnchorDockedLeft: { borderRight: 0 }
@@ -18,12 +17,15 @@ export const createTheme = () => {
     },
     palette: {
       background: { default: '#ffffff' },
+      divider: 'rgba(0, 0, 0, 0.08)',
       primary: { main: blue.A700 },
       secondary: { main: pink[500] }
     },
     props: { MuiButtonBase: { disableRipple: true } },
     shape: { borderRadius: 4 },
-    typography: { fontFamily: ['Roboto', 'sans-serif'].join(',') }
+    typography: {
+      fontFamily: ['Helvetica', 'Roboto', 'sans-serif'].join(',')
+    }
   })
 }
 
