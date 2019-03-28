@@ -4,7 +4,7 @@ import React, { FunctionComponent } from 'react'
 import { px } from '../libs/px'
 
 type Props = {
-  replyPostCount: number
+  replyPostCount?: number
   likeCount: number
 }
 
@@ -20,7 +20,7 @@ const PostCounts: FunctionComponent<Props> = ({
 
   return (
     <div className={classes.root}>
-      {replyPostCount > 0 && (
+      {replyPostCount && replyPostCount > 0 && (
         <Typography className={classes.replyPostCount}>
           {`レス ${replyPostCount}`}
         </Typography>
