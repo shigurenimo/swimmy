@@ -11,6 +11,7 @@ import React, { Fragment, FunctionComponent, useEffect, useState } from 'react'
 import { collectionData } from 'rxfire/firestore'
 import { take } from 'rxjs/operators'
 import ChartLine from '../components/ChartLine'
+import Head from '../components/Head'
 import Header from '../components/Header'
 import SectionTitle from '../components/SectionTitle'
 import { STATS } from '../constants/collection'
@@ -67,6 +68,7 @@ const RouteStats: FunctionComponent = () => {
 
   return (
     <Fragment>
+      <Head title={'統計データ'} />
       <Header />
       {inProgress && <CircularProgress className={classes.progress} />}
       {!inProgress && (

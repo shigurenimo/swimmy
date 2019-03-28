@@ -1,6 +1,7 @@
 import { Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
 import React, { Fragment, FunctionComponent } from 'react'
+import Head from '../components/Head'
 import Header from '../components/Header'
 import SectionTitle from '../components/SectionTitle'
 import { px } from '../libs/px'
@@ -10,6 +11,7 @@ const RoutePolicy: FunctionComponent = () => {
 
   return (
     <Fragment>
+      <Head title={'プライバシーポリシー'} />
       <Header />
       <main className={classes.root}>
         <SectionTitle

@@ -1,6 +1,7 @@
 import Email from '@material-ui/icons/Email'
 import { makeStyles } from '@material-ui/styles'
 import React, { Fragment, FunctionComponent } from 'react'
+import Head from '../components/Head'
 import Header from '../components/Header'
 import UnderDevelopment from '../components/UnderDevelopment'
 
@@ -9,6 +10,7 @@ const RouteSettingsEmail: FunctionComponent = () => {
 
   return (
     <Fragment>
+      <Head title={'メールアドレスの更新'} />
       <Header />
       <div className={classes.root}>
         <UnderDevelopment

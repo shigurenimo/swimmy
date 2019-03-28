@@ -2,6 +2,7 @@ import { CircularProgress, Fade } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
 import React, { Fragment, FunctionComponent } from 'react'
 import CardChangelog from '../components/CardChangelog'
+import Head from '../components/Head'
 import Header from '../components/Header'
 import SectionTitle from '../components/SectionTitle'
 import { usePrismicChangelogs } from '../hooks/usePrismicChangelogs'
@@ -14,6 +15,10 @@ const RouteChangelogs: FunctionComponent = () => {
 
   return (
     <Fragment>
+      <Head
+        title={'アップデート履歴'}
+        description={'スイミーの過去のアップデート履歴です。'}
+      />
       <Header />
       {inProgress && <CircularProgress className={classes.progress} />}
       {!inProgress && (

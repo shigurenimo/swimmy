@@ -6,6 +6,7 @@ import { RouteComponentProps } from 'react-router-dom'
 import { collectionData } from 'rxfire/firestore'
 import ButtonMore from '../components/ButtonMore'
 import CardThread from '../components/CardThread'
+import Head from '../components/Head'
 import Header from '../components/Header'
 import SectionTitle from '../components/SectionTitle'
 import { POSTS_AS_THREAD } from '../constants/collection'
@@ -65,6 +66,7 @@ const RouteThreads: FunctionComponent<Props> = ({ location, history }) => {
 
   return (
     <Fragment>
+      <Head title={'レスのある書き込み一覧です'} />
       <Header />
       <main className={classes.root}>
         <SectionTitle

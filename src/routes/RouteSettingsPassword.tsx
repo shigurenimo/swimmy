@@ -17,6 +17,7 @@ import React, {
 } from 'react'
 import { from } from 'rxjs'
 import { mergeMap } from 'rxjs/operators'
+import Head from '../components/Head'
 import Header from '../components/Header'
 import { useSubscription } from '../hooks/useSubscription'
 import { pct } from '../libs/pct'
@@ -91,6 +92,7 @@ const RouteSettingsPassword: FunctionComponent = () => {
 
   return (
     <Fragment>
+      <Head title={'パスワードの変更'} />
       <Header />
       <main className={classes.root}>
         <Typography variant={'h4'}>パスワードの変更</Typography>

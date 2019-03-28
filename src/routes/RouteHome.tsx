@@ -5,6 +5,7 @@ import React, { Fragment, FunctionComponent, useEffect, useState } from 'react'
 import { collectionData } from 'rxfire/firestore'
 import ButtonMore from '../components/ButtonMore'
 import ExpansionPanelPost from '../components/ExpansionPanelPost'
+import Head from '../components/Head'
 import Header from '../components/Header'
 import SectionTitle from '../components/SectionTitle'
 import TextFieldPost from '../components/TextFieldPost'
@@ -56,6 +57,7 @@ const RouteHome: FunctionComponent = () => {
 
   return (
     <Fragment>
+      <Head />
       <Header />
       <main className={classes.root}>
         <SectionTitle

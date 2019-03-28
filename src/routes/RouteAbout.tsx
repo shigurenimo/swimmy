@@ -1,6 +1,7 @@
 import { Card, CardContent, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
 import React, { Fragment, FunctionComponent } from 'react'
+import Head from '../components/Head'
 import Header from '../components/Header'
 import { px } from '../libs/px'
 import { resetList } from '../libs/resetList'
@@ -10,6 +11,7 @@ const RouteAbout: FunctionComponent = () => {
 
   return (
     <Fragment>
+      <Head title={'About'} />
       <Header />
       <main className={classes.root}>
         <Typography variant={'h5'}>About</Typography>

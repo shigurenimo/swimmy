@@ -5,6 +5,7 @@ import React, { Fragment, FunctionComponent, useEffect, useState } from 'react'
 import { RouteComponentProps } from 'react-router-dom'
 import { collectionData, docData } from 'rxfire/firestore'
 import { take } from 'rxjs/operators'
+import Head from '../components/Head'
 import Header from '../components/Header'
 import ListItemPost from '../components/ListItemPost'
 import SectionTitle from '../components/SectionTitle'
@@ -15,7 +16,7 @@ import { createdAt } from '../helpers/createdAt'
 import { px } from '../libs/px'
 import { Post } from '../types/models/post'
 
-type Props = RouteComponentProps
+type Props = RouteComponentProps<{ threadId: string }>
 
 const RouteThread: FunctionComponent<Props> = ({ match }) => {
   const [inProgressPosts, setInProgressPosts] = useState(true)
@@ -26,7 +27,7 @@ const RouteThread: FunctionComponent<Props> = ({ match }) => {
   const subscribePosts = () => {
     const query = firestore()
       .collection(POSTS_AS_ANONYM)
-      .doc((match.params as any).threadId)
+      .doc(match.params.threadId)
       .collection(POSTS)
       .limit(120)
       .orderBy('createdAt', DESC)
@@ -61,30 +62,34 @@ const RouteThread: FunctionComponent<Props> = ({ match }) => {
     }
   }, [])
 
-  if (inProgress) {
-    return <CircularProgress className={classes.progress} />
-  }
-
   return (
     <Fragment>
+      {thread ? (
+        <Head title={thread.text} description={createdAt(thread.createdAt)} />
+      ) : (
+        <Head title={'読み込み中'} />
+      )}
       <Header isClose={true} />
       <main>
         <SectionTitle
           title={'スレッド'}
           description={`書き込みとそれに対するレスが表示されています。このページの右上のアイコンから前のページに戻ることができます。`}
         />
-        <TextFieldPost replyPostId={(match.params as any).threadId} />
-        <Fade in>
-          <div>
-            {posts.map(post => (
-              <Fragment key={post.id}>
-                <ListItemPost post={post} />
-                <Divider />
-              </Fragment>
-            ))}
-            {thread && <ListItemPost post={thread} />}
-          </div>
-        </Fade>
+        {inProgress && <CircularProgress className={classes.progress} />}
+        <TextFieldPost replyPostId={match.params.threadId} />
+        {!inProgress && (
+          <Fade in>
+            <div>
+              {posts.map(post => (
+                <Fragment key={post.id}>
+                  <ListItemPost post={post} />
+                  <Divider />
+                </Fragment>
+              ))}
+              {thread && <ListItemPost post={thread} />}
+            </div>
+          </Fade>
+        )}
       </main>
     </Fragment>
   )
