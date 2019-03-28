@@ -11,7 +11,7 @@ const Head: FunctionComponent<Props> = ({
   description = 'スイミー（Swimmy）は完全な匿名の電子掲示板です。IPアドレスやユーザIDを公開せずに完全な匿名で書き込みできます。',
   image = null
 }) => {
-  const titleDefault = 'スイミー（Swimmy）'
+  const titleDefault = 'スイミー'
   const _title = title ? `${titleDefault} | ${title}` : titleDefault
 
   useEffect(() => {
