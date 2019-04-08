@@ -12,7 +12,7 @@ import SectionTitle from '../components/SectionTitle'
 import TextFieldPost from '../components/TextFieldPost'
 import { POSTS, POSTS_AS_ANONYM } from '../constants/collection'
 import { DESC } from '../constants/order'
-import { createdAt } from '../helpers/createdAt'
+import { toDateText } from '../helpers/toDateText'
 import { px } from '../libs/px'
 import { Post } from '../types/models/post'
 
@@ -31,10 +31,7 @@ const RouteThread: FunctionComponent<Props> = ({ match }) => {
       .collection(POSTS)
       .limit(120)
       .orderBy('createdAt', DESC)
-    return collectionData<Post>(query).subscribe(docs => {
-      const _posts = docs.map(doc => {
-        return { ...doc, ui: { createdAt: createdAt(doc.createdAt) } }
-      })
+    return collectionData<Post>(query).subscribe(_posts => {
       setPosts(_posts)
       setInProgressPosts(false)
     })
@@ -45,8 +42,7 @@ const RouteThread: FunctionComponent<Props> = ({ match }) => {
       .doc((match.params as any).threadId)
     return docData<Post>(query)
       .pipe(take(2))
-      .subscribe(doc => {
-        const _thread = { ...doc, ui: { createdAt: createdAt(doc.createdAt) } }
+      .subscribe(_thread => {
         setThread(_thread)
         setInProgressThread(false)
       })
@@ -65,7 +61,7 @@ const RouteThread: FunctionComponent<Props> = ({ match }) => {
   return (
     <Fragment>
       {thread ? (
-        <Head title={thread.text} description={createdAt(thread.createdAt)} />
+        <Head title={thread.text} description={toDateText(thread.createdAt)} />
       ) : (
         <Head title={'読み込み中'} />
       )}

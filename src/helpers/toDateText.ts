@@ -1,6 +1,6 @@
 import { firestore } from 'firebase/app'
 
-export const createdAt = (
+export const toDateText = (
   { seconds }: firestore.Timestamp,
   hasTime: boolean = true
 ): string => {

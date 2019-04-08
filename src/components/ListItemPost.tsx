@@ -2,7 +2,7 @@ import { Typography } from '@material-ui/core'
 import { purple } from '@material-ui/core/colors'
 import { makeStyles } from '@material-ui/styles'
 import React, { FunctionComponent } from 'react'
-import { createdAt } from '../helpers/createdAt'
+import { toDateText } from '../helpers/toDateText'
 import { px } from '../libs/px'
 import { Post } from '../types/models/post'
 import Images from './Images'
@@ -24,7 +24,7 @@ const ListItemPost: FunctionComponent<Props> = ({ post }) => {
         </Typography>
         {post.photoURLs.length !== 0 && <Images photoURLs={post.photoURLs} />}
         <Typography color={'textSecondary'} variant={'caption'}>
-          {createdAt(post.createdAt)}
+          {toDateText(post.createdAt)}
         </Typography>
       </div>
     </div>

@@ -1,22 +1,16 @@
-import {
-  Card,
-  ExpansionPanelSummary,
-  Typography,
-  CardContent
-} from '@material-ui/core'
+import { Card, Typography } from '@material-ui/core'
 import { purple } from '@material-ui/core/colors'
 import { makeStyles } from '@material-ui/styles'
 import { auth, firestore } from 'firebase/app'
 import React, { ChangeEvent, FunctionComponent, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { LIKES, POSTS } from '../constants/collection'
-import { createdAt } from '../helpers/createdAt'
 import { createPostLike } from '../helpers/createPostLike'
+import { toDateText } from '../helpers/toDateText'
 import { px } from '../libs/px'
 import { Post } from '../types/models/post'
-import ExpansionPanelSummaryPost from './ExpansionPanelSummaryPost'
-import PostCounts from './PostCounts'
 import Images from './Images'
+import PostCounts from './PostCounts'
 
 type Props = {
   inProgress?: boolean
@@ -55,9 +49,7 @@ const CardPost: FunctionComponent<Props> = ({ inProgress, post }) => {
     }
     const postId = post.id
     setHasLike(state => !state)
-    createPostLike({ postId }).catch(err => {
-      console.error(err)
-    })
+    createPostLike({ postId }).subscribe()
   }
 
   return (
@@ -72,7 +64,7 @@ const CardPost: FunctionComponent<Props> = ({ inProgress, post }) => {
         </Typography>
         {post.photoURLs.length !== 0 && <Images photoURLs={post.photoURLs} />}
         <Typography color={'textSecondary'} variant={'caption'}>
-          {createdAt(post.createdAt)}
+          {toDateText(post.createdAt)}
         </Typography>
       </Card>
     </Link>

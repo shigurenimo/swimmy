@@ -11,7 +11,6 @@ import Header from '../components/Header'
 import SectionTitle from '../components/SectionTitle'
 import { POSTS_AS_IMAGE } from '../constants/collection'
 import { DESC } from '../constants/order'
-import { createdAt } from '../helpers/createdAt'
 import { getOrderBy } from '../helpers/getOrderBy'
 import { useCache } from '../hooks/useCache'
 import { px } from '../libs/px'
@@ -38,10 +37,7 @@ const RouteImages: FunctionComponent<Props> = ({ location, history }) => {
       .collection(POSTS_AS_IMAGE)
       .limit(_limit)
       .orderBy(_orderBy, DESC)
-    return collectionData<Post>(query).subscribe(docs => {
-      const _posts = docs.map(doc => {
-        return { ...doc, ui: { createdAt: createdAt(doc.createdAt) } }
-      })
+    return collectionData<Post>(query).subscribe(_posts => {
       setPosts(_posts)
       setInProgress(false)
       setInProgressMore(false)

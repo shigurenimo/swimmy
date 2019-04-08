@@ -7,7 +7,6 @@ import React, {
   useEffect,
   useState
 } from 'react'
-import { from } from 'rxjs'
 import { createPost } from '../helpers/createPost'
 import { useSubscription } from '../hooks/useSubscription'
 import { pct } from '../libs/pct'
@@ -30,9 +29,11 @@ const TextFieldReplyPost: FunctionComponent<Props> = ({ postId }) => {
       return
     }
     setInProgress(true)
-    const createPost$$ = from(
-      createPost({ fileIds: [], replyPostId: postId, text: postText })
-    ).subscribe(
+    const createPost$$ = createPost({
+      fileIds: [],
+      replyPostId: postId,
+      text: postText
+    }).subscribe(
       () => {
         setPostText('')
         setInProgress(false)

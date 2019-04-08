@@ -83,9 +83,11 @@ const TextFieldPost: FunctionComponent<Props> = ({ replyPostId = '' }) => {
     }
     setInProgressSubmit(true)
     const fileIds = postImages.map(image => image.id)
-    const subscription = from(
-      createPost({ fileIds, replyPostId, text: postText })
-    ).subscribe(
+    const subscription = createPost({
+      fileIds,
+      replyPostId,
+      text: postText
+    }).subscribe(
       () => {
         setInProgressSubmit(false)
         setPostImages([])

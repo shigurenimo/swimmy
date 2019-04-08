@@ -2,7 +2,7 @@ import { Card, CardContent, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
 import React, { FunctionComponent } from 'react'
 import { Link } from 'react-router-dom'
-import { createdAt } from '../helpers/createdAt'
+import { toDateText } from '../helpers/toDateText'
 import { pct } from '../libs/pct'
 import { px } from '../libs/px'
 import { Post } from '../types/models/post'
@@ -27,7 +27,7 @@ const CardThread: FunctionComponent<Props> = ({ post }) => {
             {post.text}
           </Typography>
           <Typography color={'textSecondary'} variant={'caption'}>
-            {createdAt(post.createdAt)}
+            {toDateText(post.createdAt)}
           </Typography>
         </CardContent>
       </Card>
