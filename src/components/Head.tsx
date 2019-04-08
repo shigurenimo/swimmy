@@ -1,6 +1,6 @@
 import React, { FunctionComponent, useEffect } from 'react'
 
-interface Props {
+type Props = {
   title?: string
   description?: string
   image?: string

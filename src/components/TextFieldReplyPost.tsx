@@ -9,11 +9,8 @@ import React, {
 } from 'react'
 import { createPost } from '../helpers/createPost'
 import { useSubscription } from '../hooks/useSubscription'
-import { pct } from '../libs/pct'
 
-type Props = {
-  postId: string
-}
+type Props = { postId: string }
 
 const TextFieldReplyPost: FunctionComponent<Props> = ({ postId }) => {
   const classes = useStyles({})
@@ -98,7 +95,7 @@ const useStyles = makeStyles(({ spacing }) => {
       right: 0,
       top: 0
     },
-    root: { width: pct(100) },
+    root: { width: `${100}%` },
     submitButton: { marginLeft: spacing(1), position: 'relative' },
     textField: {
       paddingLeft: spacing(1.5),

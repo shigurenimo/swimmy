@@ -1,7 +1,6 @@
 import { Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
 import React, { FunctionComponent } from 'react'
-import { px } from '../libs/px'
 
 type Props = {
   replyPostCount?: number
@@ -41,7 +40,7 @@ const useStyles = makeStyles(({ palette, spacing }) => {
     root: {
       display: 'grid',
       gridAutoFlow: 'column',
-      gridColumnGap: px(spacing(1)),
+      gridColumnGap: `${spacing(1)}px`,
       gridTemplateColumns: 'max-content'
     }
   }

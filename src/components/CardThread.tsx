@@ -3,14 +3,10 @@ import { makeStyles } from '@material-ui/styles'
 import React, { FunctionComponent } from 'react'
 import { Link } from 'react-router-dom'
 import { toDateText } from '../helpers/toDateText'
-import { pct } from '../libs/pct'
-import { px } from '../libs/px'
 import { Post } from '../types/models/post'
 import PostCounts from './PostCounts'
 
-type Props = {
-  post: Post
-}
+type Props = { post: Post }
 
 const CardThread: FunctionComponent<Props> = ({ post }) => {
   const classes = useStyles({})
@@ -39,8 +35,8 @@ const useStyles = makeStyles(({ typography, palette, spacing }) => {
   return {
     root: {
       display: 'grid',
-      gridRowGap: px(spacing(1)),
-      width: pct(100)
+      gridRowGap: `${spacing(1)}px`,
+      width: `${100}%`
     },
     text: {
       fontSize: typography.pxToRem(16),

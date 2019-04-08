@@ -15,9 +15,7 @@ import DialogMenu from './DialogMenu'
 import DialogSignIn from './DialogSignIn'
 import ImgLogo from './ImgLogo'
 
-type Props = RouteComponentProps & {
-  isClose?: boolean
-}
+type Props = RouteComponentProps & { isClose?: boolean }
 
 const Header: FunctionComponent<Props> = ({ history, isClose }) => {
   const authContext = useContext(AuthContext)

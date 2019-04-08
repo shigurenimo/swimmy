@@ -15,19 +15,14 @@ import React, {
 } from 'react'
 import { doc, snapToData } from 'rxfire/firestore'
 import { put } from 'rxfire/storage'
-import { from } from 'rxjs'
 import { filter } from 'rxjs/operators'
 import { IMAGES } from '../constants/collection'
 import { createPost } from '../helpers/createPost'
 import { useSubscription } from '../hooks/useSubscription'
 import { createId } from '../libs/createId'
-import { pct } from '../libs/pct'
-import { px } from '../libs/px'
 import InputFile from './InputFile'
 
-type Props = {
-  replyPostId?: string
-}
+type Props = { replyPostId?: string }
 
 const TextFieldPost: FunctionComponent<Props> = ({ replyPostId = '' }) => {
   const [postText, setPostText] = useState('')
@@ -182,23 +177,17 @@ const useStyle = makeStyles(({ spacing }) => {
     },
     root: {
       display: 'grid',
-      gridRowGap: px(spacing(1)),
+      gridRowGap: `${spacing(1)}px`,
       paddingTop: spacing(1)
     },
     submitButton: { marginLeft: spacing(1), position: 'relative' },
-    textField: {
-      paddingLeft: spacing(1.5),
-      paddingRight: spacing(1.5)
-    },
-    textFieldLabel: {
-      paddingLeft: spacing(1.5),
-      paddingRight: spacing(1.5)
-    },
-    img: { width: pct(100), borderRadius: px(4) },
+    textField: { paddingLeft: spacing(1.5), paddingRight: spacing(1.5) },
+    textFieldLabel: { paddingLeft: spacing(1.5), paddingRight: spacing(1.5) },
+    img: { width: `${100}%`, borderRadius: 4 },
     images: {
       display: 'grid',
-      gridColumnGap: px(spacing(2)),
-      gridRowGap: px(spacing(2)),
+      gridColumnGap: `${spacing(2)}px`,
+      gridRowGap: `${spacing(2)}px`,
       gridTemplateColumns: 'repeat(4, 1fr)',
       paddingLeft: spacing(1),
       paddingRight: spacing(1),

@@ -19,8 +19,8 @@ const UnderDevelopment: FunctionComponent<Props> = ({
     <div className={classes.root}>
       <Icon className={classes.icon} />
       <Typography
-        className={classes.title}
         align={'center'}
+        className={classes.title}
         variant={'h6'}
         gutterBottom
       >

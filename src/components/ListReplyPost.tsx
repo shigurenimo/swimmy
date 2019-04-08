@@ -13,7 +13,6 @@ import { delay } from 'rxjs/operators'
 import { POSTS, POSTS_AS_ANONYM } from '../constants/collection'
 import { DESC } from '../constants/order'
 import { Post } from '../types/models/post'
-import { pct } from '../libs/pct'
 
 type Props = {
   postId: string
@@ -75,7 +74,7 @@ const ListReplyPost: FunctionComponent<Props> = ({
 const useStyles = makeStyles(({ spacing }) => {
   return {
     progress: { marginTop: spacing(2), textAlign: 'center' },
-    root: { width: pct(100) }
+    root: { width: `${100}%` }
   }
 })
 

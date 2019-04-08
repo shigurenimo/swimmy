@@ -1,12 +1,8 @@
 import { makeStyles } from '@material-ui/styles'
 import { ResponsiveLine } from '@nivo/line'
 import React, { FunctionComponent } from 'react'
-import { pct } from '../libs/pct'
-import { px } from '../libs/px'
 
-type Props = {
-  data: any
-}
+type Props = { data: any }
 
 const ChartLine: FunctionComponent<Props> = ({ data }) => {
   const classes = useStyles({})
@@ -32,8 +28,8 @@ const useStyles = makeStyles(({ spacing }) => {
     root: {
       border: '1px solid lightgray',
       borderRadius: 4,
-      height: px(spacing(20)),
-      width: pct(100)
+      height: `${spacing(20)}px`,
+      width: `${100}%`
     }
   }
 })

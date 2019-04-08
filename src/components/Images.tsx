@@ -1,12 +1,8 @@
 import { Paper } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
 import React, { FunctionComponent } from 'react'
-import { pct } from '../libs/pct'
-import { px } from '../libs/px'
 
-type Props = {
-  photoURLs: string[]
-}
+type Props = { photoURLs: string[] }
 
 const Images: FunctionComponent<Props> = ({ photoURLs }) => {
   const classes = useStyles({})
@@ -28,11 +24,11 @@ const Images: FunctionComponent<Props> = ({ photoURLs }) => {
 
 const useStyles = makeStyles(({ breakpoints, spacing }) => {
   return {
-    img: { width: pct(100), borderRadius: px(4), verticalAlign: 'bottom' },
+    img: { width: `${100}%`, borderRadius: 4, verticalAlign: 'bottom' },
     root: {
       display: 'grid',
-      gridColumnGap: px(spacing(2)),
-      gridRowGap: px(spacing(2)),
+      gridColumnGap: `${spacing(2)}px`,
+      gridRowGap: `${spacing(2)}px`,
       width: '100%',
       [breakpoints.up('xs')]: { gridTemplateColumns: 'repeat(2, 1fr)' },
       [breakpoints.up('sm')]: { gridTemplateColumns: 'repeat(4, 1fr)' }
