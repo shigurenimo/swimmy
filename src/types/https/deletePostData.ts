@@ -1,3 +1,1 @@
-export type DeletePostData = {
-  postId: string
-}
+export type DeletePostData = { postId: string }

@@ -1,3 +1,1 @@
-export type CreatePostLikeData = {
-  postId: string
-}
+export type CreatePostLikeData = { postId: string }
