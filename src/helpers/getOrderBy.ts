@@ -1,5 +1,5 @@
 export const getOrderBy = () => {
-  switch (location.search.replace('?order=', '')) {
+  switch (window.location.search.replace('?order=', '')) {
     case 'createdAt':
       return 'createdAt'
     case 'likeCount':
