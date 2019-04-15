@@ -4,7 +4,7 @@ import React, { FunctionComponent } from 'react'
 import { resetList } from '../libs/resetList'
 import { Changelog } from '../types/models/changelog'
 import { toDateTextFromPrismicDate } from '../libs/toDateTextFromPrismicDate'
-import { toVersionText } from '../libs/toVersionText'
+import { toVersionText } from '../helpers/toVersionText'
 
 type Props = { changelog: Changelog }
 
