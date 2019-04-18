@@ -5,7 +5,7 @@ import './helpers/initializeApp'
 import './index.css'
 import * as serviceWorker from './serviceWorker'
 
-render(<App /> as any, document.getElementById('root'))
+render(<App />, document.getElementById('root'))
 
 serviceWorker.register({})
 

@@ -8,7 +8,7 @@ import {
   LinearProgress,
   TextField
 } from '@material-ui/core'
-import { createStyles, makeStyles } from '@material-ui/styles'
+import { makeStyles } from '@material-ui/styles'
 import { auth } from 'firebase/app'
 import React, { ChangeEvent, FunctionComponent, useState } from 'react'
 
@@ -135,10 +135,10 @@ const DialogSignIn: FunctionComponent<Props> = ({ isOpen, closeDialog }) => {
 }
 
 const useStyle = makeStyles(({ palette }) => {
-  return createStyles({
+  return {
     errorMassage: { color: palette.error.light },
     progress: { height: 5 }
-  })
+  }
 })
 
 export default DialogSignIn
