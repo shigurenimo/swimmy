@@ -33,7 +33,7 @@ const Head: FunctionComponent<Props> = ({
         meta.setAttribute('content', 'summary_large_image')
       }
       if (name && name.includes('twitter:site')) {
-        meta.setAttribute('content', '@subsclog')
+        meta.setAttribute('content', '@babelrc')
       }
 
       const property = meta.getAttribute('property')
