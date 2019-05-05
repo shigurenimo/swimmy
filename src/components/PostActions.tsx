@@ -1,4 +1,4 @@
-import { IconButton } from '@material-ui/core'
+import { IconButton, Theme } from '@material-ui/core'
 import Favorite from '@material-ui/icons/Favorite'
 import Launch from '@material-ui/icons/Launch'
 import { makeStyles } from '@material-ui/styles'
@@ -43,7 +43,7 @@ const PostActions: FunctionComponent<Props> = ({
   )
 }
 
-const useStyles = makeStyles(({ spacing }) => {
+const useStyles = makeStyles<Theme>(({ spacing }) => {
   return {
     iconButton: { marginRight: spacing(1) },
     root: {

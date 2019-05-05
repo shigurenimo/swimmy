@@ -1,4 +1,4 @@
-import { Typography } from '@material-ui/core'
+import { Typography, Theme } from '@material-ui/core'
 import { purple } from '@material-ui/core/colors'
 import { makeStyles } from '@material-ui/styles'
 import React, { FunctionComponent } from 'react'
@@ -28,7 +28,7 @@ const ListItemPost: FunctionComponent<Props> = ({ post }) => {
   )
 }
 
-const useStyle = makeStyles(({ palette, spacing, typography }) => {
+const useStyle = makeStyles<Theme>(({ palette, spacing, typography }) => {
   return {
     root: { padding: `${spacing(2)}px` },
     likeCount: { paddingLeft: spacing(1), color: palette.secondary.light },

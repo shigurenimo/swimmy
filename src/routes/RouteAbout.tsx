@@ -1,4 +1,4 @@
-import { Card, CardContent, Typography } from '@material-ui/core'
+import { Card, CardContent, Typography, Theme } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
 import React, { Fragment, FunctionComponent } from 'react'
 import Head from '../components/Head'
@@ -32,7 +32,7 @@ const RouteAbout: FunctionComponent = () => {
   )
 }
 
-const useStyles = makeStyles(({ spacing }) => {
+const useStyles = makeStyles<Theme>(({ spacing }) => {
   return {
     cards: {
       ...resetList(),

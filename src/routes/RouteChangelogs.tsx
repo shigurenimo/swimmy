@@ -1,4 +1,4 @@
-import { CircularProgress, Fade } from '@material-ui/core'
+import { CircularProgress, Fade, Theme } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
 import React, { Fragment, FunctionComponent } from 'react'
 import CardChangelog from '../components/CardChangelog'
@@ -45,7 +45,7 @@ const RouteChangelogs: FunctionComponent = () => {
   )
 }
 
-const useStyles = makeStyles(({ spacing }) => {
+const useStyles = makeStyles<Theme>(({ spacing }) => {
   return {
     changelogs: {
       ...resetList(),

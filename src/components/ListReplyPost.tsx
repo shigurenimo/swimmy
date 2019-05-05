@@ -3,7 +3,8 @@ import {
   Fade,
   List,
   ListItem,
-  ListItemText
+  ListItemText,
+  Theme
 } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
 import { firestore } from 'firebase/app'
@@ -71,7 +72,7 @@ const ListReplyPost: FunctionComponent<Props> = ({
   )
 }
 
-const useStyles = makeStyles(({ spacing }) => {
+const useStyles = makeStyles<Theme>(({ spacing }) => {
   return {
     progress: { marginTop: spacing(2), textAlign: 'center' },
     root: { width: `${100}%` }

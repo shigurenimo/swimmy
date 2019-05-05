@@ -3,7 +3,8 @@ import {
   CardContent,
   CircularProgress,
   Fade,
-  Typography
+  Typography,
+  Theme
 } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
 import { firestore } from 'firebase/app'
@@ -111,7 +112,7 @@ const RouteStats: FunctionComponent = () => {
   )
 }
 
-const useStyles = makeStyles(({ spacing }) => {
+const useStyles = makeStyles<Theme>(({ spacing }) => {
   return {
     progress: {
       display: 'block',

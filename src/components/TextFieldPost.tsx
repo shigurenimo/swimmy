@@ -3,7 +3,8 @@ import {
   CircularProgress,
   FormControl,
   Input,
-  InputLabel
+  InputLabel,
+  Theme
 } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
 import { firestore, storage } from 'firebase/app'
@@ -164,7 +165,7 @@ const TextFieldPost: FunctionComponent<Props> = ({ replyPostId = '' }) => {
   )
 }
 
-const useStyle = makeStyles(({ spacing }) => {
+const useStyle = makeStyles<Theme>(({ spacing }) => {
   return {
     actions: { textAlign: 'right', paddingRight: spacing(1) },
     buttonProgress: {

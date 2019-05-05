@@ -3,7 +3,8 @@ import {
   Snackbar,
   SnackbarContent,
   TextField,
-  Typography
+  Typography,
+  Theme
 } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
 import classnames from 'classnames'
@@ -148,7 +149,7 @@ const RouteSettingsPassword: FunctionComponent = () => {
   )
 }
 
-const useStyles = makeStyles(({ spacing, palette }) => {
+const useStyles = makeStyles<Theme>(({ spacing, palette }) => {
   return {
     actions: { textAlign: 'right' },
     form: {

@@ -1,4 +1,4 @@
-import { Paper } from '@material-ui/core'
+import { Paper, Theme } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
 import React, { FunctionComponent } from 'react'
 
@@ -22,7 +22,7 @@ const Images: FunctionComponent<Props> = ({ photoURLs }) => {
   )
 }
 
-const useStyles = makeStyles(({ breakpoints, spacing }) => {
+const useStyles = makeStyles<Theme>(({ breakpoints, spacing }) => {
   return {
     img: { width: `${100}%`, borderRadius: 4, verticalAlign: 'bottom' },
     root: {

@@ -1,5 +1,6 @@
 import { makeStyles } from '@material-ui/styles'
 import React, { FunctionComponent } from 'react'
+import { Theme } from '@material-ui/core'
 
 type Props = {
   inputRef: any
@@ -20,6 +21,6 @@ const InputFile: FunctionComponent<Props> = ({ inputRef, onChange }) => {
   )
 }
 
-const useStyles = makeStyles({ root: { display: 'none' } })
+const useStyles = makeStyles<Theme>({ root: { display: 'none' } })
 
 export default InputFile

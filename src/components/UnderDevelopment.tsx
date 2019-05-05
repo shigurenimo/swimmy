@@ -1,4 +1,4 @@
-import { Typography } from '@material-ui/core'
+import { Typography, Theme } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
 import React, { FunctionComponent } from 'react'
 
@@ -33,7 +33,7 @@ const UnderDevelopment: FunctionComponent<Props> = ({
   )
 }
 
-const useStyles = makeStyles(({ spacing }) => {
+const useStyles = makeStyles<Theme>(({ spacing }) => {
   return {
     icon: { display: 'block', margin: 'auto', fontSize: 80 },
     root: { paddingLeft: spacing(1.5), paddingRight: spacing(1.5) },

@@ -1,4 +1,4 @@
-import { CircularProgress, Divider, Fade } from '@material-ui/core'
+import { CircularProgress, Divider, Fade, Theme } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
 import { firestore } from 'firebase/app'
 import React, { Fragment, FunctionComponent, useEffect, useState } from 'react'
@@ -89,7 +89,7 @@ const RouteHome: FunctionComponent = () => {
   )
 }
 
-const useStyles = makeStyles(({ spacing }) => {
+const useStyles = makeStyles<Theme>(({ spacing }) => {
   return {
     posts: { display: 'grid', margin: 0, paddingLeft: 0 },
     progress: {

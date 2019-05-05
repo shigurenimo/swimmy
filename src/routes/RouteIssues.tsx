@@ -3,6 +3,7 @@ import { makeStyles } from '@material-ui/styles'
 import React, { Fragment, FunctionComponent } from 'react'
 import Head from '../components/Head'
 import UnderDevelopment from '../components/UnderDevelopment'
+import { Theme } from '@material-ui/core'
 
 const RouteIssues: FunctionComponent = () => {
   const classes = useStyles({})
@@ -21,7 +22,7 @@ const RouteIssues: FunctionComponent = () => {
   )
 }
 
-const useStyles = makeStyles(({ spacing }) => {
+const useStyles = makeStyles<Theme>(({ spacing }) => {
   return { root: { paddingTop: spacing(10) } }
 })
 

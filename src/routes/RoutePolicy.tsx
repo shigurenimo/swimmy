@@ -1,4 +1,4 @@
-import { Typography } from '@material-ui/core'
+import { Typography, Theme } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
 import React, { Fragment, FunctionComponent } from 'react'
 import Head from '../components/Head'
@@ -70,7 +70,7 @@ const RoutePolicy: FunctionComponent = () => {
   )
 }
 
-const useStyles = makeStyles(({ spacing }) => {
+const useStyles = makeStyles<Theme>(({ spacing }) => {
   return {
     description: { whiteSpace: 'pre-line', wordBreak: 'break-all' },
     root: { display: 'grid', gridRowGap: px(spacing(2)) },

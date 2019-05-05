@@ -4,6 +4,7 @@ import React, { Fragment, FunctionComponent } from 'react'
 import Head from '../components/Head'
 import Header from '../components/Header'
 import UnderDevelopment from '../components/UnderDevelopment'
+import { Theme } from '@material-ui/core'
 
 const RouteSettingsEmail: FunctionComponent = () => {
   const classes = useStyles({})
@@ -25,7 +26,7 @@ const RouteSettingsEmail: FunctionComponent = () => {
   )
 }
 
-const useStyles = makeStyles(({ spacing }) => {
+const useStyles = makeStyles<Theme>(({ spacing }) => {
   return { root: { paddingTop: spacing(10) } }
 })
 

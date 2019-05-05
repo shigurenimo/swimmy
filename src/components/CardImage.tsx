@@ -1,4 +1,4 @@
-import { Card, CardActionArea, CardMedia } from '@material-ui/core'
+import { Card, CardActionArea, CardMedia, Theme } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
 import React, { FunctionComponent } from 'react'
 import { Link } from 'react-router-dom'
@@ -20,6 +20,6 @@ const CardImage: FunctionComponent<Props> = ({ post }) => {
   )
 }
 
-const useStyles = makeStyles({ actionArea: { width: `${100}%` } })
+const useStyles = makeStyles<Theme>({ actionArea: { width: `${100}%` } })
 
 export default CardImage

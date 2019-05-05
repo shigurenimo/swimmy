@@ -1,4 +1,4 @@
-import { Typography } from '@material-ui/core'
+import { Typography, Theme } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
 import React, { FunctionComponent } from 'react'
 
@@ -33,7 +33,7 @@ const PostCounts: FunctionComponent<Props> = ({
   )
 }
 
-const useStyles = makeStyles(({ palette, spacing }) => {
+const useStyles = makeStyles<Theme>(({ palette, spacing }) => {
   return {
     likeCount: { color: palette.secondary.dark },
     replyPostCount: { color: palette.primary.dark },

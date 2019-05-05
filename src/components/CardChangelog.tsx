@@ -1,4 +1,4 @@
-import { Card, CardContent, Typography } from '@material-ui/core'
+import { Card, CardContent, Typography, Theme } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
 import React, { FunctionComponent } from 'react'
 import { resetList } from '../libs/resetList'
@@ -34,7 +34,7 @@ const CardChangelog: FunctionComponent<Props> = ({ changelog }) => {
   )
 }
 
-const useStyles = makeStyles(({ spacing }) => {
+const useStyles = makeStyles<Theme>(({ spacing }) => {
   return {
     cardContent: { display: 'grid', gridRowGap: spacing(1) },
     title: { display: 'grid', gridTemplateColumns: '1fr auto' },

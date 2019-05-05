@@ -1,4 +1,4 @@
-import { Button, CircularProgress } from '@material-ui/core'
+import { Button, CircularProgress, Theme } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
 import React, { FunctionComponent } from 'react'
 
@@ -22,7 +22,7 @@ const ButtonMore: FunctionComponent<Props> = ({ onClick, inProgress }) => {
   )
 }
 
-const useStyles = makeStyles(({ spacing }) => {
+const useStyles = makeStyles<Theme>(({ spacing }) => {
   return {
     button: { position: 'relative' },
     buttonProgress: {

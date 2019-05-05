@@ -1,4 +1,4 @@
-import { Button, CircularProgress, TextField } from '@material-ui/core'
+import { Button, CircularProgress, TextField, Theme } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
 import React, {
   ChangeEvent,
@@ -78,7 +78,7 @@ const TextFieldReplyPost: FunctionComponent<Props> = ({ postId }) => {
   )
 }
 
-const useStyles = makeStyles(({ spacing }) => {
+const useStyles = makeStyles<Theme>(({ spacing }) => {
   return {
     actions: {
       marginTop: spacing(1),

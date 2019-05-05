@@ -1,6 +1,7 @@
 import { makeStyles } from '@material-ui/styles'
 import { ResponsiveLine } from '@nivo/line'
 import React, { FunctionComponent } from 'react'
+import { Theme } from '@material-ui/core'
 
 type Props = { data: any }
 
@@ -23,7 +24,7 @@ const ChartLine: FunctionComponent<Props> = ({ data }) => {
   )
 }
 
-const useStyles = makeStyles(({ spacing }) => {
+const useStyles = makeStyles<Theme>(({ spacing }) => {
   return {
     root: {
       border: '1px solid lightgray',

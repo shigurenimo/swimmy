@@ -1,4 +1,4 @@
-import { Typography } from '@material-ui/core'
+import { Typography, Theme } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
 import React, { FunctionComponent, useContext } from 'react'
 import { AuthContext } from '../contexts/authContext'
@@ -38,7 +38,7 @@ const SectionTitle: FunctionComponent<Props> = ({
   )
 }
 
-const useStyles = makeStyles(({ spacing, palette }) => {
+const useStyles = makeStyles<Theme>(({ spacing, palette }) => {
   return {
     description: { whiteSpace: 'pre-line', wordBreak: 'break-all' },
     root: {

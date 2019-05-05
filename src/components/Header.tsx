@@ -1,4 +1,4 @@
-import { AppBar, IconButton, LinearProgress, Toolbar } from '@material-ui/core'
+import { AppBar, IconButton, LinearProgress, Toolbar, Theme } from '@material-ui/core'
 import CloseIcon from '@material-ui/icons/Close'
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz'
 import PhotoIcon from '@material-ui/icons/Photo'
@@ -89,7 +89,7 @@ const Header: FunctionComponent<Props> = ({ history, isClose }) => {
   )
 }
 
-const useStyle = makeStyles(({ spacing }) => {
+const useStyle = makeStyles<Theme>(({ spacing }) => {
   return {
     actions: {
       display: 'grid',

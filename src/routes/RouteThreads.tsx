@@ -1,4 +1,4 @@
-import { CircularProgress, Fade, Tab, Tabs } from '@material-ui/core'
+import { CircularProgress, Fade, Tab, Tabs, Theme } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
 import { firestore } from 'firebase/app'
 import React, { Fragment, FunctionComponent, useEffect, useState } from 'react'
@@ -103,7 +103,7 @@ const RouteThreads: FunctionComponent<Props> = ({ location, history }) => {
   )
 }
 
-const useStyles = makeStyles(({ spacing }) => {
+const useStyles = makeStyles<Theme>(({ spacing }) => {
   return {
     posts: {
       display: 'grid',

@@ -1,4 +1,4 @@
-import { Card, CardContent, Typography } from '@material-ui/core'
+import { Card, CardContent, Typography, Theme } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
 import React, { FunctionComponent } from 'react'
 import { Link } from 'react-router-dom'
@@ -31,7 +31,7 @@ const CardThread: FunctionComponent<Props> = ({ post }) => {
   )
 }
 
-const useStyles = makeStyles(({ typography, palette, spacing }) => {
+const useStyles = makeStyles<Theme>(({ typography, palette, spacing }) => {
   return {
     root: {
       display: 'grid',

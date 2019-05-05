@@ -6,7 +6,8 @@ import {
   DialogContentText,
   DialogTitle,
   LinearProgress,
-  TextField
+  TextField,
+  Theme
 } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
 import { auth } from 'firebase/app'
@@ -134,7 +135,7 @@ const DialogSignIn: FunctionComponent<Props> = ({ isOpen, closeDialog }) => {
   )
 }
 
-const useStyle = makeStyles(({ palette }) => {
+const useStyle = makeStyles<Theme>(({ palette }) => {
   return {
     errorMassage: { color: palette.error.light },
     progress: { height: 5 }

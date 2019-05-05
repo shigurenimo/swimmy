@@ -1,4 +1,4 @@
-import { Card, Typography } from '@material-ui/core'
+import { Card, Typography, Theme } from '@material-ui/core'
 import { purple } from '@material-ui/core/colors'
 import { makeStyles } from '@material-ui/styles'
 import { auth, firestore } from 'firebase/app'
@@ -71,7 +71,7 @@ const CardPost: FunctionComponent<Props> = ({ inProgress, post }) => {
   )
 }
 
-const useStyle = makeStyles(({ palette, spacing, typography }) => {
+const useStyle = makeStyles<Theme>(({ palette, spacing, typography }) => {
   return {
     card: {
       padding: spacing(2),
