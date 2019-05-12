@@ -1,10 +1,10 @@
-import React, { FunctionComponent, useEffect } from 'react'
+import { FunctionComponent, useEffect } from 'react'
 import { RouteComponentProps, withRouter } from 'react-router-dom'
 
 type Props = RouteComponentProps
 
 const RouterListener: FunctionComponent<Props> = ({ history }) => {
-  const componentDidMount = () => {
+  useEffect(() => {
     if (process.env.NODE_ENV === 'development') {
       return
     }
@@ -17,11 +17,7 @@ const RouterListener: FunctionComponent<Props> = ({ history }) => {
     history.listen(({ pathname, search }) => {
       gtag('config', 'UA-129399085-1', { page_path: pathname + search })
     })
-  }
-
-  useEffect(() => {
-    componentDidMount()
-  }, [])
+  }, [history])
 
   return null
 }

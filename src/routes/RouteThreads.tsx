@@ -11,7 +11,6 @@ import Header from '../components/Header'
 import SectionTitle from '../components/SectionTitle'
 import { POSTS_AS_THREAD } from '../constants/collection'
 import { DESC } from '../constants/order'
-import { toDateText } from '../helpers/toDateText'
 import { getOrderBy } from '../helpers/getOrderBy'
 import { useCache } from '../hooks/useCache'
 import { px } from '../libs/px'
@@ -59,10 +58,8 @@ const RouteThreads: FunctionComponent<Props> = ({ location, history }) => {
   }, [limit, orderBy])
 
   useEffect(() => {
-    return () => {
-      setCache({ posts, limit })
-    }
-  }, [posts])
+    return () => setCache({ posts, limit })
+  }, [limit, posts, setCache])
 
   return (
     <Fragment>

@@ -11,14 +11,13 @@ import SectionTitle from '../components/SectionTitle'
 import TextFieldPost from '../components/TextFieldPost'
 import { POSTS_AS_ANONYM } from '../constants/collection'
 import { DESC } from '../constants/order'
-import { toDateText } from '../helpers/toDateText'
 import { useCache } from '../hooks/useCache'
 import { px } from '../libs/px'
 import { Post } from '../types/models/post'
 
 const RouteHome: FunctionComponent = () => {
   const classes = useStyles({})
-  const [cache, setCache] = useCache(location.pathname)
+  const [cache, setCache] = useCache(window.location.pathname)
   const [limit, setLimit] = useState<number>(cache.limit)
   const [inProgress, setInProgress] = useState(cache.posts.length === 0)
   const [inProgressMore, setInProgressMore] = useState(false)
@@ -53,7 +52,7 @@ const RouteHome: FunctionComponent = () => {
     return () => {
       setCache({ posts, limit })
     }
-  }, [posts])
+  }, [limit, posts, setCache])
 
   return (
     <Fragment>

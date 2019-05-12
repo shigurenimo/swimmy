@@ -62,7 +62,7 @@ const RouteImages: FunctionComponent<Props> = ({ location, history }) => {
     return () => {
       setCache({ posts, limit })
     }
-  }, [posts])
+  }, [limit, posts, setCache])
 
   return (
     <Fragment>

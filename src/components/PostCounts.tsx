@@ -1,4 +1,4 @@
-import { Typography, Theme } from '@material-ui/core'
+import { Theme, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
 import React, { FunctionComponent } from 'react'
 

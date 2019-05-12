@@ -50,9 +50,7 @@ const TextFieldPost: FunctionComponent<Props> = ({ replyPostId = '' }) => {
     }
   }
   const onChangeImage = (event: ChangeEvent<any>) => {
-    if (inProgressSubmit || inProgressImage) {
-      return
-    }
+    if (inProgressSubmit || inProgressImage) return
     const [file] = event.target.files
     const fileId = createId()
     const ref = storage().ref(`posts/${fileId}`)
@@ -74,9 +72,7 @@ const TextFieldPost: FunctionComponent<Props> = ({ replyPostId = '' }) => {
     setSubscriptionImage(subscription)
   }
   const onSubmitPost = () => {
-    if (disabled) {
-      return
-    }
+    if (disabled) return
     setInProgressSubmit(true)
     const fileIds = postImages.map(image => image.id)
     const subscription = createPost({
@@ -102,7 +98,7 @@ const TextFieldPost: FunctionComponent<Props> = ({ replyPostId = '' }) => {
       subscriptionCreatePost.unsubscribe()
       subscriptionImage.unsubscribe()
     }
-  }, [])
+  }, [subscriptionCreatePost, subscriptionImage])
 
   const photoURLs = postImages.map(image => image.imageURL)
 

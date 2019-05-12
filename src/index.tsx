@@ -9,8 +9,8 @@ render(<App />, document.getElementById('root'))
 
 serviceWorker.register({})
 
-if ('scrollRestoration' in history) {
-  history.scrollRestoration = 'auto'
+if ('scrollRestoration' in window.history) {
+  window.history.scrollRestoration = 'auto'
 }
 
 if (module.hot) {

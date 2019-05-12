@@ -3,8 +3,8 @@ import {
   CardContent,
   CircularProgress,
   Fade,
-  Typography,
-  Theme
+  Theme,
+  Typography
 } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
 import { firestore } from 'firebase/app'
@@ -24,7 +24,6 @@ const RouteStats: FunctionComponent = () => {
   const [countTotal, setCountTotal] = useState(0)
   const [countWeek, setCountWeek] = useState(0)
   const [inProgress, setInProgress] = useState(true)
-  const [stats, setStats] = useState(null)
   const classes = useStyles({})
   const subscribeStats = () => {
     const query = firestore()
@@ -58,9 +57,7 @@ const RouteStats: FunctionComponent = () => {
 
   useEffect(() => {
     const subscription = subscribeStats()
-    return () => {
-      subscription.unsubscribe()
-    }
+    return () => subscription.unsubscribe()
   }, [])
 
   return (

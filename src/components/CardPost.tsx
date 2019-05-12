@@ -1,11 +1,8 @@
-import { Card, Typography, Theme } from '@material-ui/core'
+import { Card, Theme, Typography } from '@material-ui/core'
 import { purple } from '@material-ui/core/colors'
 import { makeStyles } from '@material-ui/styles'
-import { auth, firestore } from 'firebase/app'
-import React, { ChangeEvent, FunctionComponent, useState } from 'react'
+import React, { FunctionComponent } from 'react'
 import { Link } from 'react-router-dom'
-import { LIKES, POSTS } from '../constants/collection'
-import { createPostLike } from '../helpers/createPostLike'
 import { toDateText } from '../helpers/toDateText'
 import { px } from '../libs/px'
 import { Post } from '../types/models/post'
@@ -18,39 +15,7 @@ type Props = {
 }
 
 const CardPost: FunctionComponent<Props> = ({ inProgress, post }) => {
-  const [expanded, setExpanded] = useState(false)
-  const [hasLike, setHasLike] = useState(false)
-  const [inProgressLike, setInProgressLike] = useState(true)
   const classes = useStyle({})
-  const onChangeExpand = (_: any, _expanded: boolean) => {
-    const { currentUser } = auth()
-    if (!_expanded || !inProgressLike || !currentUser) {
-      return
-    }
-    firestore()
-      .collection(LIKES)
-      .where('collectionId', '==', POSTS)
-      .where('ownerId', '==', currentUser.uid)
-      .where('docId', '==', post.id)
-      .get()
-      .then(res => {
-        setInProgressLike(false)
-        setHasLike(!res.empty)
-      })
-  }
-  const onClickPanelSummary = (event: ChangeEvent<any>) => {
-    if (event.target.tagName !== 'SPAN') {
-      setExpanded(state => !state)
-    }
-  }
-  const onClickLike = () => {
-    if (inProgress) {
-      return
-    }
-    const postId = post.id
-    setHasLike(state => !state)
-    createPostLike({ postId }).subscribe()
-  }
 
   return (
     <Link to={`/threads/${post.id}`}>
@@ -75,7 +40,7 @@ const useStyle = makeStyles<Theme>(({ palette, spacing, typography }) => {
   return {
     card: {
       padding: spacing(2),
-      ['&:hover']: { background: 'rgba(0, 0, 0, 0.1)' }
+      '&:hover': { background: 'rgba(0, 0, 0, 0.1)' }
     },
     likeCount: { paddingLeft: spacing(1), color: palette.secondary.light },
     replyPostCount: { color: purple.A400, paddingLeft: spacing(1) },

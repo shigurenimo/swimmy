@@ -12,7 +12,6 @@ const ChartLine: FunctionComponent<Props> = ({ data }) => {
     <div className={classes.root}>
       <ResponsiveLine
         data={data}
-        enableDots={false}
         enableGridX={false}
         enableGridY={false}
         lineWidth={1}

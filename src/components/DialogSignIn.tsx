@@ -21,7 +21,7 @@ type Props = {
 const DialogSignIn: FunctionComponent<Props> = ({ isOpen, closeDialog }) => {
   const classes = useStyle({})
   const [email, setEmail] = useState('')
-  const [errorCode, setErrorCode] = useState('')
+  const [, setErrorCode] = useState('')
   const [errorMessage, setErrorMessage] = useState('')
   const [inProgress, setInProgress] = useState(false)
   const [password, setPassword] = useState('')

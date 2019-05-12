@@ -3,8 +3,8 @@ import {
   Snackbar,
   SnackbarContent,
   TextField,
-  Typography,
-  Theme
+  Theme,
+  Typography
 } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
 import classnames from 'classnames'
@@ -89,7 +89,7 @@ const RouteSettingsPassword: FunctionComponent = () => {
     return () => {
       subscription.unsubscribe()
     }
-  }, [])
+  }, [subscription])
 
   return (
     <Fragment>

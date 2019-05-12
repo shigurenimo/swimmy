@@ -1,7 +1,13 @@
 import { CircularProgress, Divider, Fade, Theme } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
 import { firestore } from 'firebase/app'
-import React, { Fragment, FunctionComponent, useEffect, useState } from 'react'
+import React, {
+  Fragment,
+  FunctionComponent,
+  useCallback,
+  useEffect,
+  useState
+} from 'react'
 import { RouteComponentProps } from 'react-router-dom'
 import { collectionData, docData } from 'rxfire/firestore'
 import { take } from 'rxjs/operators'
@@ -24,7 +30,7 @@ const RouteThread: FunctionComponent<Props> = ({ match }) => {
   const [posts, setPosts] = useState<Post[]>([])
   const [thread, setThread] = useState<Post | null>(null)
   const classes = useStyles({})
-  const subscribePosts = () => {
+  const subscribePosts = useCallback(() => {
     const query = firestore()
       .collection(POSTS_AS_ANONYM)
       .doc(match.params.threadId)
@@ -35,8 +41,8 @@ const RouteThread: FunctionComponent<Props> = ({ match }) => {
       setPosts(_posts)
       setInProgressPosts(false)
     })
-  }
-  const subscribeThread = () => {
+  }, [match.params.threadId])
+  const subscribeThread = useCallback(() => {
     const query = firestore()
       .collection(POSTS_AS_ANONYM)
       .doc((match.params as any).threadId)
@@ -46,17 +52,19 @@ const RouteThread: FunctionComponent<Props> = ({ match }) => {
         setThread(_thread)
         setInProgressThread(false)
       })
-  }
+  }, [match.params])
+
   const inProgress = inProgressPosts || inProgressThread
 
   useEffect(() => {
-    const posts$$ = subscribePosts()
-    const threads$$ = subscribeThread()
-    return () => {
-      posts$$.unsubscribe()
-      threads$$.unsubscribe()
-    }
-  }, [])
+    const subscription = subscribePosts()
+    return () => subscription.unsubscribe()
+  }, [subscribePosts])
+
+  useEffect(() => {
+    const subscription = subscribeThread()
+    return () => subscription.unsubscribe()
+  }, [subscribeThread])
 
   return (
     <Fragment>

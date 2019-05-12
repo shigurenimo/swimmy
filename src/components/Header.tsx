@@ -1,4 +1,10 @@
-import { AppBar, IconButton, LinearProgress, Toolbar, Theme } from '@material-ui/core'
+import {
+  AppBar,
+  IconButton,
+  LinearProgress,
+  Theme,
+  Toolbar
+} from '@material-ui/core'
 import CloseIcon from '@material-ui/icons/Close'
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz'
 import PhotoIcon from '@material-ui/icons/Photo'
@@ -6,7 +12,6 @@ import PowerSettingsNewIcon from '@material-ui/icons/PowerSettingsNew'
 import WhatshotIcon from '@material-ui/icons/Whatshot'
 import { makeStyles } from '@material-ui/styles'
 import React, { Fragment, FunctionComponent, useContext, useState } from 'react'
-import Headroom from 'react-headroom'
 import { Link, RouteComponentProps, withRouter } from 'react-router-dom'
 import { AuthContext } from '../contexts/authContext'
 import { pct } from '../libs/pct'
@@ -40,49 +45,44 @@ const Header: FunctionComponent<Props> = ({ history, isClose }) => {
 
   return (
     <Fragment>
-      <Headroom disableInlineStyles={true}>
-        <AppBar position={'static'} className={classes.appBar}>
-          {authContext.isLoggingIn && (
-            <LinearProgress className={classes.progress} />
+      <AppBar position={'static'} className={classes.appBar}>
+        {authContext.isLoggingIn && (
+          <LinearProgress className={classes.progress} />
+        )}
+        <Toolbar>
+          <ImgLogo />
+          {isClose && (
+            <IconButton onClick={onGoBack} aria-label={'Close this page'}>
+              <CloseIcon />
+            </IconButton>
           )}
-          <Toolbar>
-            <ImgLogo />
-            {isClose && (
-              <IconButton onClick={onGoBack} aria-label={'Close this page'}>
-                <CloseIcon />
-              </IconButton>
-            )}
-            {!isClose && (
-              <div className={classes.actions}>
-                <Link to={'/images'}>
-                  <IconButton aria-label={'Open images page'}>
-                    <PhotoIcon />
-                  </IconButton>
-                </Link>
-                <Link to={'/threads'}>
-                  <IconButton aria-label={'Open threads page'}>
-                    <WhatshotIcon />
-                  </IconButton>
-                </Link>
-                <IconButton
-                  onClick={onOpenMenuDialog}
-                  aria-label={'Open a menu'}
-                >
-                  <MoreHorizIcon />
+          {!isClose && (
+            <div className={classes.actions}>
+              <Link to={'/images'}>
+                <IconButton aria-label={'Open images page'}>
+                  <PhotoIcon />
                 </IconButton>
-                {!authContext.isLoggingIn && !authContext.isLogged && (
-                  <IconButton
-                    onClick={onOpenSignInDialog}
-                    aria-label={'Open a login dialog'}
-                  >
-                    <PowerSettingsNewIcon />
-                  </IconButton>
-                )}
-              </div>
-            )}
-          </Toolbar>
-        </AppBar>
-      </Headroom>
+              </Link>
+              <Link to={'/threads'}>
+                <IconButton aria-label={'Open threads page'}>
+                  <WhatshotIcon />
+                </IconButton>
+              </Link>
+              <IconButton onClick={onOpenMenuDialog} aria-label={'Open a menu'}>
+                <MoreHorizIcon />
+              </IconButton>
+              {!authContext.isLoggingIn && !authContext.isLogged && (
+                <IconButton
+                  onClick={onOpenSignInDialog}
+                  aria-label={'Open a login dialog'}
+                >
+                  <PowerSettingsNewIcon />
+                </IconButton>
+              )}
+            </div>
+          )}
+        </Toolbar>
+      </AppBar>
       <DialogMenu isOpen={isOpenMenuDialog} onClose={onCloseMenuDialog} />
       <DialogSignIn isOpen={isOpenSignInDialog} closeDialog={closeDialog} />
     </Fragment>

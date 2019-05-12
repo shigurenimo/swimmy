@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useEffect } from 'react'
+import { FunctionComponent, useEffect } from 'react'
 
 type Props = {
   title?: string
@@ -48,10 +48,10 @@ const Head: FunctionComponent<Props> = ({
         meta.setAttribute('content', _title)
       }
       if (property && property.includes('og:url')) {
-        meta.setAttribute('content', location.href)
+        meta.setAttribute('content', window.location.href)
       }
     }
-  }, [])
+  }, [_title, description, image])
 
   return null
 }
