@@ -10,7 +10,6 @@
     "noEmit": true,
     "jsx": "preserve",
     "lib": ["es7", "dom"],
-    "allowJs": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
     "isolatedModules": true

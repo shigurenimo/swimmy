@@ -3,8 +3,8 @@
 ## Projects
 
 - [uufish/swimmy.io](https://github.com/swimmy/swimmy.io)
-- [uufish/swimmy.io-functions](https://github.com/swimmy/swimmy.io-functions)
-- [uufish/swimmy.io-app](https://github.com/swimmy/swimmy.io-app)
+- [uufish/swimmy](https://github.com/swimmy/swimmy)
+- [uufish/swimmy-app](https://github.com/swimmy/swimmy-app)
 
 ## Develop
 
