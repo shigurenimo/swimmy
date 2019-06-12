@@ -1,7 +1,7 @@
 import React from 'react'
 import { render } from 'react-dom'
-import App from './App'
-import './helpers/initializeApp'
+import App from './app/App'
+import './app/shared/helpers/initializeApp'
 import './index.css'
 import * as serviceWorker from './serviceWorker'
 
