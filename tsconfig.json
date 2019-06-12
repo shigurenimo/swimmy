@@ -12,7 +12,8 @@
     "lib": ["es7", "dom"],
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
-    "isolatedModules": true
+    "isolatedModules": true,
+    "allowJs": true
   },
   "include": ["src"]
 }
