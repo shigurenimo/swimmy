@@ -1,4 +1,4 @@
-import { CircularProgress, Divider, Fade, Theme } from '@material-ui/core'
+import { CircularProgress, Divider, Theme } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
 import Header from 'app/shared/components/AppBarDefault'
 import FragmentHead from 'app/shared/components/FragmentHead'
@@ -11,13 +11,7 @@ import { Post } from 'app/shared/firestore/types/post'
 import { toDateText } from 'app/shared/helpers/toDateText'
 import { px } from 'app/shared/styles/px'
 import { firestore } from 'firebase/app'
-import React, {
-  Fragment,
-  FunctionComponent,
-  useCallback,
-  useEffect,
-  useState
-} from 'react'
+import React, { Fragment, FunctionComponent, useEffect, useState } from 'react'
 import { RouteComponentProps } from 'react-router-dom'
 import { collectionData, docData } from 'rxfire/firestore'
 import { take } from 'rxjs/operators'
@@ -25,46 +19,46 @@ import { take } from 'rxjs/operators'
 type Props = RouteComponentProps<{ threadId: string }>
 
 const RouteThread: FunctionComponent<Props> = ({ match }) => {
-  const [inProgressPosts, setInProgressPosts] = useState(true)
-  const [inProgressThread, setInProgressThread] = useState(true)
+  const [loadingPosts, setLoadingPosts] = useState(true)
+
+  const [loadingPost, setLoadingPost] = useState(true)
+
   const [posts, setPosts] = useState<Post[]>([])
+
   const [thread, setThread] = useState<Post | null>(null)
+
   const classes = useStyles({})
-  const subscribePosts = useCallback(() => {
-    const query = firestore()
-      .collection(POSTS_AS_ANONYM)
-      .doc(match.params.threadId)
-      .collection(POSTS)
-      .limit(120)
-      .orderBy('createdAt', DESC)
-    return collectionData<Post>(query).subscribe(_posts => {
+
+  useEffect(() => {
+    const subscription = collectionData<Post>(
+      firestore()
+        .collection(POSTS_AS_ANONYM)
+        .doc(match.params.threadId)
+        .collection(POSTS)
+        .limit(120)
+        .orderBy('createdAt', DESC)
+    ).subscribe(_posts => {
       setPosts(_posts)
-      setInProgressPosts(false)
+      setLoadingPosts(false)
     })
+    return () => subscription.unsubscribe()
   }, [match.params.threadId])
-  const subscribeThread = useCallback(() => {
-    const query = firestore()
-      .collection(POSTS_AS_ANONYM)
-      .doc(match.params.threadId)
-    return docData<Post>(query)
+
+  useEffect(() => {
+    const subscription = docData<Post>(
+      firestore()
+        .collection(POSTS_AS_ANONYM)
+        .doc(match.params.threadId)
+    )
       .pipe(take(2))
       .subscribe(_thread => {
         setThread(_thread)
-        setInProgressThread(false)
+        setLoadingPost(false)
       })
-  }, [match.params])
-
-  const inProgress = inProgressPosts || inProgressThread
-
-  useEffect(() => {
-    const subscription = subscribePosts()
     return () => subscription.unsubscribe()
-  }, [subscribePosts])
+  }, [match.params.threadId])
 
-  useEffect(() => {
-    const subscription = subscribeThread()
-    return () => subscription.unsubscribe()
-  }, [subscribeThread])
+  const inProgress = loadingPosts || loadingPost
 
   return (
     <Fragment>
@@ -87,17 +81,15 @@ const RouteThread: FunctionComponent<Props> = ({ match }) => {
         <TextFieldPost replyPostId={match.params.threadId} />
         {inProgress && <CircularProgress className={classes.progress} />}
         {!inProgress && (
-          <Fade in>
-            <div>
-              {posts.map((post, index) => (
-                <Fragment key={post.id}>
-                  <ListItemPost index={posts.length - index} post={post} />
-                  <Divider />
-                </Fragment>
-              ))}
-              {thread && <ListItemPost index={0} post={thread} />}
-            </div>
-          </Fade>
+          <div>
+            {posts.map((post, index) => (
+              <Fragment key={post.id}>
+                <ListItemPost index={posts.length - index} post={post} />
+                <Divider />
+              </Fragment>
+            ))}
+            {thread && <ListItemPost index={0} post={thread} />}
+          </div>
         )}
       </main>
     </Fragment>
