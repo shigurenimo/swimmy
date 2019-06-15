@@ -18,15 +18,15 @@ import { collectionData } from 'rxfire/firestore'
 const RouteHome: FunctionComponent = () => {
   const key = window.location.pathname
 
-  const [_posts, _limit, setState] = useCollectionState<Post>(key)
+  const [__posts, __limit, setState] = useCollectionState<Post>(key)
 
-  const [loading, setLoading] = useState(_posts.length === 0)
+  const [posts, setPosts] = useState<Post[]>(__posts)
 
-  const [LoadingMore, setLoadingMore] = useState(false)
+  const [limit, setLimit] = useState<number>(__limit)
 
-  const [posts, setPosts] = useState<Post[]>(_posts)
+  const [loading, setLoading] = useState(__posts.length === 0)
 
-  const [limit, setLimit] = useState<number>(_limit)
+  const [loadingMore, setLoadingMore] = useState(false)
 
   const classes = useStyles({})
 
@@ -45,13 +45,11 @@ const RouteHome: FunctionComponent = () => {
   }, [limit])
 
   useEffect(() => {
-    return () => {
-      setState(posts, limit)
-    }
+    return () => setState(posts, limit)
   }, [limit, posts, setState])
 
   const onLoadMore = () => {
-    if (LoadingMore) return
+    if (loadingMore) return
     setLoadingMore(true)
     setLimit(limit + 16)
   }
@@ -79,7 +77,7 @@ const RouteHome: FunctionComponent = () => {
               ))}
             </ul>
             {limit < 400 && (
-              <ButtonMore onClick={onLoadMore} inProgress={LoadingMore} />
+              <ButtonMore onClick={onLoadMore} inProgress={loadingMore} />
             )}
           </section>
         )}

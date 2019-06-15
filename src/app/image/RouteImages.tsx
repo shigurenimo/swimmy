@@ -1,4 +1,4 @@
-import { CircularProgress, Fade, Tab, Tabs, Theme } from '@material-ui/core'
+import { CircularProgress, Tab, Tabs, Theme } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
 import Header from 'app/shared/components/AppBarDefault'
 import ButtonMore from 'app/shared/components/ButtonMore'
@@ -8,11 +8,17 @@ import { POSTS_AS_IMAGE } from 'app/shared/constants/collection'
 import { DESC } from 'app/shared/constants/order'
 import { Post } from 'app/shared/firestore/types/post'
 import { getOrderBy } from 'app/shared/helpers/getOrderBy'
-import { useCache } from 'app/shared/hooks/useCache'
+import { useCollectionState } from 'app/shared/hooks/useCollectionState'
 import { px } from 'app/shared/styles/px'
 import { resetList } from 'app/shared/styles/resetList'
 import { firestore } from 'firebase/app'
-import React, { Fragment, FunctionComponent, useEffect, useState } from 'react'
+import React, {
+  ChangeEvent,
+  Fragment,
+  FunctionComponent,
+  useEffect,
+  useState
+} from 'react'
 import { RouteComponentProps } from 'react-router'
 import { collectionData } from 'rxfire/firestore'
 import CardImage from './components/CardImage'
@@ -20,49 +26,51 @@ import CardImage from './components/CardImage'
 type Props = RouteComponentProps
 
 const RouteImages: FunctionComponent<Props> = ({ location, history }) => {
-  const classes = useStyles({})
-  const [cache, setCache] = useCache(location.pathname + location.search)
-  const [limit, setLimit] = useState(cache.limit)
-  const [inProgress, setInProgress] = useState(cache.posts.length === 0)
-  const [inProgressMore, setInProgressMore] = useState(false)
+  const key = location.pathname + location.search
+
+  const [__posts, __limit, setState] = useCollectionState<Post>(key)
+
+  const [posts, setPosts] = useState<Post[]>(__posts)
+
   const [orderBy, setOrderBy] = useState(getOrderBy())
-  const [posts, setPosts] = useState<Post[]>(cache.posts)
-  const onChangeTab = (_: any, _orderBy: string) => {
-    history.push(`?order=${orderBy}`)
-    setOrderBy(_orderBy)
-    setInProgress(true)
-  }
-  const subscribePosts = (_orderBy: string, _limit = 16) => {
-    const query = firestore()
-      .collection(POSTS_AS_IMAGE)
-      .limit(_limit)
-      .orderBy(_orderBy, DESC)
-    return collectionData<Post>(query).subscribe(_posts => {
-      setPosts(_posts)
-      setInProgress(false)
-      setInProgressMore(false)
-    })
-  }
-  const onMore = () => {
-    if (inProgressMore) {
-      return
-    }
-    setInProgressMore(true)
-    setLimit(limit + 16)
-  }
+
+  const [limit, setLimit] = useState<number>(__limit)
+
+  const [loading, setLoading] = useState(__posts.length === 0)
+
+  const [loadingMore, setLoadingMore] = useState(false)
+
+  const classes = useStyles({})
 
   useEffect(() => {
-    const posts$ = subscribePosts(orderBy, limit)
-    return () => {
-      posts$.unsubscribe()
-    }
+    const subscription = collectionData<Post>(
+      firestore()
+        .collection(POSTS_AS_IMAGE)
+        .limit(limit)
+        .orderBy(orderBy, DESC)
+    ).subscribe(__posts => {
+      setPosts(__posts)
+      setLoading(false)
+      setLoadingMore(false)
+    })
+    return () => subscription.unsubscribe()
   }, [limit, orderBy])
 
   useEffect(() => {
-    return () => {
-      setCache({ posts, limit })
-    }
-  }, [limit, posts, setCache])
+    return () => setState(posts, limit)
+  }, [limit, posts, setState])
+
+  const onMore = () => {
+    if (loadingMore) return
+    setLoadingMore(true)
+    setLimit(limit + 16)
+  }
+
+  const onChangeTab = (_: ChangeEvent<{}>, _orderBy: string) => {
+    history.push(`?order=${_orderBy}`)
+    setOrderBy(_orderBy)
+    setLoading(true)
+  }
 
   return (
     <Fragment>
@@ -86,22 +94,20 @@ const RouteImages: FunctionComponent<Props> = ({ location, history }) => {
           <Tab label={'評価数'} value={'likeCount'} />
           <Tab label={'コメント数'} value={'replyPostCount'} />
         </Tabs>
-        {inProgress && <CircularProgress className={classes.progress} />}
-        {!inProgress && (
-          <Fade in>
-            <section className={classes.section}>
-              <ul className={classes.ul}>
-                {posts.map(post => (
-                  <li key={post.id}>
-                    <CardImage post={post} />
-                  </li>
-                ))}
-              </ul>
-              {limit < 200 && (
-                <ButtonMore onClick={onMore} inProgress={inProgressMore} />
-              )}
-            </section>
-          </Fade>
+        {loading && <CircularProgress className={classes.progress} />}
+        {!loading && (
+          <section className={classes.section}>
+            <ul className={classes.ul}>
+              {posts.map(post => (
+                <li key={post.id}>
+                  <CardImage post={post} />
+                </li>
+              ))}
+            </ul>
+            {limit < 200 && (
+              <ButtonMore onClick={onMore} inProgress={loadingMore} />
+            )}
+          </section>
         )}
       </main>
     </Fragment>
