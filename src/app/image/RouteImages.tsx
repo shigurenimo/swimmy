@@ -84,7 +84,7 @@ const RouteImages: FunctionComponent<Props> = ({ location, history }) => {
         >
           <Tab label={'新着'} value={'createdAt'} />
           <Tab label={'評価数'} value={'likeCount'} />
-          <Tab label={'レス数'} value={'replyPostCount'} />
+          <Tab label={'コメント数'} value={'replyPostCount'} />
         </Tabs>
         {inProgress && <CircularProgress className={classes.progress} />}
         {!inProgress && (

@@ -63,12 +63,12 @@ const RouteThreads: FunctionComponent<Props> = ({ location, history }) => {
 
   return (
     <Fragment>
-      <FragmentHead title={'レスのある書き込み一覧です'} />
+      <FragmentHead title={'コメントのある書き込み一覧です'} />
       <Header />
       <main className={classes.root}>
         <SectionTitle
           title={'スレッド'}
-          description={'レスのある書き込みはこのページで確認できます。'}
+          description={'コメントのある書き込みはこのページで確認できます。'}
         />
         <Tabs
           indicatorColor={'primary'}
@@ -78,7 +78,7 @@ const RouteThreads: FunctionComponent<Props> = ({ location, history }) => {
         >
           <Tab label={'新着'} value={'createdAt'} />
           <Tab label={'評価数'} value={'likeCount'} />
-          <Tab label={'レス数'} value={'replyPostCount'} />
+          <Tab label={'コメント数'} value={'replyPostCount'} />
         </Tabs>
         {inProgress && <CircularProgress className={classes.progress} />}
         {!inProgress && (
