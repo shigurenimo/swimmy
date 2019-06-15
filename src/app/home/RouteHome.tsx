@@ -13,10 +13,13 @@ import { useCollectionState } from 'app/shared/hooks/useCollectionState'
 import { px } from 'app/shared/styles/px'
 import { firestore } from 'firebase/app'
 import React, { Fragment, FunctionComponent, useEffect, useState } from 'react'
+import { RouteComponentProps } from 'react-router'
 import { collectionData } from 'rxfire/firestore'
 
-const RouteHome: FunctionComponent = () => {
-  const key = window.location.pathname
+type Props = RouteComponentProps
+
+const RouteHome: FunctionComponent<Props> = ({ location }) => {
+  const key = location.pathname
 
   const [__posts, __limit, setState] = useCollectionState<Post>(key)
 
