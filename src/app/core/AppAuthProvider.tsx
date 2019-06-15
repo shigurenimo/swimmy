@@ -4,6 +4,7 @@ import React, { FunctionComponent, useEffect, useState } from 'react'
 
 const AppAuthProvider: FunctionComponent = ({ children }) => {
   const [isLoggingIn, setIsLoggingIn] = useState(true)
+
   const [isLogged, setIsLogged] = useState(false)
 
   useEffect(() => {

@@ -12,47 +12,39 @@ import PowerSettingsNewIcon from '@material-ui/icons/PowerSettingsNew'
 import WhatshotIcon from '@material-ui/icons/Whatshot'
 import { makeStyles } from '@material-ui/styles'
 import DialogMenu from 'app/core/DialogMenu'
+import { useAuthLoading } from 'app/shared/auth/useAuthLoading'
+import { useAuthUser } from 'app/shared/auth/useAuthUser'
 import DialogSignIn from 'app/shared/components/DialogSignIn'
 import ImgLogo from 'app/shared/components/ImgLogo'
-import { AuthContext } from 'app/shared/contexts/authContext'
 import { pct } from 'app/shared/styles/pct'
 import { px } from 'app/shared/styles/px'
-import React, { Fragment, FunctionComponent, useContext, useState } from 'react'
+import React, { Fragment, FunctionComponent, useState } from 'react'
 import { Link, RouteComponentProps, withRouter } from 'react-router-dom'
 
 type Props = RouteComponentProps & { isClose?: boolean }
 
 const AppBarDefault: FunctionComponent<Props> = ({ history, isClose }) => {
-  const authContext = useContext(AuthContext)
+  const [authUser] = useAuthUser()
+
+  const [authLoading] = useAuthLoading()
+
   const [isOpenSignInDialog, setIsOpenSignInDialog] = useState(false)
+
   const [isOpenMenuDialog, setIsOpenMenuDialog] = useState(false)
-  const onOpenMenuDialog = () => {
-    setIsOpenMenuDialog(true)
-  }
-  const onOpenSignInDialog = () => {
-    setIsOpenSignInDialog(true)
-  }
-  const onCloseMenuDialog = () => {
-    setIsOpenMenuDialog(false)
-  }
-  const closeDialog = () => {
-    setIsOpenSignInDialog(false)
-  }
-  const onGoBack = () => {
-    history.goBack()
-  }
+
   const classes = useStyle({})
 
   return (
     <Fragment>
       <AppBar position={'sticky'} className={classes.appBar}>
-        {authContext.isLoggingIn && (
-          <LinearProgress className={classes.progress} />
-        )}
+        {authLoading && <LinearProgress className={classes.progress} />}
         <Toolbar>
           <ImgLogo />
           {isClose && (
-            <IconButton onClick={onGoBack} aria-label={'Close this page'}>
+            <IconButton
+              onClick={() => history.goBack()}
+              aria-label={'Close this page'}
+            >
               <CloseIcon />
             </IconButton>
           )}
@@ -68,12 +60,15 @@ const AppBarDefault: FunctionComponent<Props> = ({ history, isClose }) => {
                   <WhatshotIcon />
                 </IconButton>
               </Link>
-              <IconButton onClick={onOpenMenuDialog} aria-label={'Open a menu'}>
+              <IconButton
+                onClick={() => setIsOpenMenuDialog(true)}
+                aria-label={'Open a menu'}
+              >
                 <MoreHorizIcon />
               </IconButton>
-              {!authContext.isLoggingIn && !authContext.isLogged && (
+              {!authLoading && authUser !== null && (
                 <IconButton
-                  onClick={onOpenSignInDialog}
+                  onClick={() => setIsOpenSignInDialog(true)}
                   aria-label={'Open a login dialog'}
                 >
                   <PowerSettingsNewIcon />
@@ -83,8 +78,14 @@ const AppBarDefault: FunctionComponent<Props> = ({ history, isClose }) => {
           )}
         </Toolbar>
       </AppBar>
-      <DialogMenu isOpen={isOpenMenuDialog} onClose={onCloseMenuDialog} />
-      <DialogSignIn isOpen={isOpenSignInDialog} closeDialog={closeDialog} />
+      <DialogMenu
+        isOpen={isOpenMenuDialog}
+        onClose={() => setIsOpenMenuDialog(false)}
+      />
+      <DialogSignIn
+        isOpen={isOpenSignInDialog}
+        closeDialog={() => setIsOpenSignInDialog(false)}
+      />
     </Fragment>
   )
 }
