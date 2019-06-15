@@ -1,4 +1,4 @@
-import { CircularProgress, Divider, Fade, Theme } from '@material-ui/core'
+import { CircularProgress, Divider, Theme } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
 import CardPost from 'app/home/components/CardPost'
 import Header from 'app/shared/components/AppBarDefault'
@@ -9,7 +9,7 @@ import TextFieldPost from 'app/shared/components/TextFieldPost'
 import { POSTS_AS_ANONYM } from 'app/shared/constants/collection'
 import { DESC } from 'app/shared/constants/order'
 import { Post } from 'app/shared/firestore/types/post'
-import { useCache } from 'app/shared/hooks/useCache'
+import { useCollectionState } from 'app/shared/hooks/useCollectionState'
 import { px } from 'app/shared/styles/px'
 import { firestore } from 'firebase/app'
 import React, { Fragment, FunctionComponent, useEffect, useState } from 'react'
@@ -17,42 +17,46 @@ import { collectionData } from 'rxfire/firestore'
 
 const RouteHome: FunctionComponent = () => {
   const classes = useStyles({})
-  const [cache, setCache] = useCache(window.location.pathname)
-  const [limit, setLimit] = useState<number>(cache.limit)
-  const [inProgress, setInProgress] = useState(cache.posts.length === 0)
+
+  const [_posts, _limit, setState] = useCollectionState<Post>(
+    window.location.pathname,
+    [],
+    16
+  )
+
+  const [inProgress, setInProgress] = useState(_posts.length === 0)
+
   const [inProgressMore, setInProgressMore] = useState(false)
-  const [posts, setPosts] = useState<Post[]>(cache.posts)
-  const subscribePosts = (_limit = 16) => {
-    const query = firestore()
-      .collection(POSTS_AS_ANONYM)
-      .limit(_limit)
-      .orderBy('createdAt', DESC)
-    return collectionData<Post>(query).subscribe(_posts => {
-      setPosts(_posts)
-      setInProgress(false)
-      setInProgressMore(false)
-    })
-  }
-  const onMore = () => {
-    if (inProgressMore) {
-      return
-    }
+
+  const [limit, setLimit] = useState<number>(_limit)
+
+  const [posts, setPosts] = useState<Post[]>(_posts)
+
+  const onLoadMore = () => {
+    if (inProgressMore) return
     setInProgressMore(true)
     setLimit(limit + 16)
   }
 
   useEffect(() => {
-    const posts$ = subscribePosts(limit)
-    return () => {
-      posts$.unsubscribe()
-    }
+    const subscription = collectionData<Post>(
+      firestore()
+        .collection(POSTS_AS_ANONYM)
+        .limit(limit)
+        .orderBy('createdAt', DESC)
+    ).subscribe(__posts => {
+      setPosts(__posts)
+      setInProgress(false)
+      setInProgressMore(false)
+    })
+    return () => subscription.unsubscribe()
   }, [limit])
 
   useEffect(() => {
     return () => {
-      setCache({ posts, limit })
+      setState(posts, limit)
     }
-  }, [limit, posts, setCache])
+  }, [limit, posts, setState])
 
   return (
     <Fragment>
@@ -67,21 +71,19 @@ const RouteHome: FunctionComponent = () => {
         <TextFieldPost />
         {inProgress && <CircularProgress className={classes.progress} />}
         {!inProgress && (
-          <Fade in>
-            <section className={classes.section}>
-              <ul className={classes.posts}>
-                {posts.map((post, index) => (
-                  <li key={post.id}>
-                    <CardPost post={post} />
-                    <Divider />
-                  </li>
-                ))}
-              </ul>
-              {limit < 120 && (
-                <ButtonMore onClick={onMore} inProgress={inProgressMore} />
-              )}
-            </section>
-          </Fade>
+          <section className={classes.section}>
+            <ul className={classes.posts}>
+              {posts.map((post, index) => (
+                <li key={post.id}>
+                  <CardPost post={post} />
+                  <Divider />
+                </li>
+              ))}
+            </ul>
+            {limit < 120 && (
+              <ButtonMore onClick={onLoadMore} inProgress={inProgressMore} />
+            )}
+          </section>
         )}
       </main>
     </Fragment>
