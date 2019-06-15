@@ -18,7 +18,7 @@ export const createTheme = () => {
     palette: {
       background: { default: '#ffffff' },
       divider: 'rgba(0, 0, 0, 0.08)',
-      primary: { main: cyan[500] },
+      primary: { main: cyan.A700 },
       secondary: { main: blue.A400 }
     },
     props: { MuiButtonBase: { disableRipple: true } },

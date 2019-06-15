@@ -78,7 +78,7 @@ const RouteHome: FunctionComponent = () => {
                 </li>
               ))}
             </ul>
-            {limit < 120 && (
+            {limit < 400 && (
               <ButtonMore onClick={onLoadMore} inProgress={LoadingMore} />
             )}
           </section>
