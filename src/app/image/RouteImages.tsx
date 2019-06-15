@@ -6,6 +6,7 @@ import FragmentHead from 'app/shared/components/FragmentHead'
 import SectionTitle from 'app/shared/components/SectionTitle'
 import { POSTS_AS_IMAGE } from 'app/shared/constants/collection'
 import { DESC } from 'app/shared/constants/order'
+import { WORD_PHOTO, WORD_RESPONSE } from 'app/shared/constants/word'
 import { Post } from 'app/shared/firestore/types/post'
 import { getOrderBy } from 'app/shared/helpers/getOrderBy'
 import { useCollectionState } from 'app/shared/hooks/useCollectionState'
@@ -26,15 +27,15 @@ import CardImage from './components/CardImage'
 type Props = RouteComponentProps
 
 const RouteImages: FunctionComponent<Props> = ({ location, history }) => {
-  const key = location.pathname + location.search
+  const key = `${location.pathname}${location.search}`
 
   const [__posts, __limit, setState] = useCollectionState<Post>(key)
 
-  const [posts, setPosts] = useState<Post[]>(__posts)
+  const [posts, setPosts] = useState(__posts)
+
+  const [limit, setLimit] = useState(__limit)
 
   const [orderBy, setOrderBy] = useState(getOrderBy())
-
-  const [limit, setLimit] = useState<number>(__limit)
 
   const [loading, setLoading] = useState(__posts.length === 0)
 
@@ -48,8 +49,8 @@ const RouteImages: FunctionComponent<Props> = ({ location, history }) => {
         .collection(POSTS_AS_IMAGE)
         .limit(limit)
         .orderBy(orderBy, DESC)
-    ).subscribe(__posts => {
-      setPosts(__posts)
+    ).subscribe(_posts => {
+      setPosts(_posts)
       setLoading(false)
       setLoadingMore(false)
     })
@@ -75,14 +76,14 @@ const RouteImages: FunctionComponent<Props> = ({ location, history }) => {
   return (
     <Fragment>
       <FragmentHead
-        title={'フォトグラフィ'}
-        description={'画像の添付された書き込みです。'}
+        title={WORD_PHOTO}
+        description={`${WORD_PHOTO}の添付された書き込みです。`}
       />
       <Header />
       <main className={classes.root}>
         <SectionTitle
-          title={'フォトグラフィ'}
-          description={'画像の添付された書き込みはここに表示されます。'}
+          title={WORD_PHOTO}
+          description={`${WORD_PHOTO}の添付された書き込みはここに表示されます。`}
         />
         <Tabs
           indicatorColor={'primary'}
@@ -92,7 +93,7 @@ const RouteImages: FunctionComponent<Props> = ({ location, history }) => {
         >
           <Tab label={'新着'} value={'createdAt'} />
           <Tab label={'評価数'} value={'likeCount'} />
-          <Tab label={'コメント数'} value={'replyPostCount'} />
+          <Tab label={`${WORD_RESPONSE}数`} value={'replyPostCount'} />
         </Tabs>
         {loading && <CircularProgress className={classes.progress} />}
         {!loading && (

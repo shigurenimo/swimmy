@@ -20,9 +20,9 @@ const RouteHome: FunctionComponent = () => {
 
   const [__posts, __limit, setState] = useCollectionState<Post>(key)
 
-  const [posts, setPosts] = useState<Post[]>(__posts)
+  const [posts, setPosts] = useState(__posts)
 
-  const [limit, setLimit] = useState<number>(__limit)
+  const [limit, setLimit] = useState(__limit)
 
   const [loading, setLoading] = useState(__posts.length === 0)
 
@@ -36,8 +36,8 @@ const RouteHome: FunctionComponent = () => {
         .collection(POSTS_AS_ANONYM)
         .limit(limit)
         .orderBy('createdAt', DESC)
-    ).subscribe(__posts => {
-      setPosts(__posts)
+    ).subscribe(_posts => {
+      setPosts(_posts)
       setLoading(false)
       setLoadingMore(false)
     })

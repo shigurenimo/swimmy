@@ -1,4 +1,4 @@
-import { CircularProgress, Fade, Tab, Tabs, Theme } from '@material-ui/core'
+import { CircularProgress, Tab, Tabs, Theme } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
 import Header from 'app/shared/components/AppBarDefault'
 import ButtonMore from 'app/shared/components/ButtonMore'
@@ -6,68 +6,79 @@ import FragmentHead from 'app/shared/components/FragmentHead'
 import SectionTitle from 'app/shared/components/SectionTitle'
 import { POSTS_AS_THREAD } from 'app/shared/constants/collection'
 import { DESC } from 'app/shared/constants/order'
+import { WORD_RESPONSE, WORD_THREAD } from 'app/shared/constants/word'
 import { Post } from 'app/shared/firestore/types/post'
 import { getOrderBy } from 'app/shared/helpers/getOrderBy'
-import { useCache } from 'app/shared/hooks/useCache'
+import { useCollectionState } from 'app/shared/hooks/useCollectionState'
 import { px } from 'app/shared/styles/px'
 import CardThread from 'app/thread/components/CardThread'
 import { firestore } from 'firebase/app'
-import React, { Fragment, FunctionComponent, useEffect, useState } from 'react'
+import React, {
+  ChangeEvent,
+  Fragment,
+  FunctionComponent,
+  useEffect,
+  useState
+} from 'react'
 import { RouteComponentProps } from 'react-router-dom'
 import { collectionData } from 'rxfire/firestore'
 
 type Props = RouteComponentProps
 
 const RouteThreads: FunctionComponent<Props> = ({ location, history }) => {
-  const classes = useStyles({})
-  const [cache, setCache] = useCache(location.pathname + location.search)
-  const [limit, setLimit] = useState(cache.limit)
-  const [inProgress, setInProgress] = useState(cache.posts.length === 0)
-  const [inProgressMore, setInProgressMore] = useState(false)
+  const key = `${location.pathname}${location.search}`
+
+  const [__posts, __limit, setState] = useCollectionState<Post>(key)
+
+  const [posts, setPosts] = useState(__posts)
+
+  const [limit, setLimit] = useState(__limit)
+
   const [orderBy, setOrderBy] = useState(getOrderBy())
-  const [posts, setPosts] = useState<Post[]>(cache.posts)
-  const onChangeTab = (_: any, _orderBy: string) => {
-    history.push(`?order=${_orderBy}`)
-    setOrderBy(_orderBy)
-    setInProgress(true)
-  }
-  const subscribePosts = (_orderBy: string, _limit = 16) => {
-    const query = firestore()
-      .collection(POSTS_AS_THREAD)
-      .limit(_limit)
-      .orderBy(_orderBy, DESC)
-    return collectionData<Post>(query).subscribe(_posts => {
+
+  const [loading, setLoading] = useState(__posts.length === 0)
+
+  const [loadingMore, setLoadingMore] = useState(false)
+
+  const classes = useStyles({})
+
+  useEffect(() => {
+    const subscription = collectionData<Post>(
+      firestore()
+        .collection(POSTS_AS_THREAD)
+        .limit(limit)
+        .orderBy(orderBy, DESC)
+    ).subscribe(_posts => {
       setPosts(_posts)
-      setInProgress(false)
-      setInProgressMore(false)
+      setLoading(false)
+      setLoadingMore(false)
     })
-  }
+    return () => subscription.unsubscribe()
+  }, [limit, orderBy, posts])
+
+  useEffect(() => {
+    return () => setState(posts, limit)
+  }, [limit, posts, setState])
+
   const onMore = () => {
-    if (inProgressMore) {
-      return
-    }
-    setInProgressMore(true)
+    if (loadingMore) return
+    setLoadingMore(true)
     setLimit(limit + 16)
   }
 
-  useEffect(() => {
-    const posts$ = subscribePosts(orderBy, limit)
-    return () => {
-      posts$.unsubscribe()
-    }
-  }, [limit, orderBy])
-
-  useEffect(() => {
-    return () => setCache({ posts, limit })
-  }, [limit, posts, setCache])
+  const onChangeTab = (_: ChangeEvent<{}>, _orderBy: string) => {
+    history.push(`?order=${_orderBy}`)
+    setOrderBy(_orderBy)
+    setLoading(true)
+  }
 
   return (
     <Fragment>
-      <FragmentHead title={'コメントのある書き込み一覧です'} />
+      <FragmentHead title={`${WORD_RESPONSE}のある書き込み一覧です`} />
       <Header />
       <main className={classes.root}>
         <SectionTitle
-          title={'スレッド'}
+          title={WORD_THREAD}
           description={'コメントのある書き込みはこのページで確認できます。'}
         />
         <Tabs
@@ -78,22 +89,20 @@ const RouteThreads: FunctionComponent<Props> = ({ location, history }) => {
         >
           <Tab label={'新着'} value={'createdAt'} />
           <Tab label={'評価数'} value={'likeCount'} />
-          <Tab label={'コメント数'} value={'replyPostCount'} />
+          <Tab label={`${WORD_RESPONSE}数`} value={'replyPostCount'} />
         </Tabs>
-        {inProgress && <CircularProgress className={classes.progress} />}
-        {!inProgress && (
-          <Fade in>
-            <section className={classes.section}>
-              <div className={classes.posts}>
-                {posts.map(post => (
-                  <CardThread key={post.id} post={post} />
-                ))}
-              </div>
-              {limit < 200 && (
-                <ButtonMore onClick={onMore} inProgress={inProgressMore} />
-              )}
-            </section>
-          </Fade>
+        {loading && <CircularProgress className={classes.progress} />}
+        {!loading && (
+          <section className={classes.section}>
+            <div className={classes.posts}>
+              {posts.map(post => (
+                <CardThread key={post.id} post={post} />
+              ))}
+            </div>
+            {limit < 200 && (
+              <ButtonMore onClick={onMore} inProgress={loadingMore} />
+            )}
+          </section>
         )}
       </main>
     </Fragment>
