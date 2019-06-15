@@ -16,27 +16,19 @@ import React, { Fragment, FunctionComponent, useEffect, useState } from 'react'
 import { collectionData } from 'rxfire/firestore'
 
 const RouteHome: FunctionComponent = () => {
-  const classes = useStyles({})
+  const key = window.location.pathname
 
-  const [_posts, _limit, setState] = useCollectionState<Post>(
-    window.location.pathname,
-    [],
-    16
-  )
+  const [_posts, _limit, setState] = useCollectionState<Post>(key)
 
-  const [inProgress, setInProgress] = useState(_posts.length === 0)
+  const [loading, setLoading] = useState(_posts.length === 0)
 
-  const [inProgressMore, setInProgressMore] = useState(false)
-
-  const [limit, setLimit] = useState<number>(_limit)
+  const [LoadingMore, setLoadingMore] = useState(false)
 
   const [posts, setPosts] = useState<Post[]>(_posts)
 
-  const onLoadMore = () => {
-    if (inProgressMore) return
-    setInProgressMore(true)
-    setLimit(limit + 16)
-  }
+  const [limit, setLimit] = useState<number>(_limit)
+
+  const classes = useStyles({})
 
   useEffect(() => {
     const subscription = collectionData<Post>(
@@ -46,8 +38,8 @@ const RouteHome: FunctionComponent = () => {
         .orderBy('createdAt', DESC)
     ).subscribe(__posts => {
       setPosts(__posts)
-      setInProgress(false)
-      setInProgressMore(false)
+      setLoading(false)
+      setLoadingMore(false)
     })
     return () => subscription.unsubscribe()
   }, [limit])
@@ -57,6 +49,12 @@ const RouteHome: FunctionComponent = () => {
       setState(posts, limit)
     }
   }, [limit, posts, setState])
+
+  const onLoadMore = () => {
+    if (LoadingMore) return
+    setLoadingMore(true)
+    setLimit(limit + 16)
+  }
 
   return (
     <Fragment>
@@ -69,8 +67,8 @@ const RouteHome: FunctionComponent = () => {
           ログインすることでSNSのような機能が使えたりもします。`}
         />
         <TextFieldPost />
-        {inProgress && <CircularProgress className={classes.progress} />}
-        {!inProgress && (
+        {loading && <CircularProgress className={classes.progress} />}
+        {!loading && (
           <section className={classes.section}>
             <ul className={classes.posts}>
               {posts.map((post, index) => (
@@ -81,7 +79,7 @@ const RouteHome: FunctionComponent = () => {
               ))}
             </ul>
             {limit < 120 && (
-              <ButtonMore onClick={onLoadMore} inProgress={inProgressMore} />
+              <ButtonMore onClick={onLoadMore} inProgress={LoadingMore} />
             )}
           </section>
         )}
