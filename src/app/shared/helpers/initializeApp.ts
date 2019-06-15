@@ -14,7 +14,7 @@ initializeApp({
 })
 
 firestore()
-  .enablePersistence({ experimentalTabSynchronization: true })
+  .enablePersistence({ synchronizeTabs: true })
   .catch(err => {
     console.error(err)
   })

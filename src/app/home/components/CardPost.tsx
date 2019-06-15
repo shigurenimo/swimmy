@@ -41,7 +41,12 @@ const CardPost: FunctionComponent<Props> = ({ inProgress, post }) => {
 const useStyle = makeStyles<Theme>(({ palette, spacing, typography }) => {
   return {
     card: {
-      padding: spacing(2),
+      display: 'grid',
+      gridGap: spacing(0.5),
+      paddingBottom: spacing(1.2),
+      paddingLeft: spacing(2),
+      paddingRight: spacing(2),
+      paddingTop: spacing(1.2),
       '&:hover': { background: 'rgba(0, 0, 0, 0.1)' }
     },
     likeCount: { paddingLeft: spacing(1), color: palette.secondary.light },

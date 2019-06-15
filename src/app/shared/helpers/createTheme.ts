@@ -1,4 +1,4 @@
-import { blue, pink } from '@material-ui/core/colors'
+import { blue, cyan } from '@material-ui/core/colors'
 import { createMuiTheme } from '@material-ui/core/styles'
 
 export const createTheme = () => {
@@ -18,8 +18,8 @@ export const createTheme = () => {
     palette: {
       background: { default: '#ffffff' },
       divider: 'rgba(0, 0, 0, 0.08)',
-      primary: { main: blue.A700 },
-      secondary: { main: pink[500] }
+      primary: { main: cyan[500] },
+      secondary: { main: blue.A400 }
     },
     props: { MuiButtonBase: { disableRipple: true } },
     shape: { borderRadius: 4 },

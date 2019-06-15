@@ -1,5 +1,6 @@
 import { Theme, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
+import { px } from 'app/shared/styles/px'
 import React, { FunctionComponent } from 'react'
 
 type Props = {
@@ -35,8 +36,16 @@ const PostCounts: FunctionComponent<Props> = ({
 
 const useStyles = makeStyles<Theme>(({ palette, spacing }) => {
   return {
-    likeCount: { color: palette.secondary.dark },
-    replyPostCount: { color: palette.primary.dark },
+    likeCount: {
+      color: palette.secondary.main,
+      fontSize: px(12),
+      fontWeight: 'bold'
+    },
+    replyPostCount: {
+      color: palette.primary.main,
+      fontSize: px(12),
+      fontWeight: 'bold'
+    },
     root: {
       display: 'grid',
       gridAutoFlow: 'column',

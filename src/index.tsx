@@ -7,7 +7,7 @@ import * as serviceWorker from './serviceWorker'
 
 render(<App />, document.getElementById('root'))
 
-serviceWorker.register({})
+serviceWorker.unregister()
 
 if ('scrollRestoration' in window.history) {
   window.history.scrollRestoration = 'auto'

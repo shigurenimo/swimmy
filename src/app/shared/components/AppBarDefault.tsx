@@ -45,7 +45,7 @@ const AppBarDefault: FunctionComponent<Props> = ({ history, isClose }) => {
 
   return (
     <Fragment>
-      <AppBar position={'static'} className={classes.appBar}>
+      <AppBar position={'sticky'} className={classes.appBar}>
         {authContext.isLoggingIn && (
           <LinearProgress className={classes.progress} />
         )}

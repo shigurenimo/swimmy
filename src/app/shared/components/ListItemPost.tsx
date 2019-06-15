@@ -7,24 +7,34 @@ import { Post } from 'app/shared/firestore/types/post'
 import { toDateText } from 'app/shared/helpers/toDateText'
 import React, { FunctionComponent } from 'react'
 
-type Props = { post: Post }
+type Props = {
+  post: Post
+  index?: number | null
+}
 
-const ListItemPost: FunctionComponent<Props> = ({ post }) => {
+const ListItemPost: FunctionComponent<Props> = ({ post, index = null }) => {
   const classes = useStyle({})
 
   return (
     <div className={classes.root}>
       <div className={classes.grid}>
-        <PostCounts likeCount={post.likeCount} />
+        <div className={classes.header}>
+          {index !== null && (
+            <Typography className={classes.index} component={'span'}>
+              {index}
+            </Typography>
+          )}
+          <Typography color={'textSecondary'} variant={'caption'}>
+            {toDateText(post.createdAt)}
+          </Typography>
+        </div>
         <Typography className={classes.text} variant={'body2'}>
           <span>{post.text}</span>
         </Typography>
         {post.photoURLs.length !== 0 && (
           <DivImages photoURLs={post.photoURLs} />
         )}
-        <Typography color={'textSecondary'} variant={'caption'}>
-          {toDateText(post.createdAt)}
-        </Typography>
+        <PostCounts likeCount={post.likeCount} />
       </div>
     </div>
   )
@@ -32,13 +42,30 @@ const ListItemPost: FunctionComponent<Props> = ({ post }) => {
 
 const useStyle = makeStyles<Theme>(({ palette, spacing, typography }) => {
   return {
-    root: { padding: `${spacing(2)}px` },
+    root: {
+      paddingBottom: spacing(1.2),
+      paddingLeft: spacing(2),
+      paddingRight: spacing(2),
+      paddingTop: spacing(1.2)
+    },
     likeCount: { paddingLeft: spacing(1), color: palette.secondary.light },
     replyPostCount: { color: purple.A400, paddingLeft: spacing(1) },
     grid: {
       display: 'grid',
-      gridRowGap: `${8}px`,
+      gridGap: spacing(0.5),
       paddingRight: '0 !important'
+    },
+    header: {
+      alignItems: 'center',
+      display: 'grid',
+      gridGap: spacing(1),
+      gridAutoFlow: 'column',
+      gridAutoColumns: 'max-content'
+    },
+    index: {
+      color: palette.primary.light,
+      fontSize: 16,
+      fontWeight: 'bold'
     },
     text: {
       fontSize: typography.pxToRem(16),

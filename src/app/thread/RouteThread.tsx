@@ -45,7 +45,7 @@ const RouteThread: FunctionComponent<Props> = ({ match }) => {
   const subscribeThread = useCallback(() => {
     const query = firestore()
       .collection(POSTS_AS_ANONYM)
-      .doc((match.params as any).threadId)
+      .doc(match.params.threadId)
     return docData<Post>(query)
       .pipe(take(2))
       .subscribe(_thread => {
@@ -89,13 +89,13 @@ const RouteThread: FunctionComponent<Props> = ({ match }) => {
         {!inProgress && (
           <Fade in>
             <div>
-              {posts.map(post => (
+              {posts.map((post, index) => (
                 <Fragment key={post.id}>
-                  <ListItemPost post={post} />
+                  <ListItemPost index={posts.length - index} post={post} />
                   <Divider />
                 </Fragment>
               ))}
-              {thread && <ListItemPost post={thread} />}
+              {thread && <ListItemPost index={0} post={thread} />}
             </div>
           </Fade>
         )}
