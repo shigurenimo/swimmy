@@ -12,7 +12,13 @@ import { Post } from 'app/shared/firestore/types/post'
 import { useCollectionState } from 'app/shared/hooks/useCollectionState'
 import { px } from 'app/shared/styles/px'
 import { firestore } from 'firebase/app'
-import React, { Fragment, FunctionComponent, useEffect, useState } from 'react'
+import React, {
+  Fragment,
+  FunctionComponent,
+  useCallback,
+  useEffect,
+  useState
+} from 'react'
 import { RouteComponentProps } from 'react-router'
 import { collectionData } from 'rxfire/firestore'
 
@@ -51,11 +57,11 @@ const RouteHome: FunctionComponent<Props> = ({ location }) => {
     return () => setState(posts, limit)
   }, [limit, posts, setState])
 
-  const onLoadMore = () => {
+  const onLoadMore = useCallback(() => {
     if (loadingMore) return
     setLoadingMore(true)
     setLimit(limit + 16)
-  }
+  }, [limit, loadingMore])
 
   return (
     <Fragment>

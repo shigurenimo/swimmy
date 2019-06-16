@@ -17,6 +17,7 @@ import React, {
   ChangeEvent,
   Fragment,
   FunctionComponent,
+  useCallback,
   useEffect,
   useState
 } from 'react'
@@ -42,6 +43,21 @@ const RouteThreads: FunctionComponent<Props> = ({ location, history }) => {
 
   const classes = useStyles({})
 
+  const onMore = useCallback(() => {
+    if (loadingMore) return
+    setLoadingMore(true)
+    setLimit(limit + 16)
+  }, [limit, loadingMore])
+
+  const onChangeTab = useCallback(
+    (_: ChangeEvent<{}>, _orderBy: string) => {
+      history.push(`?order=${_orderBy}`)
+      setOrderBy(_orderBy)
+      setLoading(true)
+    },
+    [history]
+  )
+
   useEffect(() => {
     const subscription = collectionData<Post>(
       firestore()
@@ -59,18 +75,6 @@ const RouteThreads: FunctionComponent<Props> = ({ location, history }) => {
   useEffect(() => {
     return () => setState(posts, limit)
   }, [limit, posts, setState])
-
-  const onMore = () => {
-    if (loadingMore) return
-    setLoadingMore(true)
-    setLimit(limit + 16)
-  }
-
-  const onChangeTab = (_: ChangeEvent<{}>, _orderBy: string) => {
-    history.push(`?order=${_orderBy}`)
-    setOrderBy(_orderBy)
-    setLoading(true)
-  }
 
   return (
     <Fragment>
