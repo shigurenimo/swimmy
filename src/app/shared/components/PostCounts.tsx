@@ -1,5 +1,6 @@
 import { Theme, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
+import { WORD_LIKE, WORD_RESPONSE } from 'app/shared/constants/word'
 import { px } from 'app/shared/styles/px'
 import React, { FunctionComponent } from 'react'
 
@@ -22,12 +23,12 @@ const PostCounts: FunctionComponent<Props> = ({
     <div className={classes.root}>
       {replyPostCount && replyPostCount > 0 && (
         <Typography className={classes.replyPostCount}>
-          {`レス ${replyPostCount}`}
+          {`${WORD_RESPONSE} ${replyPostCount}`}
         </Typography>
       )}
       {likeCount > 0 && (
         <Typography className={classes.likeCount}>
-          {`スキ ${likeCount}`}
+          {`${WORD_LIKE} ${likeCount}`}
         </Typography>
       )}
     </div>

@@ -12,13 +12,14 @@ import {
 import Email from '@material-ui/icons/Email'
 import Equalizer from '@material-ui/icons/Equalizer'
 import Home from '@material-ui/icons/Home'
+import PhotoIcon from '@material-ui/icons/Photo'
 import PowerSettingsNew from '@material-ui/icons/PowerSettingsNew'
 import PriorityHigh from '@material-ui/icons/PriorityHigh'
 import Update from '@material-ui/icons/Update'
 import VpnKey from '@material-ui/icons/VpnKey'
-import { AuthContext } from 'app/shared/contexts/authContext'
+import { useAuthUser } from 'app/shared/auth/useAuthUser'
 import { auth } from 'firebase/app'
-import React, { FunctionComponent, useContext } from 'react'
+import React, { FunctionComponent } from 'react'
 import { Link } from 'react-router-dom'
 
 type Props = {
@@ -27,7 +28,8 @@ type Props = {
 }
 
 const DialogMenu: FunctionComponent<Props> = ({ onClose, isOpen }) => {
-  const authContext = useContext(AuthContext)
+  const authUser = useAuthUser()
+
   const onSignOut = () => {
     auth()
       .signOut()
@@ -44,13 +46,21 @@ const DialogMenu: FunctionComponent<Props> = ({ onClose, isOpen }) => {
         </Button>
       </DialogActions>
       <DialogContent>
-        <List>
+        <List component={'nav'}>
           <Link to={'/'}>
             <ListItem button onClick={onClose}>
               <ListItemIcon>
                 <Home />
               </ListItemIcon>
-              <ListItemText inset primary={'ホーム'} />
+              <ListItemText primary={'ホーム'} />
+            </ListItem>
+          </Link>
+          <Link to={'/images'}>
+            <ListItem button onClick={onClose}>
+              <ListItemIcon>
+                <PhotoIcon />
+              </ListItemIcon>
+              <ListItemText primary={'画像'} />
             </ListItem>
           </Link>
           <Link to={'/stats'}>
@@ -58,7 +68,7 @@ const DialogMenu: FunctionComponent<Props> = ({ onClose, isOpen }) => {
               <ListItemIcon>
                 <Equalizer />
               </ListItemIcon>
-              <ListItemText inset primary={'統計'} />
+              <ListItemText primary={'統計'} />
             </ListItem>
           </Link>
           <Link to={'/changelogs'}>
@@ -66,7 +76,7 @@ const DialogMenu: FunctionComponent<Props> = ({ onClose, isOpen }) => {
               <ListItemIcon>
                 <Update />
               </ListItemIcon>
-              <ListItemText inset primary={'アップデート'} />
+              <ListItemText primary={'アップデート'} />
             </ListItem>
           </Link>
           <Link to={'/policy'}>
@@ -74,18 +84,18 @@ const DialogMenu: FunctionComponent<Props> = ({ onClose, isOpen }) => {
               <ListItemIcon>
                 <PriorityHigh />
               </ListItemIcon>
-              <ListItemText inset primary={'プライバシーポリシー'} />
+              <ListItemText primary={'プライバシーポリシー'} />
             </ListItem>
           </Link>
         </List>
-        {authContext.isLogged && (
+        {authUser && (
           <List subheader={<ListSubheader>{'アカウント'}</ListSubheader>}>
             <Link to={'/settings/email'}>
               <ListItem button onClick={onClose}>
                 <ListItemIcon>
                   <Email />
                 </ListItemIcon>
-                <ListItemText inset primary={'メールアドレスの更新'} />
+                <ListItemText primary={'メールアドレスの更新'} />
               </ListItem>
             </Link>
             <Link to={'/settings/password'}>
@@ -93,14 +103,14 @@ const DialogMenu: FunctionComponent<Props> = ({ onClose, isOpen }) => {
                 <ListItemIcon>
                   <VpnKey />
                 </ListItemIcon>
-                <ListItemText inset primary={'パスワードの更新'} />
+                <ListItemText primary={'パスワードの更新'} />
               </ListItem>
             </Link>
             <ListItem button onClick={onSignOut}>
               <ListItemIcon>
                 <PowerSettingsNew />
               </ListItemIcon>
-              <ListItemText inset primary={'ログアウト'} />
+              <ListItemText primary={'ログアウト'} />
             </ListItem>
           </List>
         )}

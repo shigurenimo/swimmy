@@ -5,11 +5,10 @@ import {
   Theme,
   Toolbar
 } from '@material-ui/core'
+import ChatBubbleIcon from '@material-ui/icons/ChatBubble'
 import CloseIcon from '@material-ui/icons/Close'
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz'
-import PhotoIcon from '@material-ui/icons/Photo'
 import PowerSettingsNewIcon from '@material-ui/icons/PowerSettingsNew'
-import WhatshotIcon from '@material-ui/icons/Whatshot'
 import { makeStyles } from '@material-ui/styles'
 import DialogMenu from 'app/core/DialogMenu'
 import { useAuthLoading } from 'app/shared/auth/useAuthLoading'
@@ -50,14 +49,9 @@ const AppBarDefault: FunctionComponent<Props> = ({ history, isClose }) => {
           )}
           {!isClose && (
             <div className={classes.actions}>
-              <Link to={'/images'}>
-                <IconButton aria-label={'Open images page'}>
-                  <PhotoIcon />
-                </IconButton>
-              </Link>
               <Link to={'/threads'}>
                 <IconButton aria-label={'Open threads page'}>
-                  <WhatshotIcon />
+                  <ChatBubbleIcon />
                 </IconButton>
               </Link>
               <IconButton
