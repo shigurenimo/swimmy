@@ -10,7 +10,6 @@ import {
   ListSubheader
 } from '@material-ui/core'
 import Email from '@material-ui/icons/Email'
-import Equalizer from '@material-ui/icons/Equalizer'
 import Home from '@material-ui/icons/Home'
 import PhotoIcon from '@material-ui/icons/Photo'
 import PowerSettingsNew from '@material-ui/icons/PowerSettingsNew'
@@ -61,14 +60,6 @@ const DialogMenu: FunctionComponent<Props> = ({ onClose, isOpen }) => {
                 <PhotoIcon />
               </ListItemIcon>
               <ListItemText primary={'画像'} />
-            </ListItem>
-          </Link>
-          <Link to={'/stats'}>
-            <ListItem button onClick={onClose}>
-              <ListItemIcon>
-                <Equalizer />
-              </ListItemIcon>
-              <ListItemText primary={'統計'} />
             </ListItem>
           </Link>
           <Link to={'/changelogs'}>
