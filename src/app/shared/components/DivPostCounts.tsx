@@ -9,7 +9,7 @@ type Props = {
   likeCount: number
 }
 
-const PostCounts: FunctionComponent<Props> = ({
+const DivPostCounts: FunctionComponent<Props> = ({
   replyPostCount,
   likeCount
 }) => {
@@ -56,4 +56,4 @@ const useStyles = makeStyles<Theme>(({ palette, spacing }) => {
   }
 })
 
-export default PostCounts
+export default DivPostCounts

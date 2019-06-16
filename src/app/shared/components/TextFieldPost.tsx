@@ -10,15 +10,10 @@ import { makeStyles } from '@material-ui/styles'
 import InputFile from 'app/shared/components/InputFile'
 import { IMAGES } from 'app/shared/constants/collection'
 import { createId } from 'app/shared/firestore/createId'
+import { Image } from 'app/shared/firestore/types/image'
 import { createPost } from 'app/shared/functions/createPost'
-import { useSubscription } from 'app/shared/hooks/useSubscription'
 import { firestore, storage } from 'firebase/app'
-import React, {
-  ChangeEvent,
-  FunctionComponent,
-  useEffect,
-  useState
-} from 'react'
+import React, { FunctionComponent, useEffect, useState } from 'react'
 import { doc, snapToData } from 'rxfire/firestore'
 import { put } from 'rxfire/storage'
 import { filter } from 'rxjs/operators'
@@ -27,53 +22,19 @@ type Props = { replyPostId?: string }
 
 const TextFieldPost: FunctionComponent<Props> = ({ replyPostId = '' }) => {
   const [postText, setPostText] = useState('')
-  const [postImages, setPostImages] = useState<any[]>([])
-  const [inProgressImage, setInProgressImage] = useState(false)
+
+  const [postImages, setPostImages] = useState<Image[]>([])
+
+  const [postFile, setPostFile] = useState<File | null>(null)
+
   const [inProgressSubmit, setInProgressSubmit] = useState(false)
-  const [subscriptionCreatePost, setSubscriptionCreatePost] = useSubscription()
-  const [subscriptionImage, setSubscriptionImage] = useSubscription()
-  const inputFileRef = React.createRef()
+
   const classes = useStyle({})
-  const inProgress = inProgressSubmit || inProgressImage
-  const disabled = inProgress || postText.match(/\S/g) === null
-  const onChangePostText = (event: ChangeEvent<any>) => {
-    event.persist()
-    setPostText(event.target.value)
-  }
-  const onSelectImage = () => {
-    if (inProgressSubmit || inProgressImage) {
-      return
-    }
-    if (inputFileRef.current) {
-      const current = inputFileRef.current as any
-      current.click()
-    }
-  }
-  const onChangeImage = (event: ChangeEvent<any>) => {
-    if (inProgressSubmit || inProgressImage) return
-    const [file] = event.target.files
-    const fileId = createId()
-    const ref = storage().ref(`posts/${fileId}`)
-    setInProgressImage(true)
-    const file$ = put(ref, file)
-    file$.subscribe()
-    const imageRef = firestore()
-      .collection(IMAGES)
-      .doc(fileId)
-    const subscription = doc(imageRef)
-      .pipe(filter(imageSnap => imageSnap.exists))
-      .subscribe(imageSnap => {
-        subscription.unsubscribe()
-        const image = snapToData(imageSnap as any)
-        const _postImages = [...postImages, image]
-        setInProgressImage(false)
-        setPostImages(_postImages)
-      })
-    setSubscriptionImage(subscription)
-  }
-  const onSubmitPost = () => {
-    if (disabled) return
-    setInProgressSubmit(true)
+
+  const inProgress = inProgressSubmit || postFile !== null
+
+  useEffect(() => {
+    if (!inProgressSubmit) return
     const fileIds = postImages.map(image => image.id)
     const subscription = createPost()({
       fileIds,
@@ -81,6 +42,7 @@ const TextFieldPost: FunctionComponent<Props> = ({ replyPostId = '' }) => {
       text: postText
     }).subscribe(
       () => {
+        // do not change the order
         setInProgressSubmit(false)
         setPostImages([])
         setPostText('')
@@ -90,26 +52,54 @@ const TextFieldPost: FunctionComponent<Props> = ({ replyPostId = '' }) => {
         setInProgressSubmit(false)
       }
     )
-    setSubscriptionCreatePost(subscription)
-  }
+    return () => subscription.unsubscribe()
+  }, [inProgressSubmit, postImages, postText, replyPostId])
 
   useEffect(() => {
-    return () => {
-      subscriptionCreatePost.unsubscribe()
-      subscriptionImage.unsubscribe()
-    }
-  }, [subscriptionCreatePost, subscriptionImage])
+    if (!postFile) return
+    const fileId = createId()
+    const ref = storage().ref(`posts/${fileId}`)
+    put(ref, postFile).subscribe()
+    const subscription = doc(
+      firestore()
+        .collection(IMAGES)
+        .doc(fileId)
+    )
+      .pipe(filter(imageSnap => imageSnap.exists))
+      .subscribe(imageSnap => {
+        subscription.unsubscribe()
+        const image = snapToData(imageSnap) as Image
+        const _postImages = [...postImages, image]
+        setPostFile(null)
+        setPostImages(_postImages)
+      })
+    return () => subscription.unsubscribe()
+  }, [postFile, postImages])
+
+  const inputFileRef = React.createRef<HTMLInputElement>()
+
+  const disabled = inProgress || postText.match(/\S/g) === null
 
   const photoURLs = postImages.map(image => image.imageURL)
 
   return (
     <section className={classes.root}>
-      <InputFile inputRef={inputFileRef} onChange={onChangeImage} />
+      <InputFile
+        inputRef={inputFileRef}
+        onChange={event => {
+          if (event.target.files === null) return
+          const [file] = Array.from(event.target.files)
+          setPostFile(file)
+        }}
+      />
       <div className={classes.actions}>
         <Button
           aria-label={'Add an image to post'}
           color={'primary'}
-          onClick={onSelectImage}
+          onClick={() => {
+            if (inProgress || !inputFileRef.current) return
+            inputFileRef.current.click()
+          }}
           disabled={inProgress}
         >
           {'画像添付'}
@@ -120,7 +110,7 @@ const TextFieldPost: FunctionComponent<Props> = ({ replyPostId = '' }) => {
           className={classes.submitButton}
           disabled={disabled}
           variant={'outlined'}
-          onClick={onSubmitPost}
+          onClick={() => setInProgressSubmit(true)}
         >
           {'送信'}
           {inProgressSubmit && (
@@ -152,7 +142,10 @@ const TextFieldPost: FunctionComponent<Props> = ({ replyPostId = '' }) => {
           classes={{ root: classes.textField }}
           fullWidth
           multiline
-          onChange={onChangePostText}
+          onChange={event => {
+            if (inProgress) return
+            setPostText(event.target.value)
+          }}
           value={postText}
           disabled={inProgress}
         />

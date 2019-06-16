@@ -1,6 +1,6 @@
 import { Card, CardContent, Theme, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
-import PostCounts from 'app/shared/components/PostCounts'
+import DivPostCounts from 'app/shared/components/DivPostCounts'
 import { Post } from 'app/shared/firestore/types/post'
 import { toDateText } from 'app/shared/helpers/toDateText'
 import React, { FunctionComponent } from 'react'
@@ -15,7 +15,7 @@ const CardThread: FunctionComponent<Props> = ({ post }) => {
     <Link to={`/threads/${post.id}`}>
       <Card>
         <CardContent className={classes.root}>
-          <PostCounts
+          <DivPostCounts
             replyPostCount={post.replyPostCount}
             likeCount={post.likeCount}
           />

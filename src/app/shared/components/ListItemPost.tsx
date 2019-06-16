@@ -2,7 +2,7 @@ import { Theme, Typography } from '@material-ui/core'
 import { purple } from '@material-ui/core/colors'
 import { makeStyles } from '@material-ui/styles'
 import DivImages from 'app/shared/components/DivImages'
-import PostCounts from 'app/shared/components/PostCounts'
+import DivPostCounts from 'app/shared/components/DivPostCounts'
 import { Post } from 'app/shared/firestore/types/post'
 import { toDateText } from 'app/shared/helpers/toDateText'
 import React, { FunctionComponent } from 'react'
@@ -34,7 +34,7 @@ const ListItemPost: FunctionComponent<Props> = ({ post, index = null }) => {
         {post.photoURLs.length !== 0 && (
           <DivImages photoURLs={post.photoURLs} />
         )}
-        <PostCounts likeCount={post.likeCount} />
+        <DivPostCounts likeCount={post.likeCount} />
       </div>
     </div>
   )

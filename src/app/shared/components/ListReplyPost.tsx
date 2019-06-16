@@ -42,10 +42,8 @@ const ListReplyPost: FunctionComponent<Props> = ({
         setPosts(docs)
         setInProgress(false)
       })
-    return () => {
-      subscription.unsubscribe()
-    }
-  }, [])
+    return () => subscription.unsubscribe()
+  }, [postId, replyPostCount])
 
   if (inProgress) {
     return (

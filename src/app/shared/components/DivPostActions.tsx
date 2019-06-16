@@ -12,7 +12,7 @@ type Props = {
   postId: string
 }
 
-const PostActions: FunctionComponent<Props> = ({
+const DivPostActions: FunctionComponent<Props> = ({
   inProgressLike,
   hasLike,
   onClickLike,
@@ -54,4 +54,4 @@ const useStyles = makeStyles<Theme>(({ spacing }) => {
   }
 })
 
-export default PostActions
+export default DivPostActions

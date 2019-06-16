@@ -1,7 +1,7 @@
 import { Card, Theme, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
 import DivImages from 'app/shared/components/DivImages'
-import PostCounts from 'app/shared/components/PostCounts'
+import DivPostCounts from 'app/shared/components/DivPostCounts'
 import { Post } from 'app/shared/firestore/types/post'
 import { toDateText } from 'app/shared/helpers/toDateText'
 import React, { FunctionComponent } from 'react'
@@ -18,21 +18,21 @@ const CardPost: FunctionComponent<Props> = ({ inProgress, post }) => {
   return (
     <Link to={`/threads/${post.id}`}>
       <Card className={classes.card} elevation={0}>
+        <div className={classes.data}>
+          <Typography color={'textSecondary'} variant={'caption'}>
+            {toDateText(post.createdAt)}
+          </Typography>
+          <DivPostCounts
+            replyPostCount={post.replyPostCount}
+            likeCount={post.likeCount}
+          />
+        </div>
         <Typography className={classes.text} variant={'body2'}>
           {post.text}
         </Typography>
         {post.photoURLs.length !== 0 && (
           <DivImages photoURLs={post.photoURLs} />
         )}
-        <div className={classes.data}>
-          <Typography color={'textSecondary'} variant={'caption'}>
-            {toDateText(post.createdAt)}
-          </Typography>
-          <PostCounts
-            replyPostCount={post.replyPostCount}
-            likeCount={post.likeCount}
-          />
-        </div>
       </Card>
     </Link>
   )

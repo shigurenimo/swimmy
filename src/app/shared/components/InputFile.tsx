@@ -1,10 +1,10 @@
 import { Theme } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
-import React, { FunctionComponent } from 'react'
+import React, { ChangeEvent, FunctionComponent, RefObject } from 'react'
 
 type Props = {
-  inputRef: any
-  onChange: any
+  inputRef: RefObject<HTMLInputElement>
+  onChange: (event: ChangeEvent<HTMLInputElement>) => void
 }
 
 const InputFile: FunctionComponent<Props> = ({ inputRef, onChange }) => {
