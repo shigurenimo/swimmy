@@ -7,89 +7,67 @@ import {
   Typography
 } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
+import { useAuthUser } from 'app/shared/auth/useAuthUser'
 import Header from 'app/shared/components/AppBarDefault'
 import FragmentHead from 'app/shared/components/FragmentHead'
-import { useSubscription } from 'app/shared/hooks/useSubscription'
 import { pct } from 'app/shared/styles/pct'
 import { px } from 'app/shared/styles/px'
 import classnames from 'classnames'
 import { auth } from 'firebase/app'
-import React, {
-  ChangeEvent,
-  Fragment,
-  FunctionComponent,
-  useEffect,
-  useState
-} from 'react'
+import React, { Fragment, FunctionComponent, useEffect, useState } from 'react'
 import { from } from 'rxjs'
 import { mergeMap } from 'rxjs/operators'
 
 const RouteSettingsPassword: FunctionComponent = () => {
+  const [authUser] = useAuthUser()
+
   const [currentPassword, setCurrentPassword] = useState('')
+
   const [inProgress, setInProgress] = useState(false)
+
   const [password, setPassword] = useState('')
+
   const [snackbarMessage, setSnackbarMessage] = useState('')
+
   const [snackbarOpen, setSnackbarOpen] = useState(false)
+
   const [snackbarType, setSnackbarType] = useState('')
+
   const classes = useStyles({})
-  const [subscription, setSubscription] = useSubscription()
+
   const disabled =
     !password || !currentPassword || password === currentPassword || inProgress
-  const onChangePassword = (event: ChangeEvent<any>) => {
-    setPassword(event.target.value)
-  }
-  const onChangePasswordRetype = (event: ChangeEvent<any>) => {
-    setCurrentPassword(event.target.value)
-  }
-  const onSubmit = () => {
-    if (password === currentPassword) {
-      return
-    }
-    setInProgress(true)
-    const currentUser = auth().currentUser
-    if (!currentUser) {
-      throw new Error('currentUser not found')
-    }
-    const { email } = currentUser
-    if (!email) {
-      throw new Error('email not found')
-    }
-    const credential = auth.EmailAuthProvider.credential(email, currentPassword)
-    const _subscription = from(
-      currentUser.reauthenticateWithCredential(credential)
+
+  useEffect(() => {
+    if (!inProgress) return
+    if (!authUser) return
+    if (!authUser.email) return
+    const credential = auth.EmailAuthProvider.credential(
+      authUser.email,
+      currentPassword
     )
-      .pipe(
-        mergeMap(() => {
-          return currentUser.updatePassword(password)
-        })
-      )
+    const subscription = from(authUser.reauthenticateWithCredential(credential))
+      .pipe(mergeMap(() => authUser.updatePassword(password)))
       .subscribe(
         () => {
-          setCurrentPassword('')
+          // do not change the order
           setInProgress(false)
+          setCurrentPassword('')
           setPassword('')
           setSnackbarMessage('パスワードを更新しました')
           setSnackbarOpen(true)
           setSnackbarType('success')
         },
         err => {
+          // do not change the order
           setInProgress(false)
           setSnackbarMessage(`ERROR: ${err.message}`)
           setSnackbarOpen(true)
           setSnackbarType('error')
         }
       )
-    setSubscription(_subscription)
-  }
-  const onCloseSnackbar = () => {
-    setSnackbarOpen(false)
-  }
-
-  useEffect(() => {
-    return () => {
-      subscription.unsubscribe()
-    }
-  }, [subscription])
+    return () => subscription.unsubscribe()
+  }, [authUser, currentPassword, inProgress, password])
 
   return (
     <Fragment>
@@ -105,7 +83,9 @@ const RouteSettingsPassword: FunctionComponent = () => {
               label={'現在のパスワード'}
               fullWidth
               variant={'outlined'}
-              onChange={onChangePasswordRetype}
+              onChange={event => {
+                setCurrentPassword(event.target.value)
+              }}
               disabled={inProgress}
             />
           </div>
@@ -116,7 +96,9 @@ const RouteSettingsPassword: FunctionComponent = () => {
               label={'新しいパスワード'}
               fullWidth
               variant={'outlined'}
-              onChange={onChangePassword}
+              onChange={event => {
+                setPassword(event.target.value)
+              }}
               disabled={inProgress}
             />
           </div>
@@ -125,7 +107,7 @@ const RouteSettingsPassword: FunctionComponent = () => {
               variant={'contained'}
               color={'primary'}
               disabled={disabled}
-              onClick={onSubmit}
+              onClick={() => setInProgress(true)}
               aria-label={'Update your password'}
             >
               変更する
@@ -136,7 +118,7 @@ const RouteSettingsPassword: FunctionComponent = () => {
       <Snackbar
         anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
         open={snackbarOpen}
-        onClose={onCloseSnackbar}
+        onClose={() => setSnackbarOpen(false)}
       >
         <SnackbarContent
           message={snackbarMessage}

@@ -1,51 +1,37 @@
 import { Button, CircularProgress, TextField, Theme } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
 import { createPost } from 'app/shared/functions/createPost'
-import { useSubscription } from 'app/shared/hooks/useSubscription'
-import React, {
-  ChangeEvent,
-  Fragment,
-  FunctionComponent,
-  useEffect,
-  useState
-} from 'react'
+import React, { Fragment, FunctionComponent, useEffect, useState } from 'react'
 
 type Props = { postId: string }
 
 const TextFieldReplyPost: FunctionComponent<Props> = ({ postId }) => {
   const classes = useStyles({})
+
   const [postText, setPostText] = useState('')
+
   const [inProgress, setInProgress] = useState(false)
-  const [subscription, setSubscription] = useSubscription()
-  const onChangePostText = (event: ChangeEvent<any>) => {
-    event.persist()
-    setPostText(event.target.value)
-  }
-  const onSubmitPost = () => {
-    if (!postText || inProgress) {
-      return
-    }
-    setInProgress(true)
-    const createPost$$ = createPost()({
+
+  useEffect(() => {
+    if (!inProgress) return
+    if (!postText || inProgress) return
+    const subscription = createPost()({
       fileIds: [],
       replyPostId: postId,
       text: postText
     }).subscribe(
       () => {
-        setPostText('')
+        // cannot change the order
         setInProgress(false)
+        setPostText('')
       },
       err => {
         console.error(err)
         setInProgress(false)
       }
     )
-    setSubscription(createPost$$)
-  }
-
-  useEffect(() => {
     return () => subscription.unsubscribe()
-  }, [])
+  }, [inProgress, postId, postText])
 
   return (
     <Fragment>
@@ -55,7 +41,7 @@ const TextFieldReplyPost: FunctionComponent<Props> = ({ postId }) => {
           className={classes.textField}
           placeholder={'新しいレス'}
           value={postText}
-          onChange={onChangePostText}
+          onChange={event => setPostText(event.target.value)}
           disabled={inProgress}
         />
       </div>
@@ -65,7 +51,7 @@ const TextFieldReplyPost: FunctionComponent<Props> = ({ postId }) => {
           className={classes.submitButton}
           disabled={!postText || inProgress}
           variant={postText ? 'contained' : 'text'}
-          onClick={onSubmitPost}
+          onClick={() => setInProgress(true)}
           aria-label={'Send a reply'}
         >
           {'送信'}
