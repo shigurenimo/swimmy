@@ -60,8 +60,8 @@ const RouteHome: FunctionComponent<Props> = ({ location }) => {
   const onLoadMore = useCallback(() => {
     if (loadingMore) return
     setLoadingMore(true)
-    setLimit(limit + 16)
-  }, [limit, loadingMore])
+    setLimit(_limit => _limit + 16)
+  }, [loadingMore])
 
   return (
     <Fragment>

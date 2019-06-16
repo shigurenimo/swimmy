@@ -17,6 +17,7 @@ import React, {
   ChangeEvent,
   Fragment,
   FunctionComponent,
+  useCallback,
   useEffect,
   useState
 } from 'react'
@@ -61,17 +62,20 @@ const RouteImages: FunctionComponent<Props> = ({ location, history }) => {
     return () => setState(posts, limit)
   }, [limit, posts, setState])
 
-  const onMore = () => {
+  const onMore = useCallback(() => {
     if (loadingMore) return
     setLoadingMore(true)
-    setLimit(limit + 16)
-  }
+    setLimit(_limit => _limit + 16)
+  }, [loadingMore])
 
-  const onChangeTab = (_: ChangeEvent<{}>, _orderBy: string) => {
-    history.push(`?order=${_orderBy}`)
-    setOrderBy(_orderBy)
-    setLoading(true)
-  }
+  const onChangeTab = useCallback(
+    (_: ChangeEvent<{}>, _orderBy: string) => {
+      history.push(`?order=${_orderBy}`)
+      setOrderBy(_orderBy)
+      setLoading(true)
+    },
+    [history]
+  )
 
   return (
     <Fragment>

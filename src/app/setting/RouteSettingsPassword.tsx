@@ -110,7 +110,7 @@ const RouteSettingsPassword: FunctionComponent = () => {
               onClick={() => setInProgress(true)}
               aria-label={'Update your password'}
             >
-              変更する
+              {'変更する'}
             </Button>
           </div>
         </form>
