@@ -1,4 +1,4 @@
-import { Theme, Typography } from '@material-ui/core'
+import { Card, Theme, Typography } from '@material-ui/core'
 import { purple } from '@material-ui/core/colors'
 import { makeStyles } from '@material-ui/styles'
 import DivImages from 'app/shared/components/DivImages'
@@ -12,11 +12,11 @@ type Props = {
   index?: number | null
 }
 
-const ListItemPost: FunctionComponent<Props> = ({ post, index = null }) => {
+const CardThreadPost: FunctionComponent<Props> = ({ post, index = null }) => {
   const classes = useStyle({})
 
   return (
-    <div className={classes.root}>
+    <Card className={classes.root} elevation={0}>
       <div className={classes.grid}>
         <div className={classes.header}>
           {index !== null && (
@@ -36,7 +36,7 @@ const ListItemPost: FunctionComponent<Props> = ({ post, index = null }) => {
         )}
         <DivPostCounts likeCount={post.likeCount} />
       </div>
-    </div>
+    </Card>
   )
 }
 
@@ -76,4 +76,4 @@ const useStyle = makeStyles<Theme>(({ palette, spacing, typography }) => {
   }
 })
 
-export default ListItemPost
+export default CardThreadPost
