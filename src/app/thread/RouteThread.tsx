@@ -1,8 +1,9 @@
 import { CircularProgress, Divider, Theme } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
 import Header from 'app/shared/components/AppBarDefault'
+import CardPostResponse from 'app/shared/components/CardPostResponse'
+import CardPostThread from 'app/shared/components/CardPostThread'
 import FragmentHead from 'app/shared/components/FragmentHead'
-import CardThreadPost from 'app/shared/components/CardThreadPost'
 import TextFieldResponse from 'app/shared/components/TextFieldResponse'
 import { POSTS, POSTS_AS_ANONYM } from 'app/shared/constants/collection'
 import { ASC } from 'app/shared/constants/order'
@@ -80,13 +81,13 @@ const RouteThread: FunctionComponent<Props> = ({
         <ul className={classes.ul}>
           {thread && (
             <li>
-              <CardThreadPost index={0} post={thread} />
+              <CardPostThread post={thread} />
               <Divider />
             </li>
           )}
           {posts.map((post, index) => (
             <li key={post.id}>
-              <CardThreadPost index={index + 1} post={post} />
+              <CardPostResponse index={index + 1} post={post} />
               <Divider />
             </li>
           ))}

@@ -9,22 +9,28 @@ import React, { FunctionComponent } from 'react'
 
 type Props = {
   post: Post
-  index?: number | null
+  index: number
 }
 
-const CardThreadPost: FunctionComponent<Props> = ({ post, index = null }) => {
+const CardPostResponse: FunctionComponent<Props> = ({ post, index }) => {
   const classes = useStyle({})
 
   return (
     <Card className={classes.root} elevation={0}>
       <div className={classes.grid}>
         <div className={classes.header}>
-          {index !== null && (
-            <Typography className={classes.index} component={'span'}>
-              {index}
-            </Typography>
-          )}
-          <Typography color={'textSecondary'} variant={'caption'}>
+          <Typography
+            className={classes.index}
+            component={'span'}
+            variant={'caption'}
+          >
+            {index}
+          </Typography>
+          <Typography
+            color={'textSecondary'}
+            component={'span'}
+            variant={'caption'}
+          >
             {toDateText(post.createdAt)}
           </Typography>
         </div>
@@ -64,7 +70,6 @@ const useStyle = makeStyles<Theme>(({ palette, spacing, typography }) => {
     },
     index: {
       color: palette.primary.light,
-      fontSize: 16,
       fontWeight: 'bold'
     },
     text: {
@@ -76,4 +81,4 @@ const useStyle = makeStyles<Theme>(({ palette, spacing, typography }) => {
   }
 })
 
-export default CardThreadPost
+export default CardPostResponse
