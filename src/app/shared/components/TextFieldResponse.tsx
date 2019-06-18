@@ -1,11 +1,4 @@
-import {
-  Button,
-  CircularProgress,
-  FormControl,
-  Input,
-  InputLabel,
-  Theme
-} from '@material-ui/core'
+import { Button, CircularProgress, TextField, Theme } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
 import InputFile from 'app/shared/components/InputFile'
 import { IMAGES } from 'app/shared/constants/collection'
@@ -13,12 +6,15 @@ import { createId } from 'app/shared/firestore/createId'
 import { Image } from 'app/shared/firestore/types/image'
 import { createPost } from 'app/shared/functions/createPost'
 import { firestore, storage } from 'firebase/app'
-import React, { FunctionComponent, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { doc, snapToData } from 'rxfire/firestore'
 import { put } from 'rxfire/storage'
 import { filter } from 'rxjs/operators'
 
-const TextFieldPost: FunctionComponent = () => {
+type Props = { threadId: string }
+
+let TextFieldResponse: React.FunctionComponent<Props>
+TextFieldResponse = ({ threadId }) => {
   const [postText, setPostText] = useState('')
 
   const [postImages, setPostImages] = useState<Image[]>([])
@@ -36,7 +32,7 @@ const TextFieldPost: FunctionComponent = () => {
     const fileIds = postImages.map(image => image.id)
     const subscription = createPost()({
       fileIds,
-      replyPostId: '',
+      replyPostId: threadId,
       text: postText
     }).subscribe(
       () => {
@@ -51,7 +47,7 @@ const TextFieldPost: FunctionComponent = () => {
       }
     )
     return () => subscription.unsubscribe()
-  }, [inProgressSubmit, postImages, postText])
+  }, [inProgressSubmit, threadId, postImages, postText])
 
   useEffect(() => {
     if (!postFile) return
@@ -82,14 +78,20 @@ const TextFieldPost: FunctionComponent = () => {
 
   return (
     <section className={classes.root}>
-      <InputFile
-        inputRef={inputFileRef}
-        onChange={event => {
-          if (event.target.files === null) return
-          const [file] = Array.from(event.target.files)
-          setPostFile(file)
-        }}
-      />
+      <div>
+        <TextField
+          fullWidth
+          multiline
+          onChange={event => {
+            if (inProgress) return
+            setPostText(event.target.value)
+          }}
+          value={postText}
+          disabled={inProgress}
+          placeholder={'新しいコメント'}
+          variant={'outlined'}
+        />
+      </div>
       <div className={classes.actions}>
         <Button
           aria-label={'Add an image to post'}
@@ -103,12 +105,12 @@ const TextFieldPost: FunctionComponent = () => {
           {'画像添付'}
         </Button>
         <Button
-          color={'primary'}
           aria-label={'Send a post'}
           className={classes.submitButton}
+          color={'primary'}
           disabled={disabled}
-          variant={'outlined'}
           onClick={() => setInProgressSubmit(true)}
+          variant={disabled ? 'outlined' : 'contained'}
         >
           {'送信'}
           {inProgressSubmit && (
@@ -128,33 +130,21 @@ const TextFieldPost: FunctionComponent = () => {
           ))}
         </div>
       )}
-      <FormControl fullWidth>
-        <InputLabel
-          htmlFor="textarea"
-          classes={{ root: classes.textFieldLabel }}
-        >
-          {'新しい書き込み'}
-        </InputLabel>
-        <Input
-          id={'textarea'}
-          classes={{ root: classes.textField }}
-          fullWidth
-          multiline
-          onChange={event => {
-            if (inProgress) return
-            setPostText(event.target.value)
-          }}
-          value={postText}
-          disabled={inProgress}
-        />
-      </FormControl>
+      <InputFile
+        inputRef={inputFileRef}
+        onChange={event => {
+          if (event.target.files === null) return
+          const [file] = Array.from(event.target.files)
+          setPostFile(file)
+        }}
+      />
     </section>
   )
 }
 
 const useStyle = makeStyles<Theme>(({ spacing }) => {
   return {
-    actions: { textAlign: 'right', paddingRight: spacing(1) },
+    actions: { textAlign: 'right' },
     buttonProgress: {
       bottom: 0,
       left: 0,
@@ -166,11 +156,10 @@ const useStyle = makeStyles<Theme>(({ spacing }) => {
     root: {
       display: 'grid',
       gridRowGap: `${spacing(1)}px`,
-      paddingTop: spacing(1)
+      paddingLeft: spacing(2),
+      paddingRight: spacing(2)
     },
     submitButton: { marginLeft: spacing(1), position: 'relative' },
-    textField: { paddingLeft: spacing(1.5), paddingRight: spacing(1.5) },
-    textFieldLabel: { paddingLeft: spacing(1.5), paddingRight: spacing(1.5) },
     img: { width: `${100}%`, borderRadius: 4 },
     images: {
       display: 'grid',
@@ -184,4 +173,4 @@ const useStyle = makeStyles<Theme>(({ spacing }) => {
   }
 })
 
-export default TextFieldPost
+export default TextFieldResponse

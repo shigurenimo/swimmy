@@ -3,13 +3,13 @@ import { makeStyles } from '@material-ui/styles'
 import Header from 'app/shared/components/AppBarDefault'
 import FragmentHead from 'app/shared/components/FragmentHead'
 import ListItemPost from 'app/shared/components/ListItemPost'
-import SectionTitle from 'app/shared/components/SectionTitle'
-import TextFieldPost from 'app/shared/components/TextFieldPost'
+import TextFieldResponse from 'app/shared/components/TextFieldResponse'
 import { POSTS, POSTS_AS_ANONYM } from 'app/shared/constants/collection'
-import { DESC } from 'app/shared/constants/order'
+import { ASC } from 'app/shared/constants/order'
 import { Post } from 'app/shared/firestore/types/post'
 import { toDateText } from 'app/shared/helpers/toDateText'
 import { px } from 'app/shared/styles/px'
+import { resetList } from 'app/shared/styles/resetList'
 import { firestore } from 'firebase/app'
 import React, { Fragment, FunctionComponent, useEffect, useState } from 'react'
 import { RouteComponentProps } from 'react-router-dom'
@@ -18,7 +18,11 @@ import { take } from 'rxjs/operators'
 
 type Props = RouteComponentProps<{ threadId: string }>
 
-const RouteThread: FunctionComponent<Props> = ({ match }) => {
+const RouteThread: FunctionComponent<Props> = ({
+  match: {
+    params: { threadId }
+  }
+}) => {
   const [loadingPosts, setLoadingPosts] = useState(true)
 
   const [loadingPost, setLoadingPost] = useState(true)
@@ -33,22 +37,22 @@ const RouteThread: FunctionComponent<Props> = ({ match }) => {
     const subscription = collectionData<Post>(
       firestore()
         .collection(POSTS_AS_ANONYM)
-        .doc(match.params.threadId)
+        .doc(threadId)
         .collection(POSTS)
         .limit(120)
-        .orderBy('createdAt', DESC)
+        .orderBy('createdAt', ASC)
     ).subscribe(_posts => {
       setPosts(_posts)
       setLoadingPosts(false)
     })
     return () => subscription.unsubscribe()
-  }, [match.params.threadId])
+  }, [threadId])
 
   useEffect(() => {
     const subscription = docData<Post>(
       firestore()
         .collection(POSTS_AS_ANONYM)
-        .doc(match.params.threadId)
+        .doc(threadId)
     )
       .pipe(take(2))
       .subscribe(_thread => {
@@ -56,9 +60,9 @@ const RouteThread: FunctionComponent<Props> = ({ match }) => {
         setLoadingPost(false)
       })
     return () => subscription.unsubscribe()
-  }, [match.params.threadId])
+  }, [threadId])
 
-  const inProgress = loadingPosts || loadingPost
+  const loading = loadingPosts || loadingPost
 
   return (
     <Fragment>
@@ -71,26 +75,23 @@ const RouteThread: FunctionComponent<Props> = ({ match }) => {
         <FragmentHead title={'読み込み中'} />
       )}
       <Header isClose={true} />
-      <main>
-        <SectionTitle
-          title={'スレッド'}
-          description={
-            '書き込みとそれに対するレスが表示されています。このページの右上のアイコンから前のページに戻ることができます。'
-          }
-        />
-        <TextFieldPost replyPostId={match.params.threadId} />
-        {inProgress && <CircularProgress className={classes.progress} />}
-        {!inProgress && (
-          <div>
-            {posts.map((post, index) => (
-              <Fragment key={post.id}>
-                <ListItemPost index={posts.length - index} post={post} />
-                <Divider />
-              </Fragment>
-            ))}
-            {thread && <ListItemPost index={0} post={thread} />}
-          </div>
-        )}
+      <main className={classes.main}>
+        {loading && <CircularProgress className={classes.progress} />}
+        <ul className={classes.ul}>
+          {thread && (
+            <li>
+              <ListItemPost index={0} post={thread} />
+              <Divider />
+            </li>
+          )}
+          {posts.map((post, index) => (
+            <li key={post.id}>
+              <ListItemPost index={index + 1} post={post} />
+              <Divider />
+            </li>
+          ))}
+        </ul>
+        {!loading && <TextFieldResponse threadId={threadId} />}
       </main>
     </Fragment>
   )
@@ -98,6 +99,10 @@ const RouteThread: FunctionComponent<Props> = ({ match }) => {
 
 const useStyles = makeStyles<Theme>(({ spacing }) => {
   return {
+    main: {
+      display: 'grid',
+      gridRowGap: px(spacing(2))
+    },
     posts: {
       display: 'grid',
       gridRowGap: px(spacing(2)),
@@ -110,7 +115,8 @@ const useStyles = makeStyles<Theme>(({ spacing }) => {
       marginLeft: 'auto',
       marginRight: 'auto',
       marginTop: spacing(10)
-    }
+    },
+    ul: { ...resetList() }
   }
 })
 

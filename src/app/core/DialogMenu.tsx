@@ -27,7 +27,7 @@ type Props = {
 }
 
 const DialogMenu: FunctionComponent<Props> = ({ onClose, isOpen }) => {
-  const authUser = useAuthUser()
+  const [authUser] = useAuthUser()
 
   const onSignOut = () => {
     auth()
