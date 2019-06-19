@@ -9,6 +9,7 @@ import RouteSettingsEmail from 'app/setting/RouteSettingsEmail'
 import RouteSettingsPassword from 'app/setting/RouteSettingsPassword'
 import FragmentListener from 'app/shared/components/FragmentListener'
 import { createTheme } from 'app/shared/helpers/createTheme'
+import RouteStats from 'app/stat/RouteStats'
 import RouteThread from 'app/thread/RouteThread'
 import RouteThreads from 'app/thread/RouteThreads'
 import React, { Fragment, FunctionComponent } from 'react'
@@ -40,6 +41,7 @@ const App: FunctionComponent = () => {
                 exact
                 path={'/settings/password'}
               />
+              <Route component={RouteStats} exact path={'/stats'} />
               <Route component={RouteThreads} exact path={'/threads'} />
               <Route
                 component={RouteThread}

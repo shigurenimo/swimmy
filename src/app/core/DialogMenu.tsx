@@ -9,6 +9,7 @@ import {
   ListItemText,
   ListSubheader
 } from '@material-ui/core'
+import DataUsage from '@material-ui/icons/DataUsage'
 import Email from '@material-ui/icons/Email'
 import Home from '@material-ui/icons/Home'
 import PhotoIcon from '@material-ui/icons/Photo'
@@ -52,6 +53,14 @@ const DialogMenu: FunctionComponent<Props> = ({ onClose, isOpen }) => {
                 <Home />
               </ListItemIcon>
               <ListItemText primary={'ホーム'} />
+            </ListItem>
+          </Link>
+          <Link to={'/stats'}>
+            <ListItem button onClick={onClose}>
+              <ListItemIcon>
+                <DataUsage />
+              </ListItemIcon>
+              <ListItemText primary={'集計データ'} />
             </ListItem>
           </Link>
           <Link to={'/images'}>
