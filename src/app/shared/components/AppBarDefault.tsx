@@ -60,7 +60,7 @@ const AppBarDefault: FunctionComponent<Props> = ({ history, isClose }) => {
               >
                 <MoreHorizIcon />
               </IconButton>
-              {!authLoading && authUser !== null && (
+              {!authLoading && authUser === null && (
                 <IconButton
                   onClick={() => setIsOpenSignInDialog(true)}
                   aria-label={'Open a login dialog'}

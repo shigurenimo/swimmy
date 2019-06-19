@@ -21,14 +21,14 @@ const DivPostCounts: FunctionComponent<Props> = ({
 
   return (
     <div className={classes.root}>
-      {replyPostCount && replyPostCount > 0 && (
-        <Typography className={classes.replyPostCount}>
-          {`${WORD_RESPONSE} ${replyPostCount}`}
-        </Typography>
-      )}
       {likeCount > 0 && (
         <Typography className={classes.likeCount}>
           {`${WORD_LIKE} ${likeCount}`}
+        </Typography>
+      )}
+      {replyPostCount && replyPostCount > 0 && (
+        <Typography className={classes.replyPostCount}>
+          {`${WORD_RESPONSE} ${replyPostCount}`}
         </Typography>
       )}
     </div>
@@ -48,6 +48,7 @@ const useStyles = makeStyles<Theme>(({ palette, spacing }) => {
       fontWeight: 'bold'
     },
     root: {
+      alignItems: 'center',
       display: 'grid',
       gridAutoFlow: 'column',
       gridColumnGap: `${spacing(1)}px`,

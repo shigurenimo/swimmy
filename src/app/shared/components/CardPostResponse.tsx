@@ -49,16 +49,16 @@ const CardPostResponse: FunctionComponent<Props> = ({ post, index }) => {
 const useStyle = makeStyles<Theme>(({ palette, spacing, typography }) => {
   return {
     root: {
-      paddingBottom: spacing(1.2),
+      paddingBottom: spacing(1.5),
       paddingLeft: spacing(2),
       paddingRight: spacing(2),
-      paddingTop: spacing(1.2)
+      paddingTop: spacing(1.5)
     },
     likeCount: { paddingLeft: spacing(1), color: palette.secondary.light },
     replyPostCount: { color: purple.A400, paddingLeft: spacing(1) },
     grid: {
       display: 'grid',
-      gridGap: spacing(0.5),
+      gridGap: spacing(1),
       paddingRight: '0 !important'
     },
     header: {

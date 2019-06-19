@@ -2,7 +2,7 @@ import { Card, Theme, Typography } from '@material-ui/core'
 import { purple } from '@material-ui/core/colors'
 import { makeStyles } from '@material-ui/styles'
 import DivImages from 'app/shared/components/DivImages'
-import DivPostCounts from 'app/shared/components/DivPostCounts'
+import DivPostTags from 'app/shared/components/DivPostTags'
 import { Post } from 'app/shared/firestore/types/post'
 import { toDateText } from 'app/shared/helpers/toDateText'
 import React, { FunctionComponent } from 'react'
@@ -37,7 +37,7 @@ const CardPostThread: FunctionComponent<Props> = ({ post }) => {
         {post.photoURLs.length !== 0 && (
           <DivImages photoURLs={post.photoURLs} />
         )}
-        <DivPostCounts likeCount={post.likeCount} />
+        <DivPostTags post={post} />
       </div>
     </Card>
   )
@@ -46,16 +46,16 @@ const CardPostThread: FunctionComponent<Props> = ({ post }) => {
 const useStyle = makeStyles<Theme>(({ palette, spacing, typography }) => {
   return {
     root: {
-      paddingBottom: spacing(1.2),
+      paddingBottom: spacing(1.5),
       paddingLeft: spacing(2),
       paddingRight: spacing(2),
-      paddingTop: spacing(1.2)
+      paddingTop: spacing(1.5)
     },
     likeCount: { paddingLeft: spacing(1), color: palette.secondary.light },
     replyPostCount: { color: purple.A400, paddingLeft: spacing(1) },
     grid: {
       display: 'grid',
-      gridGap: spacing(0.5),
+      gridGap: spacing(1),
       paddingRight: '0 !important'
     },
     header: {

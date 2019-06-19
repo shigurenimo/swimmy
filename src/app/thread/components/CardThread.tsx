@@ -3,6 +3,7 @@ import { makeStyles } from '@material-ui/styles'
 import DivPostCounts from 'app/shared/components/DivPostCounts'
 import { Post } from 'app/shared/firestore/types/post'
 import { toDateText } from 'app/shared/helpers/toDateText'
+import { px } from 'app/shared/styles/px'
 import React, { FunctionComponent } from 'react'
 import { Link } from 'react-router-dom'
 
@@ -35,7 +36,7 @@ const useStyles = makeStyles<Theme>(({ typography, palette, spacing }) => {
   return {
     root: {
       display: 'grid',
-      gridRowGap: `${spacing(1)}px`,
+      gridRowGap: px(spacing(1)),
       width: `${100}%`
     },
     text: {

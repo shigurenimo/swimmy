@@ -15,7 +15,6 @@ import { firestore } from 'firebase/app'
 import React, { Fragment, FunctionComponent, useEffect, useState } from 'react'
 import { RouteComponentProps } from 'react-router-dom'
 import { collectionData, docData } from 'rxfire/firestore'
-import { take } from 'rxjs/operators'
 
 type Props = RouteComponentProps<{ threadId: string }>
 
@@ -54,12 +53,10 @@ const RouteThread: FunctionComponent<Props> = ({
       firestore()
         .collection(POSTS_AS_ANONYM)
         .doc(threadId)
-    )
-      .pipe(take(2))
-      .subscribe(_thread => {
-        setThread(_thread)
-        setLoadingPost(false)
-      })
+    ).subscribe(_thread => {
+      setThread(_thread)
+      setLoadingPost(false)
+    })
     return () => subscription.unsubscribe()
   }, [threadId])
 
@@ -77,7 +74,6 @@ const RouteThread: FunctionComponent<Props> = ({
       )}
       <Header isClose={true} />
       <main className={classes.main}>
-        {loading && <CircularProgress className={classes.progress} />}
         <ul className={classes.ul}>
           {thread && (
             <li>
@@ -85,13 +81,15 @@ const RouteThread: FunctionComponent<Props> = ({
               <Divider />
             </li>
           )}
-          {posts.map((post, index) => (
-            <li key={post.id}>
-              <CardPostResponse index={index + 1} post={post} />
-              <Divider />
-            </li>
-          ))}
+          {thread &&
+            posts.map((post, index) => (
+              <li key={post.id}>
+                <CardPostResponse index={index + 1} post={post} />
+                <Divider />
+              </li>
+            ))}
         </ul>
+        {loading && <CircularProgress className={classes.progress} />}
         {!loading && <TextFieldResponse threadId={threadId} />}
       </main>
     </Fragment>

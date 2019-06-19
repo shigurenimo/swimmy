@@ -1,4 +1,4 @@
-import { blue, cyan } from '@material-ui/core/colors'
+import { cyan, orange } from '@material-ui/core/colors'
 import { createMuiTheme } from '@material-ui/core/styles'
 
 export const createTheme = () => {
@@ -19,7 +19,7 @@ export const createTheme = () => {
       background: { default: '#ffffff' },
       divider: 'rgba(0, 0, 0, 0.08)',
       primary: { main: cyan.A700, contrastText: '#fff' },
-      secondary: { main: blue.A400 }
+      secondary: { main: orange.A400 }
     },
     props: { MuiButtonBase: { disableRipple: true } },
     shape: { borderRadius: 4 },

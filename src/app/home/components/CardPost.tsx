@@ -43,7 +43,7 @@ const useStyle = makeStyles<Theme>(({ palette, spacing, typography }) => {
     card: {
       display: 'grid',
       gridGap: spacing(0.5),
-      paddingBottom: spacing(1.2),
+      paddingBottom: spacing(1.5),
       paddingLeft: spacing(2),
       paddingRight: spacing(2),
       paddingTop: spacing(1.2),
