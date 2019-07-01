@@ -5,14 +5,17 @@ import { toDateText } from 'app/shared/helpers/toDateText'
 import React, { Fragment, FunctionComponent } from 'react'
 import { Link } from 'react-router-dom'
 
-type Props = { post: Post }
+type Props = {
+  post: Post
+  selected: boolean
+}
 
-const ListItemThread: FunctionComponent<Props> = ({ post }) => {
+const ListItemThread: FunctionComponent<Props> = ({ post, selected }) => {
   const classes = useStyles()
 
   return (
     <Link to={`/threads/${post.id}`}>
-      <ListItem button divider>
+      <ListItem button divider selected={selected}>
         <ListItemText
           className={classes.listItemText}
           primary={post.text}

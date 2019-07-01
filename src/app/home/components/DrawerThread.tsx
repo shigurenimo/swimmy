@@ -13,9 +13,9 @@ import React, {
 } from 'react'
 import { collectionData } from 'rxfire/firestore'
 
-type Props = {}
+type Props = { threadId: string }
 
-const DrawerThread: FunctionComponent<Props> = () => {
+const DrawerThread: FunctionComponent<Props> = ({ threadId }) => {
   const [posts, setPosts] = useState<Post[]>([])
 
   const [limit, setLimit] = useState(24)
@@ -60,7 +60,11 @@ const DrawerThread: FunctionComponent<Props> = () => {
             </ListItem>
           )}
           {posts.map(post => (
-            <ListItemThread key={post.id} post={post} />
+            <ListItemThread
+              key={post.id}
+              post={post}
+              selected={threadId === post.id}
+            />
           ))}
           {!loading && limit < 24 * 7 && (
             <ListItem button>

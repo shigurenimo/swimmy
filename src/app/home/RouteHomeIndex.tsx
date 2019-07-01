@@ -8,9 +8,14 @@ import FragmentHead from 'app/shared/components/FragmentHead'
 import React, { FunctionComponent } from 'react'
 import { Route, RouteComponentProps, Switch } from 'react-router'
 
-type Props = RouteComponentProps
+type Props = RouteComponentProps<{ threadId: string }>
 
-const RouteHomeIndex: FunctionComponent<Props> = ({ location }) => {
+const RouteHomeIndex: FunctionComponent<Props> = ({
+  location,
+  match: {
+    params: { threadId }
+  }
+}) => {
   const classes = useStyles({})
 
   const theme = useTheme<Theme>()
@@ -20,7 +25,7 @@ const RouteHomeIndex: FunctionComponent<Props> = ({ location }) => {
   return (
     <div className={classes.root}>
       <FragmentHead />
-      {isDesktop && <DrawerThread />}
+      {isDesktop && <DrawerThread threadId={threadId} />}
       <div>
         <AppBarDefault />
         <Switch>
