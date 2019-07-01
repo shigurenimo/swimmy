@@ -3,6 +3,7 @@ import { makeStyles } from '@material-ui/styles'
 import { Post } from 'app/shared/firestore/types/post'
 import { toDateText } from 'app/shared/helpers/toDateText'
 import React, { Fragment, FunctionComponent } from 'react'
+import { Link } from 'react-router-dom'
 
 type Props = { post: Post }
 
@@ -10,25 +11,27 @@ const ListItemThread: FunctionComponent<Props> = ({ post }) => {
   const classes = useStyles()
 
   return (
-    <ListItem button divider>
-      <ListItemText
-        primary={post.text}
-        secondaryTypographyProps={{
-          className: classes.secondary,
-          component: 'div'
-        }}
-        secondary={
-          <Fragment>
-            <Typography variant={'caption'}>
-              {`${post.replyPostCount}コメント`}
-            </Typography>
-            <Typography variant={'caption'}>
-              {toDateText(post.updatedAt)}
-            </Typography>
-          </Fragment>
-        }
-      />
-    </ListItem>
+    <Link to={`/threads/${post.id}`}>
+      <ListItem button divider>
+        <ListItemText
+          primary={post.text}
+          secondaryTypographyProps={{
+            className: classes.secondary,
+            component: 'div'
+          }}
+          secondary={
+            <Fragment>
+              <Typography variant={'caption'}>
+                {`${post.replyPostCount}コメント`}
+              </Typography>
+              <Typography variant={'caption'}>
+                {toDateText(post.updatedAt)}
+              </Typography>
+            </Fragment>
+          }
+        />
+      </ListItem>
+    </Link>
   )
 }
 
