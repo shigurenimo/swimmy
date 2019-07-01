@@ -1,38 +1,35 @@
+import { getTimeDifference } from 'app/shared/helpers/getTimeDifference'
 import { firestore } from 'firebase/app'
 
-export const toDateText = ({ seconds }: firestore.Timestamp): string => {
-  const date = new Date(seconds * 1000)
+export const toDateText = (timestamp: firestore.Timestamp): string => {
+  const date = timestamp.toDate()
   const Y = date.getFullYear()
   const M = date.getMonth() + 1
   const D = date.getDate()
 
-  const now = new Date()
+  const [, seconds, minutes, hours, days, monthes, years] = getTimeDifference(
+    timestamp.toDate()
+  )
 
-  if (0 < now.getFullYear() - date.getFullYear()) {
-    return `${Y}年${M}月${D}日`
+  if (seconds < 60) {
+    return 'いま'
   }
 
-  if (0 < now.getMonth() - date.getMonth()) {
-    return `${Y}年${M}月${D}日`
+  if (hours < 1) {
+    return `${minutes}分前`
   }
 
-  const _date = now.getDate() - date.getDate()
-
-  if (0 < _date) {
-    return `${_date}日前`
+  if (days < 1) {
+    return `${hours}時間前`
   }
 
-  const _hours = now.getHours() - date.getHours()
-
-  if (0 < _hours) {
-    return `${_hours}時間前`
+  if (monthes < 1) {
+    return `${days}日前（${M}月${D}日）`
   }
 
-  const _minutes = now.getMinutes() - date.getMinutes()
-
-  if (0 < _minutes) {
-    return `${_minutes}分前`
+  if (years < 1) {
+    return `${monthes}ヶ月前（${Y}年${M}月${D}日）`
   }
 
-  return '今'
+  return `${Y}年${M}月${D}日`
 }
