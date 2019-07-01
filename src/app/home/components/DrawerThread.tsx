@@ -73,16 +73,16 @@ const DrawerThread: FunctionComponent<Props> = () => {
   )
 }
 
-const useStyles = makeStyles<Theme>(({ mixins, shadows }) => {
+const useStyles = makeStyles<Theme>(({ breakpoints, spacing }) => {
   return {
     drawerPaper: {
       position: 'fixed',
       height: '100%',
-      width: 400,
+      width: spacing(50),
       zIndex: 1300 - 1,
-      boxShadow: '0 2px 8px rgba(214, 214, 224, 1)'
-    },
-    root: {}
+      boxShadow: '0 2px 8px rgba(214, 214, 224, 1)',
+      [breakpoints.up('lg')]: { width: spacing(70) }
+    }
   }
 })
 

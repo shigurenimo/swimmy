@@ -38,12 +38,12 @@ const DivPostCounts: FunctionComponent<Props> = ({
 const useStyles = makeStyles<Theme>(({ palette, spacing }) => {
   return {
     likeCount: {
-      color: palette.secondary.main,
+      color: palette.secondary.dark,
       fontSize: px(12),
       fontWeight: 'bold'
     },
     replyPostCount: {
-      color: palette.primary.main,
+      color: palette.primary.dark,
       fontSize: px(12),
       fontWeight: 'bold'
     },

@@ -36,7 +36,8 @@ const useStyles = makeStyles<Theme>(({ breakpoints, spacing }) => {
   return {
     root: {
       display: 'grid',
-      [breakpoints.up('md')]: { gridTemplateColumns: '400px 3fr' }
+      [breakpoints.up('md')]: { gridTemplateColumns: `${spacing(50)}px 1fr` },
+      [breakpoints.up('lg')]: { gridTemplateColumns: `${spacing(70)}px 1fr` }
     }
   }
 })

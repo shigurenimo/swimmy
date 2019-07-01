@@ -9,6 +9,7 @@ import {
   ListItemText,
   ListSubheader
 } from '@material-ui/core'
+import ChatBubbleIcon from '@material-ui/icons/ChatBubble'
 import DataUsage from '@material-ui/icons/DataUsage'
 import Email from '@material-ui/icons/Email'
 import Home from '@material-ui/icons/Home'
@@ -61,6 +62,14 @@ const DialogMenu: FunctionComponent<Props> = ({ onClose, isOpen }) => {
                 <DataUsage />
               </ListItemIcon>
               <ListItemText primary={'集計データ'} />
+            </ListItem>
+          </Link>
+          <Link to={'/threads'}>
+            <ListItem button onClick={onClose}>
+              <ListItemIcon>
+                <ChatBubbleIcon />
+              </ListItemIcon>
+              <ListItemText primary={'スレッド'} />
             </ListItem>
           </Link>
           <Link to={'/images'}>

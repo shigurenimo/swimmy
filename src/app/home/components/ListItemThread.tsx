@@ -14,6 +14,7 @@ const ListItemThread: FunctionComponent<Props> = ({ post }) => {
     <Link to={`/threads/${post.id}`}>
       <ListItem button divider>
         <ListItemText
+          className={classes.listItemText}
           primary={post.text}
           secondaryTypographyProps={{
             className: classes.secondary,
@@ -21,7 +22,7 @@ const ListItemThread: FunctionComponent<Props> = ({ post }) => {
           }}
           secondary={
             <Fragment>
-              <Typography variant={'caption'}>
+              <Typography className={classes.comment} variant={'caption'}>
                 {`${post.replyPostCount}コメント`}
               </Typography>
               <Typography variant={'caption'}>
@@ -35,15 +36,16 @@ const ListItemThread: FunctionComponent<Props> = ({ post }) => {
   )
 }
 
-const useStyles = makeStyles<Theme>(({ spacing }) => {
+const useStyles = makeStyles<Theme>(({ spacing, palette }) => {
   return {
+    comment: { color: palette.primary.dark, fontWeight: 'bold' },
     secondary: {
       display: 'grid',
-      gridGap: spacing(0.5),
       gridAutoColumns: 'max-content',
       gridAutoFlow: 'column',
       justifyContent: 'space-between'
-    }
+    },
+    listItemText: { display: 'grid', gridGap: spacing(0.5) }
   }
 })
 
