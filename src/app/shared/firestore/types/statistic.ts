@@ -1,4 +1,4 @@
-import { firestore } from 'firebase'
+import { firestore } from 'firebase/app'
 
 export type Statistic = {
   createdAt: firestore.Timestamp

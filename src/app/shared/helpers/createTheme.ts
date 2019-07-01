@@ -5,10 +5,6 @@ export const createTheme = () => {
   return createMuiTheme({
     overrides: {
       MuiBackdrop: { root: { backgroundColor: 'rgba(255, 255, 255, 0.8)' } },
-      MuiDrawer: {
-        paper: { backgroundColor: 'rgba(0, 0, 0, 0)' },
-        paperAnchorDockedLeft: { borderRight: 0 }
-      },
       MuiPaper: {
         elevation1: { boxShadow: '0 2px 8px rgba(214, 214, 224, 1)' },
         elevation2: { boxShadow: '0 2px 8px rgba(214, 214, 224, 1)' },

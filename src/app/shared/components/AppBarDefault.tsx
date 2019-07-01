@@ -84,17 +84,19 @@ const AppBarDefault: FunctionComponent<Props> = ({ history, isClose }) => {
   )
 }
 
-const useStyle = makeStyles<Theme>(({ spacing }) => {
+const useStyle = makeStyles<Theme>(({ spacing, zIndex }) => {
   return {
     actions: {
       display: 'grid',
       gridAutoFlow: 'column',
       gridColumnGap: px(spacing(1))
     },
-    appBar: { backgroundColor: 'rgba(255, 255, 255, 0.98)' },
+    appBar: {
+      backgroundColor: 'rgba(255, 255, 255, 0.98)',
+      zIndex: zIndex.drawer + 1
+    },
     menuButton: { marginLeft: spacing(-1.5), marginRight: spacing(2.5) },
     progress: { position: 'absolute', top: 0, left: 0, width: pct(100) },
-    root: { flexGrow: 1 },
     title: { fontSize: 24, flexGrow: 1 }
   }
 })

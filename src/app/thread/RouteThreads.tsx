@@ -55,7 +55,7 @@ const RouteThreads: FunctionComponent<Props> = ({ location, history }) => {
       setLoadingMore(false)
     })
     return () => subscription.unsubscribe()
-  }, [limit, orderBy, posts])
+  }, [limit, orderBy])
 
   useEffect(() => {
     return () => setState(posts, limit)
