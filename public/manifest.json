@@ -4,8 +4,8 @@
   "short_name": "Sw",
   "name": "Sw",
   "icons": [
-    { "src": "/icons/icon-128.png", "sizes": "128x128" },
-    { "src": "/icons/icon-256.png", "sizes": "256x256" }
+    { "src": "/icons/icon-192.png", "sizes": "192x192" },
+    { "src": "/icons/icon-512.png", "sizes": "512x512" }
   ],
   "start_url": "/",
   "theme_color": "#69f0ae",

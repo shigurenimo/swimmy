@@ -8,7 +8,7 @@ type Props = {
 
 const FragmentHead: FunctionComponent<Props> = ({
   title = '',
-  description = 'スイミー（Swimmy）は完全な匿名の電子掲示板です。IPアドレスやユーザIDを公開せずに完全な匿名で書き込みできます。',
+  description = 'スイミー（Swimmy）は完全な匿名の電子掲示板です。悩みでも愚痴でも自由に投稿してください。',
   image = null
 }) => {
   const titleDefault = 'スイミー'
