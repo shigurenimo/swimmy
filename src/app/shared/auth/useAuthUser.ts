@@ -4,6 +4,7 @@ import { authState } from 'rxfire/auth'
 
 export const useAuthUser = () => {
   const state = useState<User | null>(null)
+
   const [, setAuthUser] = state
 
   useEffect(() => {
