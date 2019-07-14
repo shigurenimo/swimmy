@@ -3,7 +3,6 @@ import { makeStyles } from '@material-ui/styles'
 import Header from 'app/shared/components/AppBarDefault'
 import ButtonMore from 'app/shared/components/ButtonMore'
 import FragmentHead from 'app/shared/components/FragmentHead'
-import SectionTitle from 'app/shared/components/SectionTitle'
 import { POSTS_AS_IMAGE } from 'app/shared/constants/collection'
 import { DESC } from 'app/shared/constants/order'
 import { WORD_PHOTO, WORD_RESPONSE } from 'app/shared/constants/word'
@@ -85,10 +84,6 @@ const RouteImages: FunctionComponent<Props> = ({ location, history }) => {
       />
       <Header />
       <main className={classes.root}>
-        <SectionTitle
-          title={WORD_PHOTO}
-          description={`${WORD_PHOTO}の添付された書き込みはここに表示されます。`}
-        />
         <Tabs
           indicatorColor={'primary'}
           onChange={onChangeTab}

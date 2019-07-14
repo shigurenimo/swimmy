@@ -3,7 +3,6 @@ import { makeStyles } from '@material-ui/styles'
 import Header from 'app/shared/components/AppBarDefault'
 import DivLoading from 'app/shared/components/DivLoading'
 import FragmentHead from 'app/shared/components/FragmentHead'
-import SectionTitle from 'app/shared/components/SectionTitle'
 import { STATISTICS } from 'app/shared/constants/collection'
 import { DESC } from 'app/shared/constants/order'
 import { Statistic } from 'app/shared/firestore/types/statistic'
@@ -44,11 +43,6 @@ const RouteStats: FunctionComponent = () => {
       <FragmentHead title={'集計データ'} />
       <Header />
       <main className={classes.root}>
-        <SectionTitle
-          hide={false}
-          title={'集計データ'}
-          description={'ちょっとした集計データをこのページで確認できます。'}
-        />
         {!loading && (
           <Fragment>
             <section className={classes.section}>

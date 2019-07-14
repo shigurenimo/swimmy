@@ -3,10 +3,9 @@ import { makeStyles } from '@material-ui/styles'
 import Header from 'app/shared/components/AppBarDefault'
 import ButtonMore from 'app/shared/components/ButtonMore'
 import FragmentHead from 'app/shared/components/FragmentHead'
-import SectionTitle from 'app/shared/components/SectionTitle'
 import { POSTS_AS_THREAD } from 'app/shared/constants/collection'
 import { DESC } from 'app/shared/constants/order'
-import { WORD_RESPONSE, WORD_THREAD } from 'app/shared/constants/word'
+import { WORD_RESPONSE } from 'app/shared/constants/word'
 import { Post } from 'app/shared/firestore/types/post'
 import { getOrderBy } from 'app/shared/helpers/getOrderBy'
 import { useCollectionState } from 'app/shared/hooks/useCollectionState'
@@ -81,10 +80,6 @@ const RouteThreads: FunctionComponent<Props> = ({ location, history }) => {
       <FragmentHead title={`${WORD_RESPONSE}のある書き込み一覧です`} />
       <Header />
       <main className={classes.root}>
-        <SectionTitle
-          title={WORD_THREAD}
-          description={'コメントのある書き込みはこのページで確認できます。'}
-        />
         <Tabs
           indicatorColor={'primary'}
           onChange={onChangeTab}

@@ -2,7 +2,6 @@ import { CircularProgress, Fade, Theme } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
 import Header from 'app/shared/components/AppBarDefault'
 import FragmentHead from 'app/shared/components/FragmentHead'
-import SectionTitle from 'app/shared/components/SectionTitle'
 import { px } from 'app/shared/styles/px'
 import { resetList } from 'app/shared/styles/resetList'
 import React, { Fragment, FunctionComponent } from 'react'
@@ -24,13 +23,6 @@ const RouteChangelogs: FunctionComponent = () => {
       {!inProgress && (
         <Fade in>
           <main className={classes.root}>
-            <SectionTitle
-              hide={false}
-              title={'アップデート履歴'}
-              description={
-                'バージョン3.0.0以降の過去のアップデート履歴を確認できます。'
-              }
-            />
             <ul className={classes.changelogs}>
               {changelogs.map(changelog => (
                 <li key={changelog.version}>

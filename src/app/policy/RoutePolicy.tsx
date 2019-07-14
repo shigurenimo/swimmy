@@ -2,7 +2,6 @@ import { Theme, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
 import Header from 'app/shared/components/AppBarDefault'
 import FragmentHead from 'app/shared/components/FragmentHead'
-import SectionTitle from 'app/shared/components/SectionTitle'
 import { px } from 'app/shared/styles/px'
 import React, { Fragment, FunctionComponent } from 'react'
 
@@ -14,13 +13,6 @@ const RoutePolicy: FunctionComponent = () => {
       <FragmentHead title={'プライバシーポリシー'} />
       <Header />
       <main className={classes.root}>
-        <SectionTitle
-          hide={false}
-          title={'プライバシーポリシー'}
-          description={
-            'このサービスを利用するユーザの情報の取り扱いについて、プライバシーポリシーを定めます。'
-          }
-        />
         <section className={classes.section}>
           <Typography variant={'h6'} component={'h2'}>
             個人情報について
