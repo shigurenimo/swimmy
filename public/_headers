@@ -1,0 +1,4 @@
+/index.html
+  cache-control: no-store
+/service-worker.js
+  cache-control: no-store
