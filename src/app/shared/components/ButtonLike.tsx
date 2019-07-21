@@ -1,7 +1,7 @@
 import { Button, ButtonGroup, Theme } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
 import { useAuthUser } from 'app/shared/auth/useAuthUser'
-import { LIKES, POSTS } from 'app/shared/constants/collection'
+import { LIKES, POSTS } from 'app/shared/firestore/constants/collection'
 import { deleteLike } from 'app/shared/firestore/deleteLike'
 import { Post } from 'app/shared/firestore/types/post'
 import { createLike } from 'app/shared/functions/createLike'

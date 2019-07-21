@@ -1,4 +1,4 @@
-import { LIKES } from 'app/shared/constants/collection'
+import { LIKES } from 'app/shared/firestore/constants/collection'
 import { firestore } from 'firebase/app'
 import { from } from 'rxjs'
 

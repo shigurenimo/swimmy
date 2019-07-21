@@ -3,8 +3,11 @@ import { makeStyles } from '@material-ui/styles'
 import CardPostResponse from 'app/shared/components/CardPostResponse'
 import CardPostThread from 'app/shared/components/CardPostThread'
 import TextFieldResponse from 'app/shared/components/TextFieldResponse'
-import { POSTS, POSTS_AS_ANONYM } from 'app/shared/constants/collection'
-import { ASC } from 'app/shared/constants/order'
+import {
+  POSTS,
+  POSTS_AS_ANONYM
+} from 'app/shared/firestore/constants/collection'
+import { ASC } from 'app/shared/firestore/constants/order'
 import { Post } from 'app/shared/firestore/types/post'
 import { px } from 'app/shared/styles/px'
 import { firestore } from 'firebase/app'

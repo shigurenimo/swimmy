@@ -1,7 +1,7 @@
 import { Button, CircularProgress, TextField, Theme } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
 import InputFile from 'app/shared/components/InputFile'
-import { IMAGES } from 'app/shared/constants/collection'
+import { IMAGES } from 'app/shared/firestore/constants/collection'
 import { createId } from 'app/shared/firestore/createId'
 import { Image } from 'app/shared/firestore/types/image'
 import { createPost } from 'app/shared/functions/createPost'
