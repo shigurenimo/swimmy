@@ -6,9 +6,9 @@ import React, { FunctionComponent, useEffect, useState } from 'react'
 import { docData } from 'rxfire/firestore'
 import { useAuthUser } from '../auth/useAuthUser'
 import { LIKES, POSTS } from '../firestore/constants/collection'
+import { createLike } from '../firestore/createLike'
 import { deleteLike } from '../firestore/deleteLike'
 import { Post } from '../firestore/types/post'
-import { createLike } from '../functions/createLike'
 import { mapNullable } from '../operators/mapNullable'
 
 type Props = { post: Post }
@@ -48,7 +48,11 @@ const ButtonLike: FunctionComponent<Props> = ({ post }) => {
         userId: authUser.uid
       }).subscribe()
     } else {
-      createLike()({ collectionId: POSTS, docId: post.id }).subscribe()
+      createLike({
+        collectionId: POSTS,
+        docId: post.id,
+        userId: authUser.uid
+      }).subscribe()
     }
   }
 
