@@ -10,7 +10,7 @@ type Props = {
 }
 
 const DivPostCounts: FunctionComponent<Props> = ({
-  replyPostCount,
+  replyPostCount = 0,
   likeCount
 }) => {
   const classes = useStyles({})
@@ -26,7 +26,7 @@ const DivPostCounts: FunctionComponent<Props> = ({
           {`${WORD_LIKE} ${likeCount}`}
         </Typography>
       )}
-      {replyPostCount && replyPostCount > 0 && (
+      {replyPostCount > 0 && (
         <Typography className={classes.replyPostCount}>
           {`${WORD_RESPONSE} ${replyPostCount}`}
         </Typography>
