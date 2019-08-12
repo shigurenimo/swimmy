@@ -1,9 +1,9 @@
 import { ListItem, ListItemText, Theme, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
-import { Post } from 'app/shared/firestore/types/post'
-import { toDateText } from 'app/shared/helpers/toDateText'
 import React, { Fragment, FunctionComponent } from 'react'
 import { Link } from 'react-router-dom'
+import { Post } from '../../shared/firestore/types/post'
+import { toDateText } from '../../shared/helpers/toDateText'
 
 type Props = {
   post: Post

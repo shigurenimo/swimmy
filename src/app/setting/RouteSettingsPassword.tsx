@@ -7,16 +7,16 @@ import {
   Typography
 } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
-import { useAuthUser } from 'app/shared/auth/useAuthUser'
-import Header from 'app/shared/components/AppBarDefault'
-import FragmentHead from 'app/shared/components/FragmentHead'
-import { pct } from 'app/shared/styles/pct'
-import { px } from 'app/shared/styles/px'
 import classnames from 'classnames'
 import { auth } from 'firebase/app'
 import React, { Fragment, FunctionComponent, useEffect, useState } from 'react'
 import { from } from 'rxjs'
 import { mergeMap } from 'rxjs/operators'
+import { useAuthUser } from '../shared/auth/useAuthUser'
+import Header from '../shared/components/AppBarDefault'
+import FragmentHead from '../shared/components/FragmentHead'
+import { pct } from '../shared/styles/pct'
+import { px } from '../shared/styles/px'
 
 const RouteSettingsPassword: FunctionComponent = () => {
   const [authUser] = useAuthUser()

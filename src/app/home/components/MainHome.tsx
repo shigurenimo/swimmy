@@ -1,13 +1,5 @@
 import { CircularProgress, Divider, Theme } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
-import CardPost from 'app/home/components/CardPost'
-import ButtonMore from 'app/shared/components/ButtonMore'
-import TextFieldPost from 'app/shared/components/TextFieldPost'
-import { POSTS_AS_ANONYM } from 'app/shared/firestore/constants/collection'
-import { DESC } from 'app/shared/firestore/constants/order'
-import { Post } from 'app/shared/firestore/types/post'
-import { useCollectionState } from 'app/shared/hooks/useCollectionState'
-import { px } from 'app/shared/styles/px'
 import { firestore } from 'firebase/app'
 import React, {
   FunctionComponent,
@@ -17,6 +9,14 @@ import React, {
 } from 'react'
 import { RouteComponentProps } from 'react-router'
 import { collectionData } from 'rxfire/firestore'
+import ButtonMore from '../../shared/components/ButtonMore'
+import TextFieldPost from '../../shared/components/TextFieldPost'
+import { POSTS_AS_ANONYM } from '../../shared/firestore/constants/collection'
+import { DESC } from '../../shared/firestore/constants/order'
+import { Post } from '../../shared/firestore/types/post'
+import { useCollectionState } from '../../shared/hooks/useCollectionState'
+import { px } from '../../shared/styles/px'
+import CardPost from './CardPost'
 
 type Props = RouteComponentProps
 

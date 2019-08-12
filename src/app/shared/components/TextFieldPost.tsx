@@ -7,16 +7,16 @@ import {
   Theme
 } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
-import InputFile from 'app/shared/components/InputFile'
-import { IMAGES } from 'app/shared/firestore/constants/collection'
-import { createId } from 'app/shared/firestore/createId'
-import { Image } from 'app/shared/firestore/types/image'
-import { createPost } from 'app/shared/functions/createPost'
 import { firestore, storage } from 'firebase/app'
 import React, { FunctionComponent, useEffect, useState } from 'react'
 import { doc, snapToData } from 'rxfire/firestore'
 import { put } from 'rxfire/storage'
 import { filter } from 'rxjs/operators'
+import { IMAGES } from '../firestore/constants/collection'
+import { createId } from '../firestore/createId'
+import { Image } from '../firestore/types/image'
+import { createPost } from '../functions/createPost'
+import InputFile from './InputFile'
 
 const TextFieldPost: FunctionComponent = () => {
   const [postText, setPostText] = useState('')

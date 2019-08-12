@@ -1,15 +1,15 @@
 import { Card, CardContent, Theme, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
-import Header from 'app/shared/components/AppBarDefault'
-import DivLoading from 'app/shared/components/DivLoading'
-import FragmentHead from 'app/shared/components/FragmentHead'
-import { STATISTICS } from 'app/shared/firestore/constants/collection'
-import { DESC } from 'app/shared/firestore/constants/order'
-import { Statistic } from 'app/shared/firestore/types/statistic'
-import { px } from 'app/shared/styles/px'
 import { firestore } from 'firebase/app'
 import React, { Fragment, FunctionComponent, useEffect, useState } from 'react'
 import { collectionData } from 'rxfire/firestore'
+import Header from '../shared/components/AppBarDefault'
+import DivLoading from '../shared/components/DivLoading'
+import FragmentHead from '../shared/components/FragmentHead'
+import { STATISTICS } from '../shared/firestore/constants/collection'
+import { DESC } from '../shared/firestore/constants/order'
+import { Statistic } from '../shared/firestore/types/statistic'
+import { px } from '../shared/styles/px'
 
 const RouteStats: FunctionComponent = () => {
   const [loading, setLoading] = useState(true)

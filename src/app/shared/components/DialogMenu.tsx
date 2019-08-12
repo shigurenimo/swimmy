@@ -18,10 +18,10 @@ import PowerSettingsNew from '@material-ui/icons/PowerSettingsNew'
 import PriorityHigh from '@material-ui/icons/PriorityHigh'
 import Update from '@material-ui/icons/Update'
 import VpnKey from '@material-ui/icons/VpnKey'
-import { useAuthUser } from 'app/shared/auth/useAuthUser'
 import { auth } from 'firebase/app'
 import React, { FunctionComponent } from 'react'
 import { Link } from 'react-router-dom'
+import { useAuthUser } from '../auth/useAuthUser'
 
 type Props = {
   onClose: any

@@ -1,19 +1,19 @@
 import { CircularProgress, Divider, Theme } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
-import CardPostResponse from 'app/shared/components/CardPostResponse'
-import CardPostThread from 'app/shared/components/CardPostThread'
-import TextFieldResponse from 'app/shared/components/TextFieldResponse'
-import {
-  POSTS,
-  POSTS_AS_ANONYM
-} from 'app/shared/firestore/constants/collection'
-import { ASC } from 'app/shared/firestore/constants/order'
-import { Post } from 'app/shared/firestore/types/post'
-import { px } from 'app/shared/styles/px'
 import { firestore } from 'firebase/app'
 import React, { FunctionComponent, useEffect, useState } from 'react'
 import { RouteComponentProps } from 'react-router-dom'
 import { collectionData, docData } from 'rxfire/firestore'
+import CardPostResponse from '../../shared/components/CardPostResponse'
+import CardPostThread from '../../shared/components/CardPostThread'
+import TextFieldResponse from '../../shared/components/TextFieldResponse'
+import {
+  POSTS,
+  POSTS_AS_ANONYM
+} from '../../shared/firestore/constants/collection'
+import { ASC } from '../../shared/firestore/constants/order'
+import { Post } from '../../shared/firestore/types/post'
+import { px } from '../../shared/styles/px'
 
 type Props = RouteComponentProps<{ threadId: string }>
 

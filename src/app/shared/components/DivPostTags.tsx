@@ -1,9 +1,9 @@
 import { Theme } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
-import ButtonLike from 'app/shared/components/ButtonLike'
-import { Post } from 'app/shared/firestore/types/post'
-import { resetList } from 'app/shared/styles/resetList'
 import React, { FunctionComponent } from 'react'
+import { Post } from '../firestore/types/post'
+import { resetList } from '../styles/resetList'
+import ButtonLike from './ButtonLike'
 
 type Props = { post: Post }
 

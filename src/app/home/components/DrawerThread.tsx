@@ -1,9 +1,5 @@
 import { Drawer, List, ListItem, ListItemText, Theme } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
-import ListItemThread from 'app/home/components/ListItemThread'
-import { POSTS_AS_THREAD } from 'app/shared/firestore/constants/collection'
-import { DESC } from 'app/shared/firestore/constants/order'
-import { Post } from 'app/shared/firestore/types/post'
 import { firestore } from 'firebase/app'
 import React, {
   FunctionComponent,
@@ -12,6 +8,10 @@ import React, {
   useState
 } from 'react'
 import { collectionData } from 'rxfire/firestore'
+import { POSTS_AS_THREAD } from '../../shared/firestore/constants/collection'
+import { DESC } from '../../shared/firestore/constants/order'
+import { Post } from '../../shared/firestore/types/post'
+import ListItemThread from './ListItemThread'
 
 type Props = { threadId: string }
 

@@ -1,10 +1,10 @@
 import { Card, CardContent, Theme, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
-import { toDateTextFromPrismicDate } from 'app/changelog/helpers/toDateTextFromPrismicDate'
-import { toVersionText } from 'app/changelog/helpers/toVersionText'
-import { Changelog } from 'app/shared/firestore/types/changelog'
-import { resetList } from 'app/shared/styles/resetList'
 import React, { FunctionComponent } from 'react'
+import { Changelog } from '../../shared/firestore/types/changelog'
+import { resetList } from '../../shared/styles/resetList'
+import { toDateTextFromPrismicDate } from '../helpers/toDateTextFromPrismicDate'
+import { toVersionText } from '../helpers/toVersionText'
 
 type Props = { changelog: Changelog }
 

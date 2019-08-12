@@ -7,16 +7,13 @@ import {
   Theme
 } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
-import {
-  POSTS,
-  POSTS_AS_ANONYM
-} from 'app/shared/firestore/constants/collection'
-import { DESC } from 'app/shared/firestore/constants/order'
-import { Post } from 'app/shared/firestore/types/post'
 import { firestore } from 'firebase/app'
 import React, { FunctionComponent, useEffect, useState } from 'react'
 import { collectionData } from 'rxfire/firestore'
 import { delay } from 'rxjs/operators'
+import { POSTS, POSTS_AS_ANONYM } from '../firestore/constants/collection'
+import { DESC } from '../firestore/constants/order'
+import { Post } from '../firestore/types/post'
 
 type Props = {
   postId: string

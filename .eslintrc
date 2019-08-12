@@ -4,14 +4,14 @@
     "react-app",
     "prettier/@typescript-eslint"
   ],
-  "plugins": ["@typescript-eslint"],
+  "plugins": ["@typescript-eslint", "prettier"],
   "parser": "@typescript-eslint/parser",
   "env": {
     "es6": true,
     "browser": true
   },
   "rules": {
-    "prettier": true,
+    "prettier/prettier": 2,
     "@typescript-eslint/explicit-function-return-type": 0,
     "@typescript-eslint/prefer-interface": 0,
     "@typescript-eslint/no-use-before-define": 0

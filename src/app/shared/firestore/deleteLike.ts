@@ -1,6 +1,6 @@
-import { LIKES } from 'app/shared/firestore/constants/collection'
 import { firestore } from 'firebase/app'
 import { from } from 'rxjs'
+import { LIKES } from './constants/collection'
 
 export const deleteLike = ({
   collectionId,

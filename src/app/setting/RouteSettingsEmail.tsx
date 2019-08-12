@@ -1,10 +1,10 @@
 import { Theme } from '@material-ui/core'
 import Email from '@material-ui/icons/Email'
 import { makeStyles } from '@material-ui/styles'
-import Header from 'app/shared/components/AppBarDefault'
-import DivUnderDevelopment from 'app/shared/components/DivUnderDevelopment'
-import FragmentHead from 'app/shared/components/FragmentHead'
 import React, { Fragment, FunctionComponent } from 'react'
+import Header from '../shared/components/AppBarDefault'
+import DivUnderDevelopment from '../shared/components/DivUnderDevelopment'
+import FragmentHead from '../shared/components/FragmentHead'
 
 const RouteSettingsEmail: FunctionComponent = () => {
   const classes = useStyles({})

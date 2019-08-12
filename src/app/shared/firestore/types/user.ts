@@ -1,5 +1,5 @@
-import { Doc } from 'app/shared/firestore/types/doc'
-import { UserLink } from 'app/shared/firestore/types/userLink'
+import { Doc } from '../../firestore/types/doc'
+import { UserLink } from '../../firestore/types/userLink'
 
 export type User = Doc & {
   description: string

@@ -1,11 +1,11 @@
 import { Card, CardContent, Theme, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
-import DivPostCounts from 'app/shared/components/DivPostCounts'
-import { Post } from 'app/shared/firestore/types/post'
-import { toDateText } from 'app/shared/helpers/toDateText'
-import { px } from 'app/shared/styles/px'
 import React, { FunctionComponent } from 'react'
 import { Link } from 'react-router-dom'
+import DivPostCounts from '../../shared/components/DivPostCounts'
+import { Post } from '../../shared/firestore/types/post'
+import { toDateText } from '../../shared/helpers/toDateText'
+import { px } from '../../shared/styles/px'
 
 type Props = { post: Post }
 

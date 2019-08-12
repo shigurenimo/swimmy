@@ -1,10 +1,10 @@
-import { getPrismicEndpoint } from 'app/changelog/helpers/getPrismicEndpoint'
-import { getPrismicRef } from 'app/changelog/helpers/getPrismicRef'
-import { Changelog } from 'app/shared/firestore/types/changelog'
-import { createQueryParams } from 'app/shared/helpers/createQueryParams'
 import { useEffect, useState } from 'react'
 import { from } from 'rxjs'
 import { map, mergeMap } from 'rxjs/operators'
+import { Changelog } from '../../shared/firestore/types/changelog'
+import { createQueryParams } from '../../shared/helpers/createQueryParams'
+import { getPrismicEndpoint } from '../helpers/getPrismicEndpoint'
+import { getPrismicRef } from '../helpers/getPrismicRef'
 
 export const usePrismicChangelogs = (): [[Changelog[], boolean]] => {
   const [changelogs, setChangelogs] = useState<Changelog[]>([])

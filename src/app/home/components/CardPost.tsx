@@ -1,11 +1,11 @@
 import { Card, Theme, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
-import DivImages from 'app/shared/components/DivImages'
-import DivPostCounts from 'app/shared/components/DivPostCounts'
-import { Post } from 'app/shared/firestore/types/post'
-import { toDateText } from 'app/shared/helpers/toDateText'
 import React, { FunctionComponent } from 'react'
 import { Link } from 'react-router-dom'
+import DivImages from '../../shared/components/DivImages'
+import DivPostCounts from '../../shared/components/DivPostCounts'
+import { Post } from '../../shared/firestore/types/post'
+import { toDateText } from '../../shared/helpers/toDateText'
 
 type Props = {
   inProgress?: boolean

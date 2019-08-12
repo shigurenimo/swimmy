@@ -1,8 +1,8 @@
 import { Theme, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
-import { WORD_LIKE, WORD_RESPONSE } from 'app/shared/constants/word'
-import { px } from 'app/shared/styles/px'
 import React, { FunctionComponent } from 'react'
+import { WORD_LIKE, WORD_RESPONSE } from '../constants/word'
+import { px } from '../styles/px'
 
 type Props = {
   replyPostCount?: number

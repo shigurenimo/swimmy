@@ -1,8 +1,8 @@
 import { Card, CardActionArea, CardMedia, Theme } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
-import { Post } from 'app/shared/firestore/types/post'
 import React, { FunctionComponent } from 'react'
 import { Link } from 'react-router-dom'
+import { Post } from '../../shared/firestore/types/post'
 
 type Props = { post: Post }
 

@@ -1,12 +1,12 @@
 import { Theme, useMediaQuery } from '@material-ui/core'
 import { makeStyles, useTheme } from '@material-ui/styles'
-import DrawerThread from 'app/home/components/DrawerThread'
-import MainHome from 'app/home/components/MainHome'
-import MainThread from 'app/home/components/MainThread'
-import AppBarDefault from 'app/shared/components/AppBarDefault'
-import FragmentHead from 'app/shared/components/FragmentHead'
 import React, { FunctionComponent } from 'react'
 import { Route, RouteComponentProps, Switch } from 'react-router'
+import AppBarDefault from '../shared/components/AppBarDefault'
+import FragmentHead from '../shared/components/FragmentHead'
+import DrawerThread from './components/DrawerThread'
+import MainHome from './components/MainHome'
+import MainThread from './components/MainThread'
 
 type Props = RouteComponentProps<{ threadId: string }>
 

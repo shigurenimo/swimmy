@@ -1,10 +1,10 @@
 import { Card, CardContent, Theme, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
-import Header from 'app/shared/components/AppBarDefault'
-import FragmentHead from 'app/shared/components/FragmentHead'
-import { px } from 'app/shared/styles/px'
-import { resetList } from 'app/shared/styles/resetList'
 import React, { Fragment, FunctionComponent } from 'react'
+import Header from '../shared/components/AppBarDefault'
+import FragmentHead from '../shared/components/FragmentHead'
+import { px } from '../shared/styles/px'
+import { resetList } from '../shared/styles/resetList'
 
 const RouteAbout: FunctionComponent = () => {
   const classes = useStyles({})
@@ -20,7 +20,7 @@ const RouteAbout: FunctionComponent = () => {
             <Card>
               <CardContent>
                 <Typography gutterBottom variant={'h6'} component={'h2'}>
-                  Title
+                  {'Title'}
                 </Typography>
                 <Typography component="p">Description</Typography>
               </CardContent>

@@ -1,16 +1,5 @@
 import { CircularProgress, Tab, Tabs, Theme } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
-import Header from 'app/shared/components/AppBarDefault'
-import ButtonMore from 'app/shared/components/ButtonMore'
-import FragmentHead from 'app/shared/components/FragmentHead'
-import { POSTS_AS_THREAD } from 'app/shared/firestore/constants/collection'
-import { DESC } from 'app/shared/firestore/constants/order'
-import { WORD_RESPONSE } from 'app/shared/constants/word'
-import { Post } from 'app/shared/firestore/types/post'
-import { getOrderBy } from 'app/shared/helpers/getOrderBy'
-import { useCollectionState } from 'app/shared/hooks/useCollectionState'
-import { px } from 'app/shared/styles/px'
-import CardThread from 'app/thread/components/CardThread'
 import { firestore } from 'firebase/app'
 import React, {
   ChangeEvent,
@@ -22,6 +11,17 @@ import React, {
 } from 'react'
 import { RouteComponentProps } from 'react-router-dom'
 import { collectionData } from 'rxfire/firestore'
+import Header from '../shared/components/AppBarDefault'
+import ButtonMore from '../shared/components/ButtonMore'
+import FragmentHead from '../shared/components/FragmentHead'
+import { WORD_RESPONSE } from '../shared/constants/word'
+import { POSTS_AS_THREAD } from '../shared/firestore/constants/collection'
+import { DESC } from '../shared/firestore/constants/order'
+import { Post } from '../shared/firestore/types/post'
+import { getOrderBy } from '../shared/helpers/getOrderBy'
+import { useCollectionState } from '../shared/hooks/useCollectionState'
+import { px } from '../shared/styles/px'
+import CardThread from '../thread/components/CardThread'
 
 type Props = RouteComponentProps
 

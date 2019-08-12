@@ -1,15 +1,15 @@
 import { Button, ButtonGroup, Theme } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
-import { useAuthUser } from 'app/shared/auth/useAuthUser'
-import { LIKES, POSTS } from 'app/shared/firestore/constants/collection'
-import { deleteLike } from 'app/shared/firestore/deleteLike'
-import { Post } from 'app/shared/firestore/types/post'
-import { createLike } from 'app/shared/functions/createLike'
-import { mapNullable } from 'app/shared/operators/mapNullable'
 import classNames from 'classnames'
 import { firestore } from 'firebase/app'
 import React, { FunctionComponent, useEffect, useState } from 'react'
 import { docData } from 'rxfire/firestore'
+import { useAuthUser } from '../auth/useAuthUser'
+import { LIKES, POSTS } from '../firestore/constants/collection'
+import { deleteLike } from '../firestore/deleteLike'
+import { Post } from '../firestore/types/post'
+import { createLike } from '../functions/createLike'
+import { mapNullable } from '../operators/mapNullable'
 
 type Props = { post: Post }
 

@@ -1,11 +1,11 @@
 import { Card, Theme, Typography } from '@material-ui/core'
 import { purple } from '@material-ui/core/colors'
 import { makeStyles } from '@material-ui/styles'
-import DivImages from 'app/shared/components/DivImages'
-import DivPostCounts from 'app/shared/components/DivPostCounts'
-import { Post } from 'app/shared/firestore/types/post'
-import { toDateText } from 'app/shared/helpers/toDateText'
 import React, { FunctionComponent } from 'react'
+import { Post } from '../firestore/types/post'
+import { toDateText } from '../helpers/toDateText'
+import DivImages from './DivImages'
+import DivPostCounts from './DivPostCounts'
 
 type Props = {
   post: Post
