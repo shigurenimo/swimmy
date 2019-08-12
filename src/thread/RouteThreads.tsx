@@ -21,7 +21,7 @@ import { Post } from '../shared/firestore/types/post'
 import { getOrderBy } from '../shared/helpers/getOrderBy'
 import { useCollectionState } from '../shared/hooks/useCollectionState'
 import { px } from '../shared/styles/px'
-import CardThread from '../thread/components/CardThread'
+import CardThread from './components/CardThread'
 
 type Props = RouteComponentProps
 

@@ -1,9 +1,9 @@
 import React from 'react'
 import { render } from 'react-dom'
-import App from './app/App'
-import './app/shared/helpers/initializeApp'
+import App from './App'
 import './index.css'
 import { register } from './serviceWorker'
+import './shared/helpers/initializeApp'
 
 render(<App />, document.getElementById('root'))
 
