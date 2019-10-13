@@ -1,9 +1,9 @@
 import { Theme, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
 import React, { Fragment, FunctionComponent } from 'react'
-import Header from '../shared/components/AppBarDefault'
-import FragmentHead from '../shared/components/FragmentHead'
-import { px } from '../shared/styles/px'
+import Header from '../components/AppBarDefault'
+import FragmentHead from '../components/FragmentHead'
+import { px } from '../styles/px'
 
 const RoutePolicy: FunctionComponent = () => {
   const classes = useStyles({})

@@ -2,10 +2,10 @@ import { Card, CardContent, Theme, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
 import React, { FunctionComponent } from 'react'
 import { Link } from 'react-router-dom'
-import DivPostCounts from '../../shared/components/DivPostCounts'
-import { Post } from '../../shared/firestore/types/post'
-import { toDateText } from '../../shared/helpers/toDateText'
-import { px } from '../../shared/styles/px'
+import DivPostCounts from '../../components/DivPostCounts'
+import { Post } from '../../firestore/types/post'
+import { toDateText } from '../../helpers/toDateText'
+import { px } from '../../styles/px'
 
 type Props = { post: Post }
 

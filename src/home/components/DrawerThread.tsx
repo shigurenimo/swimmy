@@ -8,9 +8,9 @@ import React, {
   useState
 } from 'react'
 import { collectionData } from 'rxfire/firestore'
-import { POSTS_AS_THREAD } from '../../shared/firestore/constants/collection'
-import { DESC } from '../../shared/firestore/constants/order'
-import { Post } from '../../shared/firestore/types/post'
+import { POSTS_AS_THREAD } from '../../firestore/constants/collection'
+import { DESC } from '../../firestore/constants/order'
+import { Post } from '../../firestore/types/post'
 import ListItemThread from './ListItemThread'
 
 type Props = { threadId: string }

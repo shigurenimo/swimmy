@@ -2,8 +2,8 @@ import { Theme } from '@material-ui/core'
 import BugReport from '@material-ui/icons/BugReport'
 import { makeStyles } from '@material-ui/styles'
 import React, { Fragment, FunctionComponent } from 'react'
-import DivUnderDevelopment from '../shared/components/DivUnderDevelopment'
-import FragmentHead from '../shared/components/FragmentHead'
+import DivUnderDevelopment from '../components/DivUnderDevelopment'
+import FragmentHead from '../components/FragmentHead'
 
 const RouteIssues: FunctionComponent = () => {
   const classes = useStyles({})

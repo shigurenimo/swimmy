@@ -1,17 +1,33 @@
 import React from 'react'
 import { render } from 'react-dom'
 import App from './App'
+import './helpers/initializeApp'
 import './index.css'
 import { register } from './serviceWorker'
-import './shared/helpers/initializeApp'
 
 render(<App />, document.getElementById('root'))
 
-register()
+register({
+  onUpdate(registration) {
+    const waitingServiceWorker = registration.waiting
 
-if ('scrollRestoration' in window.history) {
-  window.history.scrollRestoration = 'auto'
-}
+    if (!waitingServiceWorker) return
+
+    const listener = async (
+      event: Event & {
+        target: Partial<ServiceWorker> & EventTarget | null
+      }
+    ) => {
+      if (!event.target || event.target.state !== 'activated') return
+
+      window.location.reload()
+    }
+
+    waitingServiceWorker.addEventListener('statechange', listener)
+
+    waitingServiceWorker.postMessage({ type: 'SKIP_WAITING' })
+  }
+})
 
 if (module.hot) {
   module.hot.accept()

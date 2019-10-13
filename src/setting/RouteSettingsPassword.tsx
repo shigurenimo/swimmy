@@ -12,11 +12,11 @@ import { auth } from 'firebase/app'
 import React, { Fragment, FunctionComponent, useEffect, useState } from 'react'
 import { from } from 'rxjs'
 import { mergeMap } from 'rxjs/operators'
-import { useAuthUser } from '../shared/auth/useAuthUser'
-import Header from '../shared/components/AppBarDefault'
-import FragmentHead from '../shared/components/FragmentHead'
-import { pct } from '../shared/styles/pct'
-import { px } from '../shared/styles/px'
+import { useAuthUser } from '../auth/useAuthUser'
+import Header from '../components/AppBarDefault'
+import FragmentHead from '../components/FragmentHead'
+import { pct } from '../styles/pct'
+import { px } from '../styles/px'
 
 const RouteSettingsPassword: FunctionComponent = () => {
   const [authUser] = useAuthUser()

@@ -4,16 +4,13 @@ import { firestore } from 'firebase/app'
 import React, { FunctionComponent, useEffect, useState } from 'react'
 import { RouteComponentProps } from 'react-router-dom'
 import { collectionData, docData } from 'rxfire/firestore'
-import CardPostResponse from '../../shared/components/CardPostResponse'
-import CardPostThread from '../../shared/components/CardPostThread'
-import TextFieldResponse from '../../shared/components/TextFieldResponse'
-import {
-  POSTS,
-  POSTS_AS_ANONYM
-} from '../../shared/firestore/constants/collection'
-import { ASC } from '../../shared/firestore/constants/order'
-import { Post } from '../../shared/firestore/types/post'
-import { px } from '../../shared/styles/px'
+import CardPostResponse from '../../components/CardPostResponse'
+import CardPostThread from '../../components/CardPostThread'
+import TextFieldResponse from '../../components/TextFieldResponse'
+import { POSTS, POSTS_AS_ANONYM } from '../../firestore/constants/collection'
+import { ASC } from '../../firestore/constants/order'
+import { Post } from '../../firestore/types/post'
+import { px } from '../../styles/px'
 
 type Props = RouteComponentProps<{ threadId: string }>
 

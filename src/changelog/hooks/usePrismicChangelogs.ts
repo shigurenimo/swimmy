@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react'
 import { from } from 'rxjs'
 import { map, mergeMap } from 'rxjs/operators'
-import { Changelog } from '../../shared/firestore/types/changelog'
-import { createQueryParams } from '../../shared/helpers/createQueryParams'
+import { Changelog } from '../../firestore/types/changelog'
+import { createQueryParams } from '../../helpers/createQueryParams'
 import { getPrismicEndpoint } from '../helpers/getPrismicEndpoint'
 import { getPrismicRef } from '../helpers/getPrismicRef'
 
