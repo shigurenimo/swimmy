@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 import DivImages from '../../components/DivImages'
 import DivPostCounts from '../../components/DivPostCounts'
 import { Post } from '../../firestore/types/post'
-import { toDateText } from '../../helpers/toDateText'
+import { toDateText } from '../../text/toDateText'
 
 type Props = {
   inProgress?: boolean

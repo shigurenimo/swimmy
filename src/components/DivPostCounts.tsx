@@ -1,7 +1,7 @@
 import { Theme, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
 import React, { FunctionComponent } from 'react'
-import { WORD_LIKE, WORD_RESPONSE } from '../constants/word'
+import { WORD_LIKE, WORD_RESPONSE } from '../text/word'
 import { px } from '../styles/px'
 
 type Props = {

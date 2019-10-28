@@ -1,5 +1,5 @@
 export const getTimeDifference = (d0: Date, d1 = new Date()) => {
-  var diff = d1.getTime() - d0.getTime()
+  const diff = d1.getTime() - d0.getTime()
 
   return [
     diff,

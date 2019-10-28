@@ -37,7 +37,7 @@ const AppBarDefault: FunctionComponent<Props> = ({ isClose }) => {
 
   return (
     <Fragment>
-      <AppBar position={'sticky'} className={classes.appBar}>
+      <AppBar color={'inherit'} position={'sticky'} className={classes.appBar}>
         {authLoading && <LinearProgress className={classes.progress} />}
         <Toolbar>
           <ImgLogo />
@@ -94,7 +94,7 @@ const useStyle = makeStyles<Theme>(({ spacing, zIndex }) => {
       gridColumnGap: px(spacing(1))
     },
     appBar: {
-      backgroundColor: 'rgba(255, 255, 255, 0.98)',
+      // backgroundColor: 'rgba(255, 255, 255, 0.98)',
       zIndex: zIndex.drawer + 1
     },
     menuButton: { marginLeft: spacing(-1.5), marginRight: spacing(2.5) },

@@ -3,7 +3,7 @@ import { purple } from '@material-ui/core/colors'
 import { makeStyles } from '@material-ui/styles'
 import React, { FunctionComponent } from 'react'
 import { Post } from '../firestore/types/post'
-import { toDateText } from '../helpers/toDateText'
+import { toDateText } from '../text/toDateText'
 import DivImages from './DivImages'
 import DivPostCounts from './DivPostCounts'
 

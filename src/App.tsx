@@ -5,18 +5,21 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import RouteAbout from './about/RouteAbout'
 import RouteChangelogs from './changelog/RouteChangelogs'
 import FragmentListener from './components/FragmentListener'
-import { createTheme } from './helpers/createTheme'
+import { useDark } from './dark/useDark'
 import RouteHomeIndex from './home/RouteHomeIndex'
 import RouteImages from './image/RouteImages'
 import RoutePolicy from './policy/RoutePolicy'
 import RouteSettingsEmail from './setting/RouteSettingsEmail'
 import RouteSettingsPassword from './setting/RouteSettingsPassword'
 import RouteStats from './stat/RouteStats'
+import { createTheme } from './theme/createTheme'
 import RouteThreads from './thread/RouteThreads'
 
-const theme = createTheme()
-
 const App: FunctionComponent = () => {
+  const dark = useDark()
+
+  const theme = createTheme({ dark })
+
   return (
     <StylesProvider>
       <ThemeProvider theme={theme}>

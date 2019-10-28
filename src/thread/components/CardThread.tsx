@@ -4,7 +4,7 @@ import React, { FunctionComponent } from 'react'
 import { Link } from 'react-router-dom'
 import DivPostCounts from '../../components/DivPostCounts'
 import { Post } from '../../firestore/types/post'
-import { toDateText } from '../../helpers/toDateText'
+import { toDateText } from '../../text/toDateText'
 import { px } from '../../styles/px'
 
 type Props = { post: Post }
