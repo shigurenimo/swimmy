@@ -1,4 +1,4 @@
-import { CircularProgress, Fade, Theme } from '@material-ui/core'
+import { CircularProgress, Theme } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
 import React, { Fragment, FunctionComponent } from 'react'
 import Header from '../components/AppBarDefault'
@@ -21,17 +21,15 @@ const RouteChangelogs: FunctionComponent = () => {
       <Header />
       {inProgress && <CircularProgress className={classes.progress} />}
       {!inProgress && (
-        <Fade in>
-          <main className={classes.root}>
-            <ul className={classes.changelogs}>
-              {changelogs.map(changelog => (
-                <li key={changelog.version}>
-                  <CardChangelog changelog={changelog} />
-                </li>
-              ))}
-            </ul>
-          </main>
-        </Fade>
+        <main className={classes.root}>
+          <ul className={classes.changelogs}>
+            {changelogs.map(changelog => (
+              <li key={changelog.version}>
+                <CardChangelog changelog={changelog} />
+              </li>
+            ))}
+          </ul>
+        </main>
       )}
     </Fragment>
   )
@@ -54,7 +52,8 @@ const useStyles = makeStyles<Theme>(({ spacing }) => {
     },
     root: {
       display: 'grid',
-      gridRowGap: px(spacing(2))
+      gridRowGap: px(spacing(2)),
+      paddingTop: spacing(2)
     }
   }
 })

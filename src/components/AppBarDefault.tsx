@@ -8,12 +8,10 @@ import {
 import ChatBubbleIcon from '@material-ui/icons/ChatBubble'
 import CloseIcon from '@material-ui/icons/Close'
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz'
-import PowerSettingsNewIcon from '@material-ui/icons/PowerSettingsNew'
 import { makeStyles } from '@material-ui/styles'
 import React, { Fragment, FunctionComponent, useState } from 'react'
 import { Link, useHistory } from 'react-router-dom'
 import { useAuthLoading } from '../auth/useAuthLoading'
-import { useAuthUser } from '../auth/useAuthUser'
 import { pct } from '../styles/pct'
 import { px } from '../styles/px'
 import DialogMenu from './DialogMenu'
@@ -24,8 +22,6 @@ type Props = { isClose?: boolean }
 
 const AppBarDefault: FunctionComponent<Props> = ({ isClose }) => {
   const history = useHistory()
-
-  const [authUser] = useAuthUser()
 
   const [authLoading] = useAuthLoading()
 
@@ -62,14 +58,6 @@ const AppBarDefault: FunctionComponent<Props> = ({ isClose }) => {
               >
                 <MoreHorizIcon />
               </IconButton>
-              {!authLoading && authUser === null && (
-                <IconButton
-                  onClick={() => setIsOpenSignInDialog(true)}
-                  aria-label={'Open a login dialog'}
-                >
-                  <PowerSettingsNewIcon />
-                </IconButton>
-              )}
             </div>
           )}
         </Toolbar>

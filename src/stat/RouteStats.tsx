@@ -79,7 +79,11 @@ const RouteStats: FunctionComponent = () => {
 
 const useStyles = makeStyles<Theme>(({ spacing }) => {
   return {
-    root: { display: 'grid', gridRowGap: px(spacing(2)) },
+    root: {
+      display: 'grid',
+      gridRowGap: px(spacing(2)),
+      paddingTop: spacing(2)
+    },
     section: {
       display: 'grid',
       gridRowGap: px(spacing(2)),

@@ -65,7 +65,11 @@ const RoutePolicy: FunctionComponent = () => {
 const useStyles = makeStyles<Theme>(({ spacing }) => {
   return {
     description: { whiteSpace: 'pre-line', wordBreak: 'break-all' },
-    root: { display: 'grid', gridRowGap: px(spacing(2)) },
+    root: {
+      display: 'grid',
+      gridRowGap: px(spacing(2)),
+      paddingTop: spacing(2)
+    },
     section: {
       display: 'grid',
       gridRowGap: px(spacing(2)),
