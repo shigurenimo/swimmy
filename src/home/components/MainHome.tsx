@@ -7,7 +7,7 @@ import React, {
   useEffect,
   useState
 } from 'react'
-import { RouteComponentProps } from 'react-router'
+import { useLocation } from 'react-router-dom'
 import { collectionData } from 'rxfire/firestore'
 import ButtonMore from '../../components/ButtonMore'
 import TextFieldPost from '../../components/TextFieldPost'
@@ -18,9 +18,9 @@ import { useCollectionState } from '../../hooks/useCollectionState'
 import { px } from '../../styles/px'
 import CardPost from './CardPost'
 
-type Props = RouteComponentProps
+const MainHome: FunctionComponent = () => {
+  const location = useLocation()
 
-const MainHome: FunctionComponent<Props> = ({ location }) => {
   const key = location.pathname
 
   const [__posts, __limit, setState] = useCollectionState<Post>(key)

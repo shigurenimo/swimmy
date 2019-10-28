@@ -9,7 +9,7 @@ import React, {
   useEffect,
   useState
 } from 'react'
-import { RouteComponentProps } from 'react-router'
+import { useHistory, useLocation } from 'react-router-dom'
 import { collectionData } from 'rxfire/firestore'
 import Header from '../components/AppBarDefault'
 import ButtonMore from '../components/ButtonMore'
@@ -24,9 +24,11 @@ import { px } from '../styles/px'
 import { resetList } from '../styles/resetList'
 import CardImage from './components/CardImage'
 
-type Props = RouteComponentProps
+const RouteImages: FunctionComponent = () => {
+  const location = useLocation()
 
-const RouteImages: FunctionComponent<Props> = ({ location, history }) => {
+  const history = useHistory()
+
   const key = `${location.pathname}${location.search}`
 
   const [__posts, __limit, setState] = useCollectionState<Post>(key)

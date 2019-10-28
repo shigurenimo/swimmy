@@ -1,17 +1,16 @@
 import { CssBaseline } from '@material-ui/core'
 import { StylesProvider, ThemeProvider } from '@material-ui/styles'
 import React, { Fragment, FunctionComponent } from 'react'
-import { Route, Switch } from 'react-router'
-import { BrowserRouter } from 'react-router-dom'
+import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import RouteAbout from './about/RouteAbout'
 import RouteChangelogs from './changelog/RouteChangelogs'
+import FragmentListener from './components/FragmentListener'
+import { createTheme } from './helpers/createTheme'
 import RouteHomeIndex from './home/RouteHomeIndex'
 import RouteImages from './image/RouteImages'
 import RoutePolicy from './policy/RoutePolicy'
 import RouteSettingsEmail from './setting/RouteSettingsEmail'
 import RouteSettingsPassword from './setting/RouteSettingsPassword'
-import FragmentListener from './components/FragmentListener'
-import { createTheme } from './helpers/createTheme'
 import RouteStats from './stat/RouteStats'
 import RouteThreads from './thread/RouteThreads'
 
@@ -25,28 +24,36 @@ const App: FunctionComponent = () => {
           <Fragment>
             <FragmentListener />
             <Switch>
-              <Route component={RouteHomeIndex} exact path={'/'} />
-              <Route component={RouteAbout} exact path={'/about'} />
-              <Route component={RouteChangelogs} exact path={'/changelogs'} />
-              <Route component={RouteImages} exact path={'/images'} />
-              <Route component={RoutePolicy} exact path={'/policy'} />
-              <Route
-                component={RouteSettingsEmail}
-                exact
-                path={'/settings/email'}
-              />
-              <Route
-                component={RouteSettingsPassword}
-                exact
-                path={'/settings/password'}
-              />
-              <Route component={RouteStats} exact path={'/stats'} />
-              <Route component={RouteThreads} exact path={'/threads'} />
-              <Route
-                component={RouteHomeIndex}
-                exact
-                path={'/threads/:threadId'}
-              />
+              <Route exact path={'/'}>
+                <RouteHomeIndex />
+              </Route>
+              <Route exact path={'/about'}>
+                <RouteAbout />
+              </Route>
+              <Route exact path={'/changelogs'}>
+                <RouteChangelogs />
+              </Route>
+              <Route exact path={'/images'}>
+                <RouteImages />
+              </Route>
+              <Route exact path={'/policy'}>
+                <RoutePolicy />
+              </Route>
+              <Route exact path={'/settings/email'}>
+                <RouteSettingsEmail />
+              </Route>
+              <Route exact path={'/settings/password'}>
+                <RouteSettingsPassword />
+              </Route>
+              <Route exact path={'/stats'}>
+                <RouteStats />
+              </Route>
+              <Route exact path={'/threads'}>
+                <RouteThreads />
+              </Route>
+              <Route exact path={'/threads/:threadId'}>
+                <RouteHomeIndex />
+              </Route>
             </Switch>
             <footer />
           </Fragment>

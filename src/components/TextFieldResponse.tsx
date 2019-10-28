@@ -1,7 +1,7 @@
 import { Button, CircularProgress, TextField, Theme } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
 import { firestore, storage } from 'firebase/app'
-import React, { useEffect, useState } from 'react'
+import React, { FunctionComponent, useEffect, useState } from 'react'
 import { doc, snapToData } from 'rxfire/firestore'
 import { put } from 'rxfire/storage'
 import { filter } from 'rxjs/operators'
@@ -13,8 +13,7 @@ import InputFile from './InputFile'
 
 type Props = { threadId: string }
 
-let TextFieldResponse: React.FunctionComponent<Props>
-TextFieldResponse = ({ threadId }) => {
+const TextFieldResponse: FunctionComponent<Props> = ({ threadId }) => {
   const [postText, setPostText] = useState('')
 
   const [postImages, setPostImages] = useState<Image[]>([])

@@ -2,7 +2,7 @@ import { CircularProgress, Divider, Theme } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
 import { firestore } from 'firebase/app'
 import React, { FunctionComponent, useEffect, useState } from 'react'
-import { RouteComponentProps } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import { collectionData, docData } from 'rxfire/firestore'
 import CardPostResponse from '../../components/CardPostResponse'
 import CardPostThread from '../../components/CardPostThread'
@@ -12,13 +12,9 @@ import { ASC } from '../../firestore/constants/order'
 import { Post } from '../../firestore/types/post'
 import { px } from '../../styles/px'
 
-type Props = RouteComponentProps<{ threadId: string }>
+const MainThread: FunctionComponent = () => {
+  const { threadId } = useParams<{ threadId: string }>()
 
-const MainThread: FunctionComponent<Props> = ({
-  match: {
-    params: { threadId }
-  }
-}) => {
   const [loadingPosts, setLoadingPosts] = useState(true)
 
   const [loadingPost, setLoadingPost] = useState(true)

@@ -11,7 +11,7 @@ import MoreHorizIcon from '@material-ui/icons/MoreHoriz'
 import PowerSettingsNewIcon from '@material-ui/icons/PowerSettingsNew'
 import { makeStyles } from '@material-ui/styles'
 import React, { Fragment, FunctionComponent, useState } from 'react'
-import { Link, RouteComponentProps, withRouter } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 import { useAuthLoading } from '../auth/useAuthLoading'
 import { useAuthUser } from '../auth/useAuthUser'
 import { pct } from '../styles/pct'
@@ -20,9 +20,11 @@ import DialogMenu from './DialogMenu'
 import DialogSignIn from './DialogSignIn'
 import ImgLogo from './ImgLogo'
 
-type Props = RouteComponentProps & { isClose?: boolean }
+type Props = { isClose?: boolean }
 
-const AppBarDefault: FunctionComponent<Props> = ({ history, isClose }) => {
+const AppBarDefault: FunctionComponent<Props> = ({ isClose }) => {
+  const history = useHistory()
+
   const [authUser] = useAuthUser()
 
   const [authLoading] = useAuthLoading()
@@ -101,4 +103,4 @@ const useStyle = makeStyles<Theme>(({ spacing, zIndex }) => {
   }
 })
 
-export default withRouter(AppBarDefault)
+export default AppBarDefault

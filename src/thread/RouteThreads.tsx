@@ -9,7 +9,7 @@ import React, {
   useEffect,
   useState
 } from 'react'
-import { RouteComponentProps } from 'react-router-dom'
+import { useHistory, useLocation } from 'react-router-dom'
 import { collectionData } from 'rxfire/firestore'
 import Header from '../components/AppBarDefault'
 import ButtonMore from '../components/ButtonMore'
@@ -23,9 +23,11 @@ import { useCollectionState } from '../hooks/useCollectionState'
 import { px } from '../styles/px'
 import CardThread from './components/CardThread'
 
-type Props = RouteComponentProps
+const RouteThreads: FunctionComponent = () => {
+  const location = useLocation()
 
-const RouteThreads: FunctionComponent<Props> = ({ location, history }) => {
+  const history = useHistory()
+
   const key = `${location.pathname}${location.search}`
 
   const [__posts, __limit, setState] = useCollectionState<Post>(key)

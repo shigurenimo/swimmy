@@ -1,21 +1,16 @@
 import { Theme, useMediaQuery } from '@material-ui/core'
 import { makeStyles, useTheme } from '@material-ui/styles'
 import React, { FunctionComponent } from 'react'
-import { Route, RouteComponentProps, Switch } from 'react-router'
+import { Route, Switch, useParams } from 'react-router-dom'
 import AppBarDefault from '../components/AppBarDefault'
 import FragmentHead from '../components/FragmentHead'
 import DrawerThread from './components/DrawerThread'
 import MainHome from './components/MainHome'
 import MainThread from './components/MainThread'
 
-type Props = RouteComponentProps<{ threadId: string }>
+const RouteHomeIndex: FunctionComponent = () => {
+  const { threadId } = useParams<{ threadId: string }>()
 
-const RouteHomeIndex: FunctionComponent<Props> = ({
-  location,
-  match: {
-    params: { threadId }
-  }
-}) => {
   const classes = useStyles({})
 
   const theme = useTheme<Theme>()
