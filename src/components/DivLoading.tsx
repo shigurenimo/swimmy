@@ -19,8 +19,8 @@ const useStyles = makeStyles<Theme>(({ spacing }) => {
       display: 'grid',
       height: spacing(50),
       justifyContent: 'center',
-      width: '100%'
-    }
+      width: '100%',
+    },
   }
 })
 

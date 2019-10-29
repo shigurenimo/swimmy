@@ -31,9 +31,9 @@ const useStyles = makeStyles<Theme>(({ spacing }) => {
       margin: 'auto',
       position: 'absolute',
       right: 0,
-      top: 0
+      top: 0,
     },
-    root: { display: 'grid', justifyContent: 'center' }
+    root: { display: 'grid', justifyContent: 'center' },
   }
 })
 

@@ -16,7 +16,7 @@ const DivPostActions: FunctionComponent<Props> = ({
   inProgressLike,
   hasLike,
   onClickLike,
-  postId
+  postId,
 }) => {
   const classes = useStyles({})
 
@@ -49,8 +49,8 @@ const useStyles = makeStyles<Theme>(({ spacing }) => {
     root: {
       paddingBottom: spacing(1.5),
       paddingLeft: spacing(1.5),
-      paddingRight: spacing(1.5)
-    }
+      paddingRight: spacing(1.5),
+    },
   }
 })
 

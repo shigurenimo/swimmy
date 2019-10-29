@@ -42,19 +42,19 @@ const useStyles = makeStyles<Theme>(({ spacing }) => {
       display: 'grid',
       gridRowGap: px(spacing(2)),
       paddingLeft: spacing(2),
-      paddingRight: spacing(2)
+      paddingRight: spacing(2),
     },
     progress: {
       display: 'block',
       marginLeft: 'auto',
       marginRight: 'auto',
-      marginTop: spacing(10)
+      marginTop: spacing(10),
     },
     root: {
       display: 'grid',
       gridRowGap: px(spacing(2)),
-      paddingTop: spacing(2)
-    }
+      paddingTop: spacing(2),
+    },
   }
 })
 

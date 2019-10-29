@@ -4,7 +4,7 @@ import {
   List,
   ListItem,
   ListItemText,
-  Theme
+  Theme,
 } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
 import { firestore } from 'firebase/app'
@@ -22,7 +22,7 @@ type Props = {
 
 const ListReplyPost: FunctionComponent<Props> = ({
   postId,
-  replyPostCount
+  replyPostCount,
 }) => {
   const [posts, setPosts] = useState<Post[]>([])
   const [inProgress, setInProgress] = useState(replyPostCount > 0)
@@ -73,7 +73,7 @@ const ListReplyPost: FunctionComponent<Props> = ({
 const useStyles = makeStyles<Theme>(({ spacing }) => {
   return {
     progress: { marginTop: spacing(2), textAlign: 'center' },
-    root: { width: `${100}%` }
+    root: { width: `${100}%` },
   }
 })
 

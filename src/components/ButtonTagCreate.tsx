@@ -4,7 +4,7 @@ import {
   DialogActions,
   DialogContent,
   TextField,
-  Theme
+  Theme,
 } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
 import React, { Fragment, FunctionComponent, useState } from 'react'
@@ -55,8 +55,8 @@ const useStyles = makeStyles<Theme>(({ palette, spacing }) => {
     root: {
       minWidth: 0,
       paddingBottom: spacing(0.1),
-      paddingTop: spacing(0.1)
-    }
+      paddingTop: spacing(0.1),
+    },
   }
 })
 

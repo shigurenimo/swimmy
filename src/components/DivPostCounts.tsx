@@ -11,7 +11,7 @@ type Props = {
 
 const DivPostCounts: FunctionComponent<Props> = ({
   replyPostCount = 0,
-  likeCount
+  likeCount,
 }) => {
   const classes = useStyles({})
 
@@ -40,20 +40,20 @@ const useStyles = makeStyles<Theme>(({ palette, spacing }) => {
     likeCount: {
       color: palette.secondary.dark,
       fontSize: px(12),
-      fontWeight: 'bold'
+      fontWeight: 'bold',
     },
     replyPostCount: {
       color: palette.primary.dark,
       fontSize: px(12),
-      fontWeight: 'bold'
+      fontWeight: 'bold',
     },
     root: {
       alignItems: 'center',
       display: 'grid',
       gridAutoFlow: 'column',
       gridColumnGap: `${spacing(1)}px`,
-      gridTemplateColumns: 'max-content'
-    }
+      gridTemplateColumns: 'max-content',
+    },
   }
 })
 

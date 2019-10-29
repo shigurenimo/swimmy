@@ -24,11 +24,11 @@ const useStyles = makeStyles<Theme>(({ palette, spacing }) => {
     root: {
       ...resetList(),
       display: 'flex',
-      flexWrap: 'wrap'
+      flexWrap: 'wrap',
     },
     li: {
-      marginRight: spacing(1)
-    }
+      marginRight: spacing(1),
+    },
   }
 })
 

@@ -45,13 +45,13 @@ const ButtonLike: FunctionComponent<Props> = ({ post }) => {
       deleteLike({
         collectionId: POSTS,
         docId: post.id,
-        userId: authUser.uid
+        userId: authUser.uid,
       }).subscribe()
     } else {
       createLike({
         collectionId: POSTS,
         docId: post.id,
-        userId: authUser.uid
+        userId: authUser.uid,
       }).subscribe()
     }
   }
@@ -77,19 +77,19 @@ const useStyles = makeStyles<Theme>(({ palette, spacing }) => {
   return {
     active: {
       background: palette.primary.main,
-      '&:not(:hover)': { color: '#fff' }
+      '&:not(:hover)': { color: '#fff' },
     },
     button: {
       paddingBottom: spacing(0.1),
-      paddingTop: spacing(0.1)
+      paddingTop: spacing(0.1),
     },
     count: {
       minWidth: 0,
       paddingBottom: spacing(0.1),
       paddingLeft: spacing(1),
       paddingRight: spacing(1),
-      paddingTop: spacing(0.1)
-    }
+      paddingTop: spacing(0.1),
+    },
   }
 })
 

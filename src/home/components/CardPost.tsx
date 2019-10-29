@@ -47,19 +47,19 @@ const useStyle = makeStyles<Theme>(({ palette, spacing, typography }) => {
       paddingLeft: spacing(2),
       paddingRight: spacing(2),
       paddingTop: spacing(1.2),
-      '&:hover': { background: 'rgba(0, 0, 0, 0.1)' }
+      '&:hover': { background: 'rgba(0, 0, 0, 0.1)' },
     },
     data: {
       display: 'grid',
       gridAutoFlow: 'column',
-      justifyContent: 'space-between'
+      justifyContent: 'space-between',
     },
     text: {
       fontSize: typography.pxToRem(16),
       fontWeight: typography.fontWeightMedium,
       whiteSpace: 'pre-line',
-      wordBreak: 'break-all'
-    }
+      wordBreak: 'break-all',
+    },
   }
 })
 

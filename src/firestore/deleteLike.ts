@@ -5,7 +5,7 @@ import { LIKES } from './constants/collection'
 export const deleteLike = ({
   collectionId,
   docId,
-  userId
+  userId,
 }: {
   collectionId: string
   docId: string

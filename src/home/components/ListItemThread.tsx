@@ -21,7 +21,7 @@ const ListItemThread: FunctionComponent<Props> = ({ post, selected }) => {
           primary={post.text}
           secondaryTypographyProps={{
             className: classes.secondary,
-            component: 'div'
+            component: 'div',
           }}
           secondary={
             <Fragment>
@@ -46,9 +46,9 @@ const useStyles = makeStyles<Theme>(({ spacing, palette }) => {
       display: 'grid',
       gridAutoColumns: 'max-content',
       gridAutoFlow: 'column',
-      justifyContent: 'space-between'
+      justifyContent: 'space-between',
     },
-    listItemText: { display: 'grid', gridGap: spacing(0.5) }
+    listItemText: { display: 'grid', gridGap: spacing(0.5) },
   }
 })
 

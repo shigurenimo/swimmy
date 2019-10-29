@@ -22,8 +22,8 @@ const useStyles = makeStyles(() => {
       left: 0,
       position: 'fixed',
       top: 0,
-      width: '100%'
-    }
+      width: '100%',
+    },
   }
 })
 

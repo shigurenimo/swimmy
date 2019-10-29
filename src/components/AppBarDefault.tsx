@@ -3,7 +3,7 @@ import {
   IconButton,
   LinearProgress,
   Theme,
-  Toolbar
+  Toolbar,
 } from '@material-ui/core'
 import ChatBubbleIcon from '@material-ui/icons/ChatBubble'
 import CloseIcon from '@material-ui/icons/Close'
@@ -80,19 +80,19 @@ const useStyle = makeStyles<Theme>(({ breakpoints, spacing, zIndex }) => {
     actions: {
       display: 'grid',
       gridAutoFlow: 'column',
-      gridColumnGap: px(spacing(1))
+      gridColumnGap: px(spacing(1)),
     },
     appBar: {
       // backgroundColor: 'rgba(255, 255, 255, 0.98)',
       zIndex: zIndex.drawer + 1,
       paddingTop: 'env(safe-area-inset-top)',
       [breakpoints.up('md')]: { paddingLeft: spacing(50) },
-      [breakpoints.up('lg')]: { paddingLeft: spacing(70) }
+      [breakpoints.up('lg')]: { paddingLeft: spacing(70) },
     },
     menuButton: { marginLeft: spacing(-1.5), marginRight: spacing(2.5) },
     progress: { position: 'absolute', top: 0, left: 0, width: pct(100) },
     title: { fontSize: 24, flexGrow: 1 },
-    toolbar: { marginTop: 'env(safe-area-inset-top)' }
+    toolbar: { marginTop: 'env(safe-area-inset-top)' },
   }
 })
 

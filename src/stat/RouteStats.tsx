@@ -82,14 +82,14 @@ const useStyles = makeStyles<Theme>(({ spacing }) => {
     root: {
       display: 'grid',
       gridRowGap: px(spacing(2)),
-      paddingTop: spacing(2)
+      paddingTop: spacing(2),
     },
     section: {
       display: 'grid',
       gridRowGap: px(spacing(2)),
       marginLeft: spacing(2),
-      marginRight: spacing(2)
-    }
+      marginRight: spacing(2),
+    },
   }
 })
 

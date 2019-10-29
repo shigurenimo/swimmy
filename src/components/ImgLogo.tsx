@@ -21,7 +21,7 @@ const useStyles = makeStyles<Theme>(({ spacing }) => {
   return {
     button: { padding: 0 },
     img: { height: spacing(3 + 3) },
-    root: { flexGrow: 1 }
+    root: { flexGrow: 1 },
   }
 })
 

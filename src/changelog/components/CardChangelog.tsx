@@ -41,7 +41,7 @@ const useStyles = makeStyles<Theme>(({ spacing }) => {
     date: { opacity: 0.65, fontSize: 12, marginBottom: spacing(1) },
     list: { ...resetList(), display: 'grid', gridRowGap: spacing(1) },
     text: { whiteSpace: 'pre-line', wordBreak: 'break-all' },
-    version: { flexBasis: '33.33%', flexShrink: 0 }
+    version: { flexBasis: '33.33%', flexShrink: 0 },
   }
 })
 

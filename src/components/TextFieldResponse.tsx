@@ -32,7 +32,7 @@ const TextFieldResponse: FunctionComponent<Props> = ({ threadId }) => {
     const subscription = createPost()({
       fileIds,
       replyPostId: threadId,
-      text: postText
+      text: postText,
     }).subscribe(
       () => {
         // do not change the order
@@ -150,13 +150,13 @@ const useStyle = makeStyles<Theme>(({ spacing }) => {
       margin: 'auto',
       position: 'absolute',
       right: 0,
-      top: 0
+      top: 0,
     },
     root: {
       display: 'grid',
       gridRowGap: `${spacing(1)}px`,
       paddingLeft: spacing(2),
-      paddingRight: spacing(2)
+      paddingRight: spacing(2),
     },
     submitButton: { marginLeft: spacing(1), position: 'relative' },
     img: { width: `${100}%`, borderRadius: 4 },
@@ -167,8 +167,8 @@ const useStyle = makeStyles<Theme>(({ spacing }) => {
       gridTemplateColumns: 'repeat(4, 1fr)',
       paddingLeft: spacing(1),
       paddingRight: spacing(1),
-      width: '100%'
-    }
+      width: '100%',
+    },
   }
 })
 

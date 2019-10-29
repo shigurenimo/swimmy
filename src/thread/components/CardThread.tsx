@@ -37,14 +37,14 @@ const useStyles = makeStyles<Theme>(({ typography, palette, spacing }) => {
     root: {
       display: 'grid',
       gridRowGap: px(spacing(1)),
-      width: `${100}%`
+      width: `${100}%`,
     },
     text: {
       fontSize: typography.pxToRem(16),
       fontWeight: typography.fontWeightMedium,
       whiteSpace: 'pre-line',
-      wordBreak: 'break-all'
-    }
+      wordBreak: 'break-all',
+    },
   }
 })
 

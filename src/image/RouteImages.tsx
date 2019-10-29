@@ -7,7 +7,7 @@ import React, {
   FunctionComponent,
   useCallback,
   useEffect,
-  useState
+  useState,
 } from 'react'
 import { useHistory, useLocation } from 'react-router-dom'
 import { collectionData } from 'rxfire/firestore'
@@ -122,7 +122,7 @@ const useStyles = makeStyles<Theme>(({ breakpoints, spacing }) => {
       display: 'block',
       marginLeft: 'auto',
       marginRight: 'auto',
-      marginTop: spacing(10)
+      marginTop: spacing(10),
     },
     root: { display: 'grid', gridRowGap: px(spacing(2)) },
     section: { display: 'grid', gridRowGap: px(spacing(2)) },
@@ -138,8 +138,8 @@ const useStyles = makeStyles<Theme>(({ breakpoints, spacing }) => {
       [breakpoints.up('xs')]: { gridTemplateColumns: 'repeat(2, 1fr)' },
       [breakpoints.up('sm')]: { gridTemplateColumns: 'repeat(3, 1fr)' },
       [breakpoints.up('md')]: { gridTemplateColumns: 'repeat(5, 1fr)' },
-      [breakpoints.up('lg')]: { gridTemplateColumns: 'repeat(7, 1fr)' }
-    }
+      [breakpoints.up('lg')]: { gridTemplateColumns: 'repeat(7, 1fr)' },
+    },
   }
 })
 

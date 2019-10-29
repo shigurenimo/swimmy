@@ -5,7 +5,7 @@ import React, {
   FunctionComponent,
   useCallback,
   useEffect,
-  useState
+  useState,
 } from 'react'
 import { collectionData } from 'rxfire/firestore'
 import { POSTS_AS_THREAD } from '../../firestore/constants/collection'
@@ -85,8 +85,8 @@ const useStyles = makeStyles<Theme>(({ shadows, breakpoints, spacing }) => {
       width: spacing(50),
       zIndex: 1300 - 1,
       boxShadow: shadows[1],
-      [breakpoints.up('lg')]: { width: spacing(70) }
-    }
+      [breakpoints.up('lg')]: { width: spacing(70) },
+    },
   }
 })
 

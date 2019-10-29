@@ -26,7 +26,7 @@ register({
     waitingServiceWorker.addEventListener('statechange', listener)
 
     waitingServiceWorker.postMessage({ type: 'SKIP_WAITING' })
-  }
+  },
 })
 
 if (module.hot) {

@@ -83,21 +83,21 @@ const useStyles = makeStyles<Theme>(({ spacing }) => {
   return {
     main: {
       display: 'grid',
-      gridRowGap: px(spacing(2))
+      gridRowGap: px(spacing(2)),
     },
     posts: {
       display: 'grid',
       gridRowGap: px(spacing(2)),
       marginLeft: spacing(2),
       marginRight: spacing(2),
-      marginTop: spacing(2)
+      marginTop: spacing(2),
     },
     progress: {
       display: 'block',
       marginLeft: 'auto',
       marginRight: 'auto',
-      marginTop: spacing(10)
-    }
+      marginTop: spacing(10),
+    },
   }
 })
 

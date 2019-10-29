@@ -11,7 +11,7 @@ type Props = {
 const DivUnderDevelopment: FunctionComponent<Props> = ({
   description,
   title,
-  Icon
+  Icon,
 }) => {
   const classes = useStyles({})
 
@@ -37,7 +37,7 @@ const useStyles = makeStyles<Theme>(({ spacing }) => {
   return {
     icon: { display: 'block', margin: 'auto', fontSize: 80 },
     root: { paddingLeft: spacing(1.5), paddingRight: spacing(1.5) },
-    title: { marginTop: spacing(2), fontWeight: 'bold' }
+    title: { marginTop: spacing(2), fontWeight: 'bold' },
   }
 })
 

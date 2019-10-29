@@ -5,7 +5,7 @@ import { LIKES } from './constants/collection'
 export const createLike = ({
   collectionId,
   docId,
-  userId
+  userId,
 }: {
   collectionId: string
   docId: string
@@ -23,7 +23,7 @@ export const createLike = ({
         docId,
         id: userId,
         ownerId: userId,
-        updatedAt: firestore.FieldValue.serverTimestamp()
+        updatedAt: firestore.FieldValue.serverTimestamp(),
       })
   )
 }

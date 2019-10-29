@@ -5,7 +5,7 @@ import React, {
   FunctionComponent,
   useCallback,
   useEffect,
-  useState
+  useState,
 } from 'react'
 import { useLocation } from 'react-router-dom'
 import { collectionData } from 'rxfire/firestore'
@@ -89,10 +89,10 @@ const useStyles = makeStyles<Theme>(({ spacing }) => {
       display: 'block',
       marginLeft: 'auto',
       marginRight: 'auto',
-      marginTop: spacing(10)
+      marginTop: spacing(10),
     },
     main: { display: 'grid' },
-    section: { display: 'grid', gridRowGap: px(spacing(2)) }
+    section: { display: 'grid', gridRowGap: px(spacing(2)) },
   }
 })
 

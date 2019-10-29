@@ -7,7 +7,7 @@ import {
   ListItem,
   ListItemIcon,
   ListItemText,
-  ListSubheader
+  ListSubheader,
 } from '@material-ui/core'
 import ChatBubbleIcon from '@material-ui/icons/ChatBubble'
 import DataUsage from '@material-ui/icons/DataUsage'

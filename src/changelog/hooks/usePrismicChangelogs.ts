@@ -20,7 +20,7 @@ export const usePrismicChangelogs = (): [[Changelog[], boolean]] => {
           createQueryParams([
             ['ref', ref],
             ['q', '[[at(document.type,"changelog")]]'],
-            ['orderings', '[my.changelog.version desc]']
+            ['orderings', '[my.changelog.version desc]'],
           ])
         ),
         mergeMap(params =>

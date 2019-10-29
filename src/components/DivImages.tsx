@@ -31,8 +31,8 @@ const useStyles = makeStyles<Theme>(({ breakpoints, spacing }) => {
       gridRowGap: `${spacing(2)}px`,
       width: '100%',
       [breakpoints.up('xs')]: { gridTemplateColumns: 'repeat(2, 1fr)' },
-      [breakpoints.up('sm')]: { gridTemplateColumns: 'repeat(4, 1fr)' }
-    }
+      [breakpoints.up('sm')]: { gridTemplateColumns: 'repeat(4, 1fr)' },
+    },
   }
 })
 

@@ -4,7 +4,7 @@ import {
   FormControl,
   Input,
   InputLabel,
-  Theme
+  Theme,
 } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
 import { firestore, storage } from 'firebase/app'
@@ -37,7 +37,7 @@ const TextFieldPost: FunctionComponent = () => {
     const subscription = createPost()({
       fileIds,
       replyPostId: '',
-      text: postText
+      text: postText,
     }).subscribe(
       () => {
         // do not change the order
@@ -161,12 +161,12 @@ const useStyle = makeStyles<Theme>(({ spacing }) => {
       margin: 'auto',
       position: 'absolute',
       right: 0,
-      top: 0
+      top: 0,
     },
     root: {
       display: 'grid',
       gridRowGap: `${spacing(1)}px`,
-      paddingTop: spacing(1)
+      paddingTop: spacing(1),
     },
     submitButton: { marginLeft: spacing(1), position: 'relative' },
     textField: { paddingLeft: spacing(1.5), paddingRight: spacing(1.5) },
@@ -179,8 +179,8 @@ const useStyle = makeStyles<Theme>(({ spacing }) => {
       gridTemplateColumns: 'repeat(4, 1fr)',
       paddingLeft: spacing(1),
       paddingRight: spacing(1),
-      width: '100%'
-    }
+      width: '100%',
+    },
   }
 })
 

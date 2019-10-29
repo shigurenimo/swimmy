@@ -52,32 +52,32 @@ const useStyle = makeStyles<Theme>(({ palette, spacing, typography }) => {
       paddingBottom: spacing(1.5),
       paddingLeft: spacing(2),
       paddingRight: spacing(2),
-      paddingTop: spacing(1.5)
+      paddingTop: spacing(1.5),
     },
     likeCount: { paddingLeft: spacing(1), color: palette.secondary.light },
     replyPostCount: { color: purple.A400, paddingLeft: spacing(1) },
     grid: {
       display: 'grid',
       gridGap: spacing(1),
-      paddingRight: '0 !important'
+      paddingRight: '0 !important',
     },
     header: {
       alignItems: 'center',
       display: 'grid',
       gridGap: spacing(1),
       gridAutoFlow: 'column',
-      gridAutoColumns: 'max-content'
+      gridAutoColumns: 'max-content',
     },
     index: {
       color: palette.primary.light,
-      fontWeight: 'bold'
+      fontWeight: 'bold',
     },
     text: {
       fontSize: typography.pxToRem(16),
       fontWeight: typography.fontWeightMedium,
       whiteSpace: 'pre-line',
-      wordBreak: 'break-all'
-    }
+      wordBreak: 'break-all',
+    },
   }
 })
 

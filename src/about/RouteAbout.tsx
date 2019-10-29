@@ -39,15 +39,15 @@ const useStyles = makeStyles<Theme>(({ spacing }) => {
       display: 'grid',
       gridRowGap: px(spacing(4)),
       margin: '0 auto',
-      maxWidth: spacing(100)
+      maxWidth: spacing(100),
     },
     root: {
       display: 'grid',
       gridRowGap: px(spacing(4)),
       paddingLeft: spacing(2),
       paddingRight: spacing(2),
-      paddingTop: spacing(4)
-    }
+      paddingTop: spacing(4),
+    },
   }
 })
 

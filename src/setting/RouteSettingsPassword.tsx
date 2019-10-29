@@ -4,7 +4,7 @@ import {
   SnackbarContent,
   TextField,
   Theme,
-  Typography
+  Typography,
 } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
 import classnames from 'classnames'
@@ -123,7 +123,7 @@ const RouteSettingsPassword: FunctionComponent = () => {
         <SnackbarContent
           message={snackbarMessage}
           className={classnames({
-            [classes.snackbarError]: snackbarType === 'error'
+            [classes.snackbarError]: snackbarType === 'error',
           })}
         />
       </Snackbar>
@@ -139,17 +139,17 @@ const useStyles = makeStyles<Theme>(({ spacing, palette }) => {
       gridRowGap: px(spacing(2)),
       margin: '0 auto',
       maxWidth: spacing(100),
-      width: pct(100)
+      width: pct(100),
     },
     root: {
       display: 'grid',
       gridRowGap: px(spacing(4)),
       paddingLeft: spacing(2),
       paddingRight: spacing(2),
-      paddingTop: spacing(4)
+      paddingTop: spacing(4),
     },
     snackbarError: { backgroundColor: palette.error.dark },
-    snackbarMessage: { color: 'tomato' }
+    snackbarMessage: { color: 'tomato' },
   }
 })
 
