@@ -7,7 +7,7 @@ let __LIMIT__LIKE_COUNT = 12
 
 let __LIMIT__REPLY_COUNT = 12
 
-export const useThreadsLimit = (
+export const useImagesLimit = (
   orderBy: SearchOrderBy
 ): [number, Dispatch<SetStateAction<number>>] => {
   const [limit, setLimit] = useState(() => {

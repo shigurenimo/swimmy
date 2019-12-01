@@ -73,7 +73,6 @@ const useStyles = makeStyles<Theme>(({ shadows, breakpoints, spacing }) => {
       position: 'fixed',
       width: spacing(50),
       zIndex: 1300 - 1,
-      [breakpoints.up('lg')]: { width: spacing(70) },
     },
   }
 })

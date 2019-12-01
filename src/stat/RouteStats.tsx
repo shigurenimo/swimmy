@@ -3,9 +3,10 @@ import { makeStyles } from '@material-ui/styles'
 import { firestore } from 'firebase/app'
 import React, { Fragment, FunctionComponent, useEffect, useState } from 'react'
 import { collectionData } from 'rxfire/firestore'
-import ToolbarDefault from '../components/ToolbarDefault'
+import AppBarDefault from '../components/AppBarDefault'
 import DivLoading from '../components/DivLoading'
 import FragmentHead from '../components/FragmentHead'
+import ToolbarDefault from '../components/ToolbarDefault'
 import { STATISTICS } from '../firestore/constants/collection'
 import { DESC } from '../firestore/constants/order'
 import { Statistic } from '../firestore/types/statistic'
@@ -41,6 +42,7 @@ const RouteStats: FunctionComponent = () => {
   return (
     <Fragment>
       <FragmentHead title={'集計データ'} />
+      <AppBarDefault />
       <ToolbarDefault />
       <main className={classes.root}>
         {!loading && (

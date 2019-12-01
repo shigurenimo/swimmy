@@ -12,19 +12,19 @@ import AppBarDefault from '../components/AppBarDefault'
 import ButtonMore from '../components/ButtonMore'
 import FragmentHead from '../components/FragmentHead'
 import ToolbarDefault from '../components/ToolbarDefault'
+import { useSearchOrderBy } from '../hooks/useSearchOrderBy'
 import { px } from '../styles/px'
 import { WORD_RESPONSE } from '../text/word'
 import CardThread from './components/CardThread'
-import { useOrderBy } from './hooks/useOrderBy'
 import { useThreads } from './hooks/useThreads'
 import { useThreadsLimit } from './hooks/useThreadsLimit'
 
 const RouteThreads: FunctionComponent = () => {
   const history = useHistory()
 
-  const [limit, setLimit] = useThreadsLimit()
+  const orderBy = useSearchOrderBy()
 
-  const orderBy = useOrderBy()
+  const [limit, setLimit] = useThreadsLimit(orderBy)
 
   const [posts] = useThreads(limit, orderBy)
 
@@ -62,9 +62,9 @@ const RouteThreads: FunctionComponent = () => {
           textColor={'primary'}
           value={orderBy}
         >
-          <Tab label={'新着'} value={'createdAt'} />
-          <Tab label={'評価数'} value={'likeCount'} />
-          <Tab label={`${WORD_RESPONSE}数`} value={'replyPostCount'} />
+          <Tab label={'新着'} value={'created_at'} />
+          <Tab label={'評価数'} value={'like_count'} />
+          <Tab label={`${WORD_RESPONSE}数`} value={'reply_count'} />
         </Tabs>
         {renderLoading && <CircularProgress className={classes.progress} />}
         <section className={classes.section}>
