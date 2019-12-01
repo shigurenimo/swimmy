@@ -4,12 +4,12 @@ import React, { FunctionComponent, useEffect, useState } from 'react'
 import ButtonMore from '../../components/ButtonMore'
 import TextFieldPost from '../../components/TextFieldPost'
 import { px } from '../../styles/px'
-import { useHomeLimit } from '../hooks/useHomeLimit'
+import { useHomePostsLimit } from '../hooks/useHomePostsLimit'
 import { useHomePosts } from '../hooks/useHomePosts'
 import CardPost from './CardPost'
 
 const MainHome: FunctionComponent = () => {
-  const [limit, setLimit] = useHomeLimit()
+  const [limit, setLimit] = useHomePostsLimit()
 
   const [posts] = useHomePosts(limit)
 
@@ -17,15 +17,15 @@ const MainHome: FunctionComponent = () => {
 
   const classes = useStyles()
 
-  const onLoadNext = () => {
-    setLoading(true)
-    setLimit(_limit => _limit + 32)
-  }
-
   useEffect(() => {
     if (posts.length === 0) return
     setLoading(false)
   }, [posts.length])
+
+  const onLoadNext = () => {
+    setLoading(true)
+    setLimit(_limit => _limit + 32)
+  }
 
   const renderLoading = loading && posts.length === 0
 

@@ -1,8 +1,11 @@
 import { Dispatch, SetStateAction, useState } from 'react'
 
-let __LIMIT__ = 32
+let __LIMIT__ = 16
 
-export const useHomeLimit = (): [number, Dispatch<SetStateAction<number>>] => {
+export const useHomeThreadsLimit = (): [
+  number,
+  Dispatch<SetStateAction<number>>
+] => {
   const [limit, setLimit] = useState(__LIMIT__)
 
   __LIMIT__ = limit
