@@ -9,13 +9,20 @@ import { toVersionText } from '../helpers/toVersionText'
 type Props = { changelog: Changelog }
 
 const CardChangelog: FunctionComponent<Props> = ({ changelog }) => {
-  const classes = useStyles({})
+  const classes = useStyles()
 
   return (
     <Card>
-      <CardContent className={classes.cardContent}>
+      <CardContent
+        className={classes.cardContent}
+        style={{ paddingBottom: 16 }}
+      >
         <div className={classes.title}>
-          <Typography variant={'h5'} component={'h2'}>
+          <Typography
+            component={'h2'}
+            style={{ fontWeight: 'bold' }}
+            variant={'h5'}
+          >
             {toVersionText(changelog.version)}
           </Typography>
           <Typography className={classes.date}>

@@ -8,7 +8,7 @@ type Props = {
 }
 
 const InputFile: FunctionComponent<Props> = ({ inputRef, onChange }) => {
-  const classes = useStyles({})
+  const classes = useStyles()
 
   return (
     <input

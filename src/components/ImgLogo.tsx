@@ -4,7 +4,7 @@ import React, { FunctionComponent } from 'react'
 import { Link } from 'react-router-dom'
 
 const ImgLogo: FunctionComponent = () => {
-  const classes = useStyles({})
+  const classes = useStyles()
 
   return (
     <div className={classes.root}>

@@ -8,7 +8,7 @@ import ButtonLike from './ButtonLike'
 type Props = { post: Post }
 
 const DivPostTags: FunctionComponent<Props> = ({ post }) => {
-  const classes = useStyles({})
+  const classes = useStyles()
 
   return (
     <ul className={classes.root}>

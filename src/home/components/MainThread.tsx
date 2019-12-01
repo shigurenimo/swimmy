@@ -23,7 +23,7 @@ const MainThread: FunctionComponent = () => {
 
   const [thread, setThread] = useState<Post | null>(null)
 
-  const classes = useStyles({})
+  const classes = useStyles()
 
   useEffect(() => {
     setLoadingPosts(true)

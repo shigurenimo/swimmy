@@ -8,7 +8,7 @@ type Props = {
 }
 
 const ButtonMore: FunctionComponent<Props> = ({ onClick, inProgress }) => {
-  const classes = useStyles({})
+  const classes = useStyles()
 
   return (
     <div className={classes.root}>

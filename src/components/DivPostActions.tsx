@@ -18,7 +18,7 @@ const DivPostActions: FunctionComponent<Props> = ({
   onClickLike,
   postId,
 }) => {
-  const classes = useStyles({})
+  const classes = useStyles()
 
   return (
     <div className={classes.root}>

@@ -5,7 +5,7 @@ import React, { FunctionComponent } from 'react'
 type Props = { photoURLs: string[] }
 
 const DivImages: FunctionComponent<Props> = ({ photoURLs }) => {
-  const classes = useStyles({})
+  const classes = useStyles()
 
   return (
     <div className={classes.root}>

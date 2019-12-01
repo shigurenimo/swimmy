@@ -10,7 +10,7 @@ import { px } from '../../styles/px'
 type Props = { post: Post }
 
 const CardThread: FunctionComponent<Props> = ({ post }) => {
-  const classes = useStyles({})
+  const classes = useStyles()
 
   return (
     <Link to={`/threads/${post.id}`}>

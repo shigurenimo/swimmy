@@ -13,7 +13,7 @@ const DivUnderDevelopment: FunctionComponent<Props> = ({
   title,
   Icon,
 }) => {
-  const classes = useStyles({})
+  const classes = useStyles()
 
   return (
     <div className={classes.root}>

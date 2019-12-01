@@ -7,7 +7,7 @@ import FragmentHead from '../components/FragmentHead'
 import ToolbarDefault from '../components/ToolbarDefault'
 
 const RouteSettingsEmail: FunctionComponent = () => {
-  const classes = useStyles({})
+  const classes = useStyles()
 
   return (
     <Fragment>

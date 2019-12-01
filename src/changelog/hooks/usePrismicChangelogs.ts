@@ -6,9 +6,10 @@ import { createQueryParams } from '../../route/createQueryParams'
 import { getPrismicEndpoint } from '../helpers/getPrismicEndpoint'
 import { getPrismicRef } from '../helpers/getPrismicRef'
 
-export const usePrismicChangelogs = (): [[Changelog[], boolean]] => {
+export const usePrismicChangelogs = (): [Changelog[], boolean] => {
   const [changelogs, setChangelogs] = useState<Changelog[]>([])
-  const [inProgress, setInProgress] = useState(true)
+
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     const endpoint = getPrismicEndpoint()
@@ -33,12 +34,12 @@ export const usePrismicChangelogs = (): [[Changelog[], boolean]] => {
       )
       .subscribe(_changelogs => {
         setChangelogs(_changelogs)
-        setInProgress(false)
+        setLoading(false)
       })
     return () => {
       fetch$$.unsubscribe()
     }
   }, [])
 
-  return [[changelogs, inProgress]]
+  return [changelogs, loading]
 }

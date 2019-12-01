@@ -7,7 +7,7 @@ type Tag = { name: string; count: number }
 type Props = { tag: Tag }
 
 const ButtonTag: FunctionComponent<Props> = ({ tag }) => {
-  const classes = useStyles({})
+  const classes = useStyles()
 
   return (
     <ButtonGroup color={'primary'} variant={'outlined'}>

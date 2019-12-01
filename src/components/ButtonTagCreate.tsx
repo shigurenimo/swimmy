@@ -12,7 +12,7 @@ import React, { Fragment, FunctionComponent, useState } from 'react'
 type Props = { postId: string }
 
 const ButtonTagCreate: FunctionComponent<Props> = ({ postId }) => {
-  const classes = useStyles({})
+  const classes = useStyles()
   const [opened, setOpened] = useState(false)
 
   return (

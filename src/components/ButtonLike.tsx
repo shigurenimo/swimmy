@@ -16,7 +16,7 @@ type Props = { post: Post }
 const ButtonLike: FunctionComponent<Props> = ({ post }) => {
   const [authUser] = useAuthUser()
 
-  const classes = useStyles({})
+  const classes = useStyles()
 
   const [loading, setLoading] = useState(true)
 

@@ -15,7 +15,7 @@ const RouteHomeIndex: FunctionComponent = () => {
 
   const { spacing } = useTheme()
 
-  const classes = useStyles({})
+  const classes = useStyles()
 
   const columns = useColumns()
 

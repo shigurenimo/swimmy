@@ -6,7 +6,7 @@ import DivUnderDevelopment from '../components/DivUnderDevelopment'
 import FragmentHead from '../components/FragmentHead'
 
 const RouteIssues: FunctionComponent = () => {
-  const classes = useStyles({})
+  const classes = useStyles()
 
   return (
     <Fragment>

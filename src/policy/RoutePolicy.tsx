@@ -1,18 +1,21 @@
-import { Theme, Typography } from '@material-ui/core'
+import { Divider, Theme, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
 import React, { Fragment, FunctionComponent } from 'react'
-import ToolbarDefault from '../components/ToolbarDefault'
+import AppBarDefault from '../components/AppBarDefault'
 import FragmentHead from '../components/FragmentHead'
+import ToolbarDefault from '../components/ToolbarDefault'
 import { px } from '../styles/px'
 
 const RoutePolicy: FunctionComponent = () => {
-  const classes = useStyles({})
+  const classes = useStyles()
 
   return (
     <Fragment>
       <FragmentHead title={'プライバシーポリシー'} />
+      <AppBarDefault />
       <ToolbarDefault />
       <main className={classes.root}>
+        <Divider />
         <section className={classes.section}>
           <Typography variant={'h6'} component={'h2'}>
             個人情報について
@@ -22,6 +25,7 @@ const RoutePolicy: FunctionComponent = () => {
             また、他の情報と容易に照合でき、それにより個人を特定できる情報も含みます。
           </Typography>
         </section>
+        <Divider />
         <section className={classes.section}>
           <Typography variant={'h6'} component={'h2'}>
             個人情報の管理と利用
@@ -31,6 +35,7 @@ const RoutePolicy: FunctionComponent = () => {
             Swimmyは、ユーザのログイン認証のみにメールアドレスを利用します。
           </Typography>
         </section>
+        <Divider />
         <section className={classes.section}>
           <Typography variant={'h6'} component={'h2'}>
             個人情報の提供
@@ -39,6 +44,7 @@ const RoutePolicy: FunctionComponent = () => {
             Swimmyは、個人情報を第三者に提供しません。
           </Typography>
         </section>
+        <Divider />
         <section className={classes.section}>
           <Typography variant={'h6'} component={'h2'}>
             Cookieの使用
@@ -49,6 +55,7 @@ const RoutePolicy: FunctionComponent = () => {
             これは匿名で収集されており、個人を特定するものではありません。
           </Typography>
         </section>
+        <Divider />
         <section className={classes.section}>
           <Typography variant={'h6'} component={'h2'}>
             プライバシーポリシーへの同意
@@ -65,16 +72,14 @@ const RoutePolicy: FunctionComponent = () => {
 const useStyles = makeStyles<Theme>(({ spacing }) => {
   return {
     description: { whiteSpace: 'pre-line', wordBreak: 'break-all' },
-    root: {
-      display: 'grid',
-      gridRowGap: px(spacing(2)),
-      paddingTop: spacing(2),
-    },
+    root: { display: 'grid' },
     section: {
       display: 'grid',
-      gridRowGap: px(spacing(2)),
+      gridRowGap: px(spacing(1)),
+      paddingBottom: spacing(2),
       paddingLeft: spacing(2),
       paddingRight: spacing(2),
+      paddingTop: spacing(2),
     },
   }
 })

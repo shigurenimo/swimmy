@@ -1,39 +1,22 @@
-import { Card, CardContent, Theme, Typography } from '@material-ui/core'
+import {
+  Card,
+  CardContent,
+  Divider,
+  Theme,
+  Typography,
+} from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
-import { firestore } from 'firebase/app'
-import React, { Fragment, FunctionComponent, useEffect, useState } from 'react'
-import { collectionData } from 'rxfire/firestore'
+import React, { Fragment, FunctionComponent } from 'react'
 import AppBarDefault from '../components/AppBarDefault'
 import DivLoading from '../components/DivLoading'
 import FragmentHead from '../components/FragmentHead'
 import ToolbarDefault from '../components/ToolbarDefault'
-import { STATISTICS } from '../firestore/constants/collection'
-import { DESC } from '../firestore/constants/order'
-import { Statistic } from '../firestore/types/statistic'
-import { px } from '../styles/px'
+import { useStatistic } from './hooks/useStatistic'
 
 const RouteStats: FunctionComponent = () => {
-  const [loading, setLoading] = useState(true)
-  const [statistic, setStatistic] = useState<Statistic | null>(null)
-  const classes = useStyles({})
+  const [statistic, loading] = useStatistic()
 
-  useEffect(() => {
-    const subscription = collectionData<Statistic>(
-      firestore()
-        .collection(STATISTICS)
-        .orderBy('createdAt', DESC)
-        .limit(1)
-    ).subscribe(statistics => {
-      if (!statistics.length) {
-        setLoading(false)
-        return
-      }
-      const [statistic] = statistics
-      setStatistic(statistic)
-      setLoading(false)
-    })
-    return () => subscription.unsubscribe()
-  }, [])
+  const classes = useStyles()
 
   if (statistic === null) {
     return null
@@ -45,33 +28,34 @@ const RouteStats: FunctionComponent = () => {
       <AppBarDefault />
       <ToolbarDefault />
       <main className={classes.root}>
-        {!loading && (
-          <Fragment>
-            <section className={classes.section}>
-              <Card>
-                <CardContent style={{ paddingBottom: 16 }}>
-                  <Typography>{'すべての投稿'}</Typography>
-                  <Typography variant={'h4'}>{statistic.postCount}</Typography>
-                </CardContent>
-              </Card>
-              <Card>
-                <CardContent style={{ paddingBottom: 16 }}>
-                  <Typography>{'コメント'}</Typography>
-                  <Typography variant={'h4'}>
-                    {statistic.responsePostCount}
-                  </Typography>
-                </CardContent>
-              </Card>
-              <Card>
-                <CardContent style={{ paddingBottom: 16 }}>
-                  <Typography>{'画像の投稿'}</Typography>
-                  <Typography variant={'h4'}>
-                    {statistic.imagePostCount}
-                  </Typography>
-                </CardContent>
-              </Card>
-            </section>
-          </Fragment>
+        {statistic !== null && (
+          <section className={classes.section}>
+            <Divider />
+            <Card>
+              <CardContent style={{ paddingBottom: 16 }}>
+                <Typography>{'すべての投稿'}</Typography>
+                <Typography variant={'h4'}>{statistic.postCount}</Typography>
+              </CardContent>
+            </Card>
+            <Divider />
+            <Card>
+              <CardContent style={{ paddingBottom: 16 }}>
+                <Typography>{'コメント'}</Typography>
+                <Typography variant={'h4'}>
+                  {statistic.responsePostCount}
+                </Typography>
+              </CardContent>
+            </Card>
+            <Divider />
+            <Card>
+              <CardContent style={{ paddingBottom: 16 }}>
+                <Typography>{'画像の投稿'}</Typography>
+                <Typography variant={'h4'}>
+                  {statistic.imagePostCount}
+                </Typography>
+              </CardContent>
+            </Card>
+          </section>
         )}
         {loading && <DivLoading />}
       </main>
@@ -81,17 +65,8 @@ const RouteStats: FunctionComponent = () => {
 
 const useStyles = makeStyles<Theme>(({ spacing }) => {
   return {
-    root: {
-      display: 'grid',
-      gridRowGap: px(spacing(2)),
-      paddingTop: spacing(2),
-    },
-    section: {
-      display: 'grid',
-      gridRowGap: px(spacing(2)),
-      marginLeft: spacing(2),
-      marginRight: spacing(2),
-    },
+    root: { display: 'grid' },
+    section: { display: 'grid' },
   }
 })
 

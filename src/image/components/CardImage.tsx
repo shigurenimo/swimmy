@@ -7,7 +7,7 @@ import { Post } from '../../firestore/types/post'
 type Props = { post: Post }
 
 const CardImage: FunctionComponent<Props> = ({ post }) => {
-  const classes = useStyles({})
+  const classes = useStyles()
 
   return (
     <Link to={`/threads/${post.id}`}>

@@ -13,7 +13,7 @@ const DivPostCounts: FunctionComponent<Props> = ({
   replyPostCount = 0,
   likeCount,
 }) => {
-  const classes = useStyles({})
+  const classes = useStyles()
 
   if (!replyPostCount && !likeCount) {
     return null

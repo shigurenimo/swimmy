@@ -13,7 +13,6 @@ import ButtonMore from '../components/ButtonMore'
 import FragmentHead from '../components/FragmentHead'
 import ToolbarDefault from '../components/ToolbarDefault'
 import { useSearchOrderBy } from '../hooks/useSearchOrderBy'
-import { px } from '../styles/px'
 import { WORD_RESPONSE } from '../text/word'
 import CardThread from './components/CardThread'
 import { useThreads } from './hooks/useThreads'
@@ -30,7 +29,7 @@ const RouteThreads: FunctionComponent = () => {
 
   const [loading, setLoading] = useState(posts.length === 0)
 
-  const classes = useStyles({})
+  const classes = useStyles()
 
   useEffect(() => {
     if (posts.length === 0) return
@@ -94,8 +93,8 @@ const useStyles = makeStyles<Theme>(({ spacing }) => {
       marginRight: 'auto',
       marginTop: spacing(10),
     },
-    root: { display: 'grid', gridRowGap: px(spacing(2)) },
-    section: { display: 'grid', gridRowGap: px(spacing(2)) },
+    root: { display: 'grid' },
+    section: { display: 'grid', gridRowGap: spacing(2) },
   }
 })
 

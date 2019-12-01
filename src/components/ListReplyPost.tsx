@@ -26,7 +26,7 @@ const ListReplyPost: FunctionComponent<Props> = ({
 }) => {
   const [posts, setPosts] = useState<Post[]>([])
   const [inProgress, setInProgress] = useState(replyPostCount > 0)
-  const classes = useStyles({})
+  const classes = useStyles()
 
   useEffect(() => {
     const query = firestore()

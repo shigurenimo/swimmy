@@ -7,7 +7,7 @@ import { px } from '../styles/px'
 import { resetList } from '../styles/resetList'
 
 const RouteAbout: FunctionComponent = () => {
-  const classes = useStyles({})
+  const classes = useStyles()
 
   return (
     <Fragment>

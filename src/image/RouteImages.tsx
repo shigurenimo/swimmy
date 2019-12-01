@@ -29,7 +29,7 @@ const RouteImages: FunctionComponent = () => {
 
   const [loading, setLoading] = useState(posts.length === 0)
 
-  const classes = useStyles({})
+  const classes = useStyles()
 
   useEffect(() => {
     if (posts.length === 0) return

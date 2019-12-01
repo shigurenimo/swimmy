@@ -33,7 +33,7 @@ const RouteSettingsPassword: FunctionComponent = () => {
 
   const [snackbarType, setSnackbarType] = useState('')
 
-  const classes = useStyles({})
+  const classes = useStyles()
 
   const disabled =
     !password || !currentPassword || password === currentPassword || inProgress
