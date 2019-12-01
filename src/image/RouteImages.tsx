@@ -11,7 +11,7 @@ import React, {
 } from 'react'
 import { useHistory, useLocation } from 'react-router-dom'
 import { collectionData } from 'rxfire/firestore'
-import Header from '../components/AppBarDefault'
+import ToolbarDefault from '../components/ToolbarDefault'
 import ButtonMore from '../components/ButtonMore'
 import FragmentHead from '../components/FragmentHead'
 import { WORD_PHOTO, WORD_RESPONSE } from '../text/word'
@@ -84,7 +84,7 @@ const RouteImages: FunctionComponent = () => {
         title={WORD_PHOTO}
         description={`${WORD_PHOTO}の添付された書き込みです。`}
       />
-      <Header />
+      <ToolbarDefault />
       <main className={classes.root}>
         <Tabs
           indicatorColor={'primary'}

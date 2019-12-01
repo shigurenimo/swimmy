@@ -13,7 +13,7 @@ import React, { Fragment, FunctionComponent, useEffect, useState } from 'react'
 import { from } from 'rxjs'
 import { mergeMap } from 'rxjs/operators'
 import { useAuthUser } from '../auth/useAuthUser'
-import Header from '../components/AppBarDefault'
+import ToolbarDefault from '../components/ToolbarDefault'
 import FragmentHead from '../components/FragmentHead'
 import { pct } from '../styles/pct'
 import { px } from '../styles/px'
@@ -72,7 +72,7 @@ const RouteSettingsPassword: FunctionComponent = () => {
   return (
     <Fragment>
       <FragmentHead title={'パスワードの変更'} />
-      <Header />
+      <ToolbarDefault />
       <main className={classes.root}>
         <Typography variant={'h4'}>パスワードの変更</Typography>
         <form className={classes.form}>

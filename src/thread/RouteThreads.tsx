@@ -8,9 +8,10 @@ import React, {
   useState,
 } from 'react'
 import { useHistory } from 'react-router-dom'
-import Header from '../components/AppBarDefault'
+import AppBarDefault from '../components/AppBarDefault'
 import ButtonMore from '../components/ButtonMore'
 import FragmentHead from '../components/FragmentHead'
+import ToolbarDefault from '../components/ToolbarDefault'
 import { px } from '../styles/px'
 import { WORD_RESPONSE } from '../text/word'
 import CardThread from './components/CardThread'
@@ -52,7 +53,8 @@ const RouteThreads: FunctionComponent = () => {
   return (
     <Fragment>
       <FragmentHead title={`${WORD_RESPONSE}のある書き込み一覧です`} />
-      <Header />
+      <AppBarDefault />
+      <ToolbarDefault />
       <main className={classes.root}>
         <Tabs
           indicatorColor={'primary'}
