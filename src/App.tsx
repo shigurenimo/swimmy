@@ -1,11 +1,11 @@
 import { CssBaseline } from '@material-ui/core'
 import { StylesProvider, ThemeProvider } from '@material-ui/styles'
+import { useDarkMode } from '@reiwa/dark'
 import React, { FunctionComponent } from 'react'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import RouteAbout from './about/RouteAbout'
 import RouteChangelogs from './changelog/RouteChangelogs'
 import FragmentListener from './components/FragmentListener'
-import { useDark } from './dark/useDark'
 import RouteHomeIndex from './home/RouteHomeIndex'
 import RouteImages from './image/RouteImages'
 import RoutePolicy from './policy/RoutePolicy'
@@ -16,7 +16,7 @@ import { createTheme } from './theme/createTheme'
 import RouteThreads from './thread/RouteThreads'
 
 const App: FunctionComponent = () => {
-  const dark = useDark()
+  const dark = useDarkMode()
 
   const theme = createTheme({ dark })
 

@@ -12,8 +12,17 @@ const ButtonMore: FunctionComponent<Props> = ({ onClick, inProgress }) => {
 
   return (
     <div className={classes.root}>
-      <Button className={classes.button} onClick={onClick} variant={'outlined'}>
-        {'さらに読み込む'}
+      <Button
+        className={classes.button}
+        onClick={() => {
+          if (inProgress) return
+          onClick()
+        }}
+        variant={'outlined'}
+      >
+        <span style={{ opacity: inProgress ? 0.2 : 1 }}>
+          {'さらに読み込む'}
+        </span>
         {inProgress && (
           <CircularProgress size={24} className={classes.buttonProgress} />
         )}
