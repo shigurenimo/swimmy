@@ -4,6 +4,7 @@ import {
   LinearProgress,
   Theme,
   Toolbar,
+  useTheme,
 } from '@material-ui/core'
 import ChatBubbleIcon from '@material-ui/icons/ChatBubble'
 import CloseIcon from '@material-ui/icons/Close'
@@ -12,6 +13,7 @@ import { makeStyles } from '@material-ui/styles'
 import React, { Fragment, FunctionComponent, useState } from 'react'
 import { Link, useHistory } from 'react-router-dom'
 import { useAuthLoading } from '../auth/useAuthLoading'
+import { useColumns } from '../hooks/useColumns'
 import { pct } from '../styles/pct'
 import { px } from '../styles/px'
 import DialogMenu from './DialogMenu'
@@ -23,6 +25,10 @@ type Props = { isClose?: boolean }
 const AppBarDefault: FunctionComponent<Props> = ({ isClose }) => {
   const history = useHistory()
 
+  const { spacing } = useTheme()
+
+  const columns = useColumns()
+
   const [authLoading] = useAuthLoading()
 
   const [isOpenSignInDialog, setIsOpenSignInDialog] = useState(false)
@@ -33,7 +39,12 @@ const AppBarDefault: FunctionComponent<Props> = ({ isClose }) => {
 
   return (
     <Fragment>
-      <AppBar color={'inherit'} position={'fixed'} className={classes.appBar}>
+      <AppBar
+        color={'inherit'}
+        position={'fixed'}
+        className={classes.appBar}
+        style={{ paddingLeft: columns ? spacing(50) : 0 }}
+      >
         {authLoading && <LinearProgress className={classes.progress} />}
         <Toolbar>
           <ImgLogo />
@@ -86,8 +97,6 @@ const useStyle = makeStyles<Theme>(({ breakpoints, spacing, zIndex }) => {
       // backgroundColor: 'rgba(255, 255, 255, 0.98)',
       zIndex: zIndex.drawer + 1,
       paddingTop: 'env(safe-area-inset-top)',
-      [breakpoints.up('md')]: { paddingLeft: spacing(50) },
-      [breakpoints.up('lg')]: { paddingLeft: spacing(70) },
     },
     menuButton: { marginLeft: spacing(-1.5), marginRight: spacing(2.5) },
     progress: { position: 'absolute', top: 0, left: 0, width: pct(100) },

@@ -1,81 +1,53 @@
-import { CircularProgress, Tab, Tabs, Theme } from '@material-ui/core'
+import { CircularProgress, Divider, Tab, Tabs, Theme } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
-import { firestore } from 'firebase/app'
 import React, {
   ChangeEvent,
   Fragment,
   FunctionComponent,
-  useCallback,
   useEffect,
   useState,
 } from 'react'
-import { useHistory, useLocation } from 'react-router-dom'
-import { collectionData } from 'rxfire/firestore'
+import { useHistory } from 'react-router-dom'
 import Header from '../components/AppBarDefault'
 import ButtonMore from '../components/ButtonMore'
 import FragmentHead from '../components/FragmentHead'
-import { WORD_RESPONSE } from '../text/word'
-import { POSTS_AS_THREAD } from '../firestore/constants/collection'
-import { DESC } from '../firestore/constants/order'
-import { Post } from '../firestore/types/post'
-import { getOrderBy } from '../route/getOrderBy'
-import { useCollectionState } from '../hooks/useCollectionState'
 import { px } from '../styles/px'
+import { WORD_RESPONSE } from '../text/word'
 import CardThread from './components/CardThread'
+import { useOrderBy } from './hooks/useOrderBy'
+import { useThreads } from './hooks/useThreads'
+import { useThreadsLimit } from './hooks/useThreadsLimit'
 
 const RouteThreads: FunctionComponent = () => {
-  const location = useLocation()
-
   const history = useHistory()
 
-  const key = `${location.pathname}${location.search}`
+  const [limit, setLimit] = useThreadsLimit()
 
-  const [__posts, __limit, setState] = useCollectionState<Post>(key)
+  const orderBy = useOrderBy()
 
-  const [posts, setPosts] = useState(__posts)
+  const [posts] = useThreads(limit, orderBy)
 
-  const [limit, setLimit] = useState(__limit)
-
-  const [orderBy, setOrderBy] = useState(getOrderBy())
-
-  const [loading, setLoading] = useState(__posts.length === 0)
-
-  const [loadingMore, setLoadingMore] = useState(false)
+  const [loading, setLoading] = useState(posts.length === 0)
 
   const classes = useStyles({})
 
   useEffect(() => {
-    const subscription = collectionData<Post>(
-      firestore()
-        .collection(POSTS_AS_THREAD)
-        .limit(limit)
-        .orderBy(orderBy, DESC)
-    ).subscribe(_posts => {
-      setPosts(_posts)
-      setLoading(false)
-      setLoadingMore(false)
-    })
-    return () => subscription.unsubscribe()
-  }, [limit, orderBy])
+    if (posts.length === 0) return
+    setLoading(false)
+  }, [posts.length])
 
-  useEffect(() => {
-    return () => setState(posts, limit)
-  }, [limit, posts, setState])
+  const onLoadNext = () => {
+    setLoading(true)
+    setLimit(_limit => _limit + 16)
+  }
 
-  const onMore = useCallback(() => {
-    if (loadingMore) return
-    setLoadingMore(true)
-    setLimit(limit + 16)
-  }, [limit, loadingMore])
+  const onChangeTab = (_: ChangeEvent<{}>, _orderBy: string) => {
+    history.push(`?order=${_orderBy}`)
+  }
 
-  const onChangeTab = useCallback(
-    (_: ChangeEvent<{}>, _orderBy: string) => {
-      history.push(`?order=${_orderBy}`)
-      setOrderBy(_orderBy)
-      setLoading(true)
-    },
-    [history]
-  )
+  const renderLoading = loading && posts.length === 0
+
+  const renderNext = posts.length !== 0 && limit < 400
 
   return (
     <Fragment>
@@ -92,19 +64,20 @@ const RouteThreads: FunctionComponent = () => {
           <Tab label={'評価数'} value={'likeCount'} />
           <Tab label={`${WORD_RESPONSE}数`} value={'replyPostCount'} />
         </Tabs>
-        {loading && <CircularProgress className={classes.progress} />}
-        {!loading && (
-          <section className={classes.section}>
-            <div className={classes.posts}>
-              {posts.map(post => (
-                <CardThread key={post.id} post={post} />
-              ))}
-            </div>
-            {limit < 200 && (
-              <ButtonMore onClick={onMore} inProgress={loadingMore} />
-            )}
-          </section>
-        )}
+        {renderLoading && <CircularProgress className={classes.progress} />}
+        <section className={classes.section}>
+          <ul className={classes.posts}>
+            {posts.map(post => (
+              <li key={post.id}>
+                <CardThread post={post} />
+                <Divider />
+              </li>
+            ))}
+          </ul>
+          {renderNext && (
+            <ButtonMore onClick={onLoadNext} inProgress={loading} />
+          )}
+        </section>
       </main>
     </Fragment>
   )
@@ -112,12 +85,7 @@ const RouteThreads: FunctionComponent = () => {
 
 const useStyles = makeStyles<Theme>(({ spacing }) => {
   return {
-    posts: {
-      display: 'grid',
-      gridRowGap: px(spacing(2)),
-      marginLeft: spacing(2),
-      marginRight: spacing(2),
-    },
+    posts: { display: 'grid' },
     progress: {
       display: 'block',
       marginLeft: 'auto',

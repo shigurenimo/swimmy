@@ -15,7 +15,7 @@ const CardThread: FunctionComponent<Props> = ({ post }) => {
   return (
     <Link to={`/threads/${post.id}`}>
       <Card>
-        <CardContent className={classes.root}>
+        <CardContent className={classes.root} style={{ paddingBottom: 8 }}>
           <DivPostCounts
             replyPostCount={post.replyPostCount}
             likeCount={post.likeCount}
@@ -37,6 +37,7 @@ const useStyles = makeStyles<Theme>(({ typography, palette, spacing }) => {
     root: {
       display: 'grid',
       gridRowGap: px(spacing(1)),
+      paddingTop: 8,
       width: `${100}%`,
     },
     text: {

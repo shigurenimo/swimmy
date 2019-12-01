@@ -12,7 +12,7 @@ const DrawerThread: FunctionComponent<Props> = ({ threadId }) => {
 
   const [posts] = useHomeThreads(limit)
 
-  const [loading, setLoading] = useState(true)
+  const [loading, setLoading] = useState(posts.length === 0)
 
   const classes = useStyles()
 

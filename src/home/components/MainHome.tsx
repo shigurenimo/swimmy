@@ -13,7 +13,7 @@ const MainHome: FunctionComponent = () => {
 
   const [posts] = useHomePosts(limit)
 
-  const [loading, setLoading] = useState(true)
+  const [loading, setLoading] = useState(posts.length === 0)
 
   const classes = useStyles()
 

@@ -1,9 +1,10 @@
-import { Theme, useMediaQuery } from '@material-ui/core'
+import { Theme } from '@material-ui/core'
 import { makeStyles, useTheme } from '@material-ui/styles'
 import React, { FunctionComponent } from 'react'
 import { Route, Switch, useParams } from 'react-router-dom'
 import AppBarDefault from '../components/AppBarDefault'
 import FragmentHead from '../components/FragmentHead'
+import { useColumns } from '../hooks/useColumns'
 import DrawerThread from './components/DrawerThread'
 import MainHome from './components/MainHome'
 import MainThread from './components/MainThread'
@@ -11,16 +12,21 @@ import MainThread from './components/MainThread'
 const RouteHomeIndex: FunctionComponent = () => {
   const { threadId } = useParams<{ threadId: string }>()
 
+  const { spacing } = useTheme()
+
   const classes = useStyles({})
 
-  const theme = useTheme<Theme>()
-
-  const isDesktop = useMediaQuery(theme.breakpoints.up('md'))
+  const columns = useColumns()
 
   return (
-    <div className={classes.root}>
+    <div
+      className={classes.root}
+      style={{
+        gridTemplateColumns: columns ? `${spacing(50)}px 1fr` : '1fr',
+      }}
+    >
       <FragmentHead />
-      {isDesktop && <DrawerThread threadId={threadId} />}
+      {columns && <DrawerThread threadId={threadId} />}
       <div>
         <AppBarDefault />
         <Switch>
@@ -33,13 +39,7 @@ const RouteHomeIndex: FunctionComponent = () => {
 }
 
 const useStyles = makeStyles<Theme>(({ breakpoints, spacing }) => {
-  return {
-    root: {
-      display: 'grid',
-      [breakpoints.up('md')]: { gridTemplateColumns: `${spacing(50)}px 1fr` },
-      [breakpoints.up('lg')]: { gridTemplateColumns: `${spacing(70)}px 1fr` },
-    },
-  }
+  return { root: { display: 'grid' } }
 })
 
 export default RouteHomeIndex
