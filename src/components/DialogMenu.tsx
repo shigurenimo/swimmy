@@ -41,7 +41,7 @@ const DialogMenu: FunctionComponent<Props> = ({ onClose, isOpen }) => {
 
   return (
     <Dialog fullScreen open={isOpen} onClose={onClose}>
-      <DialogActions>
+      <DialogActions style={{ paddingTop: 'env(safe-area-inset-top)' }}>
         <Button onClick={onClose} aria-label={'Close this menu'}>
           {'CLOSE'}
         </Button>

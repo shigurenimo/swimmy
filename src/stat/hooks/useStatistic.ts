@@ -1,4 +1,4 @@
-import { firestore } from 'firebase'
+import { firestore } from 'firebase/app'
 import { useEffect, useState } from 'react'
 import { collectionData } from 'rxfire/firestore'
 import { STATISTICS } from '../../firestore/constants/collection'

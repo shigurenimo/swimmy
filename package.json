@@ -11,8 +11,6 @@
   "author": "reiwa <reiwa@outlook.com.vn>",
   "license": "MIT",
   "dependencies": {
-    "@firebase/app-types": "0.x",
-    "@firebase/util": "0.x",
     "@material-ui/core": "^4.5.1",
     "@material-ui/icons": "^4.5.1",
     "@material-ui/styles": "^4.5.0",
@@ -26,7 +24,7 @@
     "@types/react-router-dom": "^5.1.0",
     "@types/webpack-env": "^1.14.1",
     "classnames": "^2.2.6",
-    "firebase": "^7.2.2",
+    "firebase": "^7.5.0",
     "react": "^16.11.0",
     "react-dom": "^16.11.0",
     "react-router-dom": "^5.1.2",
