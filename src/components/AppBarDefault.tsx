@@ -71,8 +71,8 @@ const useStyle = makeStyles<Theme>(({ breakpoints, spacing, zIndex }) => {
       gridColumnGap: px(spacing(1)),
     },
     appBar: {
-      zIndex: zIndex.drawer + 1,
       paddingTop: 'env(safe-area-inset-top)',
+      zIndex: zIndex.drawer + 1,
     },
     progress: { position: 'absolute', top: 0, left: 0, width: pct(100) },
   }
