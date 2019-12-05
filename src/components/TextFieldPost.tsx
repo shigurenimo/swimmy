@@ -129,23 +129,18 @@ const TextFieldPost: FunctionComponent = () => {
         </div>
       )}
       <FormControl fullWidth>
-        <InputLabel
-          htmlFor="textarea"
-          classes={{ root: classes.textFieldLabel }}
-        >
-          {'新しい書き込み'}
-        </InputLabel>
         <Input
-          id={'textarea'}
           classes={{ root: classes.textField }}
+          disabled={inProgress}
           fullWidth
+          id={'textarea'}
           multiline
           onChange={event => {
             if (inProgress) return
             setPostText(event.target.value)
           }}
+          placeholder={'新しい書き込み'}
           value={postText}
-          disabled={inProgress}
         />
       </FormControl>
     </section>
