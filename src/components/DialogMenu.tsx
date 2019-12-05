@@ -41,7 +41,13 @@ const DialogMenu: FunctionComponent<Props> = ({ onClose, isOpen }) => {
 
   return (
     <Dialog fullScreen open={isOpen} onClose={onClose}>
-      <DialogActions style={{ paddingTop: 'env(safe-area-inset-top)' }}>
+      <DialogActions
+        style={{
+          paddingLeft: 0,
+          paddingRight: 0,
+          paddingTop: 'env(safe-area-inset-top)',
+        }}
+      >
         <Button onClick={onClose} aria-label={'Close this menu'}>
           {'CLOSE'}
         </Button>
@@ -97,32 +103,6 @@ const DialogMenu: FunctionComponent<Props> = ({ onClose, isOpen }) => {
             </ListItem>
           </Link>
         </List>
-        {authUser && (
-          <List subheader={<ListSubheader>{'アカウント'}</ListSubheader>}>
-            <Link to={'/settings/email'}>
-              <ListItem button onClick={onClose}>
-                <ListItemIcon>
-                  <Email />
-                </ListItemIcon>
-                <ListItemText primary={'メールアドレスの更新'} />
-              </ListItem>
-            </Link>
-            <Link to={'/settings/password'}>
-              <ListItem button onClick={onClose}>
-                <ListItemIcon>
-                  <VpnKey />
-                </ListItemIcon>
-                <ListItemText primary={'パスワードの更新'} />
-              </ListItem>
-            </Link>
-            <ListItem button onClick={onSignOut}>
-              <ListItemIcon>
-                <PowerSettingsNew />
-              </ListItemIcon>
-              <ListItemText primary={'ログアウト'} />
-            </ListItem>
-          </List>
-        )}
       </DialogContent>
     </Dialog>
   )
