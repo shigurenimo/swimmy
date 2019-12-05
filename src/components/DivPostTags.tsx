@@ -2,7 +2,6 @@ import { Theme } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
 import React, { FunctionComponent } from 'react'
 import { Post } from '../firestore/types/post'
-import { resetList } from '../styles/resetList'
 import ButtonLike from './ButtonLike'
 
 type Props = { post: Post }
@@ -21,14 +20,8 @@ const DivPostTags: FunctionComponent<Props> = ({ post }) => {
 
 const useStyles = makeStyles<Theme>(({ palette, spacing }) => {
   return {
-    root: {
-      ...resetList(),
-      display: 'flex',
-      flexWrap: 'wrap',
-    },
-    li: {
-      marginRight: spacing(1),
-    },
+    li: { marginRight: spacing(1) },
+    root: { display: 'flex', flexWrap: 'wrap' },
   }
 })
 
