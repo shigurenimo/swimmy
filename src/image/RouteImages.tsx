@@ -65,7 +65,6 @@ const RouteImages: FunctionComponent = () => {
           value={orderBy}
         >
           <Tab label={'新着'} value={'created_at'} />
-          <Tab label={'評価数'} value={'like_count'} />
           <Tab label={`${WORD_RESPONSE}数`} value={'reply_count'} />
         </Tabs>
         {renderLoading && <CircularProgress className={classes.progress} />}
