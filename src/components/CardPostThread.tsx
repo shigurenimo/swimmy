@@ -9,7 +9,7 @@ import DivThreadImages from './DivThreadImages'
 type Props = { post: Post }
 
 const CardPostThread: FunctionComponent<Props> = ({ post }) => {
-  const classes = useStyle({})
+  const classes = useStyles()
 
   return (
     <Card className={classes.root} elevation={0}>
@@ -42,7 +42,7 @@ const CardPostThread: FunctionComponent<Props> = ({ post }) => {
   )
 }
 
-const useStyle = makeStyles<Theme>(({ palette, spacing, typography }) => {
+const useStyles = makeStyles<Theme>(({ palette, spacing, typography }) => {
   return {
     grid: {
       display: 'grid',

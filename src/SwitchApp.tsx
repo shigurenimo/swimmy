@@ -6,8 +6,6 @@ import RouteChangelogs from './changelog/RouteChangelogs'
 import RouteHomeIndex from './home/RouteHomeIndex'
 import RouteImages from './image/RouteImages'
 import RoutePolicy from './policy/RoutePolicy'
-import RouteSettingsEmail from './setting/RouteSettingsEmail'
-import RouteSettingsPassword from './setting/RouteSettingsPassword'
 import RouteStats from './stat/RouteStats'
 import RouteThreads from './thread/RouteThreads'
 
@@ -30,12 +28,6 @@ const SwitchApp: FunctionComponent = () => {
       </Route>
       <Route exact path={'/policy'}>
         <RoutePolicy />
-      </Route>
-      <Route exact path={'/settings/email'}>
-        <RouteSettingsEmail />
-      </Route>
-      <Route exact path={'/settings/password'}>
-        <RouteSettingsPassword />
       </Route>
       <Route exact path={'/stats'}>
         <RouteStats />

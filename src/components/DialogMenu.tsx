@@ -18,13 +18,13 @@ import React, { FunctionComponent } from 'react'
 import { Link } from 'react-router-dom'
 
 type Props = {
-  onClose: any
-  isOpen: boolean
+  onClose: () => void
+  open: boolean
 }
 
-const DialogMenu: FunctionComponent<Props> = ({ onClose, isOpen }) => {
+const DialogMenu: FunctionComponent<Props> = ({ onClose, open }) => {
   return (
-    <Dialog fullScreen open={isOpen} onClose={onClose}>
+    <Dialog fullScreen open={open} onClose={onClose}>
       <DialogActions
         style={{
           paddingLeft: 0,

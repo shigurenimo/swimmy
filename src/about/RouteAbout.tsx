@@ -1,10 +1,8 @@
 import { Card, CardContent, Theme, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
 import React, { Fragment, FunctionComponent } from 'react'
-import ToolbarDefault from '../components/ToolbarDefault'
 import FragmentHead from '../components/FragmentHead'
-import { px } from '../styles/px'
-import { resetList } from '../styles/resetList'
+import ToolbarDefault from '../components/ToolbarDefault'
 
 const RouteAbout: FunctionComponent = () => {
   const classes = useStyles()
@@ -35,15 +33,14 @@ const RouteAbout: FunctionComponent = () => {
 const useStyles = makeStyles<Theme>(({ spacing }) => {
   return {
     cards: {
-      ...resetList(),
       display: 'grid',
-      gridRowGap: px(spacing(4)),
+      gridRowGap: spacing(4),
       margin: '0 auto',
       maxWidth: spacing(100),
     },
     root: {
       display: 'grid',
-      gridRowGap: px(spacing(4)),
+      gridRowGap: spacing(4),
       paddingLeft: spacing(2),
       paddingRight: spacing(2),
       paddingTop: spacing(4),

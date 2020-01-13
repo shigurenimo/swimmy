@@ -4,7 +4,6 @@ import React, { Fragment, FunctionComponent } from 'react'
 import AppBarDefault from '../components/AppBarDefault'
 import FragmentHead from '../components/FragmentHead'
 import ToolbarDefault from '../components/ToolbarDefault'
-import { px } from '../styles/px'
 
 const RoutePolicy: FunctionComponent = () => {
   const classes = useStyles()
@@ -75,7 +74,7 @@ const useStyles = makeStyles<Theme>(({ spacing }) => {
     root: { display: 'grid' },
     section: {
       display: 'grid',
-      gridRowGap: px(spacing(1)),
+      gridRowGap: spacing(1),
       paddingBottom: spacing(2),
       paddingLeft: spacing(2),
       paddingRight: spacing(2),

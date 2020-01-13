@@ -5,7 +5,6 @@ import { Link } from 'react-router-dom'
 import DivPostCounts from '../../components/DivPostCounts'
 import { Post } from '../../firestore/types/post'
 import { toDateText } from '../../text/toDateText'
-import { px } from '../../styles/px'
 
 type Props = { post: Post }
 
@@ -36,7 +35,7 @@ const useStyles = makeStyles<Theme>(({ typography, palette, spacing }) => {
   return {
     root: {
       display: 'grid',
-      gridRowGap: px(spacing(1)),
+      gridRowGap: spacing(1),
       paddingTop: 8,
       width: `${100}%`,
     },

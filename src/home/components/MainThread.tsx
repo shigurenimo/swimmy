@@ -1,11 +1,11 @@
-import { CircularProgress, Divider, Theme } from '@material-ui/core'
+import { Divider, Theme } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
 import React, { FunctionComponent } from 'react'
 import { useParams } from 'react-router-dom'
 import CardPostResponse from '../../components/CardPostResponse'
 import CardPostThread from '../../components/CardPostThread'
 import TextFieldResponse from '../../components/TextFieldResponse'
-import { px } from '../../styles/px'
+import CardPostSkeleton from '../../skeleton/CardPostSkeleton'
 import { useThreadPost } from '../hooks/useThreadPost'
 import { useThreadPosts } from '../hooks/useThreadPosts'
 
@@ -22,33 +22,43 @@ const MainThread: FunctionComponent = () => {
 
   return (
     <main className={classes.main}>
-      <ul>
-        {!loading && thread && (
-          <li>
-            <CardPostThread post={thread} />
-            <Divider />
-          </li>
-        )}
-        {!loading &&
-          posts.map((post, index) => (
+      {!loading && (
+        <ul>
+          {thread && (
+            <li>
+              <CardPostThread post={thread} />
+              <Divider />
+            </li>
+          )}
+          {posts.map((post, index) => (
             <li key={post.id}>
               <CardPostResponse index={index + 1} post={post} />
               <Divider />
             </li>
           ))}
-      </ul>
-      {loading && <CircularProgress className={classes.progress} />}
-      {!loading && <TextFieldResponse threadId={threadId} />}
+        </ul>
+      )}
+      {loading && (
+        <ul>
+          {[0, 1, 2].map(n => (
+            <li key={n}>
+              <CardPostSkeleton />
+              <Divider />
+            </li>
+          ))}
+        </ul>
+      )}
+      {<TextFieldResponse threadId={threadId} />}
     </main>
   )
 }
 
 const useStyles = makeStyles<Theme>(({ spacing }) => {
   return {
-    main: { display: 'grid', gridRowGap: px(spacing(2)) },
+    main: { display: 'grid', gridRowGap: spacing(2) },
     posts: {
       display: 'grid',
-      gridRowGap: px(spacing(2)),
+      gridRowGap: spacing(2),
       marginLeft: spacing(2),
       marginRight: spacing(2),
       marginTop: spacing(2),

@@ -1,20 +1,10 @@
-import {
-  AppBar,
-  IconButton,
-  LinearProgress,
-  Theme,
-  Toolbar,
-  useTheme,
-} from '@material-ui/core'
+import { AppBar, IconButton, Theme, Toolbar, useTheme } from '@material-ui/core'
 import ChatBubbleIcon from '@material-ui/icons/ChatBubble'
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz'
 import { makeStyles } from '@material-ui/styles'
 import React, { Fragment, FunctionComponent, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { useAuthLoading } from '../auth/useAuthLoading'
 import { useColumns } from '../hooks/useColumns'
-import { pct } from '../styles/pct'
-import { px } from '../styles/px'
 import DialogMenu from './DialogMenu'
 import ImgLogo from './ImgLogo'
 
@@ -23,11 +13,9 @@ const AppBarDefault: FunctionComponent = () => {
 
   const columns = useColumns()
 
-  const [authLoading] = useAuthLoading()
+  const [openDialog, setOpenDialog] = useState(false)
 
-  const [isOpenMenuDialog, setIsOpenMenuDialog] = useState(false)
-
-  const classes = useStyle({})
+  const classes = useStyles()
 
   return (
     <Fragment>
@@ -37,7 +25,6 @@ const AppBarDefault: FunctionComponent = () => {
         className={classes.appBar}
         style={{ paddingLeft: columns ? spacing(50) : 0 }}
       >
-        {authLoading && <LinearProgress className={classes.progress} />}
         <Toolbar>
           <ImgLogo />
           <div className={classes.actions}>
@@ -47,7 +34,7 @@ const AppBarDefault: FunctionComponent = () => {
               </IconButton>
             </Link>
             <IconButton
-              onClick={() => setIsOpenMenuDialog(true)}
+              onClick={() => setOpenDialog(true)}
               aria-label={'Open a menu'}
             >
               <MoreHorizIcon />
@@ -55,26 +42,22 @@ const AppBarDefault: FunctionComponent = () => {
           </div>
         </Toolbar>
       </AppBar>
-      <DialogMenu
-        isOpen={isOpenMenuDialog}
-        onClose={() => setIsOpenMenuDialog(false)}
-      />
+      <DialogMenu open={openDialog} onClose={() => setOpenDialog(false)} />
     </Fragment>
   )
 }
 
-const useStyle = makeStyles<Theme>(({ breakpoints, spacing, zIndex }) => {
+const useStyles = makeStyles<Theme>(({ spacing, zIndex }) => {
   return {
     actions: {
       display: 'grid',
       gridAutoFlow: 'column',
-      gridColumnGap: px(spacing(1)),
+      gridColumnGap: spacing(1),
     },
     appBar: {
       paddingTop: 'env(safe-area-inset-top)',
       zIndex: zIndex.drawer + 1,
     },
-    progress: { position: 'absolute', top: 0, left: 0, width: pct(100) },
   }
 })
 

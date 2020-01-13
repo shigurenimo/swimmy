@@ -11,7 +11,7 @@ const FragmentHead: FunctionComponent<Props> = ({
   description = 'スイミー（Swimmy）は完全な匿名の電子掲示板です。悩みでも愚痴でも自由に投稿してください。',
   image = null,
 }) => {
-  const titleDefault = 'スイミー'
+  const titleDefault = 'スイミー電子掲示板'
   const _title = title ? `${titleDefault} | ${title}` : titleDefault
 
   useEffect(() => {

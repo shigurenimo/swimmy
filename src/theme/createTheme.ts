@@ -12,16 +12,12 @@ export const createTheme = ({ dark = false }) => {
         elevation1: { boxShadow: 'none' },
         elevation2: { boxShadow: 'none' },
         elevation4: { boxShadow: 'none' },
-        root: {
-          backgroundColor: dark ? palette.background.default : '#fff',
-        },
+        root: { backgroundColor: dark ? palette.background.default : '#fff' },
       },
     },
     palette: {
       type: dark ? 'dark' : 'light',
-      background: {
-        default: dark ? palette.background.default : '#ffffff',
-      },
+      background: { default: dark ? palette.background.default : '#ffffff' },
       divider: dark ? 'rgba(255, 255, 255, 0.08)' : 'rgba(0, 0, 0, 0.08)',
       primary: { main: cyan.A700, contrastText: '#fff' },
       secondary: { main: orange.A400 },

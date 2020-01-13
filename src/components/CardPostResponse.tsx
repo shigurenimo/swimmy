@@ -13,7 +13,7 @@ type Props = {
 }
 
 const CardPostResponse: FunctionComponent<Props> = ({ post, index }) => {
-  const classes = useStyle({})
+  const classes = useStyles()
 
   return (
     <Card className={classes.root} elevation={0}>
@@ -46,7 +46,7 @@ const CardPostResponse: FunctionComponent<Props> = ({ post, index }) => {
   )
 }
 
-const useStyle = makeStyles<Theme>(({ palette, spacing, typography }) => {
+const useStyles = makeStyles<Theme>(({ palette, spacing, typography }) => {
   return {
     root: {
       paddingBottom: spacing(1.5),

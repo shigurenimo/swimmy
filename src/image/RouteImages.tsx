@@ -1,4 +1,4 @@
-import { CircularProgress, Tab, Tabs, Theme } from '@material-ui/core'
+import { Tab, Tabs, Theme } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
 import React, {
   ChangeEvent,
@@ -45,9 +45,7 @@ const RouteImages: FunctionComponent = () => {
     history.push(`?order=${_orderBy}`)
   }
 
-  const renderLoading = loading && posts.length === 0
-
-  const renderNext = posts.length !== 0 && limit < 400
+  const hasNext = posts.length !== 0 && limit < 400
 
   return (
     <Fragment>
@@ -67,7 +65,6 @@ const RouteImages: FunctionComponent = () => {
           <Tab label={'新着'} value={'created_at'} />
           <Tab label={`${WORD_RESPONSE}数`} value={'reply_count'} />
         </Tabs>
-        {renderLoading && <CircularProgress className={classes.progress} />}
         <section className={classes.section}>
           <ul className={classes.ul}>
             {posts.map(post => (
@@ -76,9 +73,7 @@ const RouteImages: FunctionComponent = () => {
               </li>
             ))}
           </ul>
-          {renderNext && (
-            <ButtonMore onClick={onLoadNext} inProgress={loading} />
-          )}
+          {hasNext && <ButtonMore onClick={onLoadNext} inProgress={loading} />}
         </section>
       </main>
     </Fragment>
@@ -87,12 +82,6 @@ const RouteImages: FunctionComponent = () => {
 
 const useStyles = makeStyles<Theme>(({ breakpoints, spacing }) => {
   return {
-    progress: {
-      display: 'block',
-      marginLeft: 'auto',
-      marginRight: 'auto',
-      marginTop: spacing(10),
-    },
     root: { display: 'grid', gridRowGap: spacing(2) },
     section: { display: 'grid', gridRowGap: spacing(2) },
     ul: {

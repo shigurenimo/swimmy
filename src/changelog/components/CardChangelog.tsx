@@ -2,7 +2,6 @@ import { Card, CardContent, Theme, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
 import React, { FunctionComponent } from 'react'
 import { Changelog } from '../../firestore/types/changelog'
-import { resetList } from '../../styles/resetList'
 import { toDateTextFromPrismicDate } from '../helpers/toDateTextFromPrismicDate'
 import { toVersionText } from '../helpers/toVersionText'
 
@@ -46,7 +45,7 @@ const useStyles = makeStyles<Theme>(({ spacing }) => {
     cardContent: { display: 'grid', gridRowGap: spacing(1) },
     title: { display: 'grid', gridTemplateColumns: '1fr auto' },
     date: { opacity: 0.65, fontSize: 12, marginBottom: spacing(1) },
-    list: { ...resetList(), display: 'grid', gridRowGap: spacing(1) },
+    list: { display: 'grid', gridRowGap: spacing(1) },
     text: { whiteSpace: 'pre-line', wordBreak: 'break-all' },
     version: { flexBasis: '33.33%', flexShrink: 0 },
   }

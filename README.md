@@ -8,6 +8,8 @@
 
 ## Develop
 
+∑
+
 ```
 $ git clone git@github.com:swimmy/swimmy.io.git
 $ cd swimmy.io

@@ -1,11 +1,11 @@
-import { CircularProgress, Divider, Theme } from '@material-ui/core'
+import { Divider, Theme } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
 import React, { FunctionComponent, useEffect, useState } from 'react'
 import ButtonMore from '../../components/ButtonMore'
 import TextFieldPost from '../../components/TextFieldPost'
-import { px } from '../../styles/px'
-import { useHomePostsLimit } from '../hooks/useHomePostsLimit'
+import CardPostSkeleton from '../../skeleton/CardPostSkeleton'
 import { useHomePosts } from '../hooks/useHomePosts'
+import { useHomePostsLimit } from '../hooks/useHomePostsLimit'
 import CardPost from './CardPost'
 
 const MainHome: FunctionComponent = () => {
@@ -22,21 +22,26 @@ const MainHome: FunctionComponent = () => {
     setLoading(false)
   }, [posts.length])
 
-  const onLoadNext = () => {
+  const onNext = () => {
     setLoading(true)
     setLimit(_limit => _limit + 32)
   }
 
-  const renderLoading = loading && posts.length === 0
+  const skeletons = loading && posts.length === 0 ? [0, 1, 2, 3, 4, 5, 6] : []
 
-  const renderNext = posts.length !== 0 && limit < 400
+  const hasNext = posts.length !== 0 && limit < 400
 
   return (
     <main className={classes.main}>
       <TextFieldPost />
-      {renderLoading && <CircularProgress className={classes.progress} />}
       <section className={classes.section}>
         <ul className={classes.posts}>
+          {skeletons.map(n => (
+            <li key={n}>
+              <CardPostSkeleton />
+              <Divider />
+            </li>
+          ))}
           {posts.map((post, index) => (
             <li key={post.id}>
               <CardPost post={post} />
@@ -44,7 +49,7 @@ const MainHome: FunctionComponent = () => {
             </li>
           ))}
         </ul>
-        {renderNext && <ButtonMore onClick={onLoadNext} inProgress={loading} />}
+        {hasNext && <ButtonMore onClick={onNext} inProgress={loading} />}
       </section>
     </main>
   )
@@ -60,7 +65,7 @@ const useStyles = makeStyles<Theme>(({ spacing }) => {
       marginRight: 'auto',
       marginTop: spacing(10),
     },
-    section: { display: 'grid', gridRowGap: px(spacing(2)) },
+    section: { display: 'grid', gridRowGap: spacing(2) },
   }
 })
 

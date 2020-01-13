@@ -26,7 +26,7 @@ const TextFieldPost: FunctionComponent = () => {
 
   const [inProgressSubmit, setInProgressSubmit] = useState(false)
 
-  const classes = useStyle({})
+  const classes = useStyles()
 
   const inProgress = inProgressSubmit || postFile !== null
 
@@ -146,7 +146,7 @@ const TextFieldPost: FunctionComponent = () => {
   )
 }
 
-const useStyle = makeStyles<Theme>(({ spacing }) => {
+const useStyles = makeStyles<Theme>(({ spacing }) => {
   return {
     actions: { textAlign: 'right', paddingRight: spacing(1) },
     buttonProgress: {

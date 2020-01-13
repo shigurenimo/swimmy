@@ -22,7 +22,7 @@ const TextFieldResponse: FunctionComponent<Props> = ({ threadId }) => {
 
   const [inProgressSubmit, setInProgressSubmit] = useState(false)
 
-  const classes = useStyle({})
+  const classes = useStyles()
 
   const inProgress = inProgressSubmit || postFile !== null
 
@@ -141,7 +141,7 @@ const TextFieldResponse: FunctionComponent<Props> = ({ threadId }) => {
   )
 }
 
-const useStyle = makeStyles<Theme>(({ spacing }) => {
+const useStyles = makeStyles<Theme>(({ spacing }) => {
   return {
     actions: { textAlign: 'right' },
     buttonProgress: {

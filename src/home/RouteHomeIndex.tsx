@@ -2,8 +2,8 @@ import { Theme } from '@material-ui/core'
 import { makeStyles, useTheme } from '@material-ui/styles'
 import React, { FunctionComponent } from 'react'
 import { Route, Switch, useParams } from 'react-router-dom'
-import FragmentHead from '../components/FragmentHead'
 import AppBarDefault from '../components/AppBarDefault'
+import FragmentHead from '../components/FragmentHead'
 import ToolbarDefault from '../components/ToolbarDefault'
 import { useColumns } from '../hooks/useColumns'
 import DrawerThread from './components/DrawerThread'
@@ -32,8 +32,12 @@ const RouteHomeIndex: FunctionComponent = () => {
         <AppBarDefault />
         <ToolbarDefault />
         <Switch>
-          <Route component={MainHome} exact path={'/'} />
-          <Route component={MainThread} exact path={'/threads/:threadId'} />
+          <Route exact path={'/'}>
+            <MainHome />
+          </Route>
+          <Route exact path={'/threads/:threadId'}>
+            <MainThread />
+          </Route>
         </Switch>
       </div>
     </div>

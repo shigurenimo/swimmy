@@ -2,7 +2,6 @@ import { Theme, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
 import React, { FunctionComponent } from 'react'
 import { WORD_LIKE, WORD_RESPONSE } from '../text/word'
-import { px } from '../styles/px'
 
 type Props = {
   replyPostCount?: number
@@ -39,19 +38,19 @@ const useStyles = makeStyles<Theme>(({ palette, spacing }) => {
   return {
     likeCount: {
       color: palette.secondary.dark,
-      fontSize: px(12),
+      fontSize: `${12}px`,
       fontWeight: 'bold',
     },
     replyPostCount: {
       color: palette.primary.dark,
-      fontSize: px(12),
+      fontSize: `${12}px`,
       fontWeight: 'bold',
     },
     root: {
       alignItems: 'center',
       display: 'grid',
       gridAutoFlow: 'column',
-      gridColumnGap: `${spacing(1)}px`,
+      gridColumnGap: spacing(1),
       gridTemplateColumns: 'max-content',
     },
   }

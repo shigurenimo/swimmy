@@ -3,8 +3,11 @@ import { getTimeDifference } from './helpers/getTimeDifference'
 
 export const toDateText = (timestamp: firestore.Timestamp): string => {
   const date = timestamp.toDate()
+
   const Y = date.getFullYear()
+
   const M = date.getMonth() + 1
+
   const D = date.getDate()
 
   const [, seconds, minutes, hours, days, monthes, years] = getTimeDifference(

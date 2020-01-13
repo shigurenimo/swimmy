@@ -19,10 +19,7 @@ const ListItemThread: FunctionComponent<Props> = ({ post, selected }) => {
         <ListItemText
           className={classes.listItemText}
           primary={post.text}
-          secondaryTypographyProps={{
-            className: classes.secondary,
-            component: 'div',
-          }}
+          secondaryTypographyProps={{ className: classes.secondary }}
           secondary={
             <Fragment>
               <Typography className={classes.comment} variant={'caption'}>

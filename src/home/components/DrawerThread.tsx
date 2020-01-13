@@ -1,6 +1,7 @@
 import { Drawer, List, ListItem, ListItemText, Theme } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
 import React, { FunctionComponent, useEffect, useState } from 'react'
+import ListItemSkeleton from '../../skeleton/ListItemSkeleton'
 import { useHomeThreads } from '../hooks/useHomeThreads'
 import { useHomeThreadsLimit } from '../hooks/useHomeThreadsLimit'
 import ListItemThread from './ListItemThread'
@@ -26,7 +27,7 @@ const DrawerThread: FunctionComponent<Props> = ({ threadId }) => {
     setLimit(_limit => _limit + 24)
   }
 
-  const renderLoading = loading && posts.length === 0
+  const skeletons = loading && posts.length === 0 ? [0, 1, 2, 3, 4, 5, 6] : []
 
   const renderNext = posts.length !== 0 && limit < 200
 
@@ -36,12 +37,10 @@ const DrawerThread: FunctionComponent<Props> = ({ threadId }) => {
       classes={{ paper: classes.drawerPaper }}
       variant={'persistent'}
     >
-      <List>
-        {renderLoading && (
-          <ListItem button divider>
-            <ListItemText primary={'読み込み中...'} />
-          </ListItem>
-        )}
+      <List disablePadding>
+        {skeletons.map(n => (
+          <ListItemSkeleton key={n} />
+        ))}
         {posts.map(post => (
           <ListItemThread
             key={post.id}

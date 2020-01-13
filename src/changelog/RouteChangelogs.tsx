@@ -4,7 +4,6 @@ import React, { Fragment, FunctionComponent } from 'react'
 import AppBarDefault from '../components/AppBarDefault'
 import FragmentHead from '../components/FragmentHead'
 import ToolbarDefault from '../components/ToolbarDefault'
-import { px } from '../styles/px'
 import CardChangelog from './components/CardChangelog'
 import { usePrismicChangelogs } from './hooks/usePrismicChangelogs'
 
@@ -45,10 +44,7 @@ const useStyles = makeStyles<Theme>(({ spacing }) => {
       marginRight: 'auto',
       marginTop: spacing(10),
     },
-    root: {
-      display: 'grid',
-      gridRowGap: px(spacing(2)),
-    },
+    root: { display: 'grid', gridRowGap: spacing(2) },
   }
 })
 

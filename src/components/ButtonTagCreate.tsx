@@ -13,20 +13,21 @@ type Props = { postId: string }
 
 const ButtonTagCreate: FunctionComponent<Props> = ({ postId }) => {
   const classes = useStyles()
-  const [opened, setOpened] = useState(false)
+
+  const [open, setOpen] = useState(false)
 
   return (
     <Fragment>
       <Button
         color={'primary'}
         className={classes.root}
-        onClick={() => setOpened(true)}
+        onClick={() => setOpen(true)}
         variant={'outlined'}
       >
         {'＋'}
       </Button>
       <TextField autoFocus placeholder={'イイネ'} />
-      <Dialog open={opened} onClose={() => setOpened(false)}>
+      <Dialog open={open} onClose={() => setOpen(false)}>
         <DialogContent>
           <TextField
             autoFocus
@@ -36,9 +37,9 @@ const ButtonTagCreate: FunctionComponent<Props> = ({ postId }) => {
           />
         </DialogContent>
         <DialogActions>
-          <Button onClick={() => setOpened(false)}>{'やめる'}</Button>
+          <Button onClick={() => setOpen(false)}>{'やめる'}</Button>
           <Button
-            onClick={() => setOpened(false)}
+            onClick={() => setOpen(false)}
             color={'primary'}
             variant={'contained'}
           >

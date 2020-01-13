@@ -13,7 +13,7 @@ type Props = {
 }
 
 const CardPost: FunctionComponent<Props> = ({ inProgress, post }) => {
-  const classes = useStyle({})
+  const classes = useStyles()
 
   return (
     <Link to={`/threads/${post.id}`}>
@@ -38,7 +38,7 @@ const CardPost: FunctionComponent<Props> = ({ inProgress, post }) => {
   )
 }
 
-const useStyle = makeStyles<Theme>(({ palette, spacing, typography }) => {
+const useStyles = makeStyles<Theme>(({ palette, spacing, typography }) => {
   return {
     card: {
       display: 'grid',

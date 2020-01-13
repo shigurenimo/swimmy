@@ -19,22 +19,30 @@ type Props = {
 }
 
 const DialogSignIn: FunctionComponent<Props> = ({ isOpen, closeDialog }) => {
-  const classes = useStyle({})
+  const classes = useStyles()
+
   const [email, setEmail] = useState('')
+
   const [, setErrorCode] = useState('')
+
   const [errorMessage, setErrorMessage] = useState('')
+
   const [inProgress, setInProgress] = useState(false)
+
   const [password, setPassword] = useState('')
+
   const onChangeEmail = (event: ChangeEvent<any>) => {
     setEmail(event.target.value)
     setErrorCode('')
     setErrorMessage('')
   }
+
   const onChangePassword = (event: ChangeEvent<any>) => {
     setErrorCode('')
     setErrorMessage('')
     setPassword(event.target.value)
   }
+
   const onSignUp = () => {
     if (inProgress) {
       return
@@ -57,6 +65,7 @@ const DialogSignIn: FunctionComponent<Props> = ({ isOpen, closeDialog }) => {
         setInProgress(false)
       })
   }
+
   const onSignIn = () => {
     setInProgress(true)
     setErrorCode('')
@@ -135,7 +144,7 @@ const DialogSignIn: FunctionComponent<Props> = ({ isOpen, closeDialog }) => {
   )
 }
 
-const useStyle = makeStyles<Theme>(({ palette }) => {
+const useStyles = makeStyles<Theme>(({ palette }) => {
   return {
     errorMassage: { color: palette.error.light },
     progress: { height: 5 },
