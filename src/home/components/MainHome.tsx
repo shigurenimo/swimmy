@@ -2,11 +2,11 @@ import { Divider, Theme } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
 import React, { FunctionComponent, useEffect, useState } from 'react'
 import ButtonMore from '../../components/ButtonMore'
-import TextFieldPost from './TextFieldPost'
 import CardPostSkeleton from '../../skeleton/CardPostSkeleton'
 import { useHomePosts } from '../hooks/useHomePosts'
 import { useHomePostsLimit } from '../hooks/useHomePostsLimit'
 import CardPost from './CardPost'
+import TextFieldPost from './TextFieldPost'
 
 const MainHome: FunctionComponent = () => {
   const [limit, setLimit] = useHomePostsLimit()
@@ -39,7 +39,6 @@ const MainHome: FunctionComponent = () => {
           {skeletons.map(n => (
             <li key={n}>
               <CardPostSkeleton />
-              <Divider />
             </li>
           ))}
           {posts.map((post, index) => (
@@ -57,7 +56,7 @@ const MainHome: FunctionComponent = () => {
 
 const useStyles = makeStyles<Theme>(({ spacing }) => {
   return {
-    main: { display: 'grid' },
+    main: { display: 'grid', gridGap: spacing(1) },
     posts: { display: 'grid', margin: 0, paddingLeft: 0 },
     progress: {
       display: 'block',

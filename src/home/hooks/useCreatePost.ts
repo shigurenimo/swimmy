@@ -13,7 +13,6 @@ export const useCreatePost = (
 
     const subscription = createPost()(data).subscribe(
       () => {
-        // do not change the order
         setLoading(false)
         next()
       },

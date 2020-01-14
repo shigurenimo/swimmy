@@ -25,15 +25,9 @@ type Props = {
 const DialogMenu: FunctionComponent<Props> = ({ onClose, open }) => {
   return (
     <Dialog fullScreen open={open} onClose={onClose}>
-      <DialogActions
-        style={{
-          paddingLeft: 0,
-          paddingRight: 0,
-          paddingTop: 'env(safe-area-inset-top)',
-        }}
-      >
+      <DialogActions>
         <Button onClick={onClose} aria-label={'Close this menu'}>
-          {'CLOSE'}
+          {'閉じる'}
         </Button>
       </DialogActions>
       <DialogContent>

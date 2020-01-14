@@ -22,9 +22,7 @@ const RouteHomeIndex: FunctionComponent = () => {
   return (
     <div
       className={classes.root}
-      style={{
-        gridTemplateColumns: columns ? `${spacing(50)}px 1fr` : '1fr',
-      }}
+      style={{ gridTemplateColumns: columns ? `${spacing(50)}px 1fr` : '1fr' }}
     >
       <FragmentHead />
       {columns && <DrawerThread threadId={threadId} />}
