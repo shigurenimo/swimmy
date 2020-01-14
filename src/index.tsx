@@ -15,7 +15,7 @@ register({
 
     const listener = async (
       event: Event & {
-        target: Partial<ServiceWorker> & EventTarget | null
+        target: (Partial<ServiceWorker> & EventTarget) | null
       }
     ) => {
       if (!event.target || event.target.state !== 'activated') return
