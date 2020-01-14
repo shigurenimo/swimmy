@@ -44,7 +44,7 @@ const RouteHomeIndex: FunctionComponent = () => {
   )
 }
 
-const useStyles = makeStyles<Theme>(({ breakpoints, spacing }) => {
+const useStyles = makeStyles<Theme>(() => {
   return { root: { display: 'grid' } }
 })
 
