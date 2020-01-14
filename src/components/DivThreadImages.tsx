@@ -12,9 +12,9 @@ const DivThreadImages: FunctionComponent<Props> = ({ photoURLs }) => {
       {photoURLs.map(photoURL => (
         <Paper key={photoURL}>
           <img
+            alt={photoURL}
             className={classes.img}
             src={`${photoURL}=s400`}
-            alt={photoURL}
           />
         </Paper>
       ))}

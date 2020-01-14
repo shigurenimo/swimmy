@@ -1,7 +1,7 @@
 import { map } from 'rxjs/operators'
 
-export const mapEmpty = <T>() =>
-  map((t: T) => {
+export const mapEmpty = <T>() => {
+  return map((t: T) => {
     if (Array.isArray(t)) {
       return t.length === 0 ? null : t
     }
@@ -10,3 +10,4 @@ export const mapEmpty = <T>() =>
     }
     return t
   })
+}
