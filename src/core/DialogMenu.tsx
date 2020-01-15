@@ -7,6 +7,8 @@ import {
   ListItem,
   ListItemIcon,
   ListItemText,
+  useMediaQuery,
+  useTheme,
 } from '@material-ui/core'
 import ChatBubbleIcon from '@material-ui/icons/ChatBubble'
 import DataUsage from '@material-ui/icons/DataUsage'
@@ -23,15 +25,21 @@ type Props = {
 }
 
 const DialogMenu: FunctionComponent<Props> = ({ onClose, open }) => {
+  const { breakpoints } = useTheme()
+
+  const isMobile = useMediaQuery(breakpoints.down('sm'))
+
   return (
-    <Dialog fullScreen open={open} onClose={onClose}>
-      <DialogActions>
-        <Button onClick={onClose} aria-label={'Close this menu'}>
-          {'閉じる'}
-        </Button>
-      </DialogActions>
-      <DialogContent>
-        <List component={'nav'}>
+    <Dialog fullScreen={isMobile} open={open} onClose={onClose}>
+      {isMobile && (
+        <DialogActions>
+          <Button onClick={onClose} aria-label={'Close this menu'}>
+            {'閉じる'}
+          </Button>
+        </DialogActions>
+      )}
+      <DialogContent style={{ padding: 16 }}>
+        <List component={'nav'} disablePadding>
           <Link to={'/'}>
             <ListItem button onClick={onClose}>
               <ListItemIcon>

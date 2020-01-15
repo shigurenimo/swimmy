@@ -8,7 +8,7 @@ type Props = {
 
 const FragmentHead: FunctionComponent<Props> = ({
   title = '',
-  description = 'スイミー（Swimmy）は完全な匿名の電子掲示板です。悩みでも愚痴でも自由に投稿してください。',
+  description = 'スイミー（Swimmy）は完全な匿名の電子掲示板です。ログイン情報やIPアドレスを残さずに利用できます。',
   image = null,
 }) => {
   const titleDefault = 'スイミー電子掲示板'
@@ -29,9 +29,11 @@ const FragmentHead: FunctionComponent<Props> = ({
       if (name && name.includes('description')) {
         meta.setAttribute('content', description)
       }
+
       if (name && name.includes('twitter:card')) {
         meta.setAttribute('content', 'summary_large_image')
       }
+
       if (name && name.includes('twitter:site')) {
         meta.setAttribute('content', '@babelrc')
       }
@@ -41,12 +43,15 @@ const FragmentHead: FunctionComponent<Props> = ({
       if (property && property.includes('og:description')) {
         meta.setAttribute('content', description)
       }
+
       if (property && property.includes('og:image') && image) {
         meta.setAttribute('content', image)
       }
+
       if (property && property.includes('og:title')) {
         meta.setAttribute('content', _title)
       }
+
       if (property && property.includes('og:url')) {
         meta.setAttribute('content', window.location.href)
       }

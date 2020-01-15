@@ -1,9 +1,9 @@
 import { CircularProgress, Divider, Theme } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
 import React, { Fragment, FunctionComponent } from 'react'
-import AppBarDefault from '../components/AppBarDefault'
-import FragmentHead from '../components/FragmentHead'
-import ToolbarDefault from '../components/ToolbarDefault'
+import AppBarDefault from '../core/AppBarDefault'
+import FragmentHead from '../web/FragmentHead'
+import ToolbarDefault from '../layout/ToolbarDefault'
 import CardChangelog from './components/CardChangelog'
 import { usePrismicChangelogs } from './hooks/usePrismicChangelogs'
 

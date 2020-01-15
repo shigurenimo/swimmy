@@ -1,8 +1,8 @@
 import { Card, CardContent, Theme, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
 import React, { Fragment, FunctionComponent } from 'react'
-import FragmentHead from '../components/FragmentHead'
-import ToolbarDefault from '../components/ToolbarDefault'
+import FragmentHead from '../web/FragmentHead'
+import ToolbarDefault from '../layout/ToolbarDefault'
 
 const RouteAbout: FunctionComponent = () => {
   const classes = useStyles()

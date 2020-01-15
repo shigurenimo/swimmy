@@ -2,13 +2,17 @@ import { Card, Theme, Typography } from '@material-ui/core'
 import { purple } from '@material-ui/core/colors'
 import { makeStyles } from '@material-ui/styles'
 import React, { FunctionComponent } from 'react'
-import { Post } from '../firestore/types/post'
-import { toDateText } from '../text/toDateText'
-import DivThreadImages from './DivThreadImages'
+import { Post } from '../../firestore/types/post'
+import { toDateText } from '../../text/toDateText'
+import DivImages from '../../layout/DivImages'
+import DivPostCounts from '../../common/DivPostCounts'
 
-type Props = { post: Post }
+type Props = {
+  post: Post
+  index: number
+}
 
-const CardPostThread: FunctionComponent<Props> = ({ post }) => {
+const CardPostResponse: FunctionComponent<Props> = ({ post, index }) => {
   const classes = useStyles()
 
   return (
@@ -20,7 +24,7 @@ const CardPostThread: FunctionComponent<Props> = ({ post }) => {
             component={'span'}
             variant={'caption'}
           >
-            {'0'}
+            {index}
           </Typography>
           <Typography
             color={'textSecondary'}
@@ -34,9 +38,9 @@ const CardPostThread: FunctionComponent<Props> = ({ post }) => {
           <span>{post.text}</span>
         </Typography>
         {post.photoURLs.length !== 0 && (
-          <DivThreadImages photoURLs={post.photoURLs} />
+          <DivImages photoURLs={post.photoURLs} />
         )}
-        {/* <DivPostTags post={post} /> */}
+        <DivPostCounts likeCount={post.likeCount} />
       </div>
     </Card>
   )
@@ -44,6 +48,14 @@ const CardPostThread: FunctionComponent<Props> = ({ post }) => {
 
 const useStyles = makeStyles<Theme>(({ palette, spacing, typography }) => {
   return {
+    root: {
+      paddingBottom: spacing(1.5),
+      paddingLeft: spacing(2),
+      paddingRight: spacing(2),
+      paddingTop: spacing(1.5),
+    },
+    likeCount: { paddingLeft: spacing(1), color: palette.secondary.light },
+    replyPostCount: { color: purple.A400, paddingLeft: spacing(1) },
     grid: {
       display: 'grid',
       gridGap: spacing(1),
@@ -60,14 +72,6 @@ const useStyles = makeStyles<Theme>(({ palette, spacing, typography }) => {
       color: palette.primary.light,
       fontWeight: 'bold',
     },
-    likeCount: { paddingLeft: spacing(1), color: palette.secondary.light },
-    replyPostCount: { color: purple.A400, paddingLeft: spacing(1) },
-    root: {
-      paddingBottom: spacing(1.5),
-      paddingLeft: spacing(2),
-      paddingRight: spacing(2),
-      paddingTop: spacing(1.5),
-    },
     text: {
       fontSize: typography.pxToRem(16),
       fontWeight: typography.fontWeightMedium,
@@ -77,4 +81,4 @@ const useStyles = makeStyles<Theme>(({ palette, spacing, typography }) => {
   }
 })
 
-export default CardPostThread
+export default CardPostResponse

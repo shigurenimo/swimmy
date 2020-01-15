@@ -8,11 +8,12 @@ import React, {
   useState,
 } from 'react'
 import { useHistory } from 'react-router-dom'
-import AppBarDefault from '../components/AppBarDefault'
-import ButtonMore from '../components/ButtonMore'
-import FragmentHead from '../components/FragmentHead'
-import ToolbarDefault from '../components/ToolbarDefault'
+import AppBarDefault from '../core/AppBarDefault'
+import ButtonMore from '../common/ButtonMore'
+import FragmentHead from '../web/FragmentHead'
+import ToolbarDefault from '../layout/ToolbarDefault'
 import { useSearchOrderBy } from '../hooks/useSearchOrderBy'
+import DivCenter from '../layout/DivCenter'
 import { WORD_PHOTO, WORD_RESPONSE } from '../text/word'
 import CardImage from './components/CardImage'
 import { useImages } from './hooks/useImages'
@@ -73,7 +74,11 @@ const RouteImages: FunctionComponent = () => {
               </li>
             ))}
           </ul>
-          {hasNext && <ButtonMore onClick={onLoadNext} inProgress={loading} />}
+          {hasNext && (
+            <DivCenter>
+              <ButtonMore onClick={onLoadNext} inProgress={loading} />
+            </DivCenter>
+          )}
         </section>
       </main>
     </Fragment>

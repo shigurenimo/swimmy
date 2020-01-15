@@ -1,7 +1,7 @@
 import { Button, TextField, Theme } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
 import React, { FunctionComponent, useState } from 'react'
-import InputFile from '../../components/InputFile'
+import InputFile from '../../common/InputFile'
 import { Image } from '../../firestore/types/image'
 import { useCreatePost } from '../hooks/useCreatePost'
 import { useImage } from '../hooks/useImage'

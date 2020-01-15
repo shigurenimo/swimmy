@@ -1,7 +1,8 @@
 import { Divider, Theme } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
 import React, { FunctionComponent, useEffect, useState } from 'react'
-import ButtonMore from '../../components/ButtonMore'
+import ButtonMore from '../../common/ButtonMore'
+import DivCenter from '../../layout/DivCenter'
 import CardPostSkeleton from '../../skeleton/CardPostSkeleton'
 import { useHomePosts } from '../hooks/useHomePosts'
 import { useHomePostsLimit } from '../hooks/useHomePostsLimit'
@@ -48,7 +49,11 @@ const MainHome: FunctionComponent = () => {
             </li>
           ))}
         </ul>
-        {hasNext && <ButtonMore onClick={onNext} inProgress={loading} />}
+        {hasNext && (
+          <DivCenter>
+            <ButtonMore onClick={onNext} inProgress={loading} />
+          </DivCenter>
+        )}
       </section>
     </main>
   )

@@ -1,9 +1,9 @@
 import { Divider, Theme, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
 import React, { Fragment, FunctionComponent } from 'react'
-import AppBarDefault from '../components/AppBarDefault'
-import FragmentHead from '../components/FragmentHead'
-import ToolbarDefault from '../components/ToolbarDefault'
+import AppBarDefault from '../core/AppBarDefault'
+import FragmentHead from '../web/FragmentHead'
+import ToolbarDefault from '../layout/ToolbarDefault'
 
 const RoutePolicy: FunctionComponent = () => {
   const classes = useStyles()
