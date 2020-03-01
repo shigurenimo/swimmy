@@ -1,18 +1,20 @@
+import { analytics } from 'firebase/app'
 import { FunctionComponent, useEffect } from 'react'
 
 type Props = {
-  title?: string
   description?: string
   image?: string
+  title?: string | null
 }
 
 const FragmentHead: FunctionComponent<Props> = ({
-  title = '',
-  description = 'スイミー（Swimmy）は完全な匿名の電子掲示板です。ログイン情報やIPアドレスを残さずに利用できます。',
+  description = 'スイミーは完全な匿名の電子掲示板です。ログイン情報やIPアドレスを残さずに利用できます。',
   image = null,
+  title,
 }) => {
-  const titleDefault = 'スイミー電子掲示板'
-  const _title = title ? `${titleDefault} | ${title}` : titleDefault
+  const __title = 'スイミー電子掲示板'
+
+  const _title = title ? `${__title} | ${title}` : __title
 
   useEffect(() => {
     if (!document || !document.head) {
@@ -56,7 +58,17 @@ const FragmentHead: FunctionComponent<Props> = ({
         meta.setAttribute('content', window.location.href)
       }
     }
-  }, [_title, description, image])
+
+    if (title === '') {
+      return
+    }
+
+    analytics().logEvent('page_view', {
+      page_title: _title,
+      page_location: window.location.pathname,
+      page_path: window.location.pathname,
+    })
+  }, [_title, description, image, title])
 
   return null
 }

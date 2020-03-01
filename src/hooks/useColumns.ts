@@ -1,5 +1,5 @@
 import { useMediaQuery, useTheme } from '@material-ui/core'
-import { useLocation } from 'react-router'
+import { useLocation } from 'react-router-dom'
 
 export const useColumns = () => {
   const location = useLocation()

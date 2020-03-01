@@ -1,11 +1,5 @@
 import 'firebase/analytics'
-import {
-  analytics,
-  firestore,
-  initializeApp,
-  performance,
-  remoteConfig,
-} from 'firebase/app'
+import { analytics, firestore, initializeApp, performance } from 'firebase/app'
 import 'firebase/auth'
 import 'firebase/firestore'
 import 'firebase/functions'
@@ -32,21 +26,10 @@ firestore()
 
 performance()
 
-analytics()
-
-analytics().setUserProperties({ userAgent: window.navigator.userAgent })
-
-remoteConfig().settings = {
-  fetchTimeoutMillis: 4000,
-  minimumFetchIntervalMillis: 3600000,
-}
-
-remoteConfig().defaultConfig = {
-  // eslint-disable-next-line @typescript-eslint/camelcase
-  home_posts_limit: 16,
-}
-
-remoteConfig().fetchAndActivate()
+analytics().setUserProperties({
+  env: process.env.NODE_ENV,
+  userAgent: window.navigator.userAgent,
+})
 
 /*
 auth()

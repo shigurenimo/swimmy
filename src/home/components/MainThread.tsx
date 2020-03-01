@@ -2,6 +2,7 @@ import { Divider, Theme } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
 import React, { FunctionComponent } from 'react'
 import { useParams } from 'react-router-dom'
+import FragmentHead from '../../web/FragmentHead'
 import CardPostResponse from './CardPostResponse'
 import CardPostThread from './CardPostThread'
 import TextFieldResponse from '../../thread/components/TextFieldResponse'
@@ -22,6 +23,7 @@ const MainThread: FunctionComponent = () => {
 
   return (
     <main className={classes.main}>
+      <FragmentHead title={thread?.id} description={thread?.text} />
       {!loading && (
         <ul>
           {thread && (
@@ -48,7 +50,7 @@ const MainThread: FunctionComponent = () => {
           ))}
         </ul>
       )}
-      {<TextFieldResponse threadId={threadId} />}
+      <TextFieldResponse threadId={threadId} />
     </main>
   )
 }

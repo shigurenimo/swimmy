@@ -1,4 +1,4 @@
-import { useLocation } from 'react-router'
+import { useLocation } from 'react-router-dom'
 import { SearchOrderBy } from '../location/types/searchOrderBy'
 
 export const useSearchOrderBy = (): SearchOrderBy => {

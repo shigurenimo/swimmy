@@ -3,9 +3,8 @@ import { makeStyles, useTheme } from '@material-ui/styles'
 import React, { FunctionComponent } from 'react'
 import { Route, Switch, useParams } from 'react-router-dom'
 import AppBarDefault from '../core/AppBarDefault'
-import FragmentHead from '../web/FragmentHead'
-import ToolbarDefault from '../layout/ToolbarDefault'
 import { useColumns } from '../hooks/useColumns'
+import ToolbarDefault from '../layout/ToolbarDefault'
 import DrawerThread from './components/DrawerThread'
 import MainHome from './components/MainHome'
 import MainThread from './components/MainThread'
@@ -24,7 +23,6 @@ const RouteHomeIndex: FunctionComponent = () => {
       className={classes.root}
       style={{ gridTemplateColumns: columns ? `${spacing(50)}px 1fr` : '1fr' }}
     >
-      <FragmentHead />
       {columns && <DrawerThread threadId={threadId} />}
       <div>
         <AppBarDefault />

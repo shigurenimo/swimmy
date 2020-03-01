@@ -4,6 +4,7 @@ import React, { FunctionComponent, useEffect, useState } from 'react'
 import ButtonMore from '../../common/ButtonMore'
 import DivCenter from '../../layout/DivCenter'
 import CardPostSkeleton from '../../skeleton/CardPostSkeleton'
+import FragmentHead from '../../web/FragmentHead'
 import { useHomePosts } from '../hooks/useHomePosts'
 import { useHomePostsLimit } from '../hooks/useHomePostsLimit'
 import CardPost from './CardPost'
@@ -34,6 +35,7 @@ const MainHome: FunctionComponent = () => {
 
   return (
     <main className={classes.main}>
+      <FragmentHead title={null} />
       <TextFieldPost />
       <section className={classes.section}>
         <ul className={classes.posts}>

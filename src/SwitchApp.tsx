@@ -1,7 +1,7 @@
-import React, { FunctionComponent } from 'react'
-import { Route, Switch } from 'react-router-dom'
+import { analytics } from 'firebase/app'
+import React, { FunctionComponent, useEffect } from 'react'
+import { Route, Switch, useLocation } from 'react-router-dom'
 import RouteAbout from './about/RouteAbout'
-import { useAnalytics } from './analytics/useAnalytics'
 import RouteChangelogs from './changelog/RouteChangelogs'
 import RouteHomeIndex from './home/RouteHomeIndex'
 import RouteImages from './image/RouteImages'
@@ -10,7 +10,11 @@ import RouteStats from './stat/RouteStats'
 import RouteThreads from './thread/RouteThreads'
 
 const SwitchApp: FunctionComponent = () => {
-  useAnalytics()
+  const location = useLocation()
+
+  useEffect(() => {
+    analytics().setCurrentScreen(location.pathname)
+  }, [location.pathname])
 
   return (
     <Switch>
