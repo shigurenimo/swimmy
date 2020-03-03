@@ -49,6 +49,7 @@ const TextFieldPost: FunctionComponent = () => {
         }}
       />
       <TextField
+        size={'small'}
         classes={{ root: classes.textField }}
         disabled={inProgress}
         fullWidth
@@ -80,7 +81,7 @@ const TextFieldPost: FunctionComponent = () => {
             color={'primary'}
             disabled={disabled}
             onClick={createPost}
-            variant={'outlined'}
+            variant={'contained'}
           >
             {inProgressPost ? '書き込み中..' : '書き込む'}
           </Button>
@@ -106,14 +107,14 @@ const TextFieldPost: FunctionComponent = () => {
 
 const useStyles = makeStyles<Theme>(({ spacing }) => {
   return {
-    actions: { textAlign: 'right', paddingRight: spacing(1) },
+    actions: { textAlign: 'right', paddingRight: spacing(1.5) },
     root: {
       display: 'grid',
       gridRowGap: spacing(1),
       paddingTop: spacing(1),
     },
     submitButton: { marginLeft: spacing(1), position: 'relative' },
-    textField: { paddingLeft: spacing(1), paddingRight: spacing(1) },
+    textField: { paddingLeft: spacing(1.5), paddingRight: spacing(1.5) },
     img: { width: `${100}%`, borderRadius: 4 },
     images: {
       display: 'grid',

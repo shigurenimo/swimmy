@@ -7,23 +7,18 @@ export const createTheme = ({ dark = false }) => {
   })
 
   return createMuiTheme({
-    overrides: {
-      MuiPaper: {
-        elevation1: { boxShadow: 'none' },
-        elevation2: { boxShadow: 'none' },
-        elevation4: { boxShadow: 'none' },
-        root: { backgroundColor: dark ? palette.background.default : '#fff' },
-      },
-    },
     palette: {
-      type: dark ? 'dark' : 'light',
-      background: { default: dark ? palette.background.default : '#ffffff' },
-      divider: dark ? 'rgba(255, 255, 255, 0.08)' : 'rgba(0, 0, 0, 0.08)',
+      background: {
+        default: dark ? palette.background.default : 'transparent',
+        paper: dark ? palette.background.default : '#fff',
+      },
+      divider: dark ? palette.divider : 'rgba(0, 0, 0, 0.08)',
       primary: { main: cyan.A700, contrastText: '#fff' },
       secondary: { main: orange.A400 },
+      type: dark ? 'dark' : 'light',
     },
-    props: { MuiButtonBase: { disableRipple: true } },
-    shape: { borderRadius: 0 },
+    // props: { MuiButtonBase: { disableRipple: true } },
+    shape: { borderRadius: 4 },
     typography: { fontFamily: ['Helvetica', 'Roboto', 'sans-serif'].join(',') },
   })
 }

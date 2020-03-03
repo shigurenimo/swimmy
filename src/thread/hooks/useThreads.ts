@@ -27,6 +27,7 @@ export const useThreads = (limit: number, orderBy: SearchOrderBy): [Post[]] => {
 
   useEffect(() => {
     const field = toField(orderBy)
+
     const subscription = collectionData<Post>(
       firestore()
         .collection(POSTS_AS_THREAD)
@@ -35,6 +36,7 @@ export const useThreads = (limit: number, orderBy: SearchOrderBy): [Post[]] => {
     ).subscribe(_posts => {
       setPosts(_posts)
     })
+
     return () => subscription.unsubscribe()
   }, [limit, orderBy])
 

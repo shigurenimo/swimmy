@@ -1,62 +1,99 @@
-import { AppBar, IconButton, Theme, Toolbar, useTheme } from '@material-ui/core'
-import ChatBubbleIcon from '@material-ui/icons/ChatBubble'
-import MoreHorizIcon from '@material-ui/icons/MoreHoriz'
+import {
+  AppBar,
+  Divider,
+  Fade,
+  IconButton,
+  Slide,
+  Theme,
+  Toolbar,
+  useScrollTrigger,
+} from '@material-ui/core'
+import FlightIcon from '@material-ui/icons/Flight'
+import KeyboardReturnIcon from '@material-ui/icons/KeyboardReturn'
+import MenuIcon from '@material-ui/icons/Menu'
 import { makeStyles } from '@material-ui/styles'
-import React, { Fragment, FunctionComponent, useState } from 'react'
-import { Link } from 'react-router-dom'
-import { useColumns } from '../hooks/useColumns'
+import React, { FunctionComponent, useState } from 'react'
+import { useHistory } from 'react-router-dom'
+import { detectStandalone } from '../web/detectStandalone'
 import DialogMenu from './DialogMenu'
 import ImgLogo from './ImgLogo'
 
 const AppBarDefault: FunctionComponent = () => {
-  const { spacing } = useTheme()
-
-  const columns = useColumns()
-
   const [openDialog, setOpenDialog] = useState(false)
 
   const classes = useStyles()
 
+  const isStandalone = detectStandalone()
+
+  const history = useHistory()
+
+  const isFirst =
+    history.length === 0 ||
+    history.location.pathname === '/' ||
+    history.location.pathname === '/images' ||
+    history.location.pathname === '/others' ||
+    history.location.pathname === '/search' ||
+    history.location.pathname === '/threads'
+
+  const trigger = useScrollTrigger({ threshold: 100 })
+
+  const triggerDivider = useScrollTrigger({
+    disableHysteresis: true,
+    threshold: 200,
+  })
+
+  const triggerFlight = useScrollTrigger({
+    disableHysteresis: true,
+    threshold: 600,
+  })
+
+  const onScroll = () => {
+    document.body.scrollIntoView({ behavior: 'smooth' })
+  }
+
   return (
-    <Fragment>
-      <AppBar
-        color={'inherit'}
-        position={'fixed'}
-        className={classes.appBar}
-        style={{ paddingLeft: columns ? spacing(50) : 0 }}
-      >
-        <Toolbar>
-          <ImgLogo />
-          <div className={classes.actions}>
-            <Link to={'/threads'}>
-              <IconButton aria-label={'Open threads page'}>
-                <ChatBubbleIcon />
-              </IconButton>
-            </Link>
-            <IconButton
-              onClick={() => setOpenDialog(true)}
-              aria-label={'Open a menu'}
-            >
-              <MoreHorizIcon />
+    <Slide appear={false} direction={'down'} in={!trigger}>
+      <AppBar color={'inherit'} elevation={0}>
+        <Toolbar className={classes.toolbar}>
+          <ImgLogo disabled={!isFirst} />
+          {!isFirst && (
+            <IconButton onClick={() => history.goBack()}>
+              <KeyboardReturnIcon />
             </IconButton>
-          </div>
+          )}
+          {isStandalone ? (
+            <Fade in={triggerFlight}>
+              <IconButton onClick={onScroll}>
+                <FlightIcon color={'action'} />
+              </IconButton>
+            </Fade>
+          ) : (
+            <IconButton onClick={() => setOpenDialog(true)}>
+              <MenuIcon />
+            </IconButton>
+          )}
         </Toolbar>
+        <DialogMenu open={openDialog} onClose={() => setOpenDialog(false)} />
+        <Fade in={triggerDivider}>
+          <Divider />
+        </Fade>
       </AppBar>
-      <DialogMenu open={openDialog} onClose={() => setOpenDialog(false)} />
-    </Fragment>
+    </Slide>
   )
 }
 
-const useStyles = makeStyles<Theme>(({ spacing, zIndex }) => {
+const useStyles = makeStyles<Theme>(({ breakpoints, spacing, zIndex }) => {
   return {
     actions: {
       display: 'grid',
       gridAutoFlow: 'column',
       gridColumnGap: spacing(1),
     },
-    appBar: {
-      paddingTop: 'env(safe-area-inset-top)',
-      zIndex: zIndex.drawer + 1,
+    toolbar: {
+      display: 'grid',
+      gridTemplateColumns: 'auto 1fr',
+      justifyItems: 'right',
+      [breakpoints.up('md')]: { paddingLeft: spacing(40 + 3) },
     },
   }
 })
