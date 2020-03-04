@@ -22,6 +22,12 @@ const MainOthers: FunctionComponent = () => {
       <FragmentHead title={null} />
       <Toolbar />
       <List disablePadding>
+        <Link to={'/search'}>
+          <ListItem button>
+            <ListItemText primary={'スレッド検索'} />
+          </ListItem>
+        </Link>
+        <Divider />
         <ListItem disabled>
           <ListItemText primary={'スレッド β'} />
         </ListItem>

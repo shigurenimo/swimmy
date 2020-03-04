@@ -4,7 +4,6 @@ import 'firebase/auth'
 import 'firebase/firestore'
 import 'firebase/functions'
 import 'firebase/performance'
-import 'firebase/remote-config'
 import 'firebase/storage'
 
 initializeApp({
@@ -30,13 +29,3 @@ analytics().setUserProperties({
   env: process.env.NODE_ENV,
   userAgent: window.navigator.userAgent,
 })
-
-/*
-auth()
-  .signInAnonymously()
-  .then(res => {
-    if (res.user) {
-      console.log(auth().currentUser)
-    }
-  })
-*/

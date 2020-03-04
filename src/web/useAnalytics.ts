@@ -1,4 +1,4 @@
-import { analytics } from 'firebase'
+import { analytics } from 'firebase/app'
 import { useEffect } from 'react'
 import { useLocation } from 'react-router-dom'
 

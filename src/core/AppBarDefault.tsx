@@ -32,7 +32,6 @@ const AppBarDefault: FunctionComponent = () => {
     history.location.pathname === '/' ||
     history.location.pathname === '/images' ||
     history.location.pathname === '/others' ||
-    history.location.pathname === '/search' ||
     history.location.pathname === '/threads'
 
   const trigger = useScrollTrigger({ threshold: 100 })

@@ -21,7 +21,5 @@ export const toWhereHalfMonth = (
     early ? 15 : 1
   )
 
-  console.log(b, c)
-
   return [b, c].map(firestore.Timestamp.fromDate)
 }

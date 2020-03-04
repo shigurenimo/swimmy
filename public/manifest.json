@@ -8,6 +8,6 @@
     { "src": "/icons/icon-512.png", "sizes": "512x512" }
   ],
   "start_url": "/",
-  "theme_color": "#69f0ae",
+  "theme_color": "#ffffff",
   "orientation": "portrait"
 }

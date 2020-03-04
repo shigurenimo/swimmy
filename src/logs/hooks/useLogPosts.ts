@@ -1,4 +1,4 @@
-import { firestore } from 'firebase'
+import { firestore } from 'firebase/app'
 import { useEffect, useState } from 'react'
 import { collectionData } from 'rxfire/firestore'
 import { POSTS_AS_ANONYM } from '../../firestore/constants/collection'
@@ -23,7 +23,6 @@ export const useLogPosts = (
         .where('createdAt', '>', startTime)
         .where('createdAt', '<', endTime)
     ).subscribe(_posts => {
-      console.log(posts)
       setPosts(_posts)
     })
 

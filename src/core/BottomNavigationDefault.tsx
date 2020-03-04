@@ -9,7 +9,6 @@ import HomeIcon from '@material-ui/icons/Home'
 import ImageIcon from '@material-ui/icons/Image'
 import InboxIcon from '@material-ui/icons/Inbox'
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz'
-import SearchIcon from '@material-ui/icons/Search'
 import { makeStyles } from '@material-ui/styles'
 import React, { ChangeEvent, FunctionComponent, useState } from 'react'
 import { useHistory, useLocation } from 'react-router-dom'
@@ -64,11 +63,6 @@ const BottomNavigationDefault: FunctionComponent = ({ children }) => {
           icon={<ImageIcon />}
           label={'写真'}
           value={'/images'}
-        />
-        <BottomNavigationAction
-          icon={<SearchIcon />}
-          label={'探すβ'}
-          value={'/search'}
         />
         <BottomNavigationAction
           icon={<MoreHorizIcon />}
