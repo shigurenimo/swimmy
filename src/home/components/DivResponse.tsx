@@ -2,7 +2,6 @@ import { Theme, Typography } from '@material-ui/core'
 import { purple } from '@material-ui/core/colors'
 import { makeStyles } from '@material-ui/styles'
 import React, { FunctionComponent } from 'react'
-import DivPostCounts from '../../common/DivPostCounts'
 import { Post } from '../../firestore/types/post'
 import DivImages from '../../layout/DivImages'
 import { toDateText } from '../../text/toDateText'
@@ -37,7 +36,6 @@ const DivResponse: FunctionComponent<Props> = ({ post, index }) => {
         <span>{post.text}</span>
       </Typography>
       {post.photoURLs.length !== 0 && <DivImages photoURLs={post.photoURLs} />}
-      <DivPostCounts likeCount={post.likeCount} />
     </div>
   )
 }

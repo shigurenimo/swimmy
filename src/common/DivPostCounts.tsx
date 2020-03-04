@@ -1,30 +1,19 @@
 import { Theme, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
 import React, { FunctionComponent } from 'react'
-import { WORD_LIKE, WORD_RESPONSE } from '../text/word'
+import { WORD_RESPONSE } from '../text/word'
 
-type Props = {
-  replyPostCount?: number
-  likeCount: number
-}
+type Props = { replyPostCount: number }
 
-const DivPostCounts: FunctionComponent<Props> = ({
-  replyPostCount = 0,
-  likeCount,
-}) => {
+const DivPostCounts: FunctionComponent<Props> = ({ replyPostCount = 0 }) => {
   const classes = useStyles()
 
-  if (!replyPostCount && !likeCount) {
+  if (!replyPostCount) {
     return null
   }
 
   return (
     <div className={classes.root}>
-      {likeCount > 0 && (
-        <Typography className={classes.likeCount}>
-          {`${WORD_LIKE} ${likeCount}`}
-        </Typography>
-      )}
       {replyPostCount > 0 && (
         <Typography className={classes.replyPostCount}>
           {`${WORD_RESPONSE} ${replyPostCount}`}

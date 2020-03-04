@@ -17,10 +17,7 @@ const LinkThread: FunctionComponent<Props> = ({ post }) => {
         <Typography color={'textSecondary'} variant={'caption'}>
           {toDateText(post.createdAt)}
         </Typography>
-        <DivPostCounts
-          replyPostCount={post.replyPostCount}
-          likeCount={post.likeCount}
-        />
+        <DivPostCounts replyPostCount={post.replyPostCount} />
       </div>
       <Typography className={classes.text} variant={'body2'}>
         {post.text}
