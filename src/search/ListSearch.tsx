@@ -23,10 +23,6 @@ const ListSearch: FunctionComponent = () => {
         </ListItem>
       </Link>
       <Divider />
-      <ListItem disabled>
-        <ListItemText primary={'探す'} />
-      </ListItem>
-      <Divider />
       <Link to={'/others'}>
         <ListItem button>
           <ListItemText primary={'その他'} />

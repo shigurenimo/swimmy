@@ -49,12 +49,6 @@ const ListThread: FunctionComponent = () => {
         </ListItem>
       </Link>
       <Divider />
-      <Link to={'/search'}>
-        <ListItem button>
-          <ListItemText primary={'探す'} />
-        </ListItem>
-      </Link>
-      <Divider />
       <Link to={'/others'}>
         <ListItem button>
           <ListItemText primary={'その他'} />

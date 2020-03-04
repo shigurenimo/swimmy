@@ -23,12 +23,6 @@ const ListOthers: FunctionComponent = () => {
         </ListItem>
       </Link>
       <Divider />
-      <Link to={'/search'}>
-        <ListItem button>
-          <ListItemText primary={'探す'} />
-        </ListItem>
-      </Link>
-      <Divider />
       <ListItem disabled>
         <ListItemText primary={'その他'} />
       </ListItem>
