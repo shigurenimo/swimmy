@@ -1,6 +1,10 @@
+import { analytics, app } from 'firebase/app'
 import { useEffect, useState } from 'react'
-import { createPost } from '../../functions/createPost'
+import { httpsCallable } from 'rxfire/functions'
+import { CREATE_POST } from '../../functions/constants/functions'
+import { US_CENTRAL1 } from '../../functions/constants/region'
 import { CreatePostData } from '../../functions/types/createPostData'
+import { CreatePostResult } from '../../functions/types/createPostResult'
 
 export const useCreateResponse = (
   data: CreatePostData,
@@ -10,13 +14,25 @@ export const useCreateResponse = (
 
   useEffect(() => {
     if (!loading) return
-    const subscription = createPost()(data).subscribe(
+
+    const createPost = httpsCallable<CreatePostData, CreatePostResult>(
+      app().functions(US_CENTRAL1),
+      CREATE_POST
+    )
+
+    const subscription = createPost(data).subscribe(
       () => {
+        analytics().logEvent('tap_to_reply')
         setLoading(false)
         onNext()
       },
-      err => {
-        console.error(err)
+      error => {
+        analytics().logEvent('exception', {
+          description: 'faild to reply',
+          fatal: true,
+          error: error.toString(),
+        })
+        console.error(error)
         setLoading(false)
       }
     )

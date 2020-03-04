@@ -1,5 +1,6 @@
 import { TextField, Theme } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
+import { analytics } from 'firebase/app'
 import React, { Dispatch, FunctionComponent, SetStateAction } from 'react'
 
 type Props = {
@@ -21,6 +22,10 @@ const FormDate: FunctionComponent<Props> = ({
         select
         value={year}
         onChange={event => {
+          analytics().logEvent('select_content', {
+            content_id: event.target.value,
+            content_type: 'form_date_year',
+          })
           setYear(parseInt(event.target.value))
         }}
         SelectProps={{ native: true }}
@@ -37,6 +42,10 @@ const FormDate: FunctionComponent<Props> = ({
         select
         value={month}
         onChange={event => {
+          analytics().logEvent('select_content', {
+            content_id: event.target.value,
+            content_type: 'form_date_month',
+          })
           setMonth(parseInt(event.target.value))
         }}
         SelectProps={{ native: true }}

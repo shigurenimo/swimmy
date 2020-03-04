@@ -9,9 +9,7 @@ render(<App />, document.getElementById('root'))
 
 register({
   onUpdate(registration) {
-    const waitingServiceWorker = registration.waiting
-
-    if (!waitingServiceWorker) return
+    if (!registration.waiting) return
 
     const listener = async (
       event: Event & {
@@ -23,9 +21,9 @@ register({
       window.location.reload()
     }
 
-    waitingServiceWorker.addEventListener('statechange', listener)
+    registration.waiting.addEventListener('statechange', listener)
 
-    waitingServiceWorker.postMessage({ type: 'SKIP_WAITING' })
+    registration.waiting.postMessage({ type: 'SKIP_WAITING' })
   },
 })
 

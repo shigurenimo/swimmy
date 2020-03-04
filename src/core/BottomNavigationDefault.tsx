@@ -10,6 +10,7 @@ import ImageIcon from '@material-ui/icons/Image'
 import InboxIcon from '@material-ui/icons/Inbox'
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz'
 import { makeStyles } from '@material-ui/styles'
+import { analytics } from 'firebase/app'
 import React, { ChangeEvent, FunctionComponent, useState } from 'react'
 import { useHistory, useLocation } from 'react-router-dom'
 
@@ -41,7 +42,13 @@ const BottomNavigationDefault: FunctionComponent = ({ children }) => {
   })
 
   const onChange = (_: ChangeEvent, _value: string) => {
+    analytics().logEvent('select_content', {
+      content_id: _value,
+      content_type: 'bottom_navigation',
+    })
+
     history.push(_value)
+
     setValue(_value)
   }
 

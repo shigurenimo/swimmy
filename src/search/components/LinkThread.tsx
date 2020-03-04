@@ -1,5 +1,6 @@
 import { Theme, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
+import { analytics } from 'firebase/app'
 import React, { FunctionComponent } from 'react'
 import { Link } from 'react-router-dom'
 import DivPostCounts from '../../common/DivPostCounts'
@@ -12,7 +13,16 @@ const LinkThread: FunctionComponent<Props> = ({ post }) => {
   const classes = useStyles()
 
   return (
-    <Link className={classes.root} to={`/threads/${post.id}`}>
+    <Link
+      className={classes.root}
+      to={`/threads/${post.id}`}
+      onClick={() => {
+        analytics().logEvent('select_content', {
+          content_id: post.id,
+          content_type: 'thread',
+        })
+      }}
+    >
       <div className={classes.data}>
         <Typography color={'textSecondary'} variant={'caption'}>
           {toDateText(post.createdAt)}

@@ -1,5 +1,6 @@
 import { Divider, Theme, Toolbar } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
+import { analytics } from 'firebase/app'
 import React, { FunctionComponent, useEffect, useState } from 'react'
 import ButtonMore from '../common/ButtonMore'
 import DivSkeleton from '../skeleton/DivSkeleton'
@@ -26,9 +27,10 @@ const MainHome: FunctionComponent = () => {
     setLoading(false)
   }, [posts.length])
 
-  const onNext = () => {
+  const onReadNext = () => {
     setLoading(true)
     setLimit(_limit => _limit + 32)
+    analytics().logEvent('tap_to_read_next_posts')
   }
 
   const skeletons = loading && posts.length === 0 ? [0, 1, 2, 3, 4, 5, 6] : []
@@ -56,7 +58,7 @@ const MainHome: FunctionComponent = () => {
       </ul>
       {hasNext && (
         <div className={classes.next}>
-          <ButtonMore onClick={onNext} inProgress={loading} />
+          <ButtonMore onClick={onReadNext} inProgress={loading} />
         </div>
       )}
     </main>

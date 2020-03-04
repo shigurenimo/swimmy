@@ -10,6 +10,8 @@
 // To learn more about the benefits of this model and instructions on how to
 // opt-in, read https://bit.ly/CRA-PWA
 
+import { analytics } from 'firebase/app'
+
 const isLocalhost = Boolean(
   window.location.hostname === 'localhost' ||
     // [::1] is the IPv6 localhost address.
@@ -102,6 +104,11 @@ function registerValidSW(swUrl: string, config?: Config) {
       }
     })
     .catch(error => {
+      analytics().logEvent('exception', {
+        description: 'Error during service worker registration',
+        fatal: true,
+        error: error.toString(),
+      })
       console.error('Error during service worker registration:', error)
     })
 }

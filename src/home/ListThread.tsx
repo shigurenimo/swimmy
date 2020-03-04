@@ -1,4 +1,5 @@
 import { Divider, List, ListItem, ListItemText } from '@material-ui/core'
+import { analytics } from 'firebase/app'
 import React, { FunctionComponent, useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import ListItemSkeleton from '../skeleton/ListItemSkeleton'
@@ -20,9 +21,11 @@ const ListThread: FunctionComponent = () => {
     setLoading(false)
   }, [posts.length])
 
-  const onLoadNext = () => {
+  const onReadNext = () => {
+    if (loading) return
     setLoading(true)
     setLimit(_limit => _limit + 24)
+    analytics().logEvent('tap_to_read_next_threads')
   }
 
   const skeletons = loading && posts.length === 0 ? [0, 1, 2, 3, 4, 5, 6] : []
@@ -69,13 +72,7 @@ const ListThread: FunctionComponent = () => {
       ))}
       {renderNext && (
         <ListItem button disabled={loading}>
-          <ListItemText
-            onClick={() => {
-              if (loading) return
-              onLoadNext()
-            }}
-            primary={'さらに読み込む'}
-          />
+          <ListItemText onClick={onReadNext} primary={'さらに読み込む'} />
         </ListItem>
       )}
     </List>

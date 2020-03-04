@@ -1,5 +1,6 @@
 import { ListItem, ListItemText, Theme, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
+import { analytics } from 'firebase/app'
 import React, { Fragment, FunctionComponent } from 'react'
 import { Link } from 'react-router-dom'
 import { Post } from '../../firestore/types/post'
@@ -13,8 +14,15 @@ type Props = {
 const ListItemThread: FunctionComponent<Props> = ({ post, selected }) => {
   const classes = useStyles()
 
+  const onClick = () => {
+    analytics().logEvent('select_content', {
+      content_id: post.id,
+      content_type: 'thread',
+    })
+  }
+
   return (
-    <Link to={`/threads/${post.id}`}>
+    <Link to={`/threads/${post.id}`} onClick={onClick}>
       <ListItem button divider selected={selected}>
         <ListItemText
           className={classes.listItemText}

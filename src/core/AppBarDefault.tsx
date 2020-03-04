@@ -12,6 +12,7 @@ import FlightIcon from '@material-ui/icons/Flight'
 import KeyboardReturnIcon from '@material-ui/icons/KeyboardReturn'
 import MenuIcon from '@material-ui/icons/Menu'
 import { makeStyles } from '@material-ui/styles'
+import { analytics } from 'firebase/app'
 import React, { FunctionComponent, useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import { detectStandalone } from '../web/detectStandalone'
@@ -47,7 +48,13 @@ const AppBarDefault: FunctionComponent = () => {
   })
 
   const onScroll = () => {
+    analytics().logEvent('tap_to_scroll_top')
     document.body.scrollIntoView({ behavior: 'smooth' })
+  }
+
+  const onGoBack = () => {
+    analytics().logEvent('tap_to_go_back')
+    history.goBack()
   }
 
   return (
@@ -56,7 +63,7 @@ const AppBarDefault: FunctionComponent = () => {
         <Toolbar className={classes.toolbar}>
           <ImgLogo disabled={!isFirst} />
           {!isFirst && (
-            <IconButton onClick={() => history.goBack()}>
+            <IconButton onClick={onGoBack}>
               <KeyboardReturnIcon />
             </IconButton>
           )}

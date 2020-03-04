@@ -19,8 +19,13 @@ initializeApp({
 
 firestore()
   .enablePersistence({ synchronizeTabs: true })
-  .catch(err => {
-    console.error(err)
+  .catch(error => {
+    analytics().logEvent('exception', {
+      description: 'faild to call enablePersistence method',
+      fatal: true,
+      error: error.toString(),
+    })
+    console.error(error)
   })
 
 performance()

@@ -1,5 +1,6 @@
 import { Theme, Toolbar } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
+import { analytics } from 'firebase/app'
 import React, { FunctionComponent, useEffect, useState } from 'react'
 import ButtonMore from '../common/ButtonMore'
 import { useSearchOrderBy } from '../hooks/useSearchOrderBy'
@@ -28,9 +29,10 @@ const MainImages: FunctionComponent = () => {
     setLoading(false)
   }, [posts.length])
 
-  const onLoadNext = () => {
+  const onReadNext = () => {
     setLoading(true)
     setLimit(_limit => _limit + 16)
+    analytics().logEvent('tap_to_read_next_photos')
   }
 
   const hasNext = posts.length !== 0 && limit < 400
@@ -51,7 +53,7 @@ const MainImages: FunctionComponent = () => {
       </ul>
       {hasNext && (
         <div className={classes.next}>
-          <ButtonMore onClick={onLoadNext} inProgress={loading} />
+          <ButtonMore onClick={onReadNext} inProgress={loading} />
         </div>
       )}
     </main>
