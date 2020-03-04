@@ -33,7 +33,7 @@ const DivResponse: FunctionComponent<Props> = ({ post, index }) => {
         </Typography>
       </div>
       <Typography className={classes.text} variant={'body2'}>
-        <span>{post.text}</span>
+        {post.text}
       </Typography>
       {post.photoURLs.length !== 0 && <DivImages photoURLs={post.photoURLs} />}
     </div>
