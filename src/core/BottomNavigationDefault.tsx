@@ -89,9 +89,7 @@ const useStyles = makeStyles<Theme>(() => {
       paddingBottom: 'env(safe-area-inset-bottom)',
       position: 'fixed',
       width: '100%',
-      '@media screen and (max-height: 450px)': {
-        display: 'none',
-      },
+      '@media screen and (max-height: 520px)': { display: 'none' },
     },
   }
 })
