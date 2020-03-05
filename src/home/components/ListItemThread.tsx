@@ -21,9 +21,31 @@ const ListItemThread: FunctionComponent<Props> = ({ post, selected }) => {
     })
   }
 
+  if (selected) {
+    return (
+      <ListItem disabled divider>
+        <ListItemText
+          className={classes.listItemText}
+          primary={post.text}
+          secondaryTypographyProps={{ className: classes.secondary }}
+          secondary={
+            <Fragment>
+              <Typography className={classes.comment} variant={'caption'}>
+                {`${post.replyPostCount}コメント`}
+              </Typography>
+              <Typography variant={'caption'}>
+                {toDateText(post.updatedAt)}
+              </Typography>
+            </Fragment>
+          }
+        />
+      </ListItem>
+    )
+  }
+
   return (
     <Link to={`/threads/${post.id}`} onClick={onClick}>
-      <ListItem button divider selected={selected}>
+      <ListItem button divider>
         <ListItemText
           className={classes.listItemText}
           primary={post.text}
@@ -47,13 +69,13 @@ const ListItemThread: FunctionComponent<Props> = ({ post, selected }) => {
 const useStyles = makeStyles<Theme>(({ spacing, palette }) => {
   return {
     comment: { color: palette.primary.dark, fontWeight: 'bold' },
+    listItemText: { display: 'grid', gridGap: spacing(0.5) },
     secondary: {
       display: 'grid',
       gridAutoColumns: 'max-content',
       gridAutoFlow: 'column',
       justifyContent: 'space-between',
     },
-    listItemText: { display: 'grid', gridGap: spacing(0.5) },
   }
 })
 

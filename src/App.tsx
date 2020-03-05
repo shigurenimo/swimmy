@@ -20,6 +20,7 @@ import MainSearch from './search/MainSearch'
 import { createTheme } from './theme/createTheme'
 import ListThreads from './thread/ListThreads'
 import MainThreads from './thread/MainThreads'
+import MainThreadsNext from './thread/MainThreadsNext'
 import { detectStandalone } from './web/detectStandalone'
 import { useNight } from './web/useNight'
 
@@ -56,6 +57,9 @@ const App: FunctionComponent = () => {
               <Route exact path={'/threads'}>
                 <ListThreads />
               </Route>
+              <Route exact path={'/threads/next'}>
+                <ListOthers />
+              </Route>
               <Route exact path={'/threads/:threadId'}>
                 <ListThread />
               </Route>
@@ -79,6 +83,9 @@ const App: FunctionComponent = () => {
             </Route>
             <Route exact path={'/threads'}>
               <MainThreads />
+            </Route>
+            <Route exact path={'/threads/next'}>
+              <MainThreadsNext />
             </Route>
             <Route exact path={'/threads/:threadId'}>
               <MainThread />

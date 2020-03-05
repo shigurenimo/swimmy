@@ -28,9 +28,11 @@ const MainOthers: FunctionComponent = () => {
           </ListItem>
         </Link>
         <Divider />
-        <ListItem disabled>
-          <ListItemText primary={'スレッド β'} />
-        </ListItem>
+        <Link to={'/threads/next'}>
+          <ListItem button>
+            <ListItemText primary={'スレッド β'} />
+          </ListItem>
+        </Link>
         <Divider />
         <ListItem disabled>
           <ListItemText primary={'統計データ'} />

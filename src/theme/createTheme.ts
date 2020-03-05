@@ -7,6 +7,11 @@ export const createTheme = ({ dark = false }) => {
   })
 
   return createMuiTheme({
+    overrides: {
+      MuiListItem: {
+        button: { '&:hover': { backgroundColor: 'rgba(0, 0, 0, 0.1)' } },
+      },
+    },
     palette: {
       background: {
         default: dark ? palette.background.default : 'transparent',
@@ -17,7 +22,7 @@ export const createTheme = ({ dark = false }) => {
       secondary: { main: orange.A400 },
       type: dark ? 'dark' : 'light',
     },
-    // props: { MuiButtonBase: { disableRipple: true } },
+    props: { MuiButtonBase: { disableRipple: true } },
     shape: { borderRadius: 4 },
     typography: { fontFamily: ['Helvetica', 'Roboto', 'sans-serif'].join(',') },
   })
