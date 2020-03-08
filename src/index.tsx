@@ -11,21 +11,21 @@ register({
   onUpdate(registration) {
     if (!registration.waiting) return
 
-    const listener = async (
-      event: Event & {
-        target: (Partial<ServiceWorker> & EventTarget) | null
-      }
-    ) => {
-      if (!event.target || event.target.state !== 'activated') return
-
-      window.location.reload()
-    }
-
     registration.waiting.addEventListener('statechange', listener)
 
     registration.waiting.postMessage({ type: 'SKIP_WAITING' })
   },
 })
+
+const listener = async (
+  event: Event & {
+    target: (Partial<ServiceWorker> & EventTarget) | null
+  }
+) => {
+  if (!event.target || event.target.state !== 'activated') return
+
+  window.location.reload()
+}
 
 if (module.hot) {
   module.hot.accept()
