@@ -15,19 +15,19 @@ import MainImages from './image/MainImages'
 import LayoutDrawer from './layout/LayoutDrawer'
 import ListPrivacy from './privacy/ListPrivacy'
 import MainPrivacy from './privacy/MainPrivacy'
-import ListSearch from './search/ListSearch'
-import MainSearch from './search/MainSearch'
 import { createTheme } from './theme/createTheme'
 import ListThreads from './thread/ListThreads'
+import MainThreadArchive from './thread/MainThreadArchive'
+import MainThreadArchives from './thread/MainThreadArchives'
 import MainThreads from './thread/MainThreads'
 import MainThreadsNext from './thread/MainThreadsNext'
 import { detectStandalone } from './web/detectStandalone'
 import { useNight } from './web/useNight'
 
 const App: FunctionComponent = () => {
-  const [dark] = useNight()
+  const mode = useNight()
 
-  const theme = createTheme({ dark })
+  const theme = createTheme(mode)
 
   const isStandalone = detectStandalone()
 
@@ -51,10 +51,13 @@ const App: FunctionComponent = () => {
               <Route exact path={'/privacy'}>
                 <ListPrivacy />
               </Route>
-              <Route exact path={'/search'}>
-                <ListSearch />
-              </Route>
               <Route exact path={'/threads'}>
+                <ListThreads />
+              </Route>
+              <Route exact path={'/archives'}>
+                <ListThreads />
+              </Route>
+              <Route exact path={'/archives/:year/:month'}>
                 <ListThreads />
               </Route>
               <Route exact path={'/threads/next'}>
@@ -78,11 +81,14 @@ const App: FunctionComponent = () => {
             <Route exact path={'/privacy'}>
               <MainPrivacy />
             </Route>
-            <Route exact path={'/search'}>
-              <MainSearch />
-            </Route>
             <Route exact path={'/threads'}>
               <MainThreads />
+            </Route>
+            <Route exact path={'/archives'}>
+              <MainThreadArchives />
+            </Route>
+            <Route exact path={'/archives/:year/:month'}>
+              <MainThreadArchive />
             </Route>
             <Route exact path={'/threads/next'}>
               <MainThreadsNext />

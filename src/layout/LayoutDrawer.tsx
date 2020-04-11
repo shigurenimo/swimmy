@@ -7,9 +7,10 @@ const LayoutDrawer: FunctionComponent = ({ children }) => {
 
   return (
     <Drawer
+      classes={{ paper: classes.drawerPaper }}
       className={classes.root}
       open={true}
-      classes={{ paper: classes.drawerPaper }}
+      PaperProps={{ elevation: 1 }}
       variant={'persistent'}
     >
       {children}
@@ -20,7 +21,6 @@ const LayoutDrawer: FunctionComponent = ({ children }) => {
 const useStyles = makeStyles<Theme>(({ breakpoints, shadows, spacing }) => {
   return {
     drawerPaper: {
-      boxShadow: shadows[1],
       height: '100%',
       position: 'fixed',
       width: spacing(40),

@@ -6,6 +6,10 @@ export const useAnalytics = () => {
   const location = useLocation()
 
   useEffect(() => {
+    if (process.env.NODE_ENV !== 'production') {
+      return
+    }
+
     analytics().setCurrentScreen(location.pathname)
   }, [location.pathname])
 }

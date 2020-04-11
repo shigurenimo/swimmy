@@ -8,17 +8,16 @@ import { toWhereHalfMonth } from '../../logs/helpers/toWhereHarfMonth'
 
 let __POSTS__: Post[] = []
 
-export const useSearchThreads = (
+export const useArchiveThreads = (
   year: number,
-  month: number,
-  early: boolean
+  month: number
 ): [Post[], boolean] => {
   const [loading, setLoading] = useState(__POSTS__.length === 0)
 
   const [posts, setPosts] = useState(__POSTS__)
 
   useEffect(() => {
-    const [startTime, endTime] = toWhereHalfMonth(year, month, early)
+    const [startTime, endTime] = toWhereHalfMonth(year, month)
 
     const subscription = collectionData<Post>(
       firestore()
@@ -29,28 +28,9 @@ export const useSearchThreads = (
     )
       .pipe(
         map(_posts => {
-          if (_posts.length > 100) {
-            return _posts.filter(post => post.replyPostCount > 4)
-          }
-
-          if (_posts.length > 80) {
-            return _posts.filter(post => post.replyPostCount > 3)
-          }
-
-          if (_posts.length > 40) {
-            return _posts.filter(post => post.replyPostCount > 2)
-          }
-
-          if (_posts.length > 20) {
-            return _posts.filter(post => post.replyPostCount > 1)
-          }
-
           return _posts
-        }),
-        map(_posts => {
-          return _posts.sort((a, b) => {
-            return b.replyPostCount - a.replyPostCount
-          })
+            .sort((a, b) => b.replyPostCount - a.replyPostCount)
+            .filter((_, i) => i < 80)
         })
       )
       .subscribe(_posts => {
@@ -59,7 +39,7 @@ export const useSearchThreads = (
       })
 
     return () => subscription.unsubscribe()
-  }, [year, month, early])
+  }, [year, month])
 
   __POSTS__ = posts
 

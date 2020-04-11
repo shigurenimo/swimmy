@@ -46,9 +46,7 @@ const BottomNavigationDefault: FunctionComponent = ({ children }) => {
       content_id: _value,
       content_type: 'bottom_navigation',
     })
-
     history.push(_value)
-
     setValue(_value)
   }
 

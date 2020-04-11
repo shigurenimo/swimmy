@@ -14,8 +14,6 @@ const LinkThreadNext: FunctionComponent<Props> = ({ post }) => {
 
   const [responses] = useResponses(post.id)
 
-  console.log(responses)
-
   return (
     <div className={classes.root}>
       <Link className={classes.link} to={`/threads/${post.id}`}>

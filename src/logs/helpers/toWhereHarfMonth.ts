@@ -1,11 +1,7 @@
 import { firestore } from 'firebase/app'
 
-export const toWhereHalfMonth = (
-  year: number,
-  month: number,
-  early: boolean
-) => {
-  const text = [year, month, early ? 1 : 15].join('-')
+export const toWhereHalfMonth = (year: number, month: number) => {
+  const text = [year, month].join('-')
 
   const a = new Date(text)
 
@@ -13,13 +9,9 @@ export const toWhereHalfMonth = (
   a.setMinutes(0)
   a.setSeconds(0)
 
-  const b = new Date(a.getFullYear(), a.getMonth(), early ? 1 : 15)
+  const b = new Date(a.getFullYear(), a.getMonth())
 
-  const c = new Date(
-    a.getFullYear(),
-    early ? a.getMonth() : a.getMonth() + 1,
-    early ? 15 : 1
-  )
+  const c = new Date(a.getFullYear(), a.getMonth() + 1, 1)
 
   return [b, c].map(firestore.Timestamp.fromDate)
 }

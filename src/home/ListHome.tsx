@@ -30,9 +30,9 @@ const ListHome: FunctionComponent = () => {
 
   const renderNext = posts.length !== 0 && limit < 200
 
-  const onClick = () => {
+  const onClick = (content_id: string) => () => {
     analytics().logEvent('select_content', {
-      content_id: 'threads',
+      content_id,
       content_type: 'list_item',
       current_screen_name: window.location.pathname,
     })
@@ -44,38 +44,20 @@ const ListHome: FunctionComponent = () => {
         <ListItemText primary={'ホーム'} />
       </ListItem>
       <Divider />
-      <Link to={'/threads'} onClick={onClick}>
+      <Link to={'/threads'} onClick={onClick('threads')}>
         <ListItem button>
           <ListItemText primary={'スレッド'} />
         </ListItem>
       </Link>
       <Divider />
-      <Link to={'/images'}>
-        <ListItem
-          button
-          onClick={() => {
-            analytics().logEvent('select_content', {
-              content_id: 'images',
-              content_type: 'list_item',
-              current_screen_name: window.location.pathname,
-            })
-          }}
-        >
+      <Link to={'/images'} onClick={onClick('images')}>
+        <ListItem button>
           <ListItemText primary={'フォト'} />
         </ListItem>
       </Link>
       <Divider />
-      <Link to={'/others'}>
-        <ListItem
-          button
-          onClick={() => {
-            analytics().logEvent('select_content', {
-              content_id: 'others',
-              content_type: 'list_item',
-              current_screen_name: window.location.pathname,
-            })
-          }}
-        >
+      <Link to={'/others'} onClick={onClick('others')}>
+        <ListItem button>
           <ListItemText primary={'その他'} />
         </ListItem>
       </Link>

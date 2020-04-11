@@ -1,22 +1,40 @@
 import { Divider, Theme, Toolbar } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
+import { firestore } from 'firebase/app'
 import React, { Fragment, FunctionComponent } from 'react'
+import {
+  useCollectionData,
+  useDocumentData,
+} from 'react-firebase-hooks/firestore'
 import { useParams } from 'react-router-dom'
+import { POSTS, POSTS_AS_ANONYM } from '../firestore/constants/collection'
+import { ASC } from '../firestore/constants/order'
+import { Post } from '../firestore/types/post'
 import DivSkeleton from '../skeleton/DivSkeleton'
 import TextFieldResponse from '../thread/components/TextFieldResponse'
 import FragmentHead from '../web/FragmentHead'
 import { useAnalytics } from '../web/useAnalytics'
 import DivResponse from './components/DivResponse'
 import DivThread from './components/DivThread'
-import { useThread } from './hooks/useThread'
-import { useResponses } from './hooks/useResponses'
+import MainThreadNotFound from './components/MainThreadNotFound'
 
 const MainThread: FunctionComponent = () => {
   const { threadId } = useParams<{ threadId: string }>()
 
-  const [posts, loadingPosts] = useResponses(threadId)
+  const [posts = [], loadingPosts] = useCollectionData<Post>(
+    firestore()
+      .collection(POSTS_AS_ANONYM)
+      .doc(threadId)
+      .collection(POSTS)
+      .limit(120)
+      .orderBy('createdAt', ASC)
+  )
 
-  const [thread, loadingThread] = useThread(threadId)
+  const [thread = null, loadingThread] = useDocumentData<Post>(
+    firestore()
+      .collection(POSTS_AS_ANONYM)
+      .doc(threadId)
+  )
 
   const classes = useStyles()
 
@@ -28,7 +46,9 @@ const MainThread: FunctionComponent = () => {
 
   return (
     <main className={classes.main}>
-      <FragmentHead title={thread?.id} description={thread?.text} />
+      {thread !== null && (
+        <FragmentHead title={thread?.id} description={thread?.text} />
+      )}
       <Toolbar />
       <ul>
         {skeletons.map(n => (
@@ -37,7 +57,8 @@ const MainThread: FunctionComponent = () => {
             <Divider />
           </li>
         ))}
-        {!loading && thread && (
+        {!loading && thread === null && <MainThreadNotFound />}
+        {!loading && thread !== null && (
           <li>
             <DivThread post={thread} />
             <Divider />
@@ -51,7 +72,7 @@ const MainThread: FunctionComponent = () => {
             </Fragment>
           ))}
       </ul>
-      <TextFieldResponse threadId={threadId} />
+      {!loading && thread !== null && <TextFieldResponse threadId={threadId} />}
     </main>
   )
 }

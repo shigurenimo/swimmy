@@ -1,6 +1,5 @@
 import {
   AppBar,
-  Divider,
   Fade,
   IconButton,
   Slide,
@@ -37,7 +36,7 @@ const AppBarDefault: FunctionComponent = () => {
 
   const trigger = useScrollTrigger({ threshold: 100 })
 
-  const triggerDivider = useScrollTrigger({
+  const triggerElevation = useScrollTrigger({
     disableHysteresis: true,
     threshold: 200,
   })
@@ -59,7 +58,11 @@ const AppBarDefault: FunctionComponent = () => {
 
   return (
     <Slide appear={false} direction={'down'} in={!trigger}>
-      <AppBar color={'inherit'} elevation={0}>
+      <AppBar
+        className={classes.appBar}
+        color={'inherit'}
+        elevation={triggerElevation ? 1 : 0}
+      >
         <Toolbar className={classes.toolbar}>
           <ImgLogo disabled={!isFirst} />
           {!isFirst && (
@@ -80,16 +83,14 @@ const AppBarDefault: FunctionComponent = () => {
           )}
         </Toolbar>
         <DialogMenu open={openDialog} onClose={() => setOpenDialog(false)} />
-        <Fade in={triggerDivider}>
-          <Divider />
-        </Fade>
       </AppBar>
     </Slide>
   )
 }
 
-const useStyles = makeStyles<Theme>(({ breakpoints, spacing, zIndex }) => {
+const useStyles = makeStyles<Theme>(({ breakpoints, spacing, palette }) => {
   return {
+    appBar: { backgroundColor: palette.background.default },
     actions: {
       display: 'grid',
       gridAutoFlow: 'column',

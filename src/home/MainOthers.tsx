@@ -22,9 +22,9 @@ const MainOthers: FunctionComponent = () => {
       <FragmentHead title={null} />
       <Toolbar />
       <List disablePadding>
-        <Link to={'/search'}>
+        <Link to={'/archives'}>
           <ListItem button>
-            <ListItemText primary={'スレッド検索'} />
+            <ListItemText primary={'過去ログ'} />
           </ListItem>
         </Link>
         <Divider />
