@@ -1,13 +1,16 @@
 import { blue, cyan, grey, orange } from '@material-ui/core/colors'
 import { createMuiTheme } from '@material-ui/core/styles'
 import { Shadows } from '@material-ui/core/styles/shadows'
-import { toColorSwitcher } from './toColorSwitcher'
+import { toColorSwitcher } from './helpers/toColorSwitcher'
+import { toShadowsSwitcher } from './helpers/toShadowsSwitcher'
 import { Mode } from './types/mode'
 
 export const createTheme = (mode: Mode = 'light') => {
   const isDark = mode === 'dark' || mode === 'red'
 
   const toColor = toColorSwitcher(mode)
+
+  const toShadows = toShadowsSwitcher(mode)
 
   const {
     shadows,
@@ -43,7 +46,11 @@ export const createTheme = (mode: Mode = 'light') => {
       type: isDark ? 'dark' : 'light',
     },
     props: { MuiButtonBase: { disableRipple: true } },
-    shadows: shadows.map((_, i) => (i === 0 ? 'none' : shadow)) as Shadows,
+    shadows: toShadows(
+      shadows.map((_, i) => (i === 0 ? 'none' : shadow)) as Shadows,
+      shadows.map((_, i) => 'none') as Shadows,
+      shadows.map((_, i) => 'none') as Shadows
+    ),
     shape: { borderRadius: 4 },
     typography: {
       fontFamily: ['Helvetica', 'Roboto', 'sans-serif'].join(','),

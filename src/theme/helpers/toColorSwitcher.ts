@@ -1,4 +1,4 @@
-import { Mode } from './types/mode'
+import { Mode } from '../types/mode'
 
 export const toColorSwitcher = (mode: Mode) => {
   return (light: string, dark?: string, red?: string) => {

@@ -9,7 +9,7 @@ type Props = {
 
 const FragmentHead: FunctionComponent<Props> = ({
   description = 'スイミーは完全な匿名の電子掲示板です。ログイン情報やIPアドレスを残さずに利用できます。',
-  image = null,
+  image = 'https://swimmy.io/icons/icon-512.png',
   title,
 }) => {
   const __title = 'スイミー電子掲示板'

@@ -11,6 +11,7 @@ import { POSTS, POSTS_AS_ANONYM } from '../firestore/constants/collection'
 import { ASC } from '../firestore/constants/order'
 import { Post } from '../firestore/types/post'
 import DivSkeleton from '../skeleton/DivSkeleton'
+import { toThreadDescription } from '../text/toThreadDescription'
 import TextFieldResponse from '../thread/components/TextFieldResponse'
 import FragmentHead from '../web/FragmentHead'
 import { useAnalytics } from '../web/useAnalytics'
@@ -47,7 +48,10 @@ const MainThread: FunctionComponent = () => {
   return (
     <main className={classes.main}>
       {thread !== null && (
-        <FragmentHead title={thread?.id} description={thread?.text} />
+        <FragmentHead
+          title={`「${thread?.text}」`}
+          description={toThreadDescription(thread)}
+        />
       )}
       <Toolbar />
       <ul>
