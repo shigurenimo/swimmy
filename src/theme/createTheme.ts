@@ -1,17 +1,22 @@
-import { cyan, orange, red } from '@material-ui/core/colors'
+import { blue, cyan, grey, orange } from '@material-ui/core/colors'
 import { createMuiTheme } from '@material-ui/core/styles'
 import { Shadows } from '@material-ui/core/styles/shadows'
+import { toColorSwitcher } from './toColorSwitcher'
+import { Mode } from './types/mode'
 
-export const createTheme = (mode = 'light') => {
+export const createTheme = (mode: Mode = 'light') => {
   const isDark = mode === 'dark' || mode === 'red'
 
-  const isRed = mode === 'red'
+  const toColor = toColorSwitcher(mode)
 
-  const { shadows, palette } = createMuiTheme({
+  const {
+    shadows,
+    palette: { background, divider },
+  } = createMuiTheme({
     palette: { type: isDark ? 'dark' : 'light' },
   })
 
-  const shadow = `0 0 1px 1px ${palette.divider}`
+  const shadow = `0 0 1px 1px ${divider}`
 
   return createMuiTheme({
     overrides: {
@@ -26,23 +31,25 @@ export const createTheme = (mode = 'light') => {
     },
     palette: {
       background: {
-        // red['A700']
-        default: !isDark
-          ? '#fff'
-          : isRed
-          ? red['A700']
-          : palette.background.default,
-        paper: !isDark ? '#fff' : isRed ? red['A700'] : '#35353a',
+        default: toColor('#fff', background.default, blue[900]),
+        paper: toColor('#fff', '#35353a', blue[800]),
       },
-      divider: isDark ? palette.divider : 'rgba(0, 0, 0, 0.08)',
-      primary: { main: cyan.A700, contrastText: '#fff' },
-      secondary: { main: orange.A400 },
+      divider: toColor('rgba(0, 0, 0, 0.08)', divider, '#fff'),
+      primary: {
+        main: toColor(cyan.A700, cyan.A200, grey['200']),
+        contrastText: '#fff',
+      },
+      secondary: { main: toColor(orange.A400, orange.A400, orange.A200) },
       type: isDark ? 'dark' : 'light',
     },
     props: { MuiButtonBase: { disableRipple: true } },
     shadows: shadows.map((_, i) => (i === 0 ? 'none' : shadow)) as Shadows,
     shape: { borderRadius: 4 },
-    typography: { fontFamily: ['Helvetica', 'Roboto', 'sans-serif'].join(',') },
+    typography: {
+      fontFamily: ['Helvetica', 'Roboto', 'sans-serif'].join(','),
+      body1: { fontWeight: 'bold' },
+      body2: { fontWeight: 'bold' },
+    },
   })
 }
 

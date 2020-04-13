@@ -55,7 +55,6 @@ const useStyles = makeStyles<Theme>(({ typography, palette, spacing }) => {
     },
     text: {
       fontSize: typography.pxToRem(16),
-      fontWeight: typography.fontWeightMedium,
       whiteSpace: 'pre-line',
       wordBreak: 'break-all',
     },
