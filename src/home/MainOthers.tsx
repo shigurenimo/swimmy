@@ -60,7 +60,7 @@ const MainOthers: FunctionComponent = () => {
           rel="noopener noreferrer"
         >
           <ListItem button>
-            <ListItemText primary={'GitHub swiwmmy/swimmy'} />
+            <ListItemText primary={'GitHub swimmy/swimmy'} />
           </ListItem>
         </a>
         <Divider />
