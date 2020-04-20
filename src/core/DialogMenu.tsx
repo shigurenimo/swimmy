@@ -38,6 +38,11 @@ const DialogMenu: FunctionComponent<Props> = ({ onClose, open }) => {
               <ListItemText primary={'タイムライン'} />
             </ListItem>
           </Link>
+          <Link to={'/archives'}>
+            <ListItem button onClick={onClose}>
+              <ListItemText primary={'過去ログ'} />
+            </ListItem>
+          </Link>
           <Link to={'/threads'}>
             <ListItem button onClick={onClose}>
               <ListItemText primary={'スレッド'} />
