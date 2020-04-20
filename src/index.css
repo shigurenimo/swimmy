@@ -1,25 +1,25 @@
 html {
-  overscroll-behavior-y: none;
   overflow-y: auto;
+  overscroll-behavior-y: none;
 }
 
 body {
-  padding-bottom: 80px;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   -webkit-text-size-adjust: 100%;
   -webkit-touch-callout: none;
+  padding-bottom: 80px;
 }
 
 a {
-  text-decoration: none;
   color: inherit;
+  text-decoration: none;
 }
 
 ul {
   list-style: none;
-  padding: 0;
-  margin: 0;
   margin-block-start: 0;
+  margin: 0;
+  padding: 0;
 }
 
 body > div#root {

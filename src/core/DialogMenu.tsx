@@ -5,15 +5,10 @@ import {
   DialogContent,
   List,
   ListItem,
-  ListItemIcon,
   ListItemText,
   useMediaQuery,
   useTheme,
 } from '@material-ui/core'
-import ChatBubbleIcon from '@material-ui/icons/ChatBubble'
-import Home from '@material-ui/icons/Home'
-import PhotoIcon from '@material-ui/icons/Photo'
-import PriorityHigh from '@material-ui/icons/PriorityHigh'
 import React, { FunctionComponent } from 'react'
 import { Link } from 'react-router-dom'
 
@@ -40,33 +35,46 @@ const DialogMenu: FunctionComponent<Props> = ({ onClose, open }) => {
         <List component={'nav'} disablePadding>
           <Link to={'/'}>
             <ListItem button onClick={onClose}>
-              <ListItemIcon>
-                <Home />
-              </ListItemIcon>
-              <ListItemText primary={'ホーム'} />
+              <ListItemText primary={'タイムライン'} />
             </ListItem>
           </Link>
           <Link to={'/threads'}>
             <ListItem button onClick={onClose}>
-              <ListItemIcon>
-                <ChatBubbleIcon />
-              </ListItemIcon>
               <ListItemText primary={'スレッド'} />
+            </ListItem>
+          </Link>
+          <Link to={'/threads/next'}>
+            <ListItem button onClick={onClose}>
+              <ListItemText primary={'スレッド β'} />
             </ListItem>
           </Link>
           <Link to={'/images'}>
             <ListItem button onClick={onClose}>
-              <ListItemIcon>
-                <PhotoIcon />
-              </ListItemIcon>
               <ListItemText primary={'画像'} />
             </ListItem>
           </Link>
+          <a
+            href={
+              'https://twitter.com/messages/compose?recipient_id=806076986682548224'
+            }
+            target={'_blank'}
+            rel="noopener noreferrer"
+          >
+            <ListItem button onClick={onClose}>
+              <ListItemText primary={'TwitterでDMを送る'} />
+            </ListItem>
+          </a>
+          <a
+            href={'https://github.com/swimmy/swimmy/issues/new'}
+            target={'_blank'}
+            rel="noopener noreferrer"
+          >
+            <ListItem button onClick={onClose}>
+              <ListItemText primary={'ISSUEをつくる'} />
+            </ListItem>
+          </a>
           <Link to={'/privacy'}>
             <ListItem button onClick={onClose}>
-              <ListItemIcon>
-                <PriorityHigh />
-              </ListItemIcon>
               <ListItemText primary={'プライバシーポリシー'} />
             </ListItem>
           </Link>

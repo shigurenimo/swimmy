@@ -53,7 +53,13 @@ export const createTheme = (mode: Mode = 'light') => {
     ),
     shape: { borderRadius: 4 },
     typography: {
-      fontFamily: ['Helvetica', 'Roboto', 'sans-serif'].join(','),
+      fontFamily: [
+        'Hiragino Kaku Gothic ProN',
+        'ヒラギノ角ゴ ProN W3',
+        'Hiragino Sans',
+        'ヒラギノ角ゴシック',
+        'sans-serif',
+      ].join(','),
       body1: { fontWeight: 'bold' },
       body2: { fontWeight: 'bold' },
     },

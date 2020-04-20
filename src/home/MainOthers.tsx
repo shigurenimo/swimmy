@@ -38,31 +38,33 @@ const MainOthers: FunctionComponent = () => {
           <ListItemText primary={'統計データ'} />
         </ListItem>
         <Divider />
+        <a
+          href={
+            'https://twitter.com/messages/compose?recipient_id=806076986682548224'
+          }
+          target={'_blank'}
+          rel="noopener noreferrer"
+        >
+          <ListItem button>
+            <ListItemText primary={'TwitterでDMを送る'} />
+          </ListItem>
+        </a>
+        <Divider />
+        <a
+          href={'https://github.com/swimmy/swimmy/issues/new'}
+          target={'_blank'}
+          rel="noopener noreferrer"
+        >
+          <ListItem button>
+            <ListItemText primary={'ISSUEをつくる'} />
+          </ListItem>
+        </a>
+        <Divider />
         <Link to={'/privacy'}>
           <ListItem button>
             <ListItemText primary={'プライバシー・ポリシー'} />
           </ListItem>
         </Link>
-        <Divider />
-        <a
-          href={'https://twitter.com/babelrc'}
-          target={'_blank'}
-          rel="noopener noreferrer"
-        >
-          <ListItem button>
-            <ListItemText primary={'Twitter @babelrc'} />
-          </ListItem>
-        </a>
-        <Divider />
-        <a
-          href={'https://github.com/swimmy/swimmy'}
-          target={'_blank'}
-          rel="noopener noreferrer"
-        >
-          <ListItem button>
-            <ListItemText primary={'GitHub swimmy/swimmy'} />
-          </ListItem>
-        </a>
         <Divider />
       </List>
     </main>
