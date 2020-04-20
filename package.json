@@ -1,6 +1,6 @@
 {
   "name": "swimmy.io",
-  "version": "4.3.1",
+  "version": "5.0.0",
   "private": true,
   "scripts": {
     "start": "react-scripts start",
