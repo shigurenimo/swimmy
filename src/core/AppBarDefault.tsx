@@ -90,7 +90,10 @@ const AppBarDefault: FunctionComponent = () => {
 
 const useStyles = makeStyles<Theme>(({ breakpoints, spacing, palette }) => {
   return {
-    appBar: { backgroundColor: palette.background.default },
+    appBar: {
+      paddingTop: 'env(safe-area-inset-top)',
+      backgroundColor: palette.background.default,
+    },
     actions: {
       display: 'grid',
       gridAutoFlow: 'column',

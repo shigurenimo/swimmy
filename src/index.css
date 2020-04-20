@@ -10,6 +10,15 @@ body {
   padding-bottom: 80px;
 }
 
+main {
+  padding-top: env(safe-area-inset-top);
+  padding-bottom: env(safe-area-inset-bottom);
+  min-height: calc(
+    100vh - env(safe-area-inset-top) - env(safe-area-inset-bottom)
+  );
+  align-content: flex-start;
+}
+
 a {
   color: inherit;
   text-decoration: none;
