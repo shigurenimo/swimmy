@@ -60,8 +60,6 @@ export const createTheme = (mode: Mode = 'light') => {
         'ヒラギノ角ゴシック',
         'sans-serif',
       ].join(','),
-      body1: { fontWeight: 'bold' },
-      body2: { fontWeight: 'bold' },
     },
   })
 }
