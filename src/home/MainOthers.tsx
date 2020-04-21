@@ -38,6 +38,12 @@ const MainOthers: FunctionComponent = () => {
           <ListItemText primary={'統計データ'} />
         </ListItem>
         <Divider />
+        <Link to={'/changelogs'}>
+          <ListItem button>
+            <ListItemText primary={'アップデート履歴'} />
+          </ListItem>
+        </Link>
+        <Divider />
         <a
           href={
             'https://twitter.com/messages/compose?recipient_id=806076986682548224'

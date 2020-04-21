@@ -22,7 +22,7 @@ const MainThreadArchive: FunctionComponent = () => {
   useAnalytics()
 
   return (
-    <main className={classes.root}>
+    <main className={classes.main}>
       <FragmentHead title={'過去ログ'} />
       <Toolbar />
       <section className={classes.pageTitle}>
@@ -30,7 +30,7 @@ const MainThreadArchive: FunctionComponent = () => {
           {`${year}年 ${month}月`}
         </Typography>
       </section>
-      <ul className={classes.archives}>
+      <ul>
         {threads.map(thread => (
           <li key={thread.id}>
             <LinkThread post={thread} />
@@ -44,7 +44,7 @@ const MainThreadArchive: FunctionComponent = () => {
 
 const useStyles = makeStyles<Theme>(({ spacing }) => {
   return {
-    root: {
+    main: {
       display: 'grid',
       gridGap: spacing(2),
     },

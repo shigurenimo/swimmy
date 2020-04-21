@@ -58,6 +58,11 @@ const DialogMenu: FunctionComponent<Props> = ({ onClose, open }) => {
               <ListItemText primary={'画像'} />
             </ListItem>
           </Link>
+          <Link to={'/changelogs'}>
+            <ListItem button onClick={onClose}>
+              <ListItemText primary={'アップデート履歴'} />
+            </ListItem>
+          </Link>
           <a
             href={
               'https://twitter.com/messages/compose?recipient_id=806076986682548224'
