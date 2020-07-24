@@ -1,0 +1,29 @@
+{
+  "hosting": {
+    "public": "build",
+    "rewrites": [
+      {
+        "source": "*",
+        "destination": "index.html"
+      },
+      {
+        "source": "/images/**",
+        "function": "images"
+      },
+      {
+        "source": "/sitemap.txt",
+        "function": "sitemap"
+      }
+    ],
+    "headers": [
+      {
+        "source": "/service-worker.js",
+        "headers": [{ "key": "Cache-Control", "value": "no-store" }]
+      },
+      {
+        "source": "/index.html",
+        "headers": [{ "key": "Cache-Control", "value": "no-store" }]
+      }
+    ]
+  }
+}
