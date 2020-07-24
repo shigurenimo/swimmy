@@ -15,7 +15,7 @@ const LinkThread: FunctionComponent<Props> = ({ post }) => {
     <Link className={classes.root} to={`/threads/${post.id}`}>
       <div className={classes.data}>
         <Typography color={'textSecondary'} variant={'caption'}>
-          {toDateText(post.createdAt)}
+          {toDateText(post.updatedAt)}
         </Typography>
         <DivPostCounts replyPostCount={post.replyPostCount} />
       </div>

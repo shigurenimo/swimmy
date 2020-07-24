@@ -1,53 +1,33 @@
 import { Button, TextField, Theme } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
 import React, { FunctionComponent, useState } from 'react'
-import InputFile from '../../common/InputFile'
-import { Image } from '../../firestore/types/image'
 import { useCreatePost } from '../hooks/useCreatePost'
-import { useImage } from '../hooks/useImage'
 import { usePlaceholder } from '../hooks/usePlaceholder'
 
 const TextFieldPost: FunctionComponent = () => {
   const classes = useStyles()
 
-  const inputRef = React.createRef<HTMLInputElement>()
-
   const [text, setText] = useState('')
-
-  const [images, setImages] = useState<Image[]>([])
-
-  const [inProgressImage, uploadImage] = useImage(image => {
-    setImages([...images, image])
-  })
 
   const [inProgressPost, createPost] = useCreatePost(
     {
-      fileIds: images.map(image => image.id),
+      fileIds: [],
       replyPostId: '',
       text,
     },
     () => {
-      setImages([])
       setText('')
     }
   )
 
   const placeholder = usePlaceholder()
 
-  const inProgress = inProgressPost || inProgressImage
+  const inProgress = inProgressPost
 
   const disabled = inProgress || text.match(/\S/g) === null
 
   return (
     <section className={classes.root}>
-      <InputFile
-        inputRef={inputRef}
-        onChange={event => {
-          if (event.target.files === null) return
-          const [file] = Array.from(event.target.files)
-          uploadImage(file)
-        }}
-      />
       <TextField
         size={'small'}
         classes={{ root: classes.textField }}
@@ -65,17 +45,6 @@ const TextFieldPost: FunctionComponent = () => {
       {text.length !== 0 && (
         <div className={classes.actions}>
           <Button
-            aria-label={'Add an image to post'}
-            disabled={inProgress}
-            onClick={() => {
-              if (inProgress || !inputRef.current) return
-              inputRef.current.click()
-            }}
-            variant={'outlined'}
-          >
-            {'画像'}
-          </Button>
-          <Button
             aria-label={'Send a post'}
             className={classes.submitButton}
             color={'primary'}
@@ -85,20 +54,6 @@ const TextFieldPost: FunctionComponent = () => {
           >
             {inProgressPost ? '書き込み中..' : '書き込む'}
           </Button>
-        </div>
-      )}
-      {text.length !== 0 && images.length !== 0 && (
-        <div className={classes.images}>
-          {images
-            .map(image => image.imageURL)
-            .map(photoURL => (
-              <img
-                key={photoURL}
-                className={classes.img}
-                src={photoURL + '=s400'}
-                alt={photoURL}
-              />
-            ))}
         </div>
       )}
     </section>

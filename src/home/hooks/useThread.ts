@@ -1,7 +1,7 @@
 import { firestore } from 'firebase/app'
 import { useEffect, useState } from 'react'
 import { docData } from 'rxfire/firestore'
-import { POSTS_AS_ANONYM } from '../../firestore/constants/collection'
+import { FEEDS } from '../../firestore/constants/collection'
 import { Post } from '../../firestore/types/post'
 
 export const useThread = (threadId: string): [Post | null, boolean] => {
@@ -16,7 +16,7 @@ export const useThread = (threadId: string): [Post | null, boolean] => {
 
     const subscription = docData<Post>(
       firestore()
-        .collection(POSTS_AS_ANONYM)
+        .collection(FEEDS)
         .doc(threadId)
     ).subscribe(_post => {
       setPost(_post)

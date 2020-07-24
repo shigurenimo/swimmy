@@ -1,7 +1,7 @@
 import { firestore } from 'firebase/app'
 import { useEffect, useState } from 'react'
 import { collectionData } from 'rxfire/firestore'
-import { POSTS, POSTS_AS_ANONYM } from '../../firestore/constants/collection'
+import { FEEDS, RESPONSES } from '../../firestore/constants/collection'
 import { ASC } from '../../firestore/constants/order'
 import { Post } from '../../firestore/types/post'
 
@@ -19,9 +19,9 @@ export const useResponses = (threadId: string): [Post[], boolean] => {
 
     const subscription = collectionData<Post>(
       firestore()
-        .collection(POSTS_AS_ANONYM)
+        .collection(FEEDS)
         .doc(threadId)
-        .collection(POSTS)
+        .collection(RESPONSES)
         .limit(120)
         .orderBy('createdAt', ASC)
     ).subscribe(_posts => {

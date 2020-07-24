@@ -22,7 +22,6 @@ import ListThreads from './thread/ListThreads'
 import MainThreadArchive from './thread/MainThreadArchive'
 import MainThreadArchives from './thread/MainThreadArchives'
 import MainThreads from './thread/MainThreads'
-import MainThreadsNext from './thread/MainThreadsNext'
 import { detectStandalone } from './web/detectStandalone'
 import { useNight } from './web/useNight'
 
@@ -100,9 +99,6 @@ const App: FunctionComponent = () => {
             </Route>
             <Route exact path={'/archives/:year/:month'}>
               <MainThreadArchive />
-            </Route>
-            <Route exact path={'/threads/next'}>
-              <MainThreadsNext />
             </Route>
             <Route exact path={'/threads/:threadId'}>
               <MainThread />

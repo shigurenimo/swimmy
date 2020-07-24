@@ -7,7 +7,7 @@ import {
   useDocumentData,
 } from 'react-firebase-hooks/firestore'
 import { useParams } from 'react-router-dom'
-import { POSTS, POSTS_AS_ANONYM } from '../firestore/constants/collection'
+import { FEEDS, RESPONSES, THREADS } from '../firestore/constants/collection'
 import { ASC } from '../firestore/constants/order'
 import { Post } from '../firestore/types/post'
 import DivSkeleton from '../skeleton/DivSkeleton'
@@ -24,16 +24,16 @@ const MainThread: FunctionComponent = () => {
 
   const [posts = [], loadingPosts] = useCollectionData<Post>(
     firestore()
-      .collection(POSTS_AS_ANONYM)
+      .collection(THREADS)
       .doc(threadId)
-      .collection(POSTS)
+      .collection(RESPONSES)
       .limit(120)
       .orderBy('createdAt', ASC)
   )
 
   const [thread = null, loadingThread] = useDocumentData<Post>(
     firestore()
-      .collection(POSTS_AS_ANONYM)
+      .collection(FEEDS)
       .doc(threadId)
   )
 

@@ -1,7 +1,7 @@
 import { firestore } from 'firebase/app'
 import { useEffect, useState } from 'react'
 import { collectionData } from 'rxfire/firestore'
-import { POSTS_AS_IMAGE } from '../../firestore/constants/collection'
+import { PHOTOS } from '../../firestore/constants/collection'
 import { DESC } from '../../firestore/constants/order'
 import { Post } from '../../firestore/types/post'
 import { toField } from '../../hooks/toField'
@@ -29,7 +29,7 @@ export const useImages = (limit: number, orderBy: SearchOrderBy): [Post[]] => {
     const field = toField(orderBy)
     const subscription = collectionData<Post>(
       firestore()
-        .collection(POSTS_AS_IMAGE)
+        .collection(PHOTOS)
         .limit(limit)
         .orderBy(field, DESC)
     ).subscribe(_posts => {

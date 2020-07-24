@@ -35,7 +35,7 @@ const LinkPost: FunctionComponent<Props> = ({ inProgress, post }) => {
       <Typography className={classes.text} variant={'body2'}>
         {post.text}
       </Typography>
-      {post.photoURLs.length !== 0 && <DivImages photoURLs={post.photoURLs} />}
+      {post.fileIds.length !== 0 && <DivImages fileIds={post.fileIds} />}
     </Link>
   )
 }

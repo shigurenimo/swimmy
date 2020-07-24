@@ -22,7 +22,10 @@ const CardImage: FunctionComponent<Props> = ({ post }) => {
     >
       <Card>
         <CardActionArea className={classes.actionArea}>
-          <CardMedia component={'img'} image={`${post.photoURLs[0]}=c`} />
+          <CardMedia
+            component={'img'}
+            image={`//swimmy.io/images/${post.fileIds[0]}?fm=png&w=400&h=400`}
+          />
         </CardActionArea>
       </Card>
     </Link>

@@ -2,7 +2,7 @@ import { firestore } from 'firebase/app'
 import { useEffect, useState } from 'react'
 import { collectionData } from 'rxfire/firestore'
 import { map } from 'rxjs/operators'
-import { POSTS_AS_THREAD } from '../../firestore/constants/collection'
+import { THREADS } from '../../firestore/constants/collection'
 import { Post } from '../../firestore/types/post'
 import { toWhereHalfMonth } from '../../logs/helpers/toWhereHarfMonth'
 
@@ -21,7 +21,7 @@ export const useArchiveThreads = (
 
     const subscription = collectionData<Post>(
       firestore()
-        .collection(POSTS_AS_THREAD)
+        .collection(THREADS)
         .limit(500)
         .where('createdAt', '>', startTime)
         .where('createdAt', '<', endTime)

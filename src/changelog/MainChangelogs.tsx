@@ -15,7 +15,7 @@ const MainChangelogs: FunctionComponent = () => {
     <main className={classes.main}>
       <FragmentHead title={'更新履歴'} />
       <Toolbar />
-      <ul>
+      <ul className={classes.list}>
         {loading && (
           <li>
             <Typography>{'読み込み中 ..'}</Typography>
@@ -40,6 +40,10 @@ const useStyles = makeStyles<Theme>(({ spacing }) => {
       paddingLeft: spacing(2),
       paddingRight: spacing(2),
       paddingTop: spacing(2),
+    },
+    list: {
+      display: 'grid',
+      gridGap: spacing(2),
     },
   }
 })

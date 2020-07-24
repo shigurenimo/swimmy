@@ -1,39 +1,27 @@
 import { Button, CircularProgress, TextField, Theme } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
-import React, { createRef, FunctionComponent, useState } from 'react'
-import InputFile from '../../common/InputFile'
-import { Image } from '../../firestore/types/image'
+import React, { FunctionComponent, useState } from 'react'
 import { useCreateResponse } from '../hooks/useCreateResponse'
-import { useImage } from '../hooks/useImage'
 
 type Props = { threadId: string }
 
 const TextFieldResponse: FunctionComponent<Props> = ({ threadId }) => {
   const classes = useStyles()
 
-  const inputRef = createRef<HTMLInputElement>()
-
   const [text, setText] = useState('')
-
-  const [images, setImages] = useState<Image[]>([])
-
-  const [inProgressImage, uploadImage] = useImage(image => {
-    setImages([...images, image])
-  })
 
   const [inProgressPost, createResponse] = useCreateResponse(
     {
-      fileIds: images.map(image => image.id),
+      fileIds: [],
       replyPostId: threadId,
       text: text,
     },
     () => {
-      setImages([])
       setText('')
     }
   )
 
-  const inProgress = inProgressPost || inProgressImage
+  const inProgress = inProgressPost
 
   const disabled = inProgress || text.match(/\S/g) === null
 
@@ -56,17 +44,6 @@ const TextFieldResponse: FunctionComponent<Props> = ({ threadId }) => {
       </div>
       <div className={classes.actions}>
         <Button
-          aria-label={'Add an image to post'}
-          color={'primary'}
-          disabled={inProgress}
-          onClick={() => {
-            if (inProgress || !inputRef.current) return
-            inputRef.current.click()
-          }}
-        >
-          {'画像添付'}
-        </Button>
-        <Button
           aria-label={'Send a post'}
           className={classes.submitButton}
           color={'primary'}
@@ -80,28 +57,6 @@ const TextFieldResponse: FunctionComponent<Props> = ({ threadId }) => {
           )}
         </Button>
       </div>
-      {images.length !== 0 && (
-        <div className={classes.images}>
-          {images
-            .map(image => image.imageURL)
-            .map(photoURL => (
-              <img
-                key={photoURL}
-                className={classes.img}
-                src={photoURL + '=s400'}
-                alt={photoURL}
-              />
-            ))}
-        </div>
-      )}
-      <InputFile
-        inputRef={inputRef}
-        onChange={event => {
-          if (event.target.files === null) return
-          const [file] = Array.from(event.target.files)
-          uploadImage(file)
-        }}
-      />
     </section>
   )
 }

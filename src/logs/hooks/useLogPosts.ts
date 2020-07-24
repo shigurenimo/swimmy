@@ -1,7 +1,7 @@
 import { firestore } from 'firebase/app'
 import { useEffect, useState } from 'react'
 import { collectionData } from 'rxfire/firestore'
-import { POSTS_AS_ANONYM } from '../../firestore/constants/collection'
+import { FEEDS } from '../../firestore/constants/collection'
 import { Post } from '../../firestore/types/post'
 import { toWhereOneDay } from '../helpers/toWhereOneDay'
 
@@ -19,7 +19,7 @@ export const useLogPosts = (
 
     const subscription = collectionData<Post>(
       firestore()
-        .collection(POSTS_AS_ANONYM)
+        .collection(FEEDS)
         .where('createdAt', '>', startTime)
         .where('createdAt', '<', endTime)
     ).subscribe(_posts => {

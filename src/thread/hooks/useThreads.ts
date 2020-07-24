@@ -1,7 +1,7 @@
 import { firestore } from 'firebase/app'
 import { useEffect, useState } from 'react'
 import { collectionData } from 'rxfire/firestore'
-import { POSTS_AS_THREAD } from '../../firestore/constants/collection'
+import { THREADS } from '../../firestore/constants/collection'
 import { DESC } from '../../firestore/constants/order'
 import { Post } from '../../firestore/types/post'
 import { toField } from '../../hooks/toField'
@@ -30,7 +30,7 @@ export const useThreads = (limit: number, orderBy: SearchOrderBy): [Post[]] => {
 
     const subscription = collectionData<Post>(
       firestore()
-        .collection(POSTS_AS_THREAD)
+        .collection(THREADS)
         .limit(limit)
         .orderBy(field, DESC)
     ).subscribe(_posts => {

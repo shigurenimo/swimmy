@@ -2,16 +2,20 @@ import { Paper, Theme } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
 import React, { FunctionComponent } from 'react'
 
-type Props = { photoURLs: string[] }
+type Props = { fileIds: string[] }
 
-const DivImages: FunctionComponent<Props> = ({ photoURLs }) => {
+const DivImages: FunctionComponent<Props> = ({ fileIds }) => {
   const classes = useStyles()
 
   return (
     <div className={classes.root}>
-      {photoURLs.map(photoURL => (
-        <Paper key={photoURL}>
-          <img className={classes.img} src={`${photoURL}=c`} alt={photoURL} />
+      {fileIds.map(fileId => (
+        <Paper key={fileId}>
+          <img
+            className={classes.img}
+            src={`//swimmy.io/images/${fileId}?fm=png&w=400&h=400`}
+            alt={fileId}
+          />
         </Paper>
       ))}
     </div>
