@@ -2,16 +2,16 @@ import { Theme, Toolbar } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
 import { analytics } from 'firebase/app'
 import React, { FunctionComponent, useEffect, useState } from 'react'
-import ButtonMore from '../common/ButtonMore'
+import { ButtonMore } from '../common/ButtonMore'
 import { useSearchOrderBy } from '../hooks/useSearchOrderBy'
 import { WORD_PHOTO } from '../text/word'
-import FragmentHead from '../web/FragmentHead'
+import { FragmentHead } from '../web/FragmentHead'
 import { useAnalytics } from '../web/useAnalytics'
-import CardImage from './components/CardImage'
+import { CardImage } from './components/CardImage'
 import { useImages } from './hooks/useImages'
 import { useImagesLimit } from './hooks/useImagesLimit'
 
-const MainImages: FunctionComponent = () => {
+export const MainPhotos: FunctionComponent = () => {
   const orderBy = useSearchOrderBy()
 
   const [limit, setLimit] = useImagesLimit(orderBy)
@@ -85,5 +85,3 @@ const useStyles = makeStyles<Theme>(({ breakpoints, spacing }) => {
     },
   }
 })
-
-export default MainImages

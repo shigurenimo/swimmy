@@ -11,7 +11,7 @@ type Props = {
   selected: boolean
 }
 
-const ListItemThread: FunctionComponent<Props> = ({
+export const ListItemThread: FunctionComponent<Props> = ({
   post,
   selected = false,
 }) => {
@@ -60,5 +60,3 @@ const useStyles = makeStyles<Theme>(({ spacing, palette }) => {
     },
   }
 })
-
-export default ListItemThread

@@ -2,7 +2,7 @@ import { CircularProgress, Theme } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
 import React, { FunctionComponent } from 'react'
 
-const DivLoading: FunctionComponent = () => {
+export const DivLoading: FunctionComponent = () => {
   const classes = useStyles()
 
   return (
@@ -23,5 +23,3 @@ const useStyles = makeStyles<Theme>(({ spacing }) => {
     },
   }
 })
-
-export default DivLoading

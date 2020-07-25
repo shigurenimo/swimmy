@@ -3,16 +3,16 @@
     "public": "build",
     "rewrites": [
       {
-        "source": "*",
-        "destination": "index.html"
-      },
-      {
         "source": "/images/**",
         "function": "images"
       },
       {
         "source": "/sitemap.txt",
         "function": "sitemap"
+      },
+      {
+        "source": "*",
+        "destination": "index.html"
       }
     ],
     "headers": [

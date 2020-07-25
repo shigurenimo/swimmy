@@ -9,10 +9,10 @@ import {
 import { makeStyles } from '@material-ui/styles'
 import React, { FunctionComponent } from 'react'
 import { Link } from 'react-router-dom'
-import FragmentHead from '../web/FragmentHead'
+import { FragmentHead } from '../web/FragmentHead'
 import { useAnalytics } from '../web/useAnalytics'
 
-const MainOthers: FunctionComponent = () => {
+export const MainOthers: FunctionComponent = () => {
   useAnalytics()
 
   const classes = useStyles()
@@ -76,5 +76,3 @@ const useStyles = makeStyles<Theme>(({ spacing }) => {
     main: { display: 'grid', gridGap: spacing(1) },
   }
 })
-
-export default MainOthers

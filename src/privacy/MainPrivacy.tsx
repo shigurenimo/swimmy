@@ -1,10 +1,10 @@
 import { Divider, Theme, Toolbar, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
 import React, { FunctionComponent } from 'react'
-import FragmentHead from '../web/FragmentHead'
+import { FragmentHead } from '../web/FragmentHead'
 import { useAnalytics } from '../web/useAnalytics'
 
-const MainPrivacy: FunctionComponent = () => {
+export const MainPrivacy: FunctionComponent = () => {
   const classes = useStyles()
 
   useAnalytics()
@@ -80,5 +80,3 @@ const useStyles = makeStyles<Theme>(({ spacing }) => {
     },
   }
 })
-
-export default MainPrivacy

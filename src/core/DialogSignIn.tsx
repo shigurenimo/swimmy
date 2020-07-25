@@ -18,7 +18,10 @@ type Props = {
   isOpen: boolean
 }
 
-const DialogSignIn: FunctionComponent<Props> = ({ isOpen, closeDialog }) => {
+export const DialogSignIn: FunctionComponent<Props> = ({
+  isOpen,
+  closeDialog,
+}) => {
   const classes = useStyles()
 
   const [email, setEmail] = useState('')
@@ -150,5 +153,3 @@ const useStyles = makeStyles<Theme>(({ palette }) => {
     progress: { height: 5 },
   }
 })
-
-export default DialogSignIn

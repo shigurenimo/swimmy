@@ -2,11 +2,11 @@ import { Theme, Toolbar, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
 import React, { FunctionComponent } from 'react'
 import { useContents } from '../microcms/useContents'
-import FragmentHead from '../web/FragmentHead'
-import CardChangelog from './components/CardChangelog'
+import { FragmentHead } from '../web/FragmentHead'
+import { CardChangelog } from './components/CardChangelog'
 import { Changelog } from './types/changelog'
 
-const MainChangelogs: FunctionComponent = () => {
+export const MainChangelogs: FunctionComponent = () => {
   const classes = useStyles()
 
   const { data, loading } = useContents<Changelog>('changelogs')
@@ -47,5 +47,3 @@ const useStyles = makeStyles<Theme>(({ spacing }) => {
     },
   }
 })
-
-export default MainChangelogs

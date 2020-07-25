@@ -4,7 +4,7 @@ import React, { FunctionComponent } from 'react'
 
 type Props = { fileIds: string[] }
 
-const DivImages: FunctionComponent<Props> = ({ fileIds }) => {
+export const DivImages: FunctionComponent<Props> = ({ fileIds }) => {
   const classes = useStyles()
 
   return (
@@ -35,5 +35,3 @@ const useStyles = makeStyles<Theme>(({ breakpoints, spacing }) => {
     },
   }
 })
-
-export default DivImages

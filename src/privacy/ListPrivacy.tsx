@@ -2,7 +2,7 @@ import { Divider, List, ListItem, ListItemText } from '@material-ui/core'
 import React, { FunctionComponent } from 'react'
 import { Link } from 'react-router-dom'
 
-const ListPrivacy: FunctionComponent = () => {
+export const ListPrivacy: FunctionComponent = () => {
   return (
     <List disablePadding>
       <Link to={'/'}>
@@ -32,5 +32,3 @@ const ListPrivacy: FunctionComponent = () => {
     </List>
   )
 }
-
-export default ListPrivacy

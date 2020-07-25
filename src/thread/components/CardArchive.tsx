@@ -5,11 +5,11 @@ import { analytics } from 'firebase/app'
 import React, { FunctionComponent } from 'react'
 import { useHistory } from 'react-router-dom'
 import { Archive } from '../types/archive'
-import ListItemThread from './ListItemThread'
+import { ListItemThread } from './ListItemThread'
 
 type Props = { archive: Archive }
 
-const CardArchive: FunctionComponent<Props> = ({ archive }) => {
+export const CardArchive: FunctionComponent<Props> = ({ archive }) => {
   const classes = useStyles()
 
   const history = useHistory()
@@ -50,5 +50,3 @@ const CardArchive: FunctionComponent<Props> = ({ archive }) => {
 const useStyles = makeStyles<Theme>(({ spacing }) => {
   return { root: { display: 'grid' } }
 })
-
-export default CardArchive

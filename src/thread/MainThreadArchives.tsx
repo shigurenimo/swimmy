@@ -4,12 +4,12 @@ import { firestore } from 'firebase/app'
 import React, { FunctionComponent } from 'react'
 import { useCollectionData } from 'react-firebase-hooks/firestore'
 import { Post } from '../firestore/types/post'
-import FragmentHead from '../web/FragmentHead'
+import { FragmentHead } from '../web/FragmentHead'
 import { useAnalytics } from '../web/useAnalytics'
-import CardArchive from './components/CardArchive'
+import { CardArchive } from './components/CardArchive'
 import { toArchives } from './helpers/toArchives'
 
-const MainThreadArchives: FunctionComponent = () => {
+export const MainThreadArchives: FunctionComponent = () => {
   const classes = useStyles()
 
   const [threads = []] = useCollectionData<Post>(
@@ -49,5 +49,3 @@ const useStyles = makeStyles<Theme>(({ spacing }) => {
     },
   }
 })
-
-export default MainThreadArchives

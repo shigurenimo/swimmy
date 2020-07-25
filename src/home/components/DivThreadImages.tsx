@@ -4,7 +4,7 @@ import React, { FunctionComponent } from 'react'
 
 type Props = { fileIds: string[] }
 
-const DivThreadImages: FunctionComponent<Props> = ({ fileIds }) => {
+export const DivThreadImages: FunctionComponent<Props> = ({ fileIds }) => {
   const classes = useStyles()
 
   return (
@@ -33,5 +33,3 @@ const useStyles = makeStyles<Theme>(({ breakpoints, spacing }) => {
     },
   }
 })
-
-export default DivThreadImages

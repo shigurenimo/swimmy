@@ -17,7 +17,7 @@ type Props = {
   open: boolean
 }
 
-const DialogMenu: FunctionComponent<Props> = ({ onClose, open }) => {
+export const DialogMenu: FunctionComponent<Props> = ({ onClose, open }) => {
   const { breakpoints } = useTheme()
 
   const isMobile = useMediaQuery(breakpoints.down('sm'))
@@ -88,5 +88,3 @@ const DialogMenu: FunctionComponent<Props> = ({ onClose, open }) => {
     </Dialog>
   )
 }
-
-export default DialogMenu

@@ -2,12 +2,12 @@ import { Divider, List, ListItem, ListItemText } from '@material-ui/core'
 import { analytics } from 'firebase/app'
 import React, { FunctionComponent, useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
-import ListItemSkeleton from '../skeleton/ListItemSkeleton'
-import ListItemThread from './components/ListItemThread'
+import { ListItemSkeleton } from '../skeleton/ListItemSkeleton'
+import { ListItemThread } from './components/ListItemThread'
 import { useHomeThreads } from './hooks/useHomeThreads'
 import { useHomeThreadsLimit } from './hooks/useHomeThreadsLimit'
 
-const ListHome: FunctionComponent = () => {
+export const ListHome: FunctionComponent = () => {
   const [limit, setLimit] = useHomeThreadsLimit()
 
   const [posts] = useHomeThreads(limit)
@@ -96,5 +96,3 @@ const ListHome: FunctionComponent = () => {
     </List>
   )
 }
-
-export default ListHome

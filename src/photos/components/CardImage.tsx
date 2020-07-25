@@ -7,7 +7,7 @@ import { Post } from '../../firestore/types/post'
 
 type Props = { post: Post }
 
-const CardImage: FunctionComponent<Props> = ({ post }) => {
+export const CardImage: FunctionComponent<Props> = ({ post }) => {
   const classes = useStyles()
 
   return (
@@ -33,5 +33,3 @@ const CardImage: FunctionComponent<Props> = ({ post }) => {
 }
 
 const useStyles = makeStyles<Theme>({ actionArea: { width: `${100}%` } })
-
-export default CardImage

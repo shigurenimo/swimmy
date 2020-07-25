@@ -10,16 +10,16 @@ import { useParams } from 'react-router-dom'
 import { FEEDS, RESPONSES, THREADS } from '../firestore/constants/collection'
 import { ASC } from '../firestore/constants/order'
 import { Post } from '../firestore/types/post'
-import DivSkeleton from '../skeleton/DivSkeleton'
+import { DivSkeleton } from '../skeleton/DivSkeleton'
 import { toThreadDescription } from '../text/toThreadDescription'
-import TextFieldResponse from '../thread/components/TextFieldResponse'
-import FragmentHead from '../web/FragmentHead'
+import { TextFieldResponse } from '../thread/components/TextFieldResponse'
+import { FragmentHead } from '../web/FragmentHead'
 import { useAnalytics } from '../web/useAnalytics'
-import DivResponse from './components/DivResponse'
-import DivThread from './components/DivThread'
-import MainThreadNotFound from './components/MainThreadNotFound'
+import { DivResponse } from './components/DivResponse'
+import { DivThread } from './components/DivThread'
+import { MainThreadNotFound } from './components/MainThreadNotFound'
 
-const MainThread: FunctionComponent = () => {
+export const MainThread: FunctionComponent = () => {
   const { threadId } = useParams<{ threadId: string }>()
 
   const [posts = [], loadingPosts] = useCollectionData<Post>(
@@ -99,5 +99,3 @@ const useStyles = makeStyles<Theme>(({ spacing }) => {
     },
   }
 })
-
-export default MainThread

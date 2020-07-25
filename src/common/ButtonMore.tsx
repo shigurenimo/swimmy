@@ -6,7 +6,10 @@ type Props = {
   inProgress: boolean
 }
 
-const ButtonMore: FunctionComponent<Props> = ({ onClick, inProgress }) => {
+export const ButtonMore: FunctionComponent<Props> = ({
+  onClick,
+  inProgress,
+}) => {
   return (
     <Button
       disabled={inProgress}
@@ -20,5 +23,3 @@ const ButtonMore: FunctionComponent<Props> = ({ onClick, inProgress }) => {
     </Button>
   )
 }
-
-export default ButtonMore

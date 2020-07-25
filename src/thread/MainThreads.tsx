@@ -2,16 +2,16 @@ import { Divider, Theme, Toolbar } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
 import { analytics } from 'firebase/app'
 import React, { FunctionComponent, useEffect, useState } from 'react'
-import ButtonMore from '../common/ButtonMore'
+import { ButtonMore } from '../common/ButtonMore'
 import { useSearchOrderBy } from '../hooks/useSearchOrderBy'
-import DivSkeleton from '../skeleton/DivSkeleton'
-import FragmentHead from '../web/FragmentHead'
+import { DivSkeleton } from '../skeleton/DivSkeleton'
+import { FragmentHead } from '../web/FragmentHead'
 import { useAnalytics } from '../web/useAnalytics'
-import LinkThread from './components/LinkThread'
+import { LinkThread } from './components/LinkThread'
 import { useThreads } from './hooks/useThreads'
 import { useThreadsLimit } from './hooks/useThreadsLimit'
 
-const MainThreads: FunctionComponent = () => {
+export const MainThreads: FunctionComponent = () => {
   const orderBy = useSearchOrderBy()
 
   const [limit, setLimit] = useThreadsLimit(orderBy)
@@ -79,5 +79,3 @@ const useStyles = makeStyles<Theme>(({ spacing }) => {
     },
   }
 })
-
-export default MainThreads

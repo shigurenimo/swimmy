@@ -2,7 +2,7 @@ import { ListItem } from '@material-ui/core'
 import { Skeleton } from '@material-ui/lab'
 import React, { FunctionComponent } from 'react'
 
-const ListItemSkeleton: FunctionComponent = () => {
+export const ListItemSkeleton: FunctionComponent = () => {
   return (
     <ListItem divider>
       <div style={{ width: '100%' }}>
@@ -13,5 +13,3 @@ const ListItemSkeleton: FunctionComponent = () => {
     </ListItem>
   )
 }
-
-export default ListItemSkeleton

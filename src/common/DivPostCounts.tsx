@@ -5,7 +5,9 @@ import { WORD_RESPONSE } from '../text/word'
 
 type Props = { replyPostCount: number }
 
-const DivPostCounts: FunctionComponent<Props> = ({ replyPostCount = 0 }) => {
+export const DivPostCounts: FunctionComponent<Props> = ({
+  replyPostCount = 0,
+}) => {
   const classes = useStyles()
 
   if (!replyPostCount) {
@@ -44,5 +46,3 @@ const useStyles = makeStyles<Theme>(({ palette, spacing }) => {
     },
   }
 })
-
-export default DivPostCounts

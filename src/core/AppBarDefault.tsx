@@ -15,10 +15,10 @@ import { analytics } from 'firebase/app'
 import React, { FunctionComponent, useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import { detectStandalone } from '../web/detectStandalone'
-import DialogMenu from './DialogMenu'
-import ImgLogo from './ImgLogo'
+import { DialogMenu } from './DialogMenu'
+import { ImgLogo } from './ImgLogo'
 
-const AppBarDefault: FunctionComponent = () => {
+export const AppBarDefault: FunctionComponent = () => {
   const [openDialog, setOpenDialog] = useState(false)
 
   const classes = useStyles()
@@ -107,5 +107,3 @@ const useStyles = makeStyles<Theme>(({ breakpoints, spacing, palette }) => {
     },
   }
 })
-
-export default AppBarDefault

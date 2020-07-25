@@ -2,7 +2,7 @@ import { Divider, List, ListItem, ListItemText } from '@material-ui/core'
 import React, { FunctionComponent } from 'react'
 import { Link } from 'react-router-dom'
 
-const ListOthers: FunctionComponent = () => {
+export const ListOthers: FunctionComponent = () => {
   return (
     <List disablePadding>
       <Link to={'/'}>
@@ -30,5 +30,3 @@ const ListOthers: FunctionComponent = () => {
     </List>
   )
 }
-
-export default ListOthers

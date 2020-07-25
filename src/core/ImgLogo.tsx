@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 
 type Props = { disabled: boolean }
 
-const ImgLogo: FunctionComponent<Props> = ({ disabled }) => {
+export const ImgLogo: FunctionComponent<Props> = ({ disabled }) => {
   const classes = useStyles()
 
   return (
@@ -27,5 +27,3 @@ const useStyles = makeStyles<Theme>(({ spacing }) => {
     img: { height: spacing(3 + 3) },
   }
 })
-
-export default ImgLogo

@@ -7,7 +7,7 @@ type Props = {
   onChange: (event: ChangeEvent<HTMLInputElement>) => void
 }
 
-const InputFile: FunctionComponent<Props> = ({ inputRef, onChange }) => {
+export const InputFile: FunctionComponent<Props> = ({ inputRef, onChange }) => {
   const classes = useStyles()
 
   return (
@@ -22,5 +22,3 @@ const InputFile: FunctionComponent<Props> = ({ inputRef, onChange }) => {
 }
 
 const useStyles = makeStyles<Theme>({ root: { display: 'none' } })
-
-export default InputFile

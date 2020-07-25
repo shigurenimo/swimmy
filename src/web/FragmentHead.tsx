@@ -7,7 +7,7 @@ type Props = {
   title?: string | null
 }
 
-const FragmentHead: FunctionComponent<Props> = ({
+export const FragmentHead: FunctionComponent<Props> = ({
   description = 'スイミーは完全な匿名の電子掲示板です。ログイン情報やIPアドレスを残さずに利用できます。',
   image = 'https://swimmy.io/icons/icon-512.png',
   title,
@@ -72,5 +72,3 @@ const FragmentHead: FunctionComponent<Props> = ({
 
   return null
 }
-
-export default FragmentHead

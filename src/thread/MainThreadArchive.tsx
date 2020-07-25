@@ -2,9 +2,9 @@ import { Divider, Theme, Toolbar, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
 import React, { FunctionComponent } from 'react'
 import { useParams } from 'react-router-dom'
-import FragmentHead from '../web/FragmentHead'
+import { FragmentHead } from '../web/FragmentHead'
 import { useAnalytics } from '../web/useAnalytics'
-import LinkThread from './components/LinkThread'
+import { LinkThread } from './components/LinkThread'
 import { useArchiveThreads } from './hooks/useArchiveThreads'
 
 type Params = {
@@ -12,7 +12,7 @@ type Params = {
   year: string
 }
 
-const MainThreadArchive: FunctionComponent = () => {
+export const MainThreadArchive: FunctionComponent = () => {
   const classes = useStyles()
 
   const { year, month } = useParams<Params>()
@@ -54,5 +54,3 @@ const useStyles = makeStyles<Theme>(({ spacing }) => {
     },
   }
 })
-
-export default MainThreadArchive

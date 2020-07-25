@@ -13,7 +13,7 @@ import { Changelog } from '../types/changelog'
 
 type Props = { changelog: Changelog }
 
-const CardChangelog: FunctionComponent<Props> = ({ changelog }) => {
+export const CardChangelog: FunctionComponent<Props> = ({ changelog }) => {
   const classes = useStyles()
 
   return (
@@ -37,5 +37,3 @@ const CardChangelog: FunctionComponent<Props> = ({ changelog }) => {
 const useStyles = makeStyles<Theme>(({ spacing }) => {
   return { root: { display: 'grid' } }
 })
-
-export default CardChangelog

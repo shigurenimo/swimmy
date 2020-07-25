@@ -40,7 +40,6 @@ export const createTheme = (mode: Mode = 'light') => {
       divider: toColor('rgba(0, 0, 0, 0.08)', divider, '#fff'),
       primary: {
         main: toColor(cyan.A700, cyan.A200, grey['200']),
-        contrastText: '#fff',
       },
       secondary: { main: toColor(orange.A400, orange.A400, orange.A200) },
       type: isDark ? 'dark' : 'light',

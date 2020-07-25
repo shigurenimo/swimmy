@@ -2,16 +2,16 @@ import { Divider, Theme, Toolbar } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
 import { analytics } from 'firebase/app'
 import React, { FunctionComponent, useEffect, useState } from 'react'
-import ButtonMore from '../common/ButtonMore'
-import DivSkeleton from '../skeleton/DivSkeleton'
-import FragmentHead from '../web/FragmentHead'
+import { ButtonMore } from '../common/ButtonMore'
+import { DivSkeleton } from '../skeleton/DivSkeleton'
+import { FragmentHead } from '../web/FragmentHead'
 import { useAnalytics } from '../web/useAnalytics'
-import LinkPost from './components/LinkPost'
-import TextFieldPost from './components/TextFieldPost'
+import { LinkPost } from './components/LinkPost'
+import { TextFieldPost } from './components/TextFieldPost'
 import { useHomePosts } from './hooks/useHomePosts'
 import { useHomePostsLimit } from './hooks/useHomePostsLimit'
 
-const MainHome: FunctionComponent = () => {
+export const MainHome: FunctionComponent = () => {
   const [limit, setLimit] = useHomePostsLimit()
 
   const [posts] = useHomePosts(limit)
@@ -84,5 +84,3 @@ const useStyles = makeStyles<Theme>(({ spacing }) => {
     },
   }
 })
-
-export default MainHome

@@ -4,11 +4,11 @@ import { makeStyles } from '@material-ui/styles'
 import React, { FunctionComponent } from 'react'
 import { Post } from '../../firestore/types/post'
 import { toDateText } from '../../text/toDateText'
-import DivThreadImages from './DivThreadImages'
+import { DivThreadImages } from './DivThreadImages'
 
 type Props = { post: Post }
 
-const DivThread: FunctionComponent<Props> = ({ post }) => {
+export const DivThread: FunctionComponent<Props> = ({ post }) => {
   const classes = useStyles()
 
   return (
@@ -66,5 +66,3 @@ const useStyles = makeStyles<Theme>(({ palette, spacing, typography }) => {
     },
   }
 })
-
-export default DivThread

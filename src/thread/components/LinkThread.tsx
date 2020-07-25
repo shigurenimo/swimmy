@@ -2,13 +2,13 @@ import { Theme, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
 import React, { FunctionComponent } from 'react'
 import { Link } from 'react-router-dom'
-import DivPostCounts from '../../common/DivPostCounts'
+import { DivPostCounts } from '../../common/DivPostCounts'
 import { Post } from '../../firestore/types/post'
 import { toDateText } from '../../text/toDateText'
 
 type Props = { post: Post }
 
-const LinkThread: FunctionComponent<Props> = ({ post }) => {
+export const LinkThread: FunctionComponent<Props> = ({ post }) => {
   const classes = useStyles()
 
   return (
@@ -50,5 +50,3 @@ const useStyles = makeStyles<Theme>(({ typography, palette, spacing }) => {
     },
   }
 })
-
-export default LinkThread

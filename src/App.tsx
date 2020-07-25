@@ -2,26 +2,26 @@ import { CssBaseline } from '@material-ui/core'
 import { ThemeProvider } from '@material-ui/styles'
 import React, { FunctionComponent } from 'react'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
-import MainChangelogs from './changelog/MainChangelogs'
-import AppBarDefault from './core/AppBarDefault'
-import BottomNavigationDefault from './core/BottomNavigationDefault'
-import ListHome from './home/ListHome'
-import ListOthers from './home/ListOthers'
-import ListThread from './home/ListThread'
-import MainHome from './home/MainHome'
-import MainOthers from './home/MainOthers'
-import MainThread from './home/MainThread'
-import ListImages from './image/ListImages'
-import MainImages from './image/MainImages'
-import LayoutDrawer from './layout/LayoutDrawer'
+import { MainChangelogs } from './changelog/MainChangelogs'
+import { AppBarDefault } from './core/AppBarDefault'
+import { BottomNavigationDefault } from './core/BottomNavigationDefault'
+import { ListHome } from './home/ListHome'
+import { ListOthers } from './home/ListOthers'
+import { ListThread } from './home/ListThread'
+import { MainHome } from './home/MainHome'
+import { MainOthers } from './home/MainOthers'
+import { MainThread } from './home/MainThread'
+import { LayoutDrawer } from './layout/LayoutDrawer'
 import { MicroCMSProvider } from './microcms/MicroCMSProvider'
-import ListPrivacy from './privacy/ListPrivacy'
-import MainPrivacy from './privacy/MainPrivacy'
+import { ListPhotos } from './photos/ListPhotos'
+import { MainPhotos } from './photos/MainPhotos'
+import { ListPrivacy } from './privacy/ListPrivacy'
+import { MainPrivacy } from './privacy/MainPrivacy'
 import { createTheme } from './theme/createTheme'
-import ListThreads from './thread/ListThreads'
-import MainThreadArchive from './thread/MainThreadArchive'
-import MainThreadArchives from './thread/MainThreadArchives'
-import MainThreads from './thread/MainThreads'
+import { ListThreads } from './thread/ListThreads'
+import { MainThreadArchive } from './thread/MainThreadArchive'
+import { MainThreadArchives } from './thread/MainThreadArchives'
+import { MainThreads } from './thread/MainThreads'
 import { detectStandalone } from './web/detectStandalone'
 import { useNight } from './web/useNight'
 
@@ -50,7 +50,7 @@ const App: FunctionComponent = () => {
                 <ListOthers />
               </Route>
               <Route exact path={'/images'}>
-                <ListImages />
+                <ListPhotos />
               </Route>
               <Route exact path={'/others'}>
                 <ListOthers />
@@ -83,7 +83,7 @@ const App: FunctionComponent = () => {
               <MainChangelogs />
             </Route>
             <Route exact path={'/images'}>
-              <MainImages />
+              <MainPhotos />
             </Route>
             <Route exact path={'/others'}>
               <MainOthers />

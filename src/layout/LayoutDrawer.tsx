@@ -2,7 +2,7 @@ import { Drawer, Theme } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
 import React, { FunctionComponent } from 'react'
 
-const LayoutDrawer: FunctionComponent = ({ children }) => {
+export const LayoutDrawer: FunctionComponent = ({ children }) => {
   const classes = useStyles()
 
   return (
@@ -29,5 +29,3 @@ const useStyles = makeStyles<Theme>(({ breakpoints, shadows, spacing }) => {
     root: { [breakpoints.down('sm')]: { display: 'none' } },
   }
 })
-
-export default LayoutDrawer

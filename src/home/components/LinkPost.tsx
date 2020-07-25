@@ -3,9 +3,9 @@ import { makeStyles } from '@material-ui/styles'
 import { analytics } from 'firebase/app'
 import React, { FunctionComponent } from 'react'
 import { Link } from 'react-router-dom'
-import DivPostCounts from '../../common/DivPostCounts'
+import { DivPostCounts } from '../../common/DivPostCounts'
 import { Post } from '../../firestore/types/post'
-import DivImages from '../../layout/DivImages'
+import { DivImages } from '../../layout/DivImages'
 import { toDateText } from '../../text/toDateText'
 
 type Props = {
@@ -13,7 +13,7 @@ type Props = {
   post: Post
 }
 
-const LinkPost: FunctionComponent<Props> = ({ inProgress, post }) => {
+export const LinkPost: FunctionComponent<Props> = ({ inProgress, post }) => {
   const classes = useStyles()
 
   return (
@@ -64,5 +64,3 @@ const useStyles = makeStyles<Theme>(({ palette, spacing, typography }) => {
     },
   }
 })
-
-export default LinkPost

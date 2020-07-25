@@ -2,7 +2,7 @@ import { Theme } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
 import React, { FunctionComponent } from 'react'
 
-const DivCenter: FunctionComponent = ({ children }) => {
+export const DivCenter: FunctionComponent = ({ children }) => {
   const classes = useStyles()
 
   return <div className={classes.root}>{children}</div>
@@ -18,5 +18,3 @@ const useStyles = makeStyles<Theme>(({ spacing }) => {
     },
   }
 })
-
-export default DivCenter

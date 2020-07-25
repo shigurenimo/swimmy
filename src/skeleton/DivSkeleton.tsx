@@ -3,7 +3,7 @@ import { Skeleton } from '@material-ui/lab'
 import { makeStyles } from '@material-ui/styles'
 import React, { FunctionComponent } from 'react'
 
-const DivSkeleton: FunctionComponent = () => {
+export const DivSkeleton: FunctionComponent = () => {
   const classes = useStyles()
 
   return (
@@ -27,5 +27,3 @@ const useStyles = makeStyles<Theme>(({ spacing }) => {
     },
   }
 })
-
-export default DivSkeleton

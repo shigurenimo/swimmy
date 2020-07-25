@@ -3,7 +3,7 @@ import { purple } from '@material-ui/core/colors'
 import { makeStyles } from '@material-ui/styles'
 import React, { FunctionComponent } from 'react'
 import { Post } from '../../firestore/types/post'
-import DivImages from '../../layout/DivImages'
+import { DivImages } from '../../layout/DivImages'
 import { toDateText } from '../../text/toDateText'
 
 type Props = {
@@ -11,7 +11,7 @@ type Props = {
   index: number
 }
 
-const DivResponse: FunctionComponent<Props> = ({ post, index }) => {
+export const DivResponse: FunctionComponent<Props> = ({ post, index }) => {
   const classes = useStyles()
 
   return (
@@ -70,5 +70,3 @@ const useStyles = makeStyles<Theme>(({ palette, spacing, typography }) => {
     },
   }
 })
-
-export default DivResponse

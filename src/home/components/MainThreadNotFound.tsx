@@ -2,7 +2,7 @@ import { Theme, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
 import React, { FunctionComponent } from 'react'
 
-const MainThreadNotFound: FunctionComponent = () => {
+export const MainThreadNotFound: FunctionComponent = () => {
   const classes = useStyles()
 
   return (
@@ -22,5 +22,3 @@ const useStyles = makeStyles<Theme>(({ palette, spacing, typography }) => {
     },
   }
 })
-
-export default MainThreadNotFound

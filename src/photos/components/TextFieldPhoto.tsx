@@ -3,9 +3,8 @@ import NearMe from '@material-ui/icons/NearMe'
 import { makeStyles } from '@material-ui/styles'
 import React, { FunctionComponent, useState } from 'react'
 import { useCreatePost } from '../../post/hooks/useCreatePost'
-import { usePlaceholder } from '../hooks/usePlaceholder'
 
-export const TextFieldPost: FunctionComponent = () => {
+export const TextFieldPhoto: FunctionComponent = () => {
   const classes = useStyles()
 
   const [text, setText] = useState('')
@@ -21,8 +20,6 @@ export const TextFieldPost: FunctionComponent = () => {
     }
   )
 
-  const placeholder = usePlaceholder()
-
   const disabled = loading || text.match(/\S/g) === null
 
   return (
@@ -35,7 +32,7 @@ export const TextFieldPost: FunctionComponent = () => {
           if (loading) return
           setText(event.target.value)
         }}
-        placeholder={placeholder}
+        placeholder={'テキスト'}
         size={'small'}
         value={text}
         variant={'outlined'}

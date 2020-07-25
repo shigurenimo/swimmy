@@ -14,7 +14,7 @@ import { analytics } from 'firebase/app'
 import React, { ChangeEvent, FunctionComponent, useState } from 'react'
 import { useHistory, useLocation } from 'react-router-dom'
 
-const BottomNavigationDefault: FunctionComponent = ({ children }) => {
+export const BottomNavigationDefault: FunctionComponent = ({ children }) => {
   const classes = useStyles()
 
   const history = useHistory()
@@ -91,5 +91,3 @@ const useStyles = makeStyles<Theme>(() => {
     },
   }
 })
-
-export default BottomNavigationDefault
