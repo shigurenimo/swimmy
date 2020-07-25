@@ -3,16 +3,40 @@
     "public": "build",
     "rewrites": [
       {
+        "source": "/",
+        "destination": "/index.html"
+      },
+      {
+        "source": "/changelogs",
+        "destination": "/index.html"
+      },
+      {
+        "source": "/photos/**",
+        "destination": "/index.html"
+      },
+      {
+        "source": "/others/**",
+        "destination": "/index.html"
+      },
+      {
+        "source": "/privacy",
+        "destination": "/index.html"
+      },
+      {
+        "source": "/threads/**",
+        "destination": "/index.html"
+      },
+      {
+        "source": "/archives/**",
+        "destination": "/index.html"
+      },
+      {
         "source": "/images/**",
         "function": "images"
       },
       {
         "source": "/sitemap.txt",
         "function": "sitemap"
-      },
-      {
-        "source": "*",
-        "destination": "index.html"
       }
     ],
     "headers": [
@@ -23,6 +47,12 @@
       {
         "source": "/index.html",
         "headers": [{ "key": "Cache-Control", "value": "no-store" }]
+      },
+      {
+        "source": "/images/**",
+        "headers": [
+          { "key": "Cache-Control", "value": "public, max-age=31536000" }
+        ]
       }
     ]
   }
