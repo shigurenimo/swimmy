@@ -8,6 +8,7 @@ import { WORD_PHOTO } from '../text/word'
 import { FragmentHead } from '../web/FragmentHead'
 import { useAnalytics } from '../web/useAnalytics'
 import { CardImage } from './components/CardImage'
+import { TextFieldPhoto } from './components/TextFieldPhoto'
 import { useImages } from './hooks/useImages'
 import { useImagesLimit } from './hooks/useImagesLimit'
 
@@ -44,6 +45,7 @@ export const MainPhotos: FunctionComponent = () => {
         description={`${WORD_PHOTO}の添付された書き込みです。`}
       />
       <Toolbar />
+      <TextFieldPhoto />
       <ul className={classes.ul}>
         {posts.map(post => (
           <li key={post.id}>

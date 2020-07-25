@@ -41,19 +41,17 @@ export const TextFieldResponse: FunctionComponent<Props> = ({ threadId }) => {
         value={text}
         variant={'outlined'}
       />
-      {text.trim().length !== 0 && (
-        <Button
-          aria-label={'Send a post'}
-          className={classes.submitButton}
-          classes={{ root: classes.buttonRoot }}
-          color={'primary'}
-          disabled={disabled}
-          onClick={createResponse}
-          variant={'contained'}
-        >
-          {loading ? <CircularProgress size={24} /> : <NearMe />}
-        </Button>
-      )}
+      <Button
+        aria-label={'Send a post'}
+        className={classes.submitButton}
+        classes={{ root: classes.buttonRoot }}
+        color={'primary'}
+        disabled={disabled}
+        onClick={createResponse}
+        variant={'contained'}
+      >
+        {loading ? <CircularProgress size={24} /> : <NearMe />}
+      </Button>
     </section>
   )
 }
@@ -61,7 +59,11 @@ export const TextFieldResponse: FunctionComponent<Props> = ({ threadId }) => {
 const useStyles = makeStyles<Theme>(({ spacing }) => {
   return {
     actions: { textAlign: 'right' },
-    buttonRoot: { paddingLeft: 8, paddingRight: 8, minWidth: 0 },
+    buttonRoot: {
+      paddingLeft: spacing(1),
+      paddingRight: spacing(1),
+      minWidth: 0,
+    },
     buttonProgress: {
       bottom: 0,
       left: 0,
@@ -73,10 +75,11 @@ const useStyles = makeStyles<Theme>(({ spacing }) => {
     root: {
       display: 'grid',
       gridTemplateColumns: '1fr auto',
-      paddingLeft: spacing(1.5),
-      paddingRight: spacing(1.5),
+      columnGap: spacing(2),
+      paddingLeft: spacing(2),
+      paddingRight: spacing(2),
     },
-    submitButton: { marginLeft: spacing(1), position: 'relative' },
+    submitButton: { position: 'relative' },
     img: { width: `${100}%`, borderRadius: 4 },
     images: {
       display: 'grid',

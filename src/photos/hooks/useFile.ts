@@ -2,13 +2,12 @@ import { firestore, storage } from 'firebase/app'
 import { useEffect, useState } from 'react'
 import { docData } from 'rxfire/firestore'
 import { put } from 'rxfire/storage'
-import { IMAGES } from '../../firestore/constants/collection'
 import { createId } from '../../firestore/createId'
-import { Image } from '../../firestore/types/image'
+import { File as DocFile } from '../../firestore/types/file'
 import { filterEmpty } from '../../operators/filterEmpty'
 
-export const useImage = (
-  next: (image: Image) => void
+export const useFile = (
+  next: (image: DocFile) => void
 ): [boolean, (file: File) => void] => {
   const [file, setFile] = useState<File | null>(null)
 
@@ -21,9 +20,9 @@ export const useImage = (
 
     put(ref, file).subscribe()
 
-    const subscription = docData<Image>(
+    const subscription = docData<DocFile>(
       firestore()
-        .collection(IMAGES)
+        .collection('files')
         .doc(fileId)
     )
       .pipe(filterEmpty())
@@ -42,6 +41,7 @@ export const useImage = (
       return
     }
 
+    console.log('setFile')
     setFile(_file)
   }
 

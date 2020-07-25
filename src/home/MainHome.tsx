@@ -67,7 +67,7 @@ export const MainHome: FunctionComponent = () => {
 
 const useStyles = makeStyles<Theme>(({ spacing }) => {
   return {
-    main: { display: 'grid', gridGap: spacing(1) },
+    main: { display: 'grid', gridGap: spacing(2) },
     posts: { display: 'grid', margin: 0, paddingLeft: 0 },
     progress: {
       display: 'block',
