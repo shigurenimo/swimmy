@@ -17,7 +17,7 @@ export const ListOthers: FunctionComponent = () => {
         </ListItem>
       </Link>
       <Divider />
-      <Link to={'/images'}>
+      <Link to={'/photos'}>
         <ListItem button>
           <ListItemText primary={'フォト'} />
         </ListItem>

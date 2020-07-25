@@ -21,8 +21,6 @@ export const TextFieldPhoto: FunctionComponent = () => {
     setFiles([...files, file])
   })
 
-  console.log('files', files)
-
   const [loadingCreatePost, createPost] = useCreatePost(
     {
       fileIds: files.map(file => file.id),
@@ -35,7 +33,11 @@ export const TextFieldPhoto: FunctionComponent = () => {
     }
   )
 
-  const disabled = loadingCreatePost || text.match(/\S/g) === null
+  const disabled =
+    loadingFile ||
+    loadingCreatePost ||
+    files.length === 0 ||
+    text.match(/\S/g) === null
 
   return (
     <section className={classes.root}>

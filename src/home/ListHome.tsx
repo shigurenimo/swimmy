@@ -50,7 +50,7 @@ export const ListHome: FunctionComponent = () => {
         </ListItem>
       </Link>
       <Divider />
-      <Link to={'/images'} onClick={onClick('images')}>
+      <Link to={'/photos'} onClick={onClick('photos')}>
         <ListItem button>
           <ListItemText primary={'フォト'} />
         </ListItem>

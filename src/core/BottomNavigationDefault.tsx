@@ -26,8 +26,8 @@ export const BottomNavigationDefault: FunctionComponent = ({ children }) => {
       return '/threads'
     }
 
-    if (location.pathname.includes('images')) {
-      return '/images'
+    if (location.pathname.includes('photos')) {
+      return '/photos'
     }
 
     if (location.pathname.includes('others')) {
@@ -67,7 +67,7 @@ export const BottomNavigationDefault: FunctionComponent = ({ children }) => {
         <BottomNavigationAction
           icon={<ImageIcon />}
           label={'写真'}
-          value={'/images'}
+          value={'/photos'}
         />
         <BottomNavigationAction
           icon={<MoreHorizIcon />}

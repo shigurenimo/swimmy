@@ -30,7 +30,7 @@ export const AppBarDefault: FunctionComponent = () => {
   const isFirst =
     history.length === 0 ||
     history.location.pathname === '/' ||
-    history.location.pathname === '/images' ||
+    history.location.pathname === '/photos' ||
     history.location.pathname === '/others' ||
     history.location.pathname === '/threads'
 

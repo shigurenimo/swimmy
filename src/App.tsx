@@ -49,7 +49,7 @@ const App: FunctionComponent = () => {
               <Route exact path={'/changelogs'}>
                 <ListOthers />
               </Route>
-              <Route exact path={'/images'}>
+              <Route exact path={'/photos'}>
                 <ListPhotos />
               </Route>
               <Route exact path={'/others'}>
@@ -82,7 +82,7 @@ const App: FunctionComponent = () => {
             <Route exact path={'/changelogs'}>
               <MainChangelogs />
             </Route>
-            <Route exact path={'/images'}>
+            <Route exact path={'/photos'}>
               <MainPhotos />
             </Route>
             <Route exact path={'/others'}>

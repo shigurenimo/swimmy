@@ -41,7 +41,6 @@ export const useFile = (
       return
     }
 
-    console.log('setFile')
     setFile(_file)
   }
 

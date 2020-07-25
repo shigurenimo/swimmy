@@ -15,7 +15,7 @@ export const ListThreads: FunctionComponent = () => {
         <ListItemText primary={'スレッド'} />
       </ListItem>
       <Divider />
-      <Link to={'/images'}>
+      <Link to={'/photos'}>
         <ListItem button>
           <ListItemText primary={'フォト'} />
         </ListItem>
