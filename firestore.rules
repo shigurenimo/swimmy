@@ -1,0 +1,70 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /{path=**} {
+      match /likes/{likeId} {
+        allow read: if resource == null || request.auth.uid == resource.id;
+        allow delete: if resource.data.ownerId == request.auth.uid;
+      }
+    }
+    match /changelogs/{changelogId} {
+    	allow read;
+    }
+    match /images/{imageId} {
+    	allow read;
+    }
+    match /posts/{postId} {
+    	allow read: if request.auth.uid == resource.data.ownerId;
+      match /likes/{likeId} {
+        allow create: if request.auth != null
+        	&& request.auth.uid == likeId
+          && request.resource.data.collectionId == 'posts'
+          && request.resource.data.createdAt is timestamp
+          && request.resource.data.docId == postId
+          && request.resource.data.id == likeId
+          && request.resource.data.ownerId == request.auth.uid
+          && request.resource.data.updatedAt is timestamp;
+      }
+    }
+    match /feeds/{feedId} {
+      allow read;
+    }
+    match /threads/{threadId} {
+    	allow read;
+    	match /responses/{responseId} {
+    		allow read;
+      }
+    }
+    match /photos/{photoId} {
+      allow read;
+    }
+    match /posts-as-anonym/{postId} {
+    	allow read;
+    	match /posts/{postId} {
+    		allow read;
+      }
+    }
+    match /posts-as-image/{postId} {
+      allow read;
+    }
+    match /posts-as-thread/{postId} {
+      allow read;
+    }
+    match /stats/{statId} {
+      allow read;
+    }
+    match /files/{fileId} {
+      allow read;
+    }
+    match /statistics/{statisticId} {
+      allow read;
+    }
+    match /users/{userId} {
+      allow read;
+      match /posts/{postId} {
+        allow read: if request.auth.uid == resource.data.ownerId;
+      }
+    }
+  }
+}

@@ -1,0 +1,5 @@
+export const COLLECTION_ID = 'collectionId'
+export const CREATED_AT = 'createdAt'
+export const DOC_ID = 'docId'
+export const OWNER_ID = 'ownerId'
+export const UPDATED_AT = 'updatedAt'

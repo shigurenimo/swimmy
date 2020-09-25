@@ -1,0 +1,48 @@
+{
+  "name": "hosting",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "dependencies": {
+    "@material-ui/core": "^4.9.5",
+    "@material-ui/icons": "^4.9.1",
+    "@material-ui/lab": "^4.0.0-alpha.45",
+    "@material-ui/styles": "^4.9.0",
+    "@reiwa/dark": "^1.0.3",
+    "@types/classnames": "^2.2.9",
+    "@types/jest": "25.1.3",
+    "@types/node": "^13.7.7",
+    "@types/react": "16.9.23",
+    "@types/react-dom": "16.9.5",
+    "@types/react-router": "^5.1.4",
+    "@types/react-router-dom": "^5.1.3",
+    "@types/webpack-env": "^1.15.1",
+    "classnames": "^2.2.6",
+    "firebase": "^7.9.3",
+    "react": "^16.13.0",
+    "react-dom": "^16.13.0",
+    "react-firebase-hooks": "^2.1.1",
+    "react-router-dom": "^5.1.2",
+    "react-scripts": "3.4.0",
+    "rxfire": "^3.9.15",
+    "rxjs": "6.x.x",
+    "typescript": "^3.8.3"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}

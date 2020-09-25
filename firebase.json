@@ -1,77 +1,43 @@
 {
+  "functions": {
+    "source": "functions",
+    "ignore": [".git", ".idea", "node_modules", "src", "yarn.lock"]
+  },
   "hosting": {
-    "public": "build",
-    "rewrites": [
-      {
-        "source": "/",
-        "destination": "/index.html"
-      },
-      {
-        "source": "/changelogs",
-        "destination": "/index.html"
-      },
-      {
-        "source": "/photos",
-        "destination": "/index.html"
-      },
-      {
-        "source": "/photos/**",
-        "destination": "/index.html"
-      },
-      {
-        "source": "/others",
-        "destination": "/index.html"
-      },
-      {
-        "source": "/others/**",
-        "destination": "/index.html"
-      },
-      {
-        "source": "/privacy",
-        "destination": "/index.html"
-      },
-      {
-        "source": "/threads",
-        "destination": "/index.html"
-      },
-      {
-        "source": "/threads/**",
-        "destination": "/index.html"
-      },
-      {
-        "source": "/archives",
-        "destination": "/index.html"
-      },
-      {
-        "source": "/archives/**",
-        "destination": "/index.html"
-      },
-      {
-        "source": "/threads",
-        "destination": "/index.html"
-      },
-      {
-        "source": "/threads/**",
-        "destination": "/index.html"
-      },
-      {
-        "source": "/images/**",
-        "function": "images"
-      },
-      {
-        "source": "/sitemap.txt",
-        "function": "sitemap"
-      }
-    ],
-    "headers": [
-      {
-        "source": "/service-worker.js",
-        "headers": [{ "key": "Cache-Control", "value": "no-store" }]
-      },
-      {
-        "source": "/index.html",
-        "headers": [{ "key": "Cache-Control", "value": "no-store" }]
-      }
-    ]
+    "public": "hosting/build",
+    "ignore": ["firebase.json", "**/.*", "**/node_modules/**"]
+  },
+  "database": {
+    "rules": "database.rules.json"
+  },
+  "firestore": {
+    "rules": "firestore.rules",
+    "indexes": "firestore.indexes.json"
+  },
+  "storage": {
+    "rules": "storage.rules"
+  },
+  "emulators": {
+    "functions": {
+      "port": 5001
+    },
+    "firestore": {
+      "port": 8080
+    },
+    "database": {
+      "port": 9000
+    },
+    "hosting": {
+      "port": 5000
+    },
+    "pubsub": {
+      "port": 8085
+    },
+    "ui": {
+      "enabled": true
+    }
+  },
+  "remoteconfig": {
+    "template": "remoteconfig.template.json"
   }
 }
