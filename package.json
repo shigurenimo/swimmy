@@ -3,7 +3,7 @@
   "version": "6.0.0",
   "private": true,
   "scripts": {
-    "build": "yarn build:functions build && yarn build:hosting",
+    "build": "yarn build:functions && yarn build:hosting",
     "build:functions": "yarn workspace functions build",
     "build:hosting": "yarn workspace hosting build",
     "deploy": "firebase deploy",
