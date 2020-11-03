@@ -1,8 +1,8 @@
 import { Theme, Toolbar, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
 import React, { FunctionComponent } from 'react'
+import { FragmentHead } from '../app/FragmentHead'
 import { useContents } from '../microcms/useContents'
-import { FragmentHead } from '../web/FragmentHead'
 import { CardChangelog } from './components/CardChangelog'
 import { Changelog } from './types/changelog'
 
@@ -39,11 +39,7 @@ const useStyles = makeStyles<Theme>(({ spacing }) => {
       gridGap: spacing(2),
       paddingLeft: spacing(2),
       paddingRight: spacing(2),
-      paddingTop: spacing(2),
     },
-    list: {
-      display: 'grid',
-      gridGap: spacing(2),
-    },
+    list: { display: 'grid', gridGap: spacing(2) },
   }
 })

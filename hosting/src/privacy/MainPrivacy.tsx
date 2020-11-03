@@ -1,8 +1,8 @@
 import { Divider, Theme, Toolbar, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
 import React, { FunctionComponent } from 'react'
-import { FragmentHead } from '../web/FragmentHead'
-import { useAnalytics } from '../web/useAnalytics'
+import { FragmentHead } from '../app/FragmentHead'
+import { useAnalytics } from '../app/useAnalytics'
 
 export const MainPrivacy: FunctionComponent = () => {
   const classes = useStyles()

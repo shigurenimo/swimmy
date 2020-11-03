@@ -1,7 +1,7 @@
 import firebase from 'firebase/app'
-import { Id } from './id'
 
-export type Doc = Id & {
+export type Doc = {
+  id: string
   createdAt: firebase.firestore.Timestamp
   updatedAt: firebase.firestore.Timestamp
 }

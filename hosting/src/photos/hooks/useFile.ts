@@ -4,7 +4,7 @@ import { docData } from 'rxfire/firestore'
 import { put } from 'rxfire/storage'
 import { createId } from '../../firebase/createId'
 import { File as DocFile } from '../../firebase/types/file'
-import { filterEmpty } from '../../operators/filterEmpty'
+import { filterEmpty } from '../../post/helpers/filterEmpty'
 
 export const useFile = (
   next: (image: DocFile) => void

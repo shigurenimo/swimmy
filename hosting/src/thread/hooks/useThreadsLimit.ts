@@ -1,5 +1,5 @@
 import { Dispatch, SetStateAction, useEffect, useState } from 'react'
-import { SearchOrderBy } from '../../location/types/searchOrderBy'
+import { SearchOrderBy } from '../../post/types/searchOrderBy'
 
 let __LIMIT__ = 12
 

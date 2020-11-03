@@ -38,11 +38,6 @@ export const DialogMenu: FunctionComponent<Props> = ({ onClose, open }) => {
               <ListItemText primary={'タイムライン'} />
             </ListItem>
           </Link>
-          <Link to={'/archives'}>
-            <ListItem button onClick={onClose}>
-              <ListItemText primary={'過去ログ'} />
-            </ListItem>
-          </Link>
           <Link to={'/threads'}>
             <ListItem button onClick={onClose}>
               <ListItemText primary={'スレッド'} />
@@ -58,26 +53,6 @@ export const DialogMenu: FunctionComponent<Props> = ({ onClose, open }) => {
               <ListItemText primary={'アップデート履歴'} />
             </ListItem>
           </Link>
-          <a
-            href={
-              'https://twitter.com/messages/compose?recipient_id=806076986682548224'
-            }
-            target={'_blank'}
-            rel="noopener noreferrer"
-          >
-            <ListItem button onClick={onClose}>
-              <ListItemText primary={'TwitterでDMを送る'} />
-            </ListItem>
-          </a>
-          <a
-            href={'https://github.com/swimmy/swimmy/issues/new'}
-            target={'_blank'}
-            rel="noopener noreferrer"
-          >
-            <ListItem button onClick={onClose}>
-              <ListItemText primary={'ISSUEをつくる'} />
-            </ListItem>
-          </a>
           <Link to={'/privacy'}>
             <ListItem button onClick={onClose}>
               <ListItemText primary={'プライバシーポリシー'} />

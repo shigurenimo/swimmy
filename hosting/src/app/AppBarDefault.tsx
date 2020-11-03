@@ -14,7 +14,7 @@ import { makeStyles } from '@material-ui/styles'
 import firebase from 'firebase/app'
 import React, { FunctionComponent, useState } from 'react'
 import { useHistory } from 'react-router-dom'
-import { detectStandalone } from '../web/detectStandalone'
+import { detectStandalone } from '../app/detectStandalone'
 import { DialogMenu } from './DialogMenu'
 import { ImgLogo } from './ImgLogo'
 

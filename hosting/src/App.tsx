@@ -2,15 +2,18 @@ import { CssBaseline } from '@material-ui/core'
 import { ThemeProvider } from '@material-ui/styles'
 import React, { FunctionComponent } from 'react'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
+import { AppBarDefault } from './app/AppBarDefault'
+import { BottomNavigationDefault } from './app/BottomNavigationDefault'
+import { detectStandalone } from './app/detectStandalone'
+import { LayoutDrawer } from './app/LayoutDrawer'
+import { useNight } from './app/useNight'
 import { MainChangelogs } from './changelog/MainChangelogs'
-import { AppBarDefault } from './core/AppBarDefault'
-import { BottomNavigationDefault } from './core/BottomNavigationDefault'
 import { ListHome } from './home/ListHome'
 import { ListOthers } from './home/ListOthers'
 import { ListThread } from './home/ListThread'
 import { MainHome } from './home/MainHome'
 import { MainOthers } from './home/MainOthers'
-import { LayoutDrawer } from './layout/LayoutDrawer'
+import { MainThread } from './home/MainThread'
 import { MicroCMSProvider } from './microcms/MicroCMSProvider'
 import { ListPhotos } from './photos/ListPhotos'
 import { MainPhotos } from './photos/MainPhotos'
@@ -19,8 +22,6 @@ import { MainPrivacy } from './privacy/MainPrivacy'
 import { createTheme } from './theme/createTheme'
 import { ListThreads } from './thread/ListThreads'
 import { MainThreads } from './thread/MainThreads'
-import { detectStandalone } from './web/detectStandalone'
-import { useNight } from './web/useNight'
 
 const App: FunctionComponent = () => {
   const mode = useNight()
@@ -58,9 +59,6 @@ const App: FunctionComponent = () => {
               <Route exact path={'/threads'}>
                 <ListThreads />
               </Route>
-              <Route exact path={'/threads/next'}>
-                <ListOthers />
-              </Route>
               <Route exact path={'/threads/:threadId'}>
                 <ListThread />
               </Route>
@@ -84,6 +82,9 @@ const App: FunctionComponent = () => {
             </Route>
             <Route exact path={'/threads'}>
               <MainThreads />
+            </Route>
+            <Route exact path={'/threads/:threadId'}>
+              <MainThread />
             </Route>
           </Switch>
           {isStandalone && <BottomNavigationDefault />}

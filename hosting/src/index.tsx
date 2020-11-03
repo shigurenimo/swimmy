@@ -1,9 +1,18 @@
+import { init } from '@sentry/react'
+import { Integrations } from '@sentry/tracing'
 import React from 'react'
 import { render } from 'react-dom'
 import App from './App'
 import './firebase/initializeApp'
 import './index.css'
 import { register } from './serviceWorker'
+
+init({
+  dsn:
+    'https://082826bd26c8431894383b61c038562e@o471357.ingest.sentry.io/5503302',
+  integrations: [new Integrations.BrowserTracing()],
+  tracesSampleRate: 1.0,
+})
 
 render(<App />, document.getElementById('root'))
 

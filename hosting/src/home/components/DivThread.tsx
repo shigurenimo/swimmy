@@ -46,10 +46,7 @@ const useStyles = makeStyles<Theme>(({ palette, spacing, typography }) => {
       gridAutoFlow: 'column',
       gridAutoColumns: 'max-content',
     },
-    index: {
-      color: palette.primary.light,
-      fontWeight: 'bold',
-    },
+    index: { color: palette.primary.light, fontWeight: 'bold' },
     replyPostCount: { color: purple.A400, paddingLeft: spacing(1) },
     root: {
       display: 'grid',

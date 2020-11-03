@@ -1,12 +1,13 @@
-import { Doc } from './doc'
-import { Ownable } from './ownable'
+import firebase from 'firebase/app'
 
-export type Post = Doc &
-  Ownable & {
-    fileIds: string[]
-    likeCount: number
-    text: string
-    photoURLs: string[]
-    replyPostId: string | null
-    replyPostCount: number
-  }
+export type Post = {
+  createdAt: firebase.firestore.Timestamp
+  fileIds: string[]
+  id: string
+  likeCount: number
+  photoURLs: string[]
+  replyPostCount: number
+  replyPostId: string | null
+  text: string
+  updatedAt: firebase.firestore.Timestamp
+}
