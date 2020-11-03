@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 
 import admin from 'firebase-admin'
+import 'source-map-support/register'
 
 admin.initializeApp()
 
