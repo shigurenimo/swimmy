@@ -30,10 +30,7 @@ const handler = async (
     text: data.text,
   })
 
-  await firestore()
-    .collection(POSTS)
-    .doc(postId)
-    .set(post)
+  await firestore().collection(POSTS).doc(postId).set(post)
 
   // if post is for replying
 
@@ -49,10 +46,7 @@ const handler = async (
   // if post is not for replying
 
   if (!post.replyPostId) {
-    await firestore()
-      .collection(FEEDS)
-      .doc(postId)
-      .set(post)
+    await firestore().collection(FEEDS).doc(postId).set(post)
   }
 
   return { postId: postId }

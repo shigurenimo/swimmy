@@ -12,14 +12,14 @@ const handler = async (_: Request, response: Response) => {
     .limit(1000)
     .get()
 
-  const postIds = postsQuerySnapshot.docs.map(doc => doc.id)
+  const postIds = postsQuerySnapshot.docs.map((doc) => doc.id)
 
   const hostname = 'https://swimmy.io'
 
   const urls: string[] = [
     hostname,
     `${hostname}/threads`,
-    ...postIds.map(id => `${hostname}/threads/${id}`),
+    ...postIds.map((id) => `${hostname}/threads/${id}`),
   ]
 
   const text = urls.join('\n')

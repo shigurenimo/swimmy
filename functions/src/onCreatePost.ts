@@ -30,13 +30,8 @@ const handler = async (
   // If this has an photoURL, replicate this in posts-as-images/{postId}
 
   if (!post.replyPostId && post.fileIds.length !== 0) {
-    await firestore()
-      .collection(PHOTOS)
-      .doc(post.id)
-      .set(post)
+    await firestore().collection(PHOTOS).doc(post.id).set(post)
   }
 }
 
-module.exports = region(US_CENTRAL1)
-  .firestore.document(path)
-  .onCreate(handler)
+module.exports = region(US_CENTRAL1).firestore.document(path).onCreate(handler)

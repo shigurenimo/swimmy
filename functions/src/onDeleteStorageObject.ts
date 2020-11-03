@@ -15,9 +15,7 @@ const handler = async (object: ObjectMetadata, context: EventContext) => {
 
   const fileId = toFileName(object.name)
 
-  const fileRef = firestore()
-    .collection(FILES)
-    .doc(fileId)
+  const fileRef = firestore().collection(FILES).doc(fileId)
 
   const file = await fileRef.get()
 
@@ -26,6 +24,4 @@ const handler = async (object: ObjectMetadata, context: EventContext) => {
   }
 }
 
-module.exports = region(US_CENTRAL1)
-  .storage.object()
-  .onDelete(handler)
+module.exports = region(US_CENTRAL1).storage.object().onDelete(handler)

@@ -6,7 +6,7 @@ import { createFunctionURL } from './utils/createFunctionURL'
 const handler = async () => {
   const names = ['createPost']
 
-  const requests = names.map(name => {
+  const requests = names.map((name) => {
     return axios.request({
       url: createFunctionURL(US_CENTRAL1, name),
       method: 'OPTIONS',

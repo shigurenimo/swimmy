@@ -21,13 +21,9 @@ const handler = async (object: ObjectMetadata) => {
     size: Number(object.size),
   })
 
-  const fileRef = firestore()
-    .collection(FILES)
-    .doc(fileId)
+  const fileRef = firestore().collection(FILES).doc(fileId)
 
   await fileRef.set(file)
 }
 
-module.exports = region(US_CENTRAL1)
-  .storage.object()
-  .onFinalize(handler)
+module.exports = region(US_CENTRAL1).storage.object().onFinalize(handler)

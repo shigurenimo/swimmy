@@ -24,10 +24,7 @@ const handler = async (
   const post = snapshot.data() as Post
 
   for (const fileId of post.fileIds) {
-    await firestore()
-      .collection(FILES)
-      .doc(fileId)
-      .delete()
+    await firestore().collection(FILES).doc(fileId).delete()
   }
 
   if (post.replyPostId) {
@@ -38,17 +35,11 @@ const handler = async (
   }
 
   if (!post.replyPostId) {
-    await firestore()
-      .collection(FEEDS)
-      .doc(post.id)
-      .delete()
+    await firestore().collection(FEEDS).doc(post.id).delete()
   }
 
   if (!post.replyPostId && post.replyPostCount !== 0 && post.text !== '') {
-    await firestore()
-      .collection(THREADS)
-      .doc(post.id)
-      .delete()
+    await firestore().collection(THREADS).doc(post.id).delete()
 
     const responsesQuerySnap = await firestore()
       .collection(THREADS)
@@ -66,13 +57,8 @@ const handler = async (
   }
 
   if (!post.replyPostId && post.fileIds.length !== 0) {
-    await firestore()
-      .collection(PHOTOS)
-      .doc(post.id)
-      .delete()
+    await firestore().collection(PHOTOS).doc(post.id).delete()
   }
 }
 
-module.exports = region(US_CENTRAL1)
-  .firestore.document(path)
-  .onDelete(handler)
+module.exports = region(US_CENTRAL1).firestore.document(path).onDelete(handler)

@@ -24,13 +24,13 @@ const handler = async () => {
     .where('createdAt', '<', createdAt)
     .get()
 
-  const allPosts = firstPostsQuerySnap.docs.map(doc => doc.data() as Post)
+  const allPosts = firstPostsQuerySnap.docs.map((doc) => doc.data() as Post)
 
   const allPhotos = allPosts.filter(isPhoto)
 
   const allThreads = allPosts.filter(isThread)
 
-  const posts = allPosts.filter(post => {
+  const posts = allPosts.filter((post) => {
     const d = post.createdAt.toDate()
 
     return (
@@ -54,10 +54,7 @@ const handler = async () => {
     threadCount: threads.length,
   }
 
-  await firestore()
-    .collection('sizes')
-    .doc(statisticId)
-    .set(statistic)
+  await firestore().collection('sizes').doc(statisticId).set(statistic)
 }
 
 module.exports = region(US_CENTRAL1)

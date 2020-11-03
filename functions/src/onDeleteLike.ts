@@ -16,12 +16,7 @@ const handler = async (
 
   const likeCount = firestore.FieldValue.increment(-1)
 
-  await firestore()
-    .collection(collectionId)
-    .doc(docId)
-    .update({ likeCount })
+  await firestore().collection(collectionId).doc(docId).update({ likeCount })
 }
 
-module.exports = region(US_CENTRAL1)
-  .firestore.document(path)
-  .onDelete(handler)
+module.exports = region(US_CENTRAL1).firestore.document(path).onDelete(handler)

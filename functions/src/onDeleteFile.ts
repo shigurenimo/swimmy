@@ -15,12 +15,7 @@ const handler = async (
 
   const file = snapshot.data() as File
 
-  await storage()
-    .bucket(file.bucketName)
-    .file(file.filePath)
-    .delete()
+  await storage().bucket(file.bucketName).file(file.filePath).delete()
 }
 
-module.exports = region(US_CENTRAL1)
-  .firestore.document(path)
-  .onDelete(handler)
+module.exports = region(US_CENTRAL1).firestore.document(path).onDelete(handler)

@@ -16,13 +16,9 @@ const handler = async (userRecord: auth.UserRecord) => {
       : userRecord.uid,
   })
 
-  const userRef = firestore()
-    .collection(USERS)
-    .doc(userRecord.uid)
+  const userRef = firestore().collection(USERS).doc(userRecord.uid)
 
   await userRef.set(user)
 }
 
-module.exports = region(US_CENTRAL1)
-  .auth.user()
-  .onCreate(handler)
+module.exports = region(US_CENTRAL1).auth.user().onCreate(handler)

@@ -22,9 +22,7 @@ module.exports = functionBuilder.https.onRequest(async (req, resp) => {
 
   const destination = join(tmpdir(), fileId)
 
-  const file = storage()
-    .bucket('umfzwkzvrtpe.appspot.com')
-    .file(filePath)
+  const file = storage().bucket('umfzwkzvrtpe.appspot.com').file(filePath)
 
   await file.download({ destination })
 

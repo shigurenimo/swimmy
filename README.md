@@ -1,4 +1,4 @@
-# Swimmy.io
+# スイミー（Swimmy）
 
 ## Develop
 
