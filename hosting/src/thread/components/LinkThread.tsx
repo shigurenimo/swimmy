@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/styles'
 import React, { FunctionComponent } from 'react'
 import { Link } from 'react-router-dom'
 import { DivPostCounts } from '../../common/DivPostCounts'
-import { Post } from '../../firestore/types/post'
+import { Post } from '../../firebase/types/post'
 import { toDateText } from '../../text/toDateText'
 
 type Props = { post: Post }

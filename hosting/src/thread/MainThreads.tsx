@@ -1,6 +1,6 @@
 import { Divider, Theme, Toolbar } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
-import { analytics } from 'firebase/app'
+import firebase from 'firebase/app'
 import React, { FunctionComponent, useEffect, useState } from 'react'
 import { ButtonMore } from '../common/ButtonMore'
 import { useSearchOrderBy } from '../hooks/useSearchOrderBy'
@@ -31,8 +31,8 @@ export const MainThreads: FunctionComponent = () => {
 
   const onReadNext = () => {
     setLoading(true)
-    setLimit(_limit => _limit + 16)
-    analytics().logEvent('tap_to_read_next_threads')
+    setLimit((_limit) => _limit + 16)
+    firebase.analytics().logEvent('tap_to_read_next_threads')
   }
 
   const skeletons = loading && posts.length === 0 ? [0, 1, 2, 3, 4, 5, 6] : []
@@ -44,13 +44,13 @@ export const MainThreads: FunctionComponent = () => {
       <FragmentHead title={'スレッド'} />
       <Toolbar />
       <ul className={classes.posts}>
-        {skeletons.map(n => (
+        {skeletons.map((n) => (
           <li key={n}>
             <DivSkeleton />
             <Divider />
           </li>
         ))}
-        {posts.map(post => (
+        {posts.map((post) => (
           <li key={post.id}>
             <LinkThread post={post} />
             <Divider />

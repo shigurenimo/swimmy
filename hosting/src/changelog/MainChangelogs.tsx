@@ -21,7 +21,7 @@ export const MainChangelogs: FunctionComponent = () => {
             <Typography>{'読み込み中 ..'}</Typography>
           </li>
         )}
-        {(data?.contents || []).map(content => (
+        {(data?.contents || []).map((content) => (
           <li key={content.id}>
             <CardChangelog changelog={content} />
           </li>

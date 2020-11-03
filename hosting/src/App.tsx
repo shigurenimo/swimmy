@@ -10,7 +10,6 @@ import { ListOthers } from './home/ListOthers'
 import { ListThread } from './home/ListThread'
 import { MainHome } from './home/MainHome'
 import { MainOthers } from './home/MainOthers'
-import { MainThread } from './home/MainThread'
 import { LayoutDrawer } from './layout/LayoutDrawer'
 import { MicroCMSProvider } from './microcms/MicroCMSProvider'
 import { ListPhotos } from './photos/ListPhotos'
@@ -19,8 +18,6 @@ import { ListPrivacy } from './privacy/ListPrivacy'
 import { MainPrivacy } from './privacy/MainPrivacy'
 import { createTheme } from './theme/createTheme'
 import { ListThreads } from './thread/ListThreads'
-import { MainThreadArchive } from './thread/MainThreadArchive'
-import { MainThreadArchives } from './thread/MainThreadArchives'
 import { MainThreads } from './thread/MainThreads'
 import { detectStandalone } from './web/detectStandalone'
 import { useNight } from './web/useNight'
@@ -61,12 +58,6 @@ const App: FunctionComponent = () => {
               <Route exact path={'/threads'}>
                 <ListThreads />
               </Route>
-              <Route exact path={'/archives'}>
-                <ListThreads />
-              </Route>
-              <Route exact path={'/archives/:year/:month'}>
-                <ListThreads />
-              </Route>
               <Route exact path={'/threads/next'}>
                 <ListOthers />
               </Route>
@@ -93,15 +84,6 @@ const App: FunctionComponent = () => {
             </Route>
             <Route exact path={'/threads'}>
               <MainThreads />
-            </Route>
-            <Route exact path={'/archives'}>
-              <MainThreadArchives />
-            </Route>
-            <Route exact path={'/archives/:year/:month'}>
-              <MainThreadArchive />
-            </Route>
-            <Route exact path={'/threads/:threadId'}>
-              <MainThread />
             </Route>
           </Switch>
           {isStandalone && <BottomNavigationDefault />}

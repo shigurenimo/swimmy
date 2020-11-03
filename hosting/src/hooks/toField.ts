@@ -1,4 +1,4 @@
-import { OrderBy } from '../firestore/types/orderBy'
+import { OrderBy } from '../firebase/types/orderBy'
 import { SearchOrderBy } from '../location/types/searchOrderBy'
 
 export const toField = (param: SearchOrderBy): OrderBy => {

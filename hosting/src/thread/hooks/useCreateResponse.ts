@@ -1,10 +1,9 @@
-import { analytics, app } from 'firebase/app'
+import firebase from 'firebase/app'
 import { useEffect, useState } from 'react'
 import { httpsCallable } from 'rxfire/functions'
-import { CREATE_POST } from '../../functions/constants/functions'
-import { US_CENTRAL1 } from '../../functions/constants/region'
-import { CreatePostData } from '../../functions/types/createPostData'
-import { CreatePostResult } from '../../functions/types/createPostResult'
+import { CREATE_POST } from '../../firebase/constants/functions'
+import { US_CENTRAL1 } from '../../firebase/constants/region'
+import { CreatePostData } from '../../firebase/types/createPostData'
 
 export const useCreateResponse = (
   data: CreatePostData,
@@ -15,19 +14,19 @@ export const useCreateResponse = (
   useEffect(() => {
     if (!loading) return
 
-    const createPost = httpsCallable<CreatePostData, CreatePostResult>(
-      app().functions(US_CENTRAL1),
+    const createPost = httpsCallable<CreatePostData, void>(
+      firebase.app().functions(US_CENTRAL1),
       CREATE_POST
     )
 
     const subscription = createPost(data).subscribe(
       () => {
-        analytics().logEvent('tap_to_reply')
+        firebase.analytics().logEvent('tap_to_reply')
         setLoading(false)
         onNext()
       },
-      error => {
-        analytics().logEvent('exception', {
+      (error) => {
+        firebase.analytics().logEvent('exception', {
           description: 'faild to reply',
           fatal: true,
           error: error.toString(),

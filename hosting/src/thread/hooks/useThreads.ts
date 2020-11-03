@@ -1,9 +1,9 @@
-import { firestore } from 'firebase/app'
+import firebase from 'firebase/app'
 import { useEffect, useState } from 'react'
 import { collectionData } from 'rxfire/firestore'
-import { THREADS } from '../../firestore/constants/collection'
-import { DESC } from '../../firestore/constants/order'
-import { Post } from '../../firestore/types/post'
+import { THREADS } from '../../firebase/constants/collection'
+import { DESC } from '../../firebase/constants/order'
+import { Post } from '../../firebase/types/post'
 import { toField } from '../../hooks/toField'
 import { SearchOrderBy } from '../../location/types/searchOrderBy'
 
@@ -29,11 +29,8 @@ export const useThreads = (limit: number, orderBy: SearchOrderBy): [Post[]] => {
     const field = toField(orderBy)
 
     const subscription = collectionData<Post>(
-      firestore()
-        .collection(THREADS)
-        .limit(limit)
-        .orderBy(field, DESC)
-    ).subscribe(_posts => {
+      firebase.firestore().collection(THREADS).limit(limit).orderBy(field, DESC)
+    ).subscribe((_posts) => {
       setPosts(_posts)
     })
 

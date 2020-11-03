@@ -4,7 +4,7 @@ import NearMe from '@material-ui/icons/NearMe'
 import { makeStyles } from '@material-ui/styles'
 import React, { FunctionComponent, useRef, useState } from 'react'
 import { InputFile } from '../../common/InputFile'
-import { File } from '../../firestore/types/file'
+import { File } from '../../firebase/types/file'
 import { useCreatePost } from '../../post/hooks/useCreatePost'
 import { useFile } from '../hooks/useFile'
 
@@ -17,13 +17,13 @@ export const TextFieldPhoto: FunctionComponent = () => {
 
   const [files, setFiles] = useState<File[]>([])
 
-  const [loadingFile, uploadFile] = useFile(file => {
+  const [loadingFile, uploadFile] = useFile((file) => {
     setFiles([...files, file])
   })
 
   const [loadingCreatePost, createPost] = useCreatePost(
     {
-      fileIds: files.map(file => file.id),
+      fileIds: files.map((file) => file.id),
       replyPostId: '',
       text,
     },
@@ -44,7 +44,7 @@ export const TextFieldPhoto: FunctionComponent = () => {
       <div className={classes.input}>
         <InputFile
           inputRef={inputRef}
-          onChange={event => {
+          onChange={(event) => {
             if (event.target.files === null) return
             const [file] = Array.from(event.target.files)
             uploadFile(file)
@@ -54,7 +54,7 @@ export const TextFieldPhoto: FunctionComponent = () => {
           disabled={loadingCreatePost}
           fullWidth
           multiline
-          onChange={event => {
+          onChange={(event) => {
             if (loadingCreatePost) return
             setText(event.target.value)
           }}
@@ -91,7 +91,7 @@ export const TextFieldPhoto: FunctionComponent = () => {
       </div>
       {files.length !== 0 && (
         <div className={classes.images}>
-          {files.map(file => (
+          {files.map((file) => (
             <img
               key={file.id}
               className={classes.img}

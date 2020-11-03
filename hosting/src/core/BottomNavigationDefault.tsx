@@ -10,7 +10,7 @@ import ImageIcon from '@material-ui/icons/Image'
 import InboxIcon from '@material-ui/icons/Inbox'
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz'
 import { makeStyles } from '@material-ui/styles'
-import { analytics } from 'firebase/app'
+import firebase from 'firebase/app'
 import React, { FunctionComponent, useState } from 'react'
 import { useHistory, useLocation } from 'react-router-dom'
 
@@ -46,7 +46,7 @@ export const BottomNavigationDefault: FunctionComponent = () => {
       <Divider />
       <BottomNavigation
         onChange={(_, _value) => {
-          analytics().logEvent('select_content', {
+          firebase.analytics().logEvent('select_content', {
             content_id: _value,
             content_type: 'bottom_navigation',
           })

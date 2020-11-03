@@ -9,8 +9,7 @@
 
 // To learn more about the benefits of this model and instructions on how to
 // opt-in, read https://bit.ly/CRA-PWA
-
-import { analytics } from 'firebase/app'
+import firebase from 'firebase'
 
 const isLocalhost = Boolean(
   window.location.hostname === 'localhost' ||
@@ -67,7 +66,7 @@ export function register(config?: Config) {
 function registerValidSW(swUrl: string, config?: Config) {
   navigator.serviceWorker
     .register(swUrl)
-    .then(registration => {
+    .then((registration) => {
       registration.onupdatefound = () => {
         const installingWorker = registration.installing
         if (installingWorker == null) {
@@ -103,8 +102,8 @@ function registerValidSW(swUrl: string, config?: Config) {
         }
       }
     })
-    .catch(error => {
-      analytics().logEvent('exception', {
+    .catch((error) => {
+      firebase.analytics().logEvent('exception', {
         description: 'Error during service worker registration',
         fatal: true,
         error: error.toString(),
@@ -116,7 +115,7 @@ function registerValidSW(swUrl: string, config?: Config) {
 function checkValidServiceWorker(swUrl: string, config?: Config) {
   // Check if the service worker can be found. If it can't reload the page.
   fetch(swUrl)
-    .then(response => {
+    .then((response) => {
       // Ensure service worker exists, and that we really are getting a JS file.
       const contentType = response.headers.get('content-type')
       if (
@@ -124,7 +123,7 @@ function checkValidServiceWorker(swUrl: string, config?: Config) {
         (contentType != null && contentType.indexOf('javascript') === -1)
       ) {
         // No service worker found. Probably a different app. Reload the page.
-        navigator.serviceWorker.ready.then(registration => {
+        navigator.serviceWorker.ready.then((registration) => {
           registration.unregister().then(() => {
             window.location.reload()
           })
@@ -143,7 +142,7 @@ function checkValidServiceWorker(swUrl: string, config?: Config) {
 
 export function unregister() {
   if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.ready.then(registration => {
+    navigator.serviceWorker.ready.then((registration) => {
       registration.unregister()
     })
   }

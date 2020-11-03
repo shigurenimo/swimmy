@@ -1,9 +1,9 @@
-import { firestore, storage } from 'firebase/app'
+import firebase from 'firebase/app'
 import { useEffect, useState } from 'react'
 import { docData } from 'rxfire/firestore'
 import { put } from 'rxfire/storage'
-import { createId } from '../../firestore/createId'
-import { File as DocFile } from '../../firestore/types/file'
+import { createId } from '../../firebase/createId'
+import { File as DocFile } from '../../firebase/types/file'
 import { filterEmpty } from '../../operators/filterEmpty'
 
 export const useFile = (
@@ -16,17 +16,15 @@ export const useFile = (
 
     const fileId = createId()
 
-    const ref = storage().ref(`posts/${fileId}`)
+    const ref = firebase.storage().ref(`posts/${fileId}`)
 
     put(ref, file).subscribe()
 
     const subscription = docData<DocFile>(
-      firestore()
-        .collection('files')
-        .doc(fileId)
+      firebase.firestore().collection('files').doc(fileId)
     )
       .pipe(filterEmpty())
-      .subscribe(image => {
+      .subscribe((image) => {
         subscription.unsubscribe()
         setFile(null)
         next(image)

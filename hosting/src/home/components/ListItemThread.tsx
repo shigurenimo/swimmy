@@ -1,9 +1,9 @@
 import { ListItem, ListItemText, Theme, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
-import { analytics } from 'firebase/app'
+import firebase from 'firebase/app'
 import React, { Fragment, FunctionComponent } from 'react'
 import { useHistory } from 'react-router-dom'
-import { Post } from '../../firestore/types/post'
+import { Post } from '../../firebase/types/post'
 import { toDateText } from '../../text/toDateText'
 
 type Props = {
@@ -20,7 +20,7 @@ export const ListItemThread: FunctionComponent<Props> = ({
   const history = useHistory()
 
   const onClick = () => {
-    analytics().logEvent('select_content', {
+    firebase.analytics().logEvent('select_content', {
       content_id: post.id,
       content_type: 'thread',
     })

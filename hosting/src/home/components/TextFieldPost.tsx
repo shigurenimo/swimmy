@@ -31,7 +31,7 @@ export const TextFieldPost: FunctionComponent = () => {
         disabled={loading}
         fullWidth
         multiline
-        onChange={event => {
+        onChange={(event) => {
           if (loading) return
           setText(event.target.value)
         }}

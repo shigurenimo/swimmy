@@ -1,15 +1,15 @@
 import { Divider, Theme, Toolbar } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
-import { firestore } from 'firebase/app'
+import firebase from 'firebase/app'
 import React, { Fragment, FunctionComponent } from 'react'
 import {
   useCollectionData,
   useDocumentData,
 } from 'react-firebase-hooks/firestore'
 import { useParams } from 'react-router-dom'
-import { FEEDS, RESPONSES, THREADS } from '../firestore/constants/collection'
-import { ASC } from '../firestore/constants/order'
-import { Post } from '../firestore/types/post'
+import { FEEDS, RESPONSES, THREADS } from '../firebase/constants/collection'
+import { ASC } from '../firebase/constants/order'
+import { Post } from '../firebase/types/post'
 import { DivSkeleton } from '../skeleton/DivSkeleton'
 import { toThreadDescription } from '../text/toThreadDescription'
 import { TextFieldResponse } from '../thread/components/TextFieldResponse'
@@ -23,7 +23,8 @@ export const MainThread: FunctionComponent = () => {
   const { threadId } = useParams<{ threadId: string }>()
 
   const [posts = [], loadingPosts] = useCollectionData<Post>(
-    firestore()
+    firebase
+      .firestore()
       .collection(THREADS)
       .doc(threadId)
       .collection(RESPONSES)
@@ -32,9 +33,7 @@ export const MainThread: FunctionComponent = () => {
   )
 
   const [thread = null, loadingThread] = useDocumentData<Post>(
-    firestore()
-      .collection(FEEDS)
-      .doc(threadId)
+    firebase.firestore().collection(FEEDS).doc(threadId)
   )
 
   const classes = useStyles()
@@ -55,7 +54,7 @@ export const MainThread: FunctionComponent = () => {
       )}
       <Toolbar />
       <ul>
-        {skeletons.map(n => (
+        {skeletons.map((n) => (
           <li key={n}>
             <DivSkeleton />
             <Divider />

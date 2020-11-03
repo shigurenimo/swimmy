@@ -12,7 +12,7 @@ export const MainThreadNotFound: FunctionComponent = () => {
   )
 }
 
-const useStyles = makeStyles<Theme>(({ palette, spacing, typography }) => {
+const useStyles = makeStyles<Theme>(({ spacing }) => {
   return {
     root: {
       display: 'grid',

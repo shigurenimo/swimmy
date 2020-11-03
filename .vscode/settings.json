@@ -1,4 +1,3 @@
 {
-  "deno.enable": false,
-  "eslint.workingDirectories": [{ "mode": "auto" }]
+  "deno.enable": false
 }

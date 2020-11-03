@@ -9,7 +9,7 @@ export const DivThreadImages: FunctionComponent<Props> = ({ fileIds }) => {
 
   return (
     <div className={classes.root}>
-      {fileIds.map(fileId => (
+      {fileIds.map((fileId) => (
         <Paper key={fileId}>
           <img
             alt={fileId}
@@ -22,7 +22,7 @@ export const DivThreadImages: FunctionComponent<Props> = ({ fileIds }) => {
   )
 }
 
-const useStyles = makeStyles<Theme>(({ breakpoints, spacing }) => {
+const useStyles = makeStyles<Theme>(({ spacing }) => {
   return {
     img: { width: `${100}%`, borderRadius: 4, verticalAlign: 'bottom' },
     root: {

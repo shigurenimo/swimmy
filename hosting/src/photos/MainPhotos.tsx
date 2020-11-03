@@ -1,6 +1,6 @@
 import { Theme, Toolbar } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
-import { analytics } from 'firebase/app'
+import firebase from 'firebase/app'
 import React, { FunctionComponent, useEffect, useState } from 'react'
 import { ButtonMore } from '../common/ButtonMore'
 import { useSearchOrderBy } from '../hooks/useSearchOrderBy'
@@ -32,8 +32,8 @@ export const MainPhotos: FunctionComponent = () => {
 
   const onReadNext = () => {
     setLoading(true)
-    setLimit(_limit => _limit + 16)
-    analytics().logEvent('tap_to_read_next_photos')
+    setLimit((_limit) => _limit + 16)
+    firebase.analytics().logEvent('tap_to_read_next_photos')
   }
 
   const hasNext = posts.length !== 0 && limit < 400
@@ -47,7 +47,7 @@ export const MainPhotos: FunctionComponent = () => {
       <Toolbar />
       <TextFieldPhoto />
       <ul className={classes.ul}>
-        {posts.map(post => (
+        {posts.map((post) => (
           <li key={post.id}>
             <CardImage post={post} />
           </li>

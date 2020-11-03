@@ -1,9 +1,9 @@
-import { firestore } from 'firebase/app'
+import firebase from 'firebase/app'
 import { useEffect, useState } from 'react'
 import { collectionData } from 'rxfire/firestore'
-import { THREADS } from '../../firestore/constants/collection'
-import { DESC } from '../../firestore/constants/order'
-import { Post } from '../../firestore/types/post'
+import { THREADS } from '../../firebase/constants/collection'
+import { DESC } from '../../firebase/constants/order'
+import { Post } from '../../firebase/types/post'
 
 let __POSTS__: Post[] = []
 
@@ -12,11 +12,12 @@ export const useHomeThreads = (limit: number): [Post[]] => {
 
   useEffect(() => {
     const subscription = collectionData<Post>(
-      firestore()
+      firebase
+        .firestore()
         .collection(THREADS)
         .limit(limit)
         .orderBy('updatedAt', DESC)
-    ).subscribe(_posts => {
+    ).subscribe((_posts) => {
       setPosts(_posts)
     })
     return () => subscription.unsubscribe()

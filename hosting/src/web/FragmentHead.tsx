@@ -1,4 +1,4 @@
-import { analytics } from 'firebase/app'
+import firebase from 'firebase/app'
 import { FunctionComponent, useEffect } from 'react'
 
 type Props = {
@@ -59,11 +59,9 @@ export const FragmentHead: FunctionComponent<Props> = ({
       }
     }
 
-    if (title === '') {
-      return
-    }
+    if (title === '') return
 
-    analytics().logEvent('page_view', {
+    firebase.analytics().logEvent('page_view', {
       page_title: _title,
       page_location: window.location.pathname,
       page_path: window.location.pathname,

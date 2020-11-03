@@ -1,9 +1,9 @@
 import { Theme, Toolbar } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
-import { firestore } from 'firebase/app'
+import firebase from 'firebase/app'
 import React, { FunctionComponent } from 'react'
 import { useCollectionData } from 'react-firebase-hooks/firestore'
-import { Post } from '../firestore/types/post'
+import { Post } from '../firebase/types/post'
 import { FragmentHead } from '../web/FragmentHead'
 import { useAnalytics } from '../web/useAnalytics'
 import { CardArchive } from './components/CardArchive'
@@ -13,7 +13,8 @@ export const MainThreadArchives: FunctionComponent = () => {
   const classes = useStyles()
 
   const [threads = []] = useCollectionData<Post>(
-    firestore()
+    firebase
+      .firestore()
       .collection('posts-as-thread')
       .orderBy('replyPostCount', 'desc')
       .limit(600)
@@ -28,7 +29,7 @@ export const MainThreadArchives: FunctionComponent = () => {
       <FragmentHead title={'過去ログ'} />
       <Toolbar />
       <ul className={classes.archives}>
-        {archives.map(archive => (
+        {archives.map((archive) => (
           <li key={`${archive.year}-${archive.month}`}>
             <CardArchive archive={archive} />
           </li>

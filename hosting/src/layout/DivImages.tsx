@@ -9,7 +9,7 @@ export const DivImages: FunctionComponent<Props> = ({ fileIds }) => {
 
   return (
     <div className={classes.root}>
-      {fileIds.map(fileId => (
+      {fileIds.map((fileId) => (
         <Paper key={fileId}>
           <img
             className={classes.img}

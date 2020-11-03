@@ -1,6 +1,8 @@
-import { firestore } from 'firebase/app'
+import firebase from 'firebase/app'
 
-export const toDateTimeText = (timestamp: firestore.Timestamp): string => {
+export const toDateTimeText = (
+  timestamp: firebase.firestore.Timestamp
+): string => {
   const date = timestamp.toDate()
 
   const Y = date.getFullYear()

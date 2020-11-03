@@ -24,7 +24,7 @@ export const useContents = <T>(resource: string) => {
         setData(response)
         setLoading(false)
       },
-      err => {
+      (err) => {
         setError(err)
         setLoading(false)
       }

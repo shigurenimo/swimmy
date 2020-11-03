@@ -1,9 +1,9 @@
 import { Card, CardActionArea, CardMedia, Theme } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
-import { analytics } from 'firebase/app'
+import firebase from 'firebase/app'
 import React, { FunctionComponent } from 'react'
 import { Link } from 'react-router-dom'
-import { Post } from '../../firestore/types/post'
+import { Post } from '../../firebase/types/post'
 
 type Props = { post: Post }
 
@@ -14,7 +14,7 @@ export const CardImage: FunctionComponent<Props> = ({ post }) => {
     <Link
       to={`/threads/${post.id}`}
       onClick={() => {
-        analytics().logEvent('select_content', {
+        firebase.analytics().logEvent('select_content', {
           content_id: post.id,
           content_type: 'photo',
         })

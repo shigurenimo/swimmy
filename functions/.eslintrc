@@ -1,15 +1,11 @@
 {
   "extends": [
-    "react-app",
     "eslint:recommended",
     "plugin:@typescript-eslint/eslint-recommended",
     "plugin:@typescript-eslint/recommended",
     "prettier/@typescript-eslint"
   ],
-  "plugins": [
-    "@typescript-eslint",
-    "prettier"
-  ],
+  "plugins": ["@typescript-eslint", "prettier"],
   "parser": "@typescript-eslint/parser",
   "env": {
     "es6": true,
@@ -23,4 +19,3 @@
     "prettier/prettier": 2
   }
 }
-

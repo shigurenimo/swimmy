@@ -1,10 +1,10 @@
 import { Theme, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
-import { analytics } from 'firebase/app'
+import firebase from 'firebase/app'
 import React, { FunctionComponent } from 'react'
 import { Link } from 'react-router-dom'
 import { DivPostCounts } from '../../common/DivPostCounts'
-import { Post } from '../../firestore/types/post'
+import { Post } from '../../firebase/types/post'
 import { DivImages } from '../../layout/DivImages'
 import { toDateText } from '../../text/toDateText'
 
@@ -21,7 +21,7 @@ export const LinkPost: FunctionComponent<Props> = ({ inProgress, post }) => {
       <div
         className={classes.data}
         onClick={() => {
-          analytics().logEvent('select_content', {
+          firebase.analytics().logEvent('select_content', {
             content_id: post.id,
             content_type: 'post',
           })
@@ -40,7 +40,7 @@ export const LinkPost: FunctionComponent<Props> = ({ inProgress, post }) => {
   )
 }
 
-const useStyles = makeStyles<Theme>(({ palette, spacing, typography }) => {
+const useStyles = makeStyles<Theme>(({ spacing, typography }) => {
   return {
     root: {
       borderRadius: 0,

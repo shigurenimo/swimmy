@@ -1,4 +1,4 @@
-import { Post } from '../../firestore/types/post'
+import { Post } from '../../firebase/types/post'
 import { Archive } from '../types/archive'
 
 export const toArchives = (posts: Post[]) => {
@@ -7,7 +7,7 @@ export const toArchives = (posts: Post[]) => {
   for (const post of posts) {
     const date = post.createdAt.toDate()
 
-    const archive = archives.find(value => {
+    const archive = archives.find((value) => {
       return (
         value.year === date.getFullYear() && value.month === date.getMonth()
       )

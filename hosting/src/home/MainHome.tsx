@@ -1,6 +1,6 @@
 import { Divider, Theme, Toolbar } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
-import { analytics } from 'firebase/app'
+import firebase from 'firebase/app'
 import React, { FunctionComponent, useEffect, useState } from 'react'
 import { ButtonMore } from '../common/ButtonMore'
 import { DivSkeleton } from '../skeleton/DivSkeleton'
@@ -29,8 +29,8 @@ export const MainHome: FunctionComponent = () => {
 
   const onReadNext = () => {
     setLoading(true)
-    setLimit(_limit => _limit + 32)
-    analytics().logEvent('tap_to_read_next_posts')
+    setLimit((_limit) => _limit + 32)
+    firebase.analytics().logEvent('tap_to_read_next_posts')
   }
 
   const skeletons = loading && posts.length === 0 ? [0, 1, 2, 3, 4, 5, 6] : []
@@ -43,13 +43,13 @@ export const MainHome: FunctionComponent = () => {
       <Toolbar />
       <TextFieldPost />
       <ul className={classes.posts}>
-        {skeletons.map(n => (
+        {skeletons.map((n) => (
           <li key={n}>
             <DivSkeleton />
             <Divider />
           </li>
         ))}
-        {posts.map(post => (
+        {posts.map((post) => (
           <li key={post.id}>
             <LinkPost key={post.id} post={post} />
             <Divider />

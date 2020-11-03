@@ -1,7 +1,7 @@
-import { firestore } from 'firebase/app'
+import firebase from 'firebase/app'
 import { getTimeDifference } from './helpers/getTimeDifference'
 
-export const toDateText = (timestamp: firestore.Timestamp): string => {
+export const toDateText = (timestamp: firebase.firestore.Timestamp): string => {
   const date = timestamp.toDate()
 
   const Y = date.getFullYear()

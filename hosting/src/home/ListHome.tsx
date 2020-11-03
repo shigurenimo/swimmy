@@ -1,5 +1,5 @@
 import { Divider, List, ListItem, ListItemText } from '@material-ui/core'
-import { analytics } from 'firebase/app'
+import firebase from 'firebase/app'
 import React, { FunctionComponent, useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { ListItemSkeleton } from '../skeleton/ListItemSkeleton'
@@ -23,7 +23,7 @@ export const ListHome: FunctionComponent = () => {
 
   const onLoadNext = () => {
     setLoading(true)
-    setLimit(_limit => _limit + 24)
+    setLimit((_limit) => _limit + 24)
   }
 
   const skeletons = loading && posts.length === 0 ? [0, 1, 2, 3, 4, 5, 6] : []
@@ -31,7 +31,7 @@ export const ListHome: FunctionComponent = () => {
   const renderNext = posts.length !== 0 && limit < 200
 
   const onClick = (content_id: string) => () => {
-    analytics().logEvent('select_content', {
+    firebase.analytics().logEvent('select_content', {
       content_id,
       content_type: 'list_item',
       current_screen_name: window.location.pathname,
@@ -64,10 +64,10 @@ export const ListHome: FunctionComponent = () => {
       <Divider />
       <div style={{ height: 40 }} />
       <Divider />
-      {skeletons.map(n => (
+      {skeletons.map((n) => (
         <ListItemSkeleton key={n} />
       ))}
-      {posts.map(post => (
+      {posts.map((post) => (
         <ListItemThread
           key={post.id}
           post={post}
@@ -79,7 +79,7 @@ export const ListHome: FunctionComponent = () => {
           button
           disabled={loading}
           onClick={() => {
-            analytics().logEvent('tap_to_read_next_threads', {
+            firebase.analytics().logEvent('tap_to_read_next_threads', {
               current_screen_name: window.location.pathname,
             })
           }}

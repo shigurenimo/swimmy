@@ -1,5 +1,5 @@
 import { Divider, List, ListItem, ListItemText } from '@material-ui/core'
-import { analytics } from 'firebase/app'
+import firebase from 'firebase/app'
 import React, { FunctionComponent, useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { ListItemSkeleton } from '../skeleton/ListItemSkeleton'
@@ -24,8 +24,8 @@ export const ListThread: FunctionComponent = () => {
   const onReadNext = () => {
     if (loading) return
     setLoading(true)
-    setLimit(_limit => _limit + 24)
-    analytics().logEvent('tap_to_read_next_threads')
+    setLimit((_limit) => _limit + 24)
+    firebase.analytics().logEvent('tap_to_read_next_threads')
   }
 
   const skeletons = loading && posts.length === 0 ? [0, 1, 2, 3, 4, 5, 6] : []
@@ -60,10 +60,10 @@ export const ListThread: FunctionComponent = () => {
       <Divider />
       <div style={{ height: 40 }} />
       <Divider />
-      {skeletons.map(n => (
+      {skeletons.map((n) => (
         <ListItemSkeleton key={n} />
       ))}
-      {posts.map(post => (
+      {posts.map((post) => (
         <ListItemThread
           key={post.id}
           post={post}

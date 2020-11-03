@@ -32,7 +32,7 @@ export const TextFieldResponse: FunctionComponent<Props> = ({ threadId }) => {
         disabled={inProgress}
         fullWidth
         multiline
-        onChange={event => {
+        onChange={(event) => {
           if (inProgress) return
           setText(event.target.value)
         }}

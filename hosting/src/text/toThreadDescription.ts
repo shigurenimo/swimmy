@@ -1,4 +1,4 @@
-import { Post } from '../firestore/types/post'
+import { Post } from '../firebase/types/post'
 import { toDateTimeText } from './toDateTimeText'
 
 export const toThreadDescription = (post: Post): string => {
