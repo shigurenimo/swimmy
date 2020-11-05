@@ -16,7 +16,10 @@
         "headers": [{ "key": "Cache-Control", "value": "no-store" }]
       }
     ],
-    "rewrites": [{ "source": "**", "function": "images" }]
+    "rewrites": [
+      { "source": "/images/**", "function": "images" },
+      { "source": "**", "destination": "/index.html" }
+    ]
   },
   "database": {
     "rules": "database.rules.json"

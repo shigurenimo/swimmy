@@ -5,7 +5,7 @@ import { render } from 'react-dom'
 import App from './App'
 import './firebase/initializeApp'
 import './index.css'
-import { register } from './serviceWorker'
+import { register } from './serviceWorkerRegistration'
 
 init({
   dsn:
@@ -17,7 +17,7 @@ init({
 render(<App />, document.getElementById('root'))
 
 register({
-  onUpdate(registration) {
+  onUpdate(registration: ServiceWorkerRegistration) {
     if (!registration.waiting) return
 
     registration.waiting.addEventListener('statechange', listener)

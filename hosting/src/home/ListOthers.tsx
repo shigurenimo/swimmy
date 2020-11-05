@@ -27,6 +27,10 @@ export const ListOthers: FunctionComponent = () => {
         <ListItemText primary={'その他'} />
       </ListItem>
       <Divider />
+      <ListItem disabled>
+        <ListItemText primary={'バージョン 6.0.0'} />
+      </ListItem>
+      <Divider />
     </List>
   )
 }
