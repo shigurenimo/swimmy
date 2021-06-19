@@ -1,5 +1,5 @@
 import firebase from 'firebase/app'
-import { getTimeDifference } from './helpers/getTimeDifference'
+import { getTimeDifference } from './getTimeDifference'
 
 export const toDateText = (timestamp: firebase.firestore.Timestamp): string => {
   const date = timestamp.toDate()

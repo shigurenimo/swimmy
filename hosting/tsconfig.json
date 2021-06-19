@@ -13,8 +13,10 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "react",
-    "noFallthroughCasesInSwitch": true
+    "jsx": "react-jsx",
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitAny": false,
+    "baseUrl": "."
   },
   "include": ["src"]
 }

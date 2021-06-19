@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { interval } from 'rxjs'
-import { detectNight } from './detectNight'
+import { detectNight } from '../utitls/detectNight'
 
 export const useNight = () => {
   const [state, setState] = useState(detectNight)

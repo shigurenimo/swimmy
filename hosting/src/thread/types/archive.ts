@@ -1,4 +1,4 @@
-import { Post } from '../../firebase/types/post'
+import { Post } from '../../core/types/post'
 
 export type Archive = {
   year: number

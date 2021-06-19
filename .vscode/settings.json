@@ -1,3 +1,21 @@
 {
+  "typescript.preferences.importModuleSpecifier": "non-relative",
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "files.exclude": {
+    "**/node_modules": true,
+    ".idea": true,
+    ".husky": true,
+    ".firebase": true,
+    ".tsbuildinfo": true,
+    "yarn-error.log": true,
+    "yarn.lock": true
+  },
+  "search.exclude": {
+    "yarn.lock": true
+  },
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  },
   "deno.enable": false
 }

@@ -1,4 +1,4 @@
-import { Post } from '../../firebase/types/post'
+import { Post } from '../../core/types/post'
 import { Archive } from '../types/archive'
 
 export const toArchives = (posts: Post[]) => {

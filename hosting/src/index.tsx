@@ -3,8 +3,9 @@ import { Integrations } from '@sentry/tracing'
 import React from 'react'
 import { render } from 'react-dom'
 import App from './App'
-import './firebase/initializeApp'
+import './core/utitls/initializeApp'
 import './index.css'
+import reportWebVitals from './reportWebVitals'
 import { register } from './serviceWorkerRegistration'
 
 init({
@@ -36,6 +37,7 @@ const listener = async (
   window.location.reload()
 }
 
-if (module.hot) {
-  module.hot.accept()
-}
+// If you want to start measuring performance in your app, pass a function
+// to log results (for example: reportWebVitals(console.log))
+// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
+reportWebVitals()

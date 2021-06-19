@@ -18,14 +18,14 @@ export const LayoutDrawer: FunctionComponent = ({ children }) => {
   )
 }
 
-const useStyles = makeStyles<Theme>(({ breakpoints, shadows, spacing }) => {
+const useStyles = makeStyles<Theme>((theme) => {
   return {
     drawerPaper: {
       height: '100%',
       position: 'fixed',
-      width: spacing(40),
+      width: theme.spacing(60),
       zIndex: 1300 - 1,
     },
-    root: { [breakpoints.down('sm')]: { display: 'none' } },
+    root: { [theme.breakpoints.down('sm')]: { display: 'none' } },
   }
 })

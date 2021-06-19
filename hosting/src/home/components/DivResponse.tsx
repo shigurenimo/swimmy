@@ -2,9 +2,9 @@ import { Theme, Typography } from '@material-ui/core'
 import { purple } from '@material-ui/core/colors'
 import { makeStyles } from '@material-ui/styles'
 import React, { FunctionComponent } from 'react'
-import { DivImages } from '../../app/DivImages'
-import { Post } from '../../firebase/types/post'
-import { toDateText } from '../../text/toDateText'
+import { BoxImages } from '../../core/components/DivImages'
+import { Post } from '../../core/types/post'
+import { toDateText } from '../../core/utitls/toDateText'
 
 type Props = {
   post: Post
@@ -35,7 +35,7 @@ export const DivResponse: FunctionComponent<Props> = ({ post, index }) => {
       <Typography className={classes.text} variant={'body2'}>
         {post.text}
       </Typography>
-      {post.fileIds.length !== 0 && <DivImages fileIds={post.fileIds} />}
+      {post.fileIds.length !== 0 && <BoxImages fileIds={post.fileIds} />}
     </div>
   )
 }

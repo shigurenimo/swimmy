@@ -2,8 +2,8 @@ import { Theme, Typography } from '@material-ui/core'
 import { purple } from '@material-ui/core/colors'
 import { makeStyles } from '@material-ui/styles'
 import React, { FunctionComponent } from 'react'
-import { Post } from '../../firebase/types/post'
-import { toDateText } from '../../text/toDateText'
+import { Post } from '../../core/types/post'
+import { toDateText } from '../../core/utitls/toDateText'
 import { DivThreadImages } from './DivThreadImages'
 
 type Props = { post: Post }

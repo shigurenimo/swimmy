@@ -1,11 +1,10 @@
 {
   "name": "swimmy.io",
-  "version": "6.0.0",
+  "version": "7.0.0",
   "private": true,
   "scripts": {
     "start": "emulators:start"
   },
-  "author": "reiwa <reiwa@outlook.com.vn>",
   "license": "MIT",
   "workspaces": [
     "functions",
@@ -20,11 +19,25 @@
     "firebase-tools": "^8.14.1",
     "husky": "^4.3.0",
     "prettier": "^2.1.2",
-    "pretty-quick": "^3.1.0"
+    "prettier-plugin-organize-imports": "2.1.0",
+    "pretty-quick": "^3.1.0",
+    "typescript": "4.2.4"
   },
   "husky": {
     "hooks": {
       "pre-commit": "pretty-quick --staged"
     }
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   }
 }

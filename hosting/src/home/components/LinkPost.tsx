@@ -3,10 +3,10 @@ import { makeStyles } from '@material-ui/styles'
 import firebase from 'firebase/app'
 import React, { FunctionComponent } from 'react'
 import { Link } from 'react-router-dom'
-import { DivImages } from '../../app/DivImages'
 import { DivPostCounts } from '../../common/DivPostCounts'
-import { Post } from '../../firebase/types/post'
-import { toDateText } from '../../text/toDateText'
+import { BoxImages } from '../../core/components/DivImages'
+import { Post } from '../../core/types/post'
+import { toDateText } from '../../core/utitls/toDateText'
 
 type Props = {
   inProgress?: boolean
@@ -35,7 +35,7 @@ export const LinkPost: FunctionComponent<Props> = ({ inProgress, post }) => {
       <Typography className={classes.text} variant={'body2'}>
         {post.text}
       </Typography>
-      {post.fileIds.length !== 0 && <DivImages fileIds={post.fileIds} />}
+      {post.fileIds.length !== 0 && <BoxImages fileIds={post.fileIds} />}
     </Link>
   )
 }

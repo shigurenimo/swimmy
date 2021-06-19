@@ -4,7 +4,7 @@ import React, { FunctionComponent } from 'react'
 
 type Props = { fileIds: string[] }
 
-export const DivImages: FunctionComponent<Props> = ({ fileIds }) => {
+export const BoxImages: FunctionComponent<Props> = ({ fileIds }) => {
   const classes = useStyles()
 
   return (

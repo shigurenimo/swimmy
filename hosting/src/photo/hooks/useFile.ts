@@ -2,9 +2,9 @@ import firebase from 'firebase/app'
 import { useEffect, useState } from 'react'
 import { docData } from 'rxfire/firestore'
 import { put } from 'rxfire/storage'
-import { createId } from '../../firebase/createId'
-import { File as DocFile } from '../../firebase/types/file'
-import { filterEmpty } from '../../post/helpers/filterEmpty'
+import { File as DocFile } from '../../core/types/file'
+import { createId } from '../../core/utitls/createId'
+import { filterEmpty } from '../../post/utils/filterEmpty'
 
 export const useFile = (
   next: (image: DocFile) => void

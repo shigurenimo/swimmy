@@ -2,9 +2,9 @@ import firebase from 'firebase/app'
 import { useEffect, useState } from 'react'
 import { collectionData } from 'rxfire/firestore'
 import { toField } from '../../common/hooks/toField'
-import { PHOTOS } from '../../firebase/constants/collection'
-import { DESC } from '../../firebase/constants/order'
-import { Post } from '../../firebase/types/post'
+import { PHOTOS } from '../../core/constants/collection'
+import { DESC } from '../../core/constants/order'
+import { Post } from '../../core/types/post'
 import { SearchOrderBy } from '../../post/types/searchOrderBy'
 
 let __POSTS__: Post[] = []

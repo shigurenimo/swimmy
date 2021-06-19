@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 
 type Props = { disabled: boolean }
 
-export const ImgLogo: FunctionComponent<Props> = ({ disabled }) => {
+export const ImageLogo: FunctionComponent<Props> = ({ disabled }) => {
   const classes = useStyles()
 
   return (

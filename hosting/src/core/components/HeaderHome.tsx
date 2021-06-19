@@ -14,11 +14,11 @@ import { makeStyles } from '@material-ui/styles'
 import firebase from 'firebase/app'
 import React, { FunctionComponent, useState } from 'react'
 import { useHistory } from 'react-router-dom'
-import { detectStandalone } from '../app/detectStandalone'
+import { detectStandalone } from '../utitls/detectStandalone'
 import { DialogMenu } from './DialogMenu'
-import { ImgLogo } from './ImgLogo'
+import { ImageLogo } from './ImageLogo'
 
-export const AppBarDefault: FunctionComponent = () => {
+export const HeaderHome: FunctionComponent = () => {
   const [openDialog, setOpenDialog] = useState(false)
 
   const classes = useStyles()
@@ -64,7 +64,7 @@ export const AppBarDefault: FunctionComponent = () => {
         elevation={triggerElevation ? 1 : 0}
       >
         <Toolbar className={classes.toolbar}>
-          <ImgLogo disabled={!isFirst} />
+          <ImageLogo disabled={!isFirst} />
           {!isFirst && (
             <IconButton onClick={onGoBack}>
               <KeyboardReturnIcon />

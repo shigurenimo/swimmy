@@ -9,8 +9,8 @@ import {
 import { makeStyles } from '@material-ui/styles'
 import React, { FunctionComponent } from 'react'
 import { Link } from 'react-router-dom'
-import { FragmentHead } from '../app/FragmentHead'
-import { useAnalytics } from '../app/useAnalytics'
+import { FragmentHead } from 'src/core/components/FragmentHead'
+import { useAnalytics } from 'src/core/hooks/useAnalytics'
 
 export const MainOthers: FunctionComponent = () => {
   useAnalytics()

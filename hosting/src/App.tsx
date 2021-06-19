@@ -2,96 +2,83 @@ import { CssBaseline } from '@material-ui/core'
 import { ThemeProvider } from '@material-ui/styles'
 import React, { FunctionComponent } from 'react'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
-import { AppBarDefault } from './app/AppBarDefault'
-import { BottomNavigationDefault } from './app/BottomNavigationDefault'
-import { detectStandalone } from './app/detectStandalone'
-import { LayoutDrawer } from './app/LayoutDrawer'
-import { useNight } from './app/useNight'
-import { MainChangelogs } from './changelog/MainChangelogs'
-import { ListHome } from './home/ListHome'
-import { ListOthers } from './home/ListOthers'
-import { ListThread } from './home/ListThread'
-import { MainHome } from './home/MainHome'
-import { MainOthers } from './home/MainOthers'
-import { MainThread } from './home/MainThread'
-import { MicroCMSProvider } from './microcms/MicroCMSProvider'
-import { ListPhotos } from './photos/ListPhotos'
-import { MainPhotos } from './photos/MainPhotos'
-import { ListPrivacy } from './privacy/ListPrivacy'
-import { MainPrivacy } from './privacy/MainPrivacy'
-import { createTheme } from './theme/createTheme'
-import { ListThreads } from './thread/ListThreads'
-import { MainThreads } from './thread/MainThreads'
+import { BottomNavigationDefault } from 'src/core/components/BottomNavigationDefault'
+import { HeaderHome } from 'src/core/components/HeaderHome'
+import { LayoutDrawer } from 'src/core/components/LayoutDrawer'
+import { useNight } from 'src/core/hooks/useNight'
+import { createAppTheme } from 'src/core/utitls/createTheme'
+import { detectStandalone } from 'src/core/utitls/detectStandalone'
+import { ListHome } from 'src/home/ListHome'
+import { ListOthers } from 'src/home/ListOthers'
+import { ListThread } from 'src/home/ListThread'
+import { MainHome } from 'src/home/MainHome'
+import { MainOthers } from 'src/home/MainOthers'
+import { MainThread } from 'src/home/MainThread'
+import { ListPhotos } from 'src/photo/ListPhotos'
+import { MainPhotos } from 'src/photo/MainPhotos'
+import { ListPrivacy } from 'src/privacy/ListPrivacy'
+import { MainPrivacy } from 'src/privacy/MainPrivacy'
+import { ListThreads } from 'src/thread/ListThreads'
+import { MainThreads } from 'src/thread/MainThreads'
 
 const App: FunctionComponent = () => {
   const mode = useNight()
 
-  const theme = createTheme(mode)
+  const theme = createAppTheme(mode)
 
   const isStandalone = detectStandalone()
 
   return (
-    <MicroCMSProvider
-      apiKey={'a21c7b99-9dfd-47df-817c-06168d3a1026'}
-      serviceId={'reiwa'}
-    >
-      <ThemeProvider theme={theme}>
-        <CssBaseline />
-        <BrowserRouter>
-          <AppBarDefault />
-          <LayoutDrawer>
-            <Switch>
-              <Route exact path={'/'}>
-                <ListHome />
-              </Route>
-              <Route exact path={'/changelogs'}>
-                <ListOthers />
-              </Route>
-              <Route exact path={'/photos'}>
-                <ListPhotos />
-              </Route>
-              <Route exact path={'/others'}>
-                <ListOthers />
-              </Route>
-              <Route exact path={'/privacy'}>
-                <ListPrivacy />
-              </Route>
-              <Route exact path={'/threads'}>
-                <ListThreads />
-              </Route>
-              <Route exact path={'/threads/:threadId'}>
-                <ListThread />
-              </Route>
-            </Switch>
-          </LayoutDrawer>
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <BrowserRouter>
+        <HeaderHome />
+        <LayoutDrawer>
           <Switch>
             <Route exact path={'/'}>
-              <MainHome />
-            </Route>
-            <Route exact path={'/changelogs'}>
-              <MainChangelogs />
+              <ListHome />
             </Route>
             <Route exact path={'/photos'}>
-              <MainPhotos />
+              <ListPhotos />
             </Route>
             <Route exact path={'/others'}>
-              <MainOthers />
+              <ListOthers />
             </Route>
             <Route exact path={'/privacy'}>
-              <MainPrivacy />
+              <ListPrivacy />
             </Route>
             <Route exact path={'/threads'}>
-              <MainThreads />
+              <ListThreads />
             </Route>
             <Route exact path={'/threads/:threadId'}>
-              <MainThread />
+              <ListThread />
             </Route>
           </Switch>
-          {isStandalone && <BottomNavigationDefault />}
-        </BrowserRouter>
-        <CssBaseline />
-      </ThemeProvider>
-    </MicroCMSProvider>
+        </LayoutDrawer>
+        <Switch>
+          <Route exact path={'/'}>
+            <MainHome />
+          </Route>
+          <Route exact path={'/photos'}>
+            <MainPhotos />
+          </Route>
+          <Route exact path={'/others'}>
+            <MainOthers />
+          </Route>
+          <Route exact path={'/privacy'}>
+            <MainPrivacy />
+          </Route>
+          <Route exact path={'/threads'}>
+            <MainThreads />
+          </Route>
+          <Route exact path={'/threads/:threadId'}>
+            <MainThread />
+          </Route>
+        </Switch>
+        {isStandalone && <BottomNavigationDefault />}
+      </BrowserRouter>
+      <CssBaseline />
+    </ThemeProvider>
   )
 }
 

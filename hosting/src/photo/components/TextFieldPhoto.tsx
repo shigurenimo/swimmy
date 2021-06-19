@@ -4,7 +4,7 @@ import NearMe from '@material-ui/icons/NearMe'
 import { makeStyles } from '@material-ui/styles'
 import React, { FunctionComponent, useRef, useState } from 'react'
 import { InputFile } from '../../common/InputFile'
-import { File } from '../../firebase/types/file'
+import { File } from '../../core/types/file'
 import { useCreatePost } from '../../post/hooks/useCreatePost'
 import { useFile } from '../hooks/useFile'
 
