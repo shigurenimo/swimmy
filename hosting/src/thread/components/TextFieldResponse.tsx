@@ -56,12 +56,12 @@ export const TextFieldResponse: FunctionComponent<Props> = ({ threadId }) => {
   )
 }
 
-const useStyles = makeStyles<Theme>(({ spacing }) => {
+const useStyles = makeStyles<Theme>((theme) => {
   return {
     actions: { textAlign: 'right' },
     buttonRoot: {
-      paddingLeft: spacing(1),
-      paddingRight: spacing(1),
+      paddingLeft: theme.spacing(1),
+      paddingRight: theme.spacing(1),
       minWidth: 0,
     },
     buttonProgress: {
@@ -75,19 +75,19 @@ const useStyles = makeStyles<Theme>(({ spacing }) => {
     root: {
       display: 'grid',
       gridTemplateColumns: '1fr auto',
-      columnGap: spacing(2),
-      paddingLeft: spacing(2),
-      paddingRight: spacing(2),
+      columnGap: theme.spacing(2),
+      paddingLeft: theme.spacing(2),
+      paddingRight: theme.spacing(2),
     },
     submitButton: { position: 'relative' },
     img: { width: `${100}%`, borderRadius: 4 },
     images: {
       display: 'grid',
-      gridColumnGap: `${spacing(2)}px`,
-      gridRowGap: `${spacing(2)}px`,
+      gridColumnGap: theme.spacing(2),
+      gridRowGap: theme.spacing(2),
       gridTemplateColumns: 'repeat(4, 1fr)',
-      paddingLeft: spacing(1),
-      paddingRight: spacing(1),
+      paddingLeft: theme.spacing(1),
+      paddingRight: theme.spacing(1),
       width: '100%',
     },
   }

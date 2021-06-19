@@ -2864,7 +2864,7 @@
   resolved "https://registry.yarnpkg.com/@jsdevtools/ono/-/ono-7.1.3.tgz#9df03bbd7c696a5c58885c34aa06da41c8543796"
   integrity sha512-4JQNk+3mVzK3xh2rqd6RB4J46qUR19azEHBneZyTZM+c456qOrbbM/5xcR8huNCCcbVt7+UmizG6GuUvPvKUYg==
 
-"@material-ui/core@^5.0.0-alpha.37":
+"@material-ui/core@next":
   version "5.0.0-alpha.37"
   resolved "https://registry.yarnpkg.com/@material-ui/core/-/core-5.0.0-alpha.37.tgz#f2b526056ecceaa1c95083838c3c66cc3f00a106"
   integrity sha512-6jE8WbEM9EIzSBzQqcEeoU+Y15setZW7fNvoIn44tqvQy75ATwIziPIKThCOtMtc1X7D8SpG4EXEwsFzMlGgcw==
@@ -2885,14 +2885,14 @@
     react-is "^17.0.0"
     react-transition-group "^4.4.0"
 
-"@material-ui/icons@^5.0.0-alpha.37":
+"@material-ui/icons@next":
   version "5.0.0-alpha.37"
   resolved "https://registry.yarnpkg.com/@material-ui/icons/-/icons-5.0.0-alpha.37.tgz#8579986e0a3b4586dc7fbf23234d8bfe909b6c3c"
   integrity sha512-VlUYYCvHyMGTrZB1pxdDIEqCeKle6STys8p+DMbzGbUQ/CuuVqRkA06a73FQaMdAUBgc5VMKrsUg2hwj1UkTfQ==
   dependencies:
     "@babel/runtime" "^7.4.4"
 
-"@material-ui/lab@^5.0.0-alpha.37":
+"@material-ui/lab@next":
   version "5.0.0-alpha.37"
   resolved "https://registry.yarnpkg.com/@material-ui/lab/-/lab-5.0.0-alpha.37.tgz#989a75f81d8a3e9ddde25e2184edd50f06f03477"
   integrity sha512-RjEoUdHyNWGYU6r9CXu83MEOJDGcgMD0YS8yrZ2t94rHRKaKosTEByCWd7gDBPXMxiNpv5EaZddJdEBVs56FHw==
@@ -2928,7 +2928,7 @@
     "@emotion/cache" "^11.0.0"
     prop-types "^15.7.2"
 
-"@material-ui/styles@^5.0.0-alpha.35":
+"@material-ui/styles@next":
   version "5.0.0-alpha.35"
   resolved "https://registry.yarnpkg.com/@material-ui/styles/-/styles-5.0.0-alpha.35.tgz#fc6c993d7cffb7630e4fd13a35871bb5fd670651"
   integrity sha512-GQ99bQkKjyC6AJXEdYvRcZ6k4xarZl3ybxQ3UPGlDxlLUbtE5dHT5Mg88NON7kVhSZOS4sTqE+c2ggvvLYja5g==
@@ -2951,7 +2951,7 @@
     jss-plugin-vendor-prefixer "^10.0.3"
     prop-types "^15.7.2"
 
-"@material-ui/system@5.0.0-alpha.37":
+"@material-ui/system@5.0.0-alpha.37", "@material-ui/system@next":
   version "5.0.0-alpha.37"
   resolved "https://registry.yarnpkg.com/@material-ui/system/-/system-5.0.0-alpha.37.tgz#0bac409badb8e9fcbd3c3da05ec071db2edf2630"
   integrity sha512-4eu05aXLWMzth6nsgRT6bvr88jDlPEsum0s9JZ4SO6MR/vqoVSpWk8Vesv2YifwPlvr6k+dv5XXb+DCdsYhIrQ==

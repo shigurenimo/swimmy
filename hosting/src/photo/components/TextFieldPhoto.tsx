@@ -105,30 +105,30 @@ export const TextFieldPhoto: FunctionComponent = () => {
   )
 }
 
-const useStyles = makeStyles<Theme>(({ spacing }) => {
+const useStyles = makeStyles<Theme>((theme) => {
   return {
     root: {
       display: 'grid',
-      gridRowGap: spacing(2),
-      paddingLeft: spacing(2),
-      paddingRight: spacing(2),
+      gridRowGap: theme.spacing(2),
+      paddingLeft: theme.spacing(2),
+      paddingRight: theme.spacing(2),
     },
     input: {
       display: 'grid',
-      columnGap: spacing(2),
+      columnGap: theme.spacing(2),
       gridTemplateColumns: '1fr auto auto',
     },
     buttonRoot: {
-      paddingLeft: spacing(1),
-      paddingRight: spacing(1),
+      paddingLeft: theme.spacing(1),
+      paddingRight: theme.spacing(1),
       minWidth: 0,
     },
     submitButton: { position: 'relative' },
     img: { width: `${100}%`, borderRadius: 4 },
     images: {
       display: 'grid',
-      gridColumnGap: `${spacing(2)}px`,
-      gridRowGap: `${spacing(2)}px`,
+      gridColumnGap: theme.spacing(2),
+      gridRowGap: theme.spacing(2),
       gridTemplateColumns: 'repeat(4, 1fr)',
       width: '100%',
     },

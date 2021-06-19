@@ -6,7 +6,7 @@ import { BottomNavigationDefault } from 'src/core/components/BottomNavigationDef
 import { HeaderHome } from 'src/core/components/HeaderHome'
 import { LayoutDrawer } from 'src/core/components/LayoutDrawer'
 import { useNight } from 'src/core/hooks/useNight'
-import { createAppTheme } from 'src/core/utils/createTheme'
+import { createAppTheme } from 'src/core/utils/createAppTheme'
 import { detectStandalone } from 'src/core/utils/detectStandalone'
 import { ListHome } from 'src/home/ListHome'
 import { ListOthers } from 'src/home/ListOthers'

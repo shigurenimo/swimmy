@@ -22,13 +22,13 @@ export const DivThreadImages: FunctionComponent<Props> = ({ fileIds }) => {
   )
 }
 
-const useStyles = makeStyles<Theme>(({ spacing }) => {
+const useStyles = makeStyles<Theme>((theme) => {
   return {
     img: { width: `${100}%`, borderRadius: 4, verticalAlign: 'bottom' },
     root: {
       display: 'grid',
-      gridColumnGap: `${spacing(2)}px`,
-      gridRowGap: `${spacing(2)}px`,
+      gridColumnGap: theme.spacing(2),
+      gridRowGap: theme.spacing(2),
       width: '100%',
     },
   }
