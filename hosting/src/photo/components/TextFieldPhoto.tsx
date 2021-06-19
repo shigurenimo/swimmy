@@ -3,10 +3,10 @@ import InsertPhoto from '@material-ui/icons/InsertPhoto'
 import NearMe from '@material-ui/icons/NearMe'
 import { makeStyles } from '@material-ui/styles'
 import React, { FunctionComponent, useRef, useState } from 'react'
-import { InputFile } from '../../common/InputFile'
-import { File } from '../../core/types/file'
-import { useCreatePost } from '../../post/hooks/useCreatePost'
-import { useFile } from '../hooks/useFile'
+import { InputFile } from 'src/core/components/InputFile'
+import { File } from 'src/core/types/file'
+import { useFile } from 'src/photo/hooks/useFile'
+import { useCreatePost } from 'src/post/hooks/useCreatePost'
 
 export const TextFieldPhoto: FunctionComponent = () => {
   const classes = useStyles()

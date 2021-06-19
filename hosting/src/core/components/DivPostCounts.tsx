@@ -1,7 +1,7 @@
 import { Theme, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
 import React, { FunctionComponent } from 'react'
-import { WORD_RESPONSE } from '../core/types/word'
+import { WORD_RESPONSE } from 'src/core/types/word'
 
 type Props = { replyPostCount: number }
 

@@ -1,4 +1,4 @@
-import { Owner } from './owner'
+import { Owner } from 'src/core/types/owner'
 
 export type Ownable = {
   owner: Owner | null

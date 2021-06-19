@@ -2,8 +2,8 @@ import { Button, CircularProgress, TextField, Theme } from '@material-ui/core'
 import NearMe from '@material-ui/icons/NearMe'
 import { makeStyles } from '@material-ui/styles'
 import React, { FunctionComponent, useState } from 'react'
-import { useCreatePost } from '../../post/hooks/useCreatePost'
-import { usePlaceholder } from '../hooks/usePlaceholder'
+import { usePlaceholder } from 'src/home/hooks/usePlaceholder'
+import { useCreatePost } from 'src/post/hooks/useCreatePost'
 
 export const TextFieldPost: FunctionComponent = () => {
   const classes = useStyles()

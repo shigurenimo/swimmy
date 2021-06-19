@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/styles'
 import firebase from 'firebase/app'
 import React, { FunctionComponent } from 'react'
 import { Link } from 'react-router-dom'
-import { Post } from '../../core/types/post'
+import { Post } from 'src/core/types/post'
 
 type Props = { post: Post }
 

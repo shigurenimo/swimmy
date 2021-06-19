@@ -1,9 +1,9 @@
 import firebase from 'firebase/app'
 import { useEffect, useState } from 'react'
 import { httpsCallable } from 'rxfire/functions'
-import { CREATE_POST } from '../../core/constants/functions'
-import { US_CENTRAL1 } from '../../core/constants/region'
-import { CreatePostData } from '../../core/types/createPostData'
+import { CREATE_POST } from 'src/core/constants/functions'
+import { US_CENTRAL1 } from 'src/core/constants/region'
+import { CreatePostData } from 'src/core/types/createPostData'
 
 export const useCreateResponse = (
   data: CreatePostData,

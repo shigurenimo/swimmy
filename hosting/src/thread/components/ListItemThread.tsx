@@ -1,6 +1,6 @@
 import { ListItem, ListItemText } from '@material-ui/core'
 import React, { FunctionComponent } from 'react'
-import { Post } from '../../core/types/post'
+import { Post } from 'src/core/types/post'
 
 type Props = { post: Post }
 

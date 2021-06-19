@@ -1,5 +1,5 @@
-import { Post } from '../../core/types/post'
-import { Archive } from '../types/archive'
+import { Post } from 'src/core/types/post'
+import { Archive } from 'src/thread/types/archive'
 
 export const toArchives = (posts: Post[]) => {
   const archives: Archive[] = []

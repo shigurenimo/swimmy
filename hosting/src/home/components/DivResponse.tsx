@@ -2,9 +2,9 @@ import { Theme, Typography } from '@material-ui/core'
 import { purple } from '@material-ui/core/colors'
 import { makeStyles } from '@material-ui/styles'
 import React, { FunctionComponent } from 'react'
-import { BoxImages } from '../../core/components/DivImages'
-import { Post } from '../../core/types/post'
-import { toDateText } from '../../core/utitls/toDateText'
+import { BoxImages } from 'src/core/components/DivImages'
+import { Post } from 'src/core/types/post'
+import { toDateText } from 'src/core/utils/toDateText'
 
 type Props = {
   post: Post

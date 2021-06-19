@@ -3,8 +3,8 @@ import { makeStyles } from '@material-ui/styles'
 import firebase from 'firebase/app'
 import React, { Fragment, FunctionComponent } from 'react'
 import { useHistory } from 'react-router-dom'
-import { Post } from '../../core/types/post'
-import { toDateText } from '../../core/utitls/toDateText'
+import { Post } from 'src/core/types/post'
+import { toDateText } from 'src/core/utils/toDateText'
 
 type Props = {
   post: Post

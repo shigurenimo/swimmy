@@ -1,4 +1,4 @@
-import { Post } from '../../core/types/post'
+import { Post } from 'src/core/types/post'
 
 export type Archive = {
   year: number

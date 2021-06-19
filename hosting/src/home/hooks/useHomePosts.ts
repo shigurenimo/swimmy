@@ -1,9 +1,9 @@
 import firebase from 'firebase/app'
 import { useEffect, useState } from 'react'
 import { collectionData } from 'rxfire/firestore'
-import { FEEDS } from '../../core/constants/collection'
-import { DESC } from '../../core/constants/order'
-import { Post } from '../../core/types/post'
+import { FEEDS } from 'src/core/constants/collection'
+import { DESC } from 'src/core/constants/order'
+import { Post } from 'src/core/types/post'
 
 let __POSTS__: Post[] = []
 

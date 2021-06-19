@@ -1,9 +1,9 @@
 import { blue, cyan, grey, orange } from '@material-ui/core/colors'
 import { createTheme } from '@material-ui/core/styles'
 import { Shadows } from '@material-ui/core/styles/shadows'
-import { Mode } from '../types/mode'
-import { toColorSwitcher } from './toColorSwitcher'
-import { toShadowsSwitcher } from './toShadowsSwitcher'
+import { Mode } from 'src/core/types/mode'
+import { toColorSwitcher } from 'src/core/utils/toColorSwitcher'
+import { toShadowsSwitcher } from 'src/core/utils/toShadowsSwitcher'
 
 export const createAppTheme = (mode: Mode = 'light') => {
   const isDark = mode === 'dark' || mode === 'red'

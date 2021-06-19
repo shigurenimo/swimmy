@@ -2,9 +2,9 @@ import { Theme, Typography } from '@material-ui/core'
 import { purple } from '@material-ui/core/colors'
 import { makeStyles } from '@material-ui/styles'
 import React, { FunctionComponent } from 'react'
-import { Post } from '../../core/types/post'
-import { toDateText } from '../../core/utitls/toDateText'
-import { DivThreadImages } from './DivThreadImages'
+import { Post } from 'src/core/types/post'
+import { toDateText } from 'src/core/utils/toDateText'
+import { DivThreadImages } from 'src/home/components/DivThreadImages'
 
 type Props = { post: Post }
 

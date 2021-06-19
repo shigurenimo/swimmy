@@ -2,10 +2,10 @@ import { Divider, List, ListItem, ListItemText } from '@material-ui/core'
 import firebase from 'firebase/app'
 import React, { FunctionComponent, useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
-import { ListItemSkeleton } from '../post/ListItemSkeleton'
-import { ListItemThread } from './components/ListItemThread'
-import { useHomeThreads } from './hooks/useHomeThreads'
-import { useHomeThreadsLimit } from './hooks/useHomeThreadsLimit'
+import { ListItemThread } from 'src/home/components/ListItemThread'
+import { useHomeThreads } from 'src/home/hooks/useHomeThreads'
+import { useHomeThreadsLimit } from 'src/home/hooks/useHomeThreadsLimit'
+import { ListItemSkeleton } from 'src/post/ListItemSkeleton'
 
 export const ListThread: FunctionComponent = () => {
   const [limit, setLimit] = useHomeThreadsLimit()

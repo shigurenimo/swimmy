@@ -4,8 +4,8 @@ import { makeStyles } from '@material-ui/styles'
 import firebase from 'firebase/app'
 import React, { FunctionComponent } from 'react'
 import { useHistory } from 'react-router-dom'
-import { Archive } from '../types/archive'
-import { ListItemThread } from './ListItemThread'
+import { ListItemThread } from 'src/thread/components/ListItemThread'
+import { Archive } from 'src/thread/types/archive'
 
 type Props = { archive: Archive }
 

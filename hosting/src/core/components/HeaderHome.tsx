@@ -14,9 +14,9 @@ import { makeStyles } from '@material-ui/styles'
 import firebase from 'firebase/app'
 import React, { FunctionComponent, useState } from 'react'
 import { useHistory } from 'react-router-dom'
-import { detectStandalone } from '../utitls/detectStandalone'
-import { DialogMenu } from './DialogMenu'
-import { ImageLogo } from './ImageLogo'
+import { DialogMenu } from 'src/core/components/DialogMenu'
+import { ImageLogo } from 'src/core/components/ImageLogo'
+import { detectStandalone } from 'src/core/utils/detectStandalone'
 
 export const HeaderHome: FunctionComponent = () => {
   const [openDialog, setOpenDialog] = useState(false)

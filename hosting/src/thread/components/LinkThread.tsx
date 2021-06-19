@@ -2,9 +2,9 @@ import { Theme, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
 import React, { FunctionComponent } from 'react'
 import { Link } from 'react-router-dom'
-import { DivPostCounts } from '../../common/DivPostCounts'
-import { Post } from '../../core/types/post'
-import { toDateText } from '../../core/utitls/toDateText'
+import { DivPostCounts } from 'src/core/components/DivPostCounts'
+import { Post } from 'src/core/types/post'
+import { toDateText } from 'src/core/utils/toDateText'
 
 type Props = { post: Post }
 

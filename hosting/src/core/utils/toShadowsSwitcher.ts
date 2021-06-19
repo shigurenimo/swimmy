@@ -1,5 +1,5 @@
 import { Shadows } from '@material-ui/core/styles/shadows'
-import { Mode } from '../types/mode'
+import { Mode } from 'src/core/types/mode'
 
 export const toShadowsSwitcher = (mode: Mode) => {
   return (light: Shadows, dark?: Shadows, red?: Shadows) => {

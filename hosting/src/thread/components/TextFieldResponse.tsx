@@ -2,7 +2,7 @@ import { Button, CircularProgress, TextField, Theme } from '@material-ui/core'
 import NearMe from '@material-ui/icons/NearMe'
 import { makeStyles } from '@material-ui/styles'
 import React, { FunctionComponent, useState } from 'react'
-import { useCreateResponse } from '../hooks/useCreateResponse'
+import { useCreateResponse } from 'src/thread/hooks/useCreateResponse'
 
 type Props = { threadId: string }
 

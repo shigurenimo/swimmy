@@ -2,11 +2,11 @@ import { init } from '@sentry/react'
 import { Integrations } from '@sentry/tracing'
 import React from 'react'
 import { render } from 'react-dom'
-import App from './App'
-import './core/utitls/initializeApp'
-import './index.css'
-import reportWebVitals from './reportWebVitals'
-import { register } from './serviceWorkerRegistration'
+import App from 'src/App'
+import 'src/core/utils/initializeApp'
+import 'src/index.css'
+import reportWebVitals from 'src/reportWebVitals'
+import { register } from 'src/serviceWorkerRegistration'
 
 init({
   dsn:
