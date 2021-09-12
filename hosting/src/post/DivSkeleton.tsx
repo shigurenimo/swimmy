@@ -1,5 +1,4 @@
-import { Theme } from '@material-ui/core'
-import { Skeleton } from '@material-ui/lab'
+import { Skeleton, Theme } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
 import React, { FunctionComponent } from 'react'
 

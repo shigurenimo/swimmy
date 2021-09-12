@@ -10,7 +10,7 @@ import { register } from 'src/serviceWorkerRegistration'
 
 init({
   dsn:
-    'https://082826bd26c8431894383b61c038562e@o471357.ingest.sentry.io/5503302',
+    'https://2b7bdd5af19548a2b0ecd728c69fcc6e@o571144.ingest.sentry.io/5955573',
   integrations: [new Integrations.BrowserTracing()],
   tracesSampleRate: 1.0,
 })

@@ -1,60 +1,39 @@
-import { query } from '@firebase/firestore'
 import { Divider, Theme, Toolbar } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
-import {
-  collection,
-  doc,
-  getFirestore,
-  limit,
-  orderBy,
-} from 'firebase/firestore'
 import React, { Fragment, FunctionComponent } from 'react'
-import {
-  useCollectionData,
-  useDocumentData,
-} from 'react-firebase-hooks/firestore'
 import { useParams } from 'react-router-dom'
 import { FragmentHead } from 'src/core/components/FragmentHead'
-import { FEEDS, RESPONSES, THREADS } from 'src/core/constants/collection'
-import { ASC } from 'src/core/constants/order'
 import { useAnalytics } from 'src/core/hooks/useAnalytics'
-import { Post } from 'src/core/types/post'
 import { toThreadDescription } from 'src/core/utils/toThreadDescription'
 import { DivResponse } from 'src/home/components/DivResponse'
 import { DivThread } from 'src/home/components/DivThread'
 import { MainThreadNotFound } from 'src/home/components/MainThreadNotFound'
 import { DivSkeleton } from 'src/post/DivSkeleton'
 import { TextFieldResponse } from 'src/thread/components/TextFieldResponse'
+import { useResponseList } from 'src/thread/hooks/useResponseList'
+import { useThread } from 'src/thread/hooks/useThread'
 
 export const MainThread: FunctionComponent = () => {
+  useAnalytics()
+
   const { threadId } = useParams<{ threadId: string }>()
 
-  const [posts = [], isLoadingPosts] = useCollectionData<Post>(
-    query(
-      collection(getFirestore(), THREADS, threadId, RESPONSES),
-      limit(120),
-      orderBy('createdAt', ASC)
-    )
-  )
+  const responseList = useResponseList(threadId)
 
-  const [thread = null, isLoadingThread] = useDocumentData<Post>(
-    doc(getFirestore(), FEEDS, threadId)
-  )
+  const thread = useThread(threadId)
 
   const classes = useStyles()
 
-  useAnalytics()
-
-  const isLoading = isLoadingPosts || isLoadingThread
+  const isLoading = responseList.isLoading || thread.isLoading
 
   const skeletons = isLoading ? [0, 1, 2, 3] : []
 
   return (
     <main className={classes.main}>
-      {thread !== null && (
+      {thread.data && (
         <FragmentHead
-          title={`「${thread?.text}」`}
-          description={toThreadDescription(thread)}
+          title={`「${thread.data?.text}」`}
+          description={toThreadDescription(thread.data)}
         />
       )}
       <Toolbar />
@@ -65,15 +44,15 @@ export const MainThread: FunctionComponent = () => {
             <Divider />
           </li>
         ))}
-        {!isLoading && thread === null && <MainThreadNotFound />}
-        {!isLoading && thread !== null && (
+        {!isLoading && !thread && <MainThreadNotFound />}
+        {!isLoading && thread.data && (
           <li>
-            <DivThread post={thread} />
+            <DivThread post={thread.data} />
             <Divider />
           </li>
         )}
         {!isLoading &&
-          posts.map((post, index) => (
+          responseList.data?.map((post, index) => (
             <Fragment key={post.id}>
               <DivResponse index={index + 1} post={post} />
               <Divider />
