@@ -1,4 +1,4 @@
-import { IconButton, Theme } from '@material-ui/core'
+import { Avatar, Box, Theme } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
 import React, { FunctionComponent } from 'react'
 import { Link } from 'react-router-dom'
@@ -9,15 +9,15 @@ export const ImageLogo: FunctionComponent<Props> = ({ disabled }) => {
   const classes = useStyles()
 
   return (
-    <Link
-      className={classes.root}
-      to={'/'}
-      style={{ display: disabled ? 'none' : 'block' }}
-    >
-      <IconButton aria-label={'Go home page'} className={classes.button}>
-        <img alt={'swimmy'} className={classes.img} src={'/images/app.png'} />
-      </IconButton>
-    </Link>
+    <Box display={'grid'} alignContent={'center'}>
+      <Link
+        className={classes.root}
+        to={'/'}
+        style={{ display: disabled ? 'none' : 'block' }}
+      >
+        <Avatar alt={'swimmy'} src={'/images/app.png'} />
+      </Link>
+    </Box>
   )
 }
 

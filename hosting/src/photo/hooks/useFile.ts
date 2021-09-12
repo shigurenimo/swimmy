@@ -1,14 +1,14 @@
-import firebase from 'firebase/app'
+import { doc, getFirestore } from 'firebase/firestore'
+import { getStorage, ref, uploadBytes } from 'firebase/storage'
 import { useEffect, useState } from 'react'
 import { docData } from 'rxfire/firestore'
-import { put } from 'rxfire/storage'
 import { File as DocFile } from 'src/core/types/file'
 import { createId } from 'src/core/utils/createId'
 import { filterEmpty } from 'src/post/utils/filterEmpty'
 
-export const useFile = (
-  next: (image: DocFile) => void
-): [boolean, (file: File) => void] => {
+type State = [(file: File) => void, { isLoading: boolean }]
+
+export const useFile = (next: (image: DocFile) => void): State => {
   const [file, setFile] = useState<File | null>(null)
 
   useEffect(() => {
@@ -16,13 +16,13 @@ export const useFile = (
 
     const fileId = createId()
 
-    const ref = firebase.storage().ref(`posts/${fileId}`)
+    const storageRef = ref(getStorage(), `posts/${fileId}`)
 
-    put(ref, file).subscribe()
+    uploadBytes(storageRef, file)
 
-    const subscription = docData<DocFile>(
-      firebase.firestore().collection('files').doc(fileId)
-    )
+    const docRef = doc(getFirestore(), 'files', fileId) as any
+
+    const subscription = docData<DocFile>(docRef)
       .pipe(filterEmpty())
       .subscribe((image) => {
         subscription.unsubscribe()
@@ -30,11 +30,13 @@ export const useFile = (
         next(image)
       })
 
-    return () => subscription.unsubscribe()
+    return () => {
+      subscription.unsubscribe()
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [file])
 
-  const run = (_file: File) => {
+  const uploadFile = (_file: File) => {
     if (file !== null) {
       return
     }
@@ -42,5 +44,7 @@ export const useFile = (
     setFile(_file)
   }
 
-  return [file !== null, run]
+  const isLoading = file !== null
+
+  return [uploadFile, { isLoading }]
 }

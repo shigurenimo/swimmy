@@ -1,17 +1,19 @@
 import {
   AppBar,
+  Box,
   Fade,
   IconButton,
   Slide,
   Theme,
   Toolbar,
   useScrollTrigger,
+  useTheme,
 } from '@material-ui/core'
 import FlightIcon from '@material-ui/icons/Flight'
 import KeyboardReturnIcon from '@material-ui/icons/KeyboardReturn'
 import MenuIcon from '@material-ui/icons/Menu'
 import { makeStyles } from '@material-ui/styles'
-import firebase from 'firebase/app'
+import { getAnalytics, logEvent } from 'firebase/analytics'
 import React, { FunctionComponent, useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import { DialogMenu } from 'src/core/components/DialogMenu'
@@ -19,6 +21,8 @@ import { ImageLogo } from 'src/core/components/ImageLogo'
 import { detectStandalone } from 'src/core/utils/detectStandalone'
 
 export const HeaderHome: FunctionComponent = () => {
+  const theme = useTheme()
+
   const [openDialog, setOpenDialog] = useState(false)
 
   const classes = useStyles()
@@ -47,12 +51,12 @@ export const HeaderHome: FunctionComponent = () => {
   })
 
   const onScroll = () => {
-    firebase.analytics().logEvent('tap_to_scroll_top')
+    logEvent(getAnalytics(), 'tap_to_scroll_top')
     document.body.scrollIntoView({ behavior: 'smooth' })
   }
 
   const onGoBack = () => {
-    firebase.analytics().logEvent('tap_to_go_back')
+    logEvent(getAnalytics(), 'tap_to_go_back')
     history.goBack()
   }
 
@@ -63,24 +67,33 @@ export const HeaderHome: FunctionComponent = () => {
         color={'inherit'}
         elevation={triggerElevation ? 1 : 0}
       >
-        <Toolbar className={classes.toolbar}>
+        <Toolbar
+          sx={{
+            justifyContent: 'space-between',
+            paddingLeft: {
+              md: theme.spacing(40 + 3),
+            },
+          }}
+        >
           <ImageLogo disabled={!isFirst} />
           {!isFirst && (
             <IconButton onClick={onGoBack}>
               <KeyboardReturnIcon />
             </IconButton>
           )}
-          {isStandalone ? (
-            <Fade in={triggerFlight}>
-              <IconButton onClick={onScroll}>
-                <FlightIcon color={'action'} />
+          <Box>
+            {isStandalone ? (
+              <Fade in={triggerFlight}>
+                <IconButton onClick={onScroll}>
+                  <FlightIcon color={'action'} />
+                </IconButton>
+              </Fade>
+            ) : (
+              <IconButton onClick={() => setOpenDialog(true)}>
+                <MenuIcon fontSize={'inherit'} />
               </IconButton>
-            </Fade>
-          ) : (
-            <IconButton onClick={() => setOpenDialog(true)}>
-              <MenuIcon />
-            </IconButton>
-          )}
+            )}
+          </Box>
         </Toolbar>
         <DialogMenu open={openDialog} onClose={() => setOpenDialog(false)} />
       </AppBar>
@@ -98,12 +111,6 @@ const useStyles = makeStyles<Theme>(({ breakpoints, spacing, palette }) => {
       display: 'grid',
       gridAutoFlow: 'column',
       gridColumnGap: spacing(1),
-    },
-    toolbar: {
-      display: 'grid',
-      gridTemplateColumns: 'auto 1fr',
-      justifyItems: 'right',
-      [breakpoints.up('md')]: { paddingLeft: spacing(40 + 3) },
     },
   }
 })

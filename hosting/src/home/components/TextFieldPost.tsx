@@ -10,29 +10,33 @@ export const TextFieldPost: FunctionComponent = () => {
 
   const [text, setText] = useState('')
 
-  const [loading, createPost] = useCreatePost(
-    {
-      fileIds: [],
-      replyPostId: '',
-      text,
-    },
-    () => {
-      setText('')
-    }
-  )
+  const createPost = useCreatePost()
 
   const placeholder = usePlaceholder()
 
-  const disabled = loading || text.match(/\S/g) === null
+  const onCreatePost = async () => {
+    try {
+      await createPost.mutateAsync({
+        fileIds: [],
+        replyPostId: '',
+        text,
+      })
+      setText('')
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  const isDisabled = createPost.isLoading || text.match(/\S/g) === null
 
   return (
     <section className={classes.root}>
       <TextField
-        disabled={loading}
+        disabled={createPost.isLoading}
         fullWidth
         multiline
         onChange={(event) => {
-          if (loading) return
+          if (createPost.isLoading) return
           setText(event.target.value)
         }}
         placeholder={placeholder}
@@ -45,11 +49,11 @@ export const TextFieldPost: FunctionComponent = () => {
         className={classes.submitButton}
         classes={{ root: classes.buttonRoot }}
         color={'primary'}
-        disabled={disabled}
-        onClick={createPost}
+        disabled={isDisabled}
+        onClick={onCreatePost}
         variant={'contained'}
       >
-        {loading ? <CircularProgress size={24} /> : <NearMe />}
+        {createPost.isLoading ? <CircularProgress size={24} /> : <NearMe />}
       </Button>
     </section>
   )

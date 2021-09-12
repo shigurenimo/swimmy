@@ -10,7 +10,9 @@ export const useNight = () => {
       setState(detectNight())
     })
 
-    return () => subscription.unsubscribe()
+    return () => {
+      subscription.unsubscribe()
+    }
   }, [])
 
   return state

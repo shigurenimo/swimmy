@@ -1,7 +1,7 @@
 import { Card, CardHeader, Divider, IconButton, Theme } from '@material-ui/core'
 import KeyboardArrowRightIcon from '@material-ui/icons/KeyboardArrowRight'
 import { makeStyles } from '@material-ui/styles'
-import firebase from 'firebase/app'
+import { getAnalytics, logEvent } from 'firebase/analytics'
 import React, { FunctionComponent } from 'react'
 import { useHistory } from 'react-router-dom'
 import { ListItemThread } from 'src/thread/components/ListItemThread'
@@ -16,7 +16,7 @@ export const CardArchive: FunctionComponent<Props> = ({ archive }) => {
 
   const onClick = () => {
     const path = `/archives/${archive.year}/${archive.month + 1}`
-    firebase.analytics().logEvent('select_content', {
+    logEvent(getAnalytics(), 'select_content', {
       content_id: `archive-${archive.year}-${archive.month + 1}`,
       content_type: 'thread',
       to: path,

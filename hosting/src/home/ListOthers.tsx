@@ -28,7 +28,7 @@ export const ListOthers: FunctionComponent = () => {
       </ListItem>
       <Divider />
       <ListItem disabled>
-        <ListItemText primary={'バージョン 6.0.0'} />
+        <ListItemText primary={'バージョン 7.0.0'} />
       </ListItem>
       <Divider />
     </List>

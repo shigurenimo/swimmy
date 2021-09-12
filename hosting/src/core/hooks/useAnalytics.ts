@@ -1,4 +1,4 @@
-import firebase from 'firebase/app'
+import { getAnalytics, setCurrentScreen } from 'firebase/analytics'
 import { useEffect } from 'react'
 import { useLocation } from 'react-router-dom'
 
@@ -10,6 +10,6 @@ export const useAnalytics = () => {
       return
     }
 
-    firebase.analytics().setCurrentScreen(location.pathname)
+    setCurrentScreen(getAnalytics(), location.pathname)
   }, [location.pathname])
 }

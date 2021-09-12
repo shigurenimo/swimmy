@@ -10,21 +10,21 @@
     "start": "firebase serve --only functions"
   },
   "dependencies": {
-    "@babel/cli": "^7.14.5",
-    "@babel/core": "^7.14.6",
-    "@babel/preset-env": "^7.14.5",
-    "@babel/preset-typescript": "^7.14.5",
-    "@types/jest": "^26.0.23",
-    "@types/node": "^15.12.4",
-    "@types/sharp": "^0.28.3",
-    "axios": "^0.21.1",
-    "firebase-admin": "^9.9.0",
-    "firebase-functions": "^3.14.1",
+    "@babel/cli": "^7.15.4",
+    "@babel/core": "^7.15.5",
+    "@babel/preset-env": "^7.15.6",
+    "@babel/preset-typescript": "^7.15.0",
+    "@types/jest": "^27.0.1",
+    "@types/node": "^16.9.1",
+    "@types/sharp": "^0.29.1",
+    "axios": "^0.21.4",
+    "firebase-admin": "^9.11.1",
+    "firebase-functions": "^3.15.5",
     "fs-extra": "^10.0.0",
-    "jest": "27.0.4",
-    "sharp": "^0.28.3",
-    "source-map-support": "^0.5.19",
-    "ts-jest": "^27.0.3"
+    "jest": "27.1.1",
+    "sharp": "^0.29.1",
+    "source-map-support": "^0.5.20",
+    "ts-jest": "^27.0.5"
   },
   "engines": {
     "node": "12"

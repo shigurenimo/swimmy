@@ -7,9 +7,9 @@ let __LIMIT__LIKE_COUNT = 12
 
 let __LIMIT__REPLY_COUNT = 12
 
-export const useThreadsLimit = (
-  orderBy: SearchOrderBy
-): [number, Dispatch<SetStateAction<number>>] => {
+type State = [number, Dispatch<SetStateAction<number>>]
+
+export const useThreadsLimit = (orderBy: SearchOrderBy): State => {
   const [limit, setLimit] = useState(() => {
     switch (orderBy) {
       case 'like_count':

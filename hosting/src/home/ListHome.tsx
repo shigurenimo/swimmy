@@ -1,5 +1,5 @@
 import { Divider, List, ListItem, ListItemText } from '@material-ui/core'
-import firebase from 'firebase/app'
+import { getAnalytics, logEvent } from 'firebase/analytics'
 import React, { FunctionComponent, useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { ListItemThread } from 'src/home/components/ListItemThread'
@@ -31,7 +31,7 @@ export const ListHome: FunctionComponent = () => {
   const renderNext = posts.length !== 0 && limit < 200
 
   const onClick = (content_id: string) => () => {
-    firebase.analytics().logEvent('select_content', {
+    logEvent(getAnalytics(), 'select_content', {
       content_id,
       content_type: 'list_item',
       current_screen_name: window.location.pathname,
@@ -79,7 +79,7 @@ export const ListHome: FunctionComponent = () => {
           button
           disabled={loading}
           onClick={() => {
-            firebase.analytics().logEvent('tap_to_read_next_threads', {
+            logEvent(getAnalytics(), 'tap_to_read_next_threads', {
               current_screen_name: window.location.pathname,
             })
           }}

@@ -1,4 +1,5 @@
-import firebase from 'firebase/app'
+import { collection, getFirestore, query } from '@firebase/firestore'
+import { limit, orderBy } from 'firebase/firestore'
 import { useEffect, useState } from 'react'
 import { collectionData } from 'rxfire/firestore'
 import { THREADS } from 'src/core/constants/collection'
@@ -13,9 +14,11 @@ let __POSTS__LIKE_COUNT: Post[] = []
 
 let __POSTS__REPLY_COUNT: Post[] = []
 
-export const useThreads = (limit: number, orderBy: SearchOrderBy): [Post[]] => {
+type State = [Post[]]
+
+export const useThreads = (_limit: number, _orderBy: SearchOrderBy): State => {
   const [posts, setPosts] = useState(() => {
-    switch (orderBy) {
+    switch (_orderBy) {
       case 'like_count':
         return __POSTS__LIKE_COUNT
       case 'reply_count':
@@ -26,18 +29,22 @@ export const useThreads = (limit: number, orderBy: SearchOrderBy): [Post[]] => {
   })
 
   useEffect(() => {
-    const field = toField(orderBy)
+    const field = toField(_orderBy)
 
-    const subscription = collectionData<Post>(
-      firebase.firestore().collection(THREADS).limit(limit).orderBy(field, DESC)
-    ).subscribe((_posts) => {
+    const ref = query<Post>(
+      collection(getFirestore(), THREADS) as any,
+      limit(_limit),
+      orderBy(field, DESC)
+    )
+
+    const subscription = collectionData<Post>(ref).subscribe((_posts) => {
       setPosts(_posts)
     })
 
     return () => subscription.unsubscribe()
-  }, [limit, orderBy])
+  }, [_limit, _orderBy])
 
-  switch (orderBy) {
+  switch (_orderBy) {
     case 'like_count': {
       __POSTS__LIKE_COUNT = posts
       break

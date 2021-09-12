@@ -11,29 +11,31 @@ export const TextFieldResponse: FunctionComponent<Props> = ({ threadId }) => {
 
   const [text, setText] = useState('')
 
-  const [loading, createResponse] = useCreateResponse(
-    {
-      fileIds: [],
-      replyPostId: threadId,
-      text: text,
-    },
-    () => {
+  const createResponse = useCreateResponse()
+
+  const onCreateResponse = async () => {
+    try {
+      await createResponse.mutateAsync({
+        fileIds: [],
+        replyPostId: threadId,
+        text,
+      })
       setText('')
+    } catch (error) {
+      console.error(error)
     }
-  )
+  }
 
-  const inProgress = loading
-
-  const disabled = inProgress || text.match(/\S/g) === null
+  const isDisabled = createResponse.isLoading || text.match(/\S/g) === null
 
   return (
     <section className={classes.root}>
       <TextField
-        disabled={inProgress}
+        disabled={createResponse.isLoading}
         fullWidth
         multiline
         onChange={(event) => {
-          if (inProgress) return
+          if (createResponse.isLoading) return
           setText(event.target.value)
         }}
         placeholder={'新しいコメント'}
@@ -46,11 +48,11 @@ export const TextFieldResponse: FunctionComponent<Props> = ({ threadId }) => {
         className={classes.submitButton}
         classes={{ root: classes.buttonRoot }}
         color={'primary'}
-        disabled={disabled}
-        onClick={createResponse}
+        disabled={isDisabled}
+        onClick={onCreateResponse}
         variant={'contained'}
       >
-        {loading ? <CircularProgress size={24} /> : <NearMe />}
+        {createResponse.isLoading ? <CircularProgress size={24} /> : <NearMe />}
       </Button>
     </section>
   )

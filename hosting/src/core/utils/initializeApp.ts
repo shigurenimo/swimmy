@@ -1,12 +1,7 @@
-import 'firebase/analytics'
-import firebase from 'firebase/app'
-import 'firebase/auth'
-import 'firebase/firestore'
-import 'firebase/functions'
-import 'firebase/performance'
-import 'firebase/storage'
+import { initializeApp } from 'firebase/app'
+import { getPerformance } from 'firebase/performance'
 
-firebase.initializeApp({
+const app = initializeApp({
   apiKey: 'AIzaSyD5ApayvhirvS8kST4l3VyyTwUUWQZXgWU',
   appId: '1:974311466905:web:c7fc0cc24a15e6cb',
   authDomain: 'umfzwkzvrtpe.firebaseapp.com',
@@ -17,9 +12,4 @@ firebase.initializeApp({
   storageBucket: 'umfzwkzvrtpe.appspot.com',
 })
 
-firebase.performance()
-
-firebase.analytics().setUserProperties({
-  env: process.env.NODE_ENV,
-  userAgent: window.navigator.userAgent,
-})
+getPerformance(app)

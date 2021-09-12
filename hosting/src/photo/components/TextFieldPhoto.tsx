@@ -17,25 +17,29 @@ export const TextFieldPhoto: FunctionComponent = () => {
 
   const [files, setFiles] = useState<File[]>([])
 
-  const [loadingFile, uploadFile] = useFile((file) => {
+  const [uploadFile, { isLoading: isLoadingFile }] = useFile((file) => {
     setFiles([...files, file])
   })
 
-  const [loadingCreatePost, createPost] = useCreatePost(
-    {
-      fileIds: files.map((file) => file.id),
-      replyPostId: '',
-      text,
-    },
-    () => {
+  const createPost = useCreatePost()
+
+  const onCreatePost = async () => {
+    try {
+      await createPost.mutateAsync({
+        fileIds: files.map((file) => file.id),
+        replyPostId: '',
+        text,
+      })
       setFiles([])
       setText('')
+    } catch (error) {
+      console.error(error)
     }
-  )
+  }
 
-  const disabled =
-    loadingFile ||
-    loadingCreatePost ||
+  const isDisabled =
+    isLoadingFile ||
+    createPost.isLoading ||
     files.length === 0 ||
     text.match(/\S/g) === null
 
@@ -51,11 +55,11 @@ export const TextFieldPhoto: FunctionComponent = () => {
           }}
         />
         <TextField
-          disabled={loadingCreatePost}
+          disabled={createPost.isLoading}
           fullWidth
           multiline
           onChange={(event) => {
-            if (loadingCreatePost) return
+            if (createPost.isLoading) return
             setText(event.target.value)
           }}
           placeholder={'テキスト'}
@@ -67,26 +71,26 @@ export const TextFieldPhoto: FunctionComponent = () => {
           aria-label={'Send a post'}
           className={classes.submitButton}
           classes={{ root: classes.buttonRoot }}
-          disabled={loadingFile}
+          disabled={isLoadingFile}
           color={'primary'}
           onClick={() => {
-            if (loadingFile || !inputRef.current) return
+            if (isLoadingFile || !inputRef.current) return
             inputRef.current.click()
           }}
           variant={'contained'}
         >
-          {loadingFile ? <CircularProgress size={24} /> : <InsertPhoto />}
+          {isLoadingFile ? <CircularProgress size={24} /> : <InsertPhoto />}
         </Button>
         <Button
           aria-label={'Send a post'}
           className={classes.submitButton}
           classes={{ root: classes.buttonRoot }}
           color={'primary'}
-          disabled={disabled}
-          onClick={createPost}
+          disabled={isDisabled}
+          onClick={onCreatePost}
           variant={'contained'}
         >
-          {loadingCreatePost ? <CircularProgress size={24} /> : <NearMe />}
+          {createPost.isLoading ? <CircularProgress size={24} /> : <NearMe />}
         </Button>
       </div>
       {files.length !== 0 && (

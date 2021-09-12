@@ -1,31 +1,29 @@
-import { Drawer, Theme } from '@material-ui/core'
-import { makeStyles } from '@material-ui/styles'
+import { Drawer, useTheme } from '@material-ui/core'
 import React, { FunctionComponent } from 'react'
 
 export const LayoutDrawer: FunctionComponent = ({ children }) => {
-  const classes = useStyles()
+  const theme = useTheme()
 
   return (
     <Drawer
-      classes={{ paper: classes.drawerPaper }}
-      className={classes.root}
       open={true}
-      PaperProps={{ elevation: 1 }}
+      PaperProps={{
+        elevation: 1,
+        sx: {
+          width: theme.spacing(40),
+        },
+      }}
       variant={'persistent'}
+      sx={{
+        display: {
+          xs: 'none',
+          md: 'block',
+        },
+        overflow: 'hidden',
+        width: theme.spacing(40),
+      }}
     >
       {children}
     </Drawer>
   )
 }
-
-const useStyles = makeStyles<Theme>((theme) => {
-  return {
-    drawerPaper: {
-      height: '100%',
-      position: 'fixed',
-      width: theme.spacing(60),
-      zIndex: 1300 - 1,
-    },
-    root: { [theme.breakpoints.down('sm')]: { display: 'none' } },
-  }
-})

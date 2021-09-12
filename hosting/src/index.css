@@ -37,6 +37,6 @@ body > div#root {
 
 @media (min-width: 959.95px) {
   body > div#root {
-    grid-template-columns: 480px 1fr;
+    grid-template-columns: 20rem 1fr;
   }
 }

@@ -1,5 +1,5 @@
-import firebase from 'firebase/app'
+import { doc, getFirestore } from 'firebase/firestore'
 
 export const createId = (): string => {
-  return firebase.firestore().collection('sample').doc().id
+  return doc(getFirestore(), 'sample', '-').id
 }

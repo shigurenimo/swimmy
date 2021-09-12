@@ -1,48 +1,35 @@
-import { Theme, Typography } from '@material-ui/core'
-import { makeStyles } from '@material-ui/styles'
+import { Box, Typography } from '@material-ui/core'
+import { blue } from '@material-ui/core/colors'
 import React, { FunctionComponent } from 'react'
-import { WORD_RESPONSE } from 'src/core/types/word'
 
 type Props = { replyPostCount: number }
 
 export const DivPostCounts: FunctionComponent<Props> = ({
   replyPostCount = 0,
 }) => {
-  const classes = useStyles()
-
-  if (!replyPostCount) {
+  if (replyPostCount < 1) {
     return null
   }
 
   return (
-    <div className={classes.root}>
-      {replyPostCount > 0 && (
-        <Typography className={classes.replyPostCount}>
-          {`${WORD_RESPONSE} ${replyPostCount}`}
-        </Typography>
-      )}
-    </div>
+    <Box
+      sx={{
+        width: 24,
+        height: 15,
+        backgroundColor: blue[100],
+        borderRadius: (theme) => theme.shape.borderRadius,
+      }}
+    >
+      <Typography
+        sx={{
+          color: (theme) => theme.palette.primary.dark,
+          fontSize: `${10}px`,
+          fontWeight: 'bold',
+        }}
+        align={'center'}
+      >
+        {replyPostCount}
+      </Typography>
+    </Box>
   )
 }
-
-const useStyles = makeStyles<Theme>(({ palette, spacing }) => {
-  return {
-    likeCount: {
-      color: palette.secondary.dark,
-      fontSize: `${12}px`,
-      fontWeight: 'bold',
-    },
-    replyPostCount: {
-      color: palette.primary.dark,
-      fontSize: `${12}px`,
-      fontWeight: 'bold',
-    },
-    root: {
-      alignItems: 'center',
-      display: 'grid',
-      gridAutoFlow: 'column',
-      gridColumnGap: spacing(1),
-      gridTemplateColumns: 'max-content',
-    },
-  }
-})

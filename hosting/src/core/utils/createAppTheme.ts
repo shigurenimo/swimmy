@@ -1,25 +1,10 @@
-import { blue, cyan, grey, orange } from '@material-ui/core/colors'
 import { createTheme } from '@material-ui/core/styles'
-import { Shadows } from '@material-ui/core/styles/shadows'
 import { Mode } from 'src/core/types/mode'
-import { toColorSwitcher } from 'src/core/utils/toColorSwitcher'
-import { toShadowsSwitcher } from 'src/core/utils/toShadowsSwitcher'
 
-export const createAppTheme = (mode: Mode = 'light') => {
+export const useTheme = (mode: Mode = 'light') => {
   const isDark = mode === 'dark' || mode === 'red'
 
-  const toColor = toColorSwitcher(mode)
-
-  const toShadows = toShadowsSwitcher(mode)
-
-  const {
-    shadows,
-    palette: { background, divider },
-  } = createTheme({ palette: { mode: isDark ? 'dark' : 'light' } })
-
-  const shadow = `0 0 1px 1px ${divider}`
-
-  return createTheme({
+  const theme = createTheme({
     components: {
       MuiButtonBase: {
         defaultProps: { disableRipple: true },
@@ -40,23 +25,25 @@ export const createAppTheme = (mode: Mode = 'light') => {
       },
     },
     palette: {
+      /*
       background: {
         default: toColor('#fff', background.default, blue[900]),
         paper: toColor('#fff', '#35353a', blue[800]),
       },
-      divider: toColor('rgba(0, 0, 0, 0.08)', divider, '#fff'),
-      primary: {
-        main: toColor(cyan.A700, cyan.A200, grey['200']),
-      },
-      secondary: { main: toColor(orange.A400, orange.A400, orange.A200) },
-      mode: isDark ? 'dark' : 'light',
+      */
+      // divider: toColor('rgba(0, 0, 0, 0.08)', divider, '#fff'),
+      // primary: { main: toColor(cyan.A700, cyan.A200, grey['200']) },
+      // secondary: { main: toColor(orange.A400, orange.A400, orange.A200) },
+      // mode: isDark ? 'dark' : 'light',
     },
+    /*
     shadows: toShadows(
       shadows.map((_, i) => (i === 0 ? 'none' : shadow)) as Shadows,
       shadows.map((_, i) => 'none') as Shadows,
       shadows.map((_, i) => 'none') as Shadows
     ),
-    shape: { borderRadius: 4 },
+    */
+    shape: { borderRadius: 3 },
     typography: {
       fontFamily: [
         'Hiragino Kaku Gothic ProN',
@@ -67,8 +54,10 @@ export const createAppTheme = (mode: Mode = 'light') => {
       ].join(','),
     },
   })
-}
 
-if (process.env.NODE_ENV === 'development') {
-  window.theme = createAppTheme('light')
+  if (process.env.NODE_ENV === 'development') {
+    window.theme = theme
+  }
+
+  return theme
 }

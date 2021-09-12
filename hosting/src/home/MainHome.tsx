@@ -1,6 +1,5 @@
-import { Divider, Theme, Toolbar } from '@material-ui/core'
-import { makeStyles } from '@material-ui/styles'
-import firebase from 'firebase/app'
+import { Box, Divider, Stack, Toolbar } from '@material-ui/core'
+import { getAnalytics, logEvent } from 'firebase/analytics'
 import React, { FunctionComponent, useEffect, useState } from 'react'
 import { ButtonMore } from 'src/core/components/ButtonMore'
 import { FragmentHead } from 'src/core/components/FragmentHead'
@@ -20,8 +19,6 @@ export const MainHome: FunctionComponent = () => {
 
   useAnalytics()
 
-  const classes = useStyles()
-
   useEffect(() => {
     if (posts.length === 0) return
     setLoading(false)
@@ -30,7 +27,7 @@ export const MainHome: FunctionComponent = () => {
   const onReadNext = () => {
     setLoading(true)
     setLimit((_limit) => _limit + 32)
-    firebase.analytics().logEvent('tap_to_read_next_posts')
+    logEvent(getAnalytics(), 'tap_to_read_next_posts')
   }
 
   const skeletons = loading && posts.length === 0 ? [0, 1, 2, 3, 4, 5, 6] : []
@@ -38,11 +35,15 @@ export const MainHome: FunctionComponent = () => {
   const hasNext = posts.length !== 0 && limit < 400
 
   return (
-    <main className={classes.main}>
+    <Stack component={'main'} spacing={2}>
       <FragmentHead title={null} />
       <Toolbar />
       <TextFieldPost />
-      <ul className={classes.posts}>
+      <Stack
+        component={'ul'}
+        spacing={2}
+        sx={{ display: 'grid', margin: 0, paddingLeft: 2, paddingRight: 2 }}
+      >
         {skeletons.map((n) => (
           <li key={n}>
             <DivSkeleton />
@@ -52,35 +53,22 @@ export const MainHome: FunctionComponent = () => {
         {posts.map((post) => (
           <li key={post.id}>
             <LinkPost key={post.id} post={post} />
-            <Divider />
           </li>
         ))}
-      </ul>
+      </Stack>
       {hasNext && (
-        <div className={classes.next}>
+        <Box
+          sx={{
+            alignItems: 'center',
+            display: 'grid',
+            gridAutoColumns: 'max-content',
+            justifyContent: 'center',
+            padding: (theme) => theme.spacing(2),
+          }}
+        >
           <ButtonMore onClick={onReadNext} inProgress={loading} />
-        </div>
+        </Box>
       )}
-    </main>
+    </Stack>
   )
 }
-
-const useStyles = makeStyles<Theme>(({ spacing }) => {
-  return {
-    main: { display: 'grid', gridGap: spacing(2) },
-    posts: { display: 'grid', margin: 0, paddingLeft: 0 },
-    progress: {
-      display: 'block',
-      marginLeft: 'auto',
-      marginRight: 'auto',
-      marginTop: spacing(10),
-    },
-    next: {
-      alignItems: 'center',
-      display: 'grid',
-      gridAutoColumns: 'max-content',
-      justifyContent: 'center',
-      padding: spacing(2),
-    },
-  }
-})
