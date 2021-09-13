@@ -1,6 +1,5 @@
-import { Divider, Theme, Toolbar } from '@material-ui/core'
-import { makeStyles } from '@material-ui/styles'
-import React, { Fragment, FunctionComponent } from 'react'
+import { Box, List, ListItem, Stack, Toolbar } from '@mui/material'
+import React, { FunctionComponent } from 'react'
 import { useParams } from 'react-router-dom'
 import { FragmentHead } from 'src/core/components/FragmentHead'
 import { useAnalytics } from 'src/core/hooks/useAnalytics'
@@ -22,14 +21,16 @@ export const MainThread: FunctionComponent = () => {
 
   const thread = useThread(threadId)
 
-  const classes = useStyles()
-
   const isLoading = responseList.isLoading || thread.isLoading
 
   const skeletons = isLoading ? [0, 1, 2, 3] : []
 
+  if (!isLoading && !thread.data) {
+    return <MainThreadNotFound />
+  }
+
   return (
-    <main className={classes.main}>
+    <Stack component={'main'}>
       {thread.data && (
         <FragmentHead
           title={`「${thread.data?.text}」`}
@@ -37,50 +38,49 @@ export const MainThread: FunctionComponent = () => {
         />
       )}
       <Toolbar />
-      <ul>
-        {skeletons.map((n) => (
-          <li key={n}>
-            <DivSkeleton />
-            <Divider />
-          </li>
-        ))}
-        {!isLoading && !thread && <MainThreadNotFound />}
-        {!isLoading && thread.data && (
-          <li>
+      <List disablePadding>
+        {thread.data && (
+          <ListItem
+            sx={{
+              py: (theme) => theme.spacing(2),
+              '&:hover': {
+                background: (theme) => theme.palette.action.hover,
+              },
+            }}
+          >
             <DivThread post={thread.data} />
-            <Divider />
-          </li>
+          </ListItem>
         )}
-        {!isLoading &&
-          responseList.data?.map((post, index) => (
-            <Fragment key={post.id}>
-              <DivResponse index={index + 1} post={post} />
-              <Divider />
-            </Fragment>
-          ))}
-      </ul>
-      {!isLoading && thread !== null && (
-        <TextFieldResponse threadId={threadId} />
-      )}
-    </main>
+        {skeletons.map((n) => (
+          <ListItem
+            key={n}
+            sx={{
+              py: (theme) => theme.spacing(2),
+              '&:hover': {
+                background: (theme) => theme.palette.action.hover,
+              },
+            }}
+          >
+            <DivSkeleton />
+          </ListItem>
+        ))}
+        {responseList.data?.map((post, index) => (
+          <ListItem
+            key={post.id}
+            sx={{
+              py: (theme) => theme.spacing(2),
+              '&:hover': {
+                background: (theme) => theme.palette.action.hover,
+              },
+            }}
+          >
+            <DivResponse index={index + 1} post={post} />
+          </ListItem>
+        ))}
+      </List>
+      <Box sx={{ p: (theme) => theme.spacing(2) }}>
+        {!isLoading && thread && <TextFieldResponse threadId={threadId} />}
+      </Box>
+    </Stack>
   )
 }
-
-const useStyles = makeStyles<Theme>(({ spacing }) => {
-  return {
-    main: { display: 'grid', gridRowGap: spacing(2) },
-    posts: {
-      display: 'grid',
-      gridRowGap: spacing(2),
-      marginLeft: spacing(2),
-      marginRight: spacing(2),
-      marginTop: spacing(2),
-    },
-    progress: {
-      display: 'block',
-      marginLeft: 'auto',
-      marginRight: 'auto',
-      marginTop: spacing(10),
-    },
-  }
-})

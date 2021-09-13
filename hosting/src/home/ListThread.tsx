@@ -1,4 +1,4 @@
-import { Divider, List, ListItem, ListItemText } from '@material-ui/core'
+import { Divider, List, ListItem, ListItemText } from '@mui/material'
 import { getAnalytics, logEvent } from 'firebase/analytics'
 import React, { FunctionComponent, useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'

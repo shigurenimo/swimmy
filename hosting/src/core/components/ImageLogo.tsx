@@ -1,4 +1,4 @@
-import { Avatar, Box } from '@material-ui/core'
+import { Avatar, Box } from '@mui/material'
 import React, { FunctionComponent } from 'react'
 import { Link } from 'react-router-dom'
 

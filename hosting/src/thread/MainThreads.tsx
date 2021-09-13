@@ -1,5 +1,4 @@
-import { Divider, Theme, Toolbar } from '@material-ui/core'
-import { makeStyles } from '@material-ui/styles'
+import { Divider, List, ListItem, Stack, Toolbar } from '@mui/material'
 import { getAnalytics, logEvent } from 'firebase/analytics'
 import React, { FunctionComponent, useEffect, useState } from 'react'
 import { ButtonMore } from 'src/core/components/ButtonMore'
@@ -18,9 +17,7 @@ export const MainThreads: FunctionComponent = () => {
 
   const [posts] = useThreads(limit, orderBy)
 
-  const [loading, setLoading] = useState(posts.length === 0)
-
-  const classes = useStyles()
+  const [isLoading, setLoading] = useState(posts.length === 0)
 
   useAnalytics()
 
@@ -35,47 +32,33 @@ export const MainThreads: FunctionComponent = () => {
     logEvent(getAnalytics(), 'tap_to_read_next_threads')
   }
 
-  const skeletons = loading && posts.length === 0 ? [0, 1, 2, 3, 4, 5, 6] : []
+  const skeletons = isLoading && posts.length === 0 ? [0, 1, 2, 3, 4, 5, 6] : []
 
   const hasNext = posts.length !== 0 && limit < 400
 
   return (
-    <main className={classes.root}>
+    <Stack component={'main'}>
       <FragmentHead title={'スレッド'} />
       <Toolbar />
-      <ul className={classes.posts}>
+      <List sx={{ width: '100%' }}>
         {skeletons.map((n) => (
-          <li key={n}>
+          <ListItem key={n}>
             <DivSkeleton />
             <Divider />
-          </li>
+          </ListItem>
         ))}
         {posts.map((post) => (
-          <li key={post.id}>
+          <ListItem key={post.id}>
             <LinkThread post={post} />
             <Divider />
-          </li>
+          </ListItem>
         ))}
-      </ul>
+      </List>
       {hasNext && (
-        <div className={classes.next}>
-          <ButtonMore onClick={onReadNext} inProgress={loading} />
-        </div>
+        <Stack direction={'row'} justifyContent={'center'}>
+          <ButtonMore onClick={onReadNext} inProgress={isLoading} />
+        </Stack>
       )}
-    </main>
+    </Stack>
   )
 }
-
-const useStyles = makeStyles<Theme>(({ spacing }) => {
-  return {
-    posts: { display: 'grid' },
-    root: { display: 'grid' },
-    next: {
-      alignItems: 'center',
-      display: 'grid',
-      gridAutoColumns: 'max-content',
-      justifyContent: 'center',
-      padding: spacing(2),
-    },
-  }
-})

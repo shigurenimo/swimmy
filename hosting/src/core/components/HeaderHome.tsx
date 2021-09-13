@@ -1,17 +1,15 @@
+import FlightIcon from '@mui/icons-material/Flight'
+import MenuIcon from '@mui/icons-material/Menu'
 import {
   AppBar,
   Box,
   Fade,
   IconButton,
   Slide,
-  Theme,
   Toolbar,
   useScrollTrigger,
   useTheme,
-} from '@material-ui/core'
-import FlightIcon from '@material-ui/icons/Flight'
-import MenuIcon from '@material-ui/icons/Menu'
-import { makeStyles } from '@material-ui/styles'
+} from '@mui/material'
 import { getAnalytics, logEvent } from 'firebase/analytics'
 import React, { FunctionComponent, useState } from 'react'
 import { DialogMenu } from 'src/core/components/DialogMenu'
@@ -22,8 +20,6 @@ export const HeaderHome: FunctionComponent = () => {
   const theme = useTheme()
 
   const [openDialog, setOpenDialog] = useState(false)
-
-  const classes = useStyles()
 
   const isStandalone = detectStandalone()
 
@@ -47,9 +43,12 @@ export const HeaderHome: FunctionComponent = () => {
   return (
     <Slide appear={false} direction={'down'} in={!trigger}>
       <AppBar
-        className={classes.appBar}
         color={'inherit'}
         elevation={triggerElevation ? 1 : 0}
+        sx={{
+          paddingTop: 'env(safe-area-inset-top)',
+          backgroundColor: (theme) => theme.palette.background.default,
+        }}
       >
         <Toolbar
           sx={{
@@ -79,17 +78,3 @@ export const HeaderHome: FunctionComponent = () => {
     </Slide>
   )
 }
-
-const useStyles = makeStyles<Theme>(({ breakpoints, spacing, palette }) => {
-  return {
-    appBar: {
-      paddingTop: 'env(safe-area-inset-top)',
-      backgroundColor: palette.background.default,
-    },
-    actions: {
-      display: 'grid',
-      gridAutoFlow: 'column',
-      gridColumnGap: spacing(1),
-    },
-  }
-})

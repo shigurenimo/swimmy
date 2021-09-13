@@ -1,5 +1,4 @@
-import { Theme, Toolbar } from '@material-ui/core'
-import { makeStyles } from '@material-ui/styles'
+import { Grid, Stack, Toolbar } from '@mui/material'
 import { getAnalytics, logEvent } from 'firebase/analytics'
 import React, { FunctionComponent, useEffect, useState } from 'react'
 import { ButtonMore } from 'src/core/components/ButtonMore'
@@ -21,8 +20,6 @@ export const MainPhotos: FunctionComponent = () => {
 
   const [loading, setLoading] = useState(posts.length === 0)
 
-  const classes = useStyles()
-
   useAnalytics()
 
   useEffect(() => {
@@ -39,51 +36,33 @@ export const MainPhotos: FunctionComponent = () => {
   const hasNext = posts.length !== 0 && limit < 400
 
   return (
-    <main className={classes.root}>
+    <Stack>
       <FragmentHead
         title={WORD_PHOTO}
         description={`${WORD_PHOTO}の添付された書き込みです。`}
       />
       <Toolbar />
       <TextFieldPhoto />
-      <ul className={classes.ul}>
+      <Grid
+        container
+        direction={'row'}
+        sx={{
+          sm: { gridTemplateColumns: 'repeat(2, 1fr)' },
+          md: { gridTemplateColumns: 'repeat(3, 1fr)' },
+          lg: { gridTemplateColumns: 'repeat(4, 1fr)' },
+        }}
+      >
         {posts.map((post) => (
-          <li key={post.id}>
+          <Grid item key={post.id}>
             <CardImage post={post} />
-          </li>
+          </Grid>
         ))}
-      </ul>
+      </Grid>
       {hasNext && (
-        <div className={classes.next}>
+        <Stack direction={'row'} justifyContent={'center'}>
           <ButtonMore onClick={onReadNext} inProgress={loading} />
-        </div>
+        </Stack>
       )}
-    </main>
+    </Stack>
   )
 }
-
-const useStyles = makeStyles<Theme>(({ breakpoints, spacing }) => {
-  return {
-    root: { display: 'grid', gridRowGap: spacing(2) },
-    section: { display: 'grid', gridRowGap: spacing(2) },
-    ul: {
-      alignItems: 'center',
-      display: 'grid',
-      gridColumnGap: spacing(2),
-      gridRowGap: spacing(2),
-      margin: 0,
-      paddingLeft: spacing(2),
-      paddingRight: spacing(2),
-      [breakpoints.up('sm')]: { gridTemplateColumns: 'repeat(2, 1fr)' },
-      [breakpoints.up('md')]: { gridTemplateColumns: 'repeat(3, 1fr)' },
-      [breakpoints.up('lg')]: { gridTemplateColumns: 'repeat(4, 1fr)' },
-    },
-    next: {
-      alignItems: 'center',
-      display: 'grid',
-      gridAutoColumns: 'max-content',
-      justifyContent: 'center',
-      padding: spacing(2),
-    },
-  }
-})

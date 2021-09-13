@@ -1,8 +1,9 @@
-import { createTheme } from '@material-ui/core/styles'
+import { createTheme } from '@mui/material'
+import { blue } from '@mui/material/colors'
 import { Mode } from 'src/core/types/mode'
 
-export const useTheme = (mode: Mode = 'light') => {
-  const isDark = mode === 'dark' || mode === 'red'
+export const useAppTheme = (mode: Mode = 'light') => {
+  const isDark = mode === 'dark'
 
   const theme = createTheme({
     components: {
@@ -25,6 +26,8 @@ export const useTheme = (mode: Mode = 'light') => {
       },
     },
     palette: {
+      mode: isDark ? 'dark' : 'light',
+      primary: { main: blue[200] },
       /*
       background: {
         default: toColor('#fff', background.default, blue[900]),

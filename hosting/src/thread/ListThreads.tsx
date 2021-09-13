@@ -1,4 +1,4 @@
-import { Divider, List, ListItem, ListItemText } from '@material-ui/core'
+import { Divider, List, ListItem, ListItemText } from '@mui/material'
 import React, { FunctionComponent } from 'react'
 import { Link } from 'react-router-dom'
 

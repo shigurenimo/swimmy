@@ -1,4 +1,4 @@
-import { Box, Stack, Typography } from '@material-ui/core'
+import { Box, Stack, Typography } from '@mui/material'
 import { getAnalytics, logEvent } from 'firebase/analytics'
 import React, { FunctionComponent } from 'react'
 import { Link } from 'react-router-dom'

@@ -1,4 +1,4 @@
-import { Box, Divider, Stack, Toolbar } from '@material-ui/core'
+import { Box, Divider, List, ListItem, Stack, Toolbar } from '@mui/material'
 import { getAnalytics, logEvent } from 'firebase/analytics'
 import React, { FunctionComponent, useEffect, useState } from 'react'
 import { ButtonMore } from 'src/core/components/ButtonMore'
@@ -39,23 +39,19 @@ export const MainHome: FunctionComponent = () => {
       <FragmentHead title={null} />
       <Toolbar />
       <TextFieldPost />
-      <Stack
-        component={'ul'}
-        spacing={2}
-        sx={{ display: 'grid', margin: 0, paddingLeft: 2, paddingRight: 2 }}
-      >
+      <List>
         {skeletons.map((n) => (
-          <li key={n}>
+          <ListItem key={n}>
             <DivSkeleton />
             <Divider />
-          </li>
+          </ListItem>
         ))}
         {posts.map((post) => (
-          <li key={post.id}>
+          <ListItem key={post.id}>
             <LinkPost key={post.id} post={post} />
-          </li>
+          </ListItem>
         ))}
-      </Stack>
+      </List>
       {hasNext && (
         <Box
           sx={{

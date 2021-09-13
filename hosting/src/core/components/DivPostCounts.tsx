@@ -1,5 +1,5 @@
-import { Box, Typography } from '@material-ui/core'
-import { blue } from '@material-ui/core/colors'
+import { Box, Typography } from '@mui/material'
+import { blue } from '@mui/material/colors'
 import React, { FunctionComponent } from 'react'
 
 type Props = { replyPostCount: number }

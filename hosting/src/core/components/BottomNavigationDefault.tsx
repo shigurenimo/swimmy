@@ -1,22 +1,18 @@
+import HomeIcon from '@mui/icons-material/Home'
+import ImageIcon from '@mui/icons-material/Image'
+import InboxIcon from '@mui/icons-material/Inbox'
+import MoreHorizIcon from '@mui/icons-material/MoreHoriz'
 import {
   BottomNavigation,
   BottomNavigationAction,
   Divider,
   Paper,
-  Theme,
-} from '@material-ui/core'
-import HomeIcon from '@material-ui/icons/Home'
-import ImageIcon from '@material-ui/icons/Image'
-import InboxIcon from '@material-ui/icons/Inbox'
-import MoreHorizIcon from '@material-ui/icons/MoreHoriz'
-import { makeStyles } from '@material-ui/styles'
+} from '@mui/material'
 import { getAnalytics, logEvent } from 'firebase/analytics'
 import React, { FunctionComponent, useState } from 'react'
 import { useHistory, useLocation } from 'react-router-dom'
 
 export const BottomNavigationDefault: FunctionComponent = () => {
-  const classes = useStyles()
-
   const history = useHistory()
 
   const location = useLocation()
@@ -42,7 +38,17 @@ export const BottomNavigationDefault: FunctionComponent = () => {
   })
 
   return (
-    <Paper elevation={0} className={classes.root}>
+    <Paper
+      elevation={0}
+      sx={{
+        bottom: 0,
+        left: 0,
+        paddingBottom: 'env(safe-area-inset-bottom)',
+        position: 'fixed',
+        width: '100%',
+        '@media screen and (max-height: 520px)': { display: 'none' },
+      }}
+    >
       <Divider />
       <BottomNavigation
         onChange={(_, _value) => {
@@ -79,16 +85,3 @@ export const BottomNavigationDefault: FunctionComponent = () => {
     </Paper>
   )
 }
-
-const useStyles = makeStyles<Theme>(() => {
-  return {
-    root: {
-      bottom: 0,
-      left: 0,
-      paddingBottom: 'env(safe-area-inset-bottom)',
-      position: 'fixed',
-      width: '100%',
-      '@media screen and (max-height: 520px)': { display: 'none' },
-    },
-  }
-})

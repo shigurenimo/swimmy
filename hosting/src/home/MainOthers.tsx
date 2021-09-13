@@ -3,10 +3,9 @@ import {
   List,
   ListItem,
   ListItemText,
-  Theme,
+  Stack,
   Toolbar,
-} from '@material-ui/core'
-import { makeStyles } from '@material-ui/styles'
+} from '@mui/material'
 import React, { FunctionComponent } from 'react'
 import { Link } from 'react-router-dom'
 import { FragmentHead } from 'src/core/components/FragmentHead'
@@ -15,10 +14,8 @@ import { useAnalytics } from 'src/core/hooks/useAnalytics'
 export const MainOthers: FunctionComponent = () => {
   useAnalytics()
 
-  const classes = useStyles()
-
   return (
-    <main className={classes.main}>
+    <Stack spacing={1}>
       <FragmentHead title={null} />
       <Toolbar />
       <List disablePadding>
@@ -35,12 +32,6 @@ export const MainOthers: FunctionComponent = () => {
         </Link>
         <Divider />
       </List>
-    </main>
+    </Stack>
   )
 }
-
-const useStyles = makeStyles<Theme>(({ spacing }) => {
-  return {
-    main: { display: 'grid', gridGap: spacing(1) },
-  }
-})

@@ -1,7 +1,7 @@
 /// <reference types="react-scripts" />
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import { Theme } from '@material-ui/core'
+import { Theme } from '@mui/material'
 
 declare global {
   interface Window {

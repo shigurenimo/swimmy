@@ -1,24 +1,20 @@
-import { Theme } from '@material-ui/core'
-import { makeStyles } from '@material-ui/styles'
+import { Box } from '@mui/material'
 import React, { ChangeEvent, FunctionComponent, RefObject } from 'react'
 
 type Props = {
   inputRef: RefObject<HTMLInputElement>
-  onChange: (event: ChangeEvent<HTMLInputElement>) => void
+  onChange(event: ChangeEvent<HTMLInputElement>): void
 }
 
 export const InputFile: FunctionComponent<Props> = ({ inputRef, onChange }) => {
-  const classes = useStyles()
-
   return (
-    <input
+    <Box
+      component={'input'}
       accept={'image/*'}
-      className={classes.root}
       onChange={onChange}
       ref={inputRef}
       type={'file'}
+      sx={{ display: 'none' }}
     />
   )
 }
-
-const useStyles = makeStyles<Theme>({ root: { display: 'none' } })

@@ -1,17 +1,18 @@
-import { Button, CircularProgress, TextField, Theme } from '@material-ui/core'
-import NearMe from '@material-ui/icons/NearMe'
-import { makeStyles } from '@material-ui/styles'
+import NearMe from '@mui/icons-material/NearMe'
+import { LoadingButton } from '@mui/lab'
+import { Stack, TextField } from '@mui/material'
+import { useSnackbar } from 'notistack'
 import React, { FunctionComponent, useState } from 'react'
 import { useCreateResponse } from 'src/thread/hooks/useCreateResponse'
 
 type Props = { threadId: string }
 
 export const TextFieldResponse: FunctionComponent<Props> = ({ threadId }) => {
-  const classes = useStyles()
-
   const [text, setText] = useState('')
 
   const createResponse = useCreateResponse()
+
+  const { enqueueSnackbar } = useSnackbar()
 
   const onCreateResponse = async () => {
     try {
@@ -22,14 +23,14 @@ export const TextFieldResponse: FunctionComponent<Props> = ({ threadId }) => {
       })
       setText('')
     } catch (error) {
-      console.error(error)
+      enqueueSnackbar(error.message, { variant: 'error' })
     }
   }
 
   const isDisabled = createResponse.isLoading || text.match(/\S/g) === null
 
   return (
-    <section className={classes.root}>
+    <Stack direction={'row'} spacing={2}>
       <TextField
         disabled={createResponse.isLoading}
         fullWidth
@@ -41,56 +42,20 @@ export const TextFieldResponse: FunctionComponent<Props> = ({ threadId }) => {
         placeholder={'新しいコメント'}
         size={'small'}
         value={text}
-        variant={'outlined'}
+        variant={'standard'}
       />
-      <Button
-        aria-label={'Send a post'}
-        className={classes.submitButton}
-        classes={{ root: classes.buttonRoot }}
+      <LoadingButton
+        aria-label={'発言する'}
         color={'primary'}
         disabled={isDisabled}
         onClick={onCreateResponse}
         variant={'contained'}
+        size={'small'}
+        endIcon={<NearMe />}
+        loading={createResponse.isLoading}
       >
-        {createResponse.isLoading ? <CircularProgress size={24} /> : <NearMe />}
-      </Button>
-    </section>
+        {'発言'}
+      </LoadingButton>
+    </Stack>
   )
 }
-
-const useStyles = makeStyles<Theme>((theme) => {
-  return {
-    actions: { textAlign: 'right' },
-    buttonRoot: {
-      paddingLeft: theme.spacing(1),
-      paddingRight: theme.spacing(1),
-      minWidth: 0,
-    },
-    buttonProgress: {
-      bottom: 0,
-      left: 0,
-      margin: 'auto',
-      position: 'absolute',
-      right: 0,
-      top: 0,
-    },
-    root: {
-      display: 'grid',
-      gridTemplateColumns: '1fr auto',
-      columnGap: theme.spacing(2),
-      paddingLeft: theme.spacing(2),
-      paddingRight: theme.spacing(2),
-    },
-    submitButton: { position: 'relative' },
-    img: { width: `${100}%`, borderRadius: 4 },
-    images: {
-      display: 'grid',
-      gridColumnGap: theme.spacing(2),
-      gridRowGap: theme.spacing(2),
-      gridTemplateColumns: 'repeat(4, 1fr)',
-      paddingLeft: theme.spacing(1),
-      paddingRight: theme.spacing(1),
-      width: '100%',
-    },
-  }
-})

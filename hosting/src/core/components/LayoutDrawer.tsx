@@ -1,4 +1,4 @@
-import { Drawer, useTheme } from '@material-ui/core'
+import { Drawer, useTheme } from '@mui/material'
 import React, { FunctionComponent } from 'react'
 
 export const LayoutDrawer: FunctionComponent = ({ children }) => {

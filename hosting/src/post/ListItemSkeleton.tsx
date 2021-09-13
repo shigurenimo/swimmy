@@ -1,4 +1,4 @@
-import { ListItem, Skeleton } from '@material-ui/core'
+import { ListItem, Skeleton } from '@mui/material'
 import React, { FunctionComponent } from 'react'
 
 export const ListItemSkeleton: FunctionComponent = () => {

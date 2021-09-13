@@ -8,7 +8,7 @@ import {
   ListItemText,
   useMediaQuery,
   useTheme,
-} from '@material-ui/core'
+} from '@mui/material'
 import React, { FunctionComponent } from 'react'
 import { Link } from 'react-router-dom'
 
