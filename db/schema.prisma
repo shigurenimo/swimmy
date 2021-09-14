@@ -1,8 +1,5 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 datasource db {
-  provider = "sqlite"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
@@ -10,56 +7,246 @@ generator client {
   provider = "prisma-client-js"
 }
 
-// --------------------------------------
-
 model User {
-  id             Int      @id @default(autoincrement())
-  createdAt      DateTime @default(now())
-  updatedAt      DateTime @updatedAt
-  name           String?
-  email          String   @unique
-  hashedPassword String?
-  role           String   @default("USER")
+  id             String         @id @map("id")
+  createdAt      DateTime       @default(now()) @map("created_at")
+  updatedAt      DateTime       @default(now()) @updatedAt @map("updated_at")
+  name           String?        @map("name")
+  username       String         @unique @map("username")
+  role           UserRole       @default(USER)
+  email          String         @unique @map("email")
+  tokens         Token[]        @relation("user_tokens")
+  sessions       Session[]      @relation("user_sessions")
+  hashedPassword String         @map("hashed_password")
+  biography      String         @default("") @map("biography")
+  siteURL        String         @default("") @map("site_url")
+  files          File[]         @relation("user_files")
+  followees      Friendship[]   @relation("user_followers")
+  followeesCount Int            @default(0) @map("followees_count")
+  followers      Friendship[]   @relation("user_followees")
+  followersCount Int            @default(0) @map("followers_count")
+  bookmarks      Bookmark[]     @relation("user_bookmarks")
+  headerImage    File?          @relation("user_header_image")
+  iconImage      File?          @relation("user_icon_image")
+  likes          Like[]         @relation("user_likes")
+  notifications  Notification[] @relation("user_notifications")
+  posts          Post[]         @relation("user_posts")
+  references     Reference[]    @relation("user_references")
+  reactions      Reaction[]     @relation("user_reactions")
+  setting        Setting?       @relation("user_setting")
 
-  tokens   Token[]
-  sessions Session[]
+  @@index([createdAt])
+  @@map("users")
+}
+
+model Setting {
+  id                     String  @id @map("id")
+  fcmToken               String? @map("fcm_token")
+  fcmTokenForMobile      String? @map("fcm_token_for_mobile")
+  notificationEmail      String? @map("notification_email")
+  protected              Boolean @default(false) @map("protected")
+  discoverableByEmail    Boolean @default(true) @map("discoverable_by_email")
+  subscribeMessage       Boolean @default(false) @map("subscribe_message")
+  subscribePostLike      Boolean @default(false) @map("subscribe_post_like")
+  subscribePostQuotation Boolean @default(false) @map("subscribe_post_quotation")
+  user                   User    @relation("user_setting", fields: [userId], references: [id])
+  userId                 String  @map("user_id")
+
+  @@unique([userId])
+  @@map("settings")
+}
+
+model Friendship {
+  id            String         @id @map("id")
+  createdAt     DateTime       @default(now()) @map("created_at")
+  followee      User           @relation("user_followees", fields: [followeeId], references: [id])
+  followeeId    String         @map("followee_id")
+  follower      User           @relation("user_followers", fields: [followerId], references: [id])
+  followerId    String         @map("follower_id")
+  notifications Notification[] @relation("notifications_friendship")
+
+  @@unique([followerId, followeeId])
+  @@index([followerId, createdAt])
+  @@map("friendships")
 }
 
 model Session {
-  id                 Int       @id @default(autoincrement())
-  createdAt          DateTime  @default(now())
-  updatedAt          DateTime  @updatedAt
-  expiresAt          DateTime?
-  handle             String    @unique
-  hashedSessionToken String?
-  antiCSRFToken      String?
-  publicData         String?
-  privateData        String?
+  id                 String    @id @default(cuid()) @map("id")
+  createdAt          DateTime  @default(now()) @map("created_at")
+  updatedAt          DateTime  @default(now()) @updatedAt @map("updated_at")
+  antiCSRFToken      String?   @map("anti_csrf_token")
+  expiresAt          DateTime? @map("expires_at")
+  handle             String    @unique @map("handle")
+  hashedSessionToken String?   @map("hashed_session_token")
+  privateData        String?   @map("private_data")
+  publicData         String?   @map("public_data")
+  user               User?     @relation("user_sessions", fields: [userId], references: [id])
+  userId             String?   @map("user_id")
 
-  user   User? @relation(fields: [userId], references: [id])
-  userId Int?
+  @@map("sessions")
+}
+
+model Post {
+  id              String         @id @map("id")
+  createdAt       DateTime       @default(now()) @map("created_at")
+  updatedAt       DateTime       @default(now()) @updatedAt @map("updated_at")
+  bookmarks       Bookmark[]     @relation("post_bookmarks")
+  files           File[]         @relation("post_files")
+  likes           Like[]         @relation("post_likes")
+  likesCount      Int            @default(0) @map("likes_count")
+  reactions       Reaction[]     @relation("post_reactions")
+  notifications   Notification[] @relation("notifications_post")
+  quotation       Post?          @relation("post_quotations", fields: [quotationId], references: [id])
+  quotationId     String?        @map("quotation_id")
+  quotations      Post[]         @relation("post_quotations")
+  quotationsCount Int            @default(0) @map("quotations_count")
+  references      Reference[]    @relation("post_references")
+  replies         Post[]         @relation("post_replies")
+  repliesCount    Int            @default(0) @map("replies_count")
+  reply           Post?          @relation("post_replies", fields: [replyId], references: [id])
+  replyId         String?        @map("reply_id")
+  text            String?        @map("text")
+  user            User           @relation("user_posts", fields: [userId], references: [id])
+  userId          String         @map("user_id")
+
+  @@unique([userId, quotationId])
+  @@index([createdAt])
+  @@index([userId, createdAt])
+  @@index([replyId, createdAt])
+  @@map("posts")
+}
+
+model Reference {
+  createdAt DateTime @default(now()) @map("created_at")
+  isRead    Boolean  @default(false) @map("is_read")
+  post      Post     @relation("post_references", fields: [postId], references: [id])
+  postId    String   @map("post_id")
+  user      User     @relation("user_references", fields: [userId], references: [id])
+  userId    String   @map("user_id")
+
+  @@id([userId, postId])
+  @@index([userId, createdAt])
+  @@map("references")
+}
+
+model Like {
+  id            String         @id @map("id")
+  createdAt     DateTime       @default(now()) @map("created_at")
+  notifications Notification[] @relation("notifications_like")
+  post          Post           @relation("post_likes", fields: [postId], references: [id])
+  postId        String         @map("post_id")
+  user          User           @relation("user_likes", fields: [userId], references: [id])
+  userId        String         @map("user_id")
+
+  @@unique([userId, postId])
+  @@index([userId, createdAt])
+  @@map("likes")
+}
+
+model Reaction {
+  id        String   @id @map("id")
+  createdAt DateTime @default(now()) @map("created_at")
+  text      String   @map("text")
+  post      Post     @relation("post_reactions", fields: [postId], references: [id])
+  postId    String   @map("post_id")
+  users     User[]   @relation("user_reactions")
+
+  @@unique([postId, text])
+  @@index([postId])
+  @@map("reactions")
+}
+
+model Bookmark {
+  createdAt DateTime @default(now()) @map("created_at")
+  post      Post     @relation("post_bookmarks", fields: [postId], references: [id])
+  postId    String   @map("post_id")
+  user      User     @relation("user_bookmarks", fields: [userId], references: [id])
+  userId    String   @map("user_id")
+
+  @@unique([userId, postId])
+  @@index([userId, createdAt])
+  @@map("bookmarks")
+}
+
+model Notification {
+  id           String           @id @map("id")
+  type         NotificationType @map("type")
+  uniqueId     String           @map("unique_id")
+  createdAt    DateTime         @default(now()) @map("created_at")
+  friendship   Friendship?      @relation("notifications_friendship", fields: [friendshipId], references: [id])
+  friendshipId String?          @map("friendship_id")
+  isRead       Boolean          @default(false) @map("is_read")
+  like         Like?            @relation("notifications_like", fields: [likeId], references: [id])
+  likeId       String?          @map("like_id")
+  post         Post?            @relation("notifications_post", fields: [postId], references: [id])
+  postId       String?          @map("post_id")
+  user         User?            @relation("user_notifications", fields: [userId], references: [id])
+  userId       String?          @map("user_id")
+
+  @@unique([userId, type, uniqueId])
+  @@index([userId, createdAt])
+  @@map("notifications")
+}
+
+model File {
+  id           String   @id @map("id")
+  type         FileType @default(IMAGE_PNG)
+  createdAt    DateTime @default(now()) @map("created_at")
+  headerUser   User?    @relation("user_header_image", fields: [headerUserId], references: [id])
+  headerUserId String?  @map("header_user_id")
+  iconUser     User?    @relation("user_icon_image", fields: [iconUserId], references: [id])
+  iconUserId   String?  @map("icon_user_id")
+  path         String   @map("path")
+  post         Post?    @relation("post_files", fields: [postId], references: [id])
+  postId       String?  @map("post_id")
+  user         User     @relation("user_files", fields: [userId], references: [id])
+  userId       String   @map("user_id")
+
+  @@map("files")
 }
 
 model Token {
-  id          Int      @id @default(autoincrement())
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-  hashedToken String
-  type        String
-  // See note below about TokenType enum
-  // type        TokenType
-  expiresAt   DateTime
-  sentTo      String
-
-  user   User @relation(fields: [userId], references: [id])
-  userId Int
+  id          String    @id @map("id")
+  createdAt   DateTime  @default(now()) @map("created_at")
+  updatedAt   DateTime  @updatedAt @map("updated_at")
+  hashedToken String    @map("hashed_token")
+  type        TokenType @map("type")
+  expiresAt   DateTime  @map("expires_at")
+  sentTo      String    @map("sent_to")
+  user        User      @relation("user_tokens", fields: [userId], references: [id])
+  userId      String    @map("user_id")
 
   @@unique([hashedToken, type])
+  @@map("tokens")
 }
 
-// NOTE: It's highly recommended to use an enum for the token type
-//       but enums only work in Postgres.
-//       See: https://blitzjs.com/docs/database-overview#switch-to-postgresql
-// enum TokenType {
-//   RESET_PASSWORD
-// }
+enum TokenType {
+  RESET_PASSWORD
+}
+
+enum FileType {
+  IMAGE_GIF
+  IMAGE_JPEG
+  IMAGE_PNG
+  IMAGE_WEBP
+
+  @@map("file_type")
+}
+
+enum NotificationType {
+  FOLLOW
+  FRIENDSHIP
+  LIKE
+  REPLY
+  QUOTATION
+
+  @@map("notification_type")
+}
+
+enum UserRole {
+  ADMIN
+  SYSTEM
+  USER
+
+  @@map("user_role")
+}
