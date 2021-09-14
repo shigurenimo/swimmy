@@ -1,26 +1,4 @@
 {
-  "functions": {
-    "source": "functions",
-    "ignore": [".git", ".idea", "node_modules", "src", "yarn.lock"]
-  },
-  "hosting": {
-    "public": "hosting/build",
-    "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
-    "headers": [
-      {
-        "source": "/service-worker.js",
-        "headers": [{ "key": "Cache-Control", "value": "no-store" }]
-      },
-      {
-        "source": "/index.html",
-        "headers": [{ "key": "Cache-Control", "value": "no-store" }]
-      }
-    ],
-    "rewrites": [
-      { "source": "/images/**", "function": "images" },
-      { "source": "**", "destination": "/index.html" }
-    ]
-  },
   "database": {
     "rules": "database.rules.json"
   },

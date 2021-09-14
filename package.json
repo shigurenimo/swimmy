@@ -1,43 +1,49 @@
 {
-  "name": "swimmy.io",
-  "version": "7.0.0",
-  "private": true,
+  "name": "swimmy",
+  "version": "1.0.0",
   "scripts": {
-    "start": "emulators:start"
+    "dev": "blitz dev",
+    "build": "blitz build",
+    "start": "blitz start",
+    "studio": "blitz prisma studio",
+    "lint": "eslint --ignore-path .gitignore --ext .js,.ts,.tsx .",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "prepare": "husky install"
   },
-  "license": "MIT",
-  "workspaces": [
-    "functions",
-    "hosting"
-  ],
-  "devDependencies": {
-    "@typescript-eslint/eslint-plugin": "^4.6.1",
-    "@typescript-eslint/parser": "^4.6.1",
-    "eslint-config-prettier": "^6.15.0",
-    "eslint-config-react-app": "^6.0.0",
-    "eslint-plugin-prettier": "^3.1.4",
-    "firebase-tools": "^8.14.1",
-    "husky": "^4.3.0",
-    "prettier": "^2.1.2",
-    "prettier-plugin-organize-imports": "2.1.0",
-    "pretty-quick": "^3.1.0",
-    "typescript": "4.2.4"
+  "prisma": {
+    "schema": "db/schema.prisma"
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "pretty-quick --staged"
-    }
+  "prettier": {
+    "semi": false,
+    "printWidth": 100
   },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
+  "lint-staged": {
+    "*.{js,ts,tsx}": [
+      "eslint --fix"
     ]
-  }
+  },
+  "dependencies": {
+    "@prisma/client": "2.31.0-integration-undici-4.3",
+    "blitz": "0.39.0",
+    "react-dom": "alpha",
+    "react": "alpha",
+    "zod": "3.8.2",
+    "react-hook-form": "7.15.3",
+    "@hookform/resolvers": "2.8.0"
+  },
+  "devDependencies": {
+    "@types/preview-email": "2.0.1",
+    "@types/react": "17.0.20",
+    "eslint": "7.32.0",
+    "husky": "6.0.0",
+    "lint-staged": "10.5.4",
+    "prettier-plugin-prisma": "0.15.0",
+    "prettier": "2.4.0",
+    "pretty-quick": "3.1.1",
+    "preview-email": "3.0.5",
+    "prisma": "2.31.0-integration-undici-4.3",
+    "typescript": "~4.3"
+  },
+  "private": true
 }
