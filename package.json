@@ -11,39 +11,45 @@
     "test:watch": "jest --watch",
     "prepare": "husky install"
   },
+  "dependencies": {
+    "@emotion/react": "^11.4.1",
+    "@emotion/server": "11.4.0",
+    "@emotion/styled": "^11.3.0",
+    "@hookform/resolvers": "2.8.0",
+    "@mui/icons-material": "next",
+    "@mui/lab": "next",
+    "@mui/material": "next",
+    "@prisma/client": "3.0.2",
+    "@sentry/node": "6.12.0",
+    "@sentry/react": "^6.12.0",
+    "@sentry/tracing": "^6.12.0",
+    "blitz": "0.39.0",
+    "firebase": "^9.0.2",
+    "notistack": "next",
+    "react": "alpha",
+    "react-dom": "alpha",
+    "react-hook-form": "7.15.3",
+    "zod": "3.8.2"
+  },
+  "devDependencies": {
+    "@types/react": "17.0.20",
+    "eslint": "7.32.0",
+    "husky": "6.0.0",
+    "lint-staged": "10.5.4",
+    "prettier": "2.4.0",
+    "prettier-plugin-organize-imports": "2.3.3",
+    "prettier-plugin-prisma": "3.0.1",
+    "pretty-quick": "3.1.1",
+    "prisma": "3.0.2",
+    "typescript": "~4.3"
+  },
+  "private": true,
   "prisma": {
     "schema": "db/schema.prisma"
-  },
-  "prettier": {
-    "semi": false,
-    "printWidth": 100
   },
   "lint-staged": {
     "*.{js,ts,tsx}": [
       "eslint --fix"
     ]
-  },
-  "dependencies": {
-    "@prisma/client": "2.31.0-integration-undici-4.3",
-    "blitz": "0.39.0",
-    "react-dom": "alpha",
-    "react": "alpha",
-    "zod": "3.8.2",
-    "react-hook-form": "7.15.3",
-    "@hookform/resolvers": "2.8.0"
-  },
-  "devDependencies": {
-    "@types/preview-email": "2.0.1",
-    "@types/react": "17.0.20",
-    "eslint": "7.32.0",
-    "husky": "6.0.0",
-    "lint-staged": "10.5.4",
-    "prettier-plugin-prisma": "0.15.0",
-    "prettier": "2.4.0",
-    "pretty-quick": "3.1.1",
-    "preview-email": "3.0.5",
-    "prisma": "2.31.0-integration-undici-4.3",
-    "typescript": "~4.3"
-  },
-  "private": true
+  }
 }

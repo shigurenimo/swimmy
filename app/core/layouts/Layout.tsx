@@ -1,20 +1,19 @@
-import { ReactNode } from "react"
 import { Head } from "blitz"
+import { FunctionComponent, ReactNode } from "react"
 
 type LayoutProps = {
   title?: string
   children: ReactNode
 }
 
-const Layout = ({ title, children }: LayoutProps) => {
+const Layout: FunctionComponent<LayoutProps> = (props) => {
   return (
     <>
       <Head>
-        <title>{title || "swimmy"}</title>
+        <title>{props.title || "スイミー電子掲示板"}</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-
-      {children}
+      {props.children}
     </>
   )
 }

@@ -8,7 +8,8 @@
     ".firebase": true,
     ".tsbuildinfo": true,
     "yarn-error.log": true,
-    "yarn.lock": true
+    "yarn.lock": true,
+    ".blitz.config.compiled.js": true
   },
   "search.exclude": {
     "yarn.lock": true

@@ -1,40 +1,35 @@
-import {
-  AppProps,
-  ErrorBoundary,
-  ErrorComponent,
-  AuthenticationError,
-  AuthorizationError,
-  ErrorFallbackProps,
-  useQueryErrorResetBoundary,
-} from "blitz"
-import LoginForm from "app/auth/components/LoginForm"
+import createCache from "@emotion/cache"
+import { CacheProvider, EmotionCache } from "@emotion/react"
+import { CssBaseline, ThemeProvider } from "@mui/material"
+import { RootErrorFallback } from "app/core/components/app/RootErrorFallback"
+import { theme } from "app/core/theme/theme"
+import { AppProps, ErrorBoundary, useQueryErrorResetBoundary } from "blitz"
+import React, { FunctionComponent } from "react"
 
-export default function App({ Component, pageProps }: AppProps) {
+const clientSideEmotionCache = createCache({ key: "css" })
+
+interface Props extends AppProps {
+  emotionCache?: EmotionCache
+}
+
+const App: FunctionComponent<Props> = ({ Component, ...props }) => {
   const getLayout = Component.getLayout || ((page) => page)
+
+  const queryErrorResetBoundary = useQueryErrorResetBoundary()
 
   return (
     <ErrorBoundary
       FallbackComponent={RootErrorFallback}
-      onReset={useQueryErrorResetBoundary().reset}
+      onReset={queryErrorResetBoundary.reset}
     >
-      {getLayout(<Component {...pageProps} />)}
+      <CacheProvider value={props.emotionCache || clientSideEmotionCache}>
+        <ThemeProvider theme={theme}>
+          <CssBaseline />
+          {getLayout(<Component {...props.pageProps} />)}
+        </ThemeProvider>
+      </CacheProvider>
     </ErrorBoundary>
   )
 }
 
-function RootErrorFallback({ error, resetErrorBoundary }: ErrorFallbackProps) {
-  if (error instanceof AuthenticationError) {
-    return <LoginForm onSuccess={resetErrorBoundary} />
-  } else if (error instanceof AuthorizationError) {
-    return (
-      <ErrorComponent
-        statusCode={error.statusCode}
-        title="Sorry, you are not authorized to access this"
-      />
-    )
-  } else {
-    return (
-      <ErrorComponent statusCode={error.statusCode || 400} title={error.message || error.name} />
-    )
-  }
-}
+export default App
