@@ -4,56 +4,46 @@ datasource db {
 }
 
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
+  previewFeatures = ["fullTextSearch"]
 }
 
 model User {
-  id             String         @id @map("id")
-  createdAt      DateTime       @default(now()) @map("created_at")
-  updatedAt      DateTime       @default(now()) @updatedAt @map("updated_at")
-  name           String?        @map("name")
-  username       String         @unique @map("username")
-  role           UserRole       @default(USER)
-  email          String         @unique @map("email")
-  tokens         Token[]        @relation("user_tokens")
-  sessions       Session[]      @relation("user_sessions")
-  hashedPassword String         @map("hashed_password")
-  biography      String         @default("") @map("biography")
-  siteURL        String         @default("") @map("site_url")
-  files          File[]         @relation("user_files")
-  followees      Friendship[]   @relation("user_followers")
-  followeesCount Int            @default(0) @map("followees_count")
-  followers      Friendship[]   @relation("user_followees")
-  followersCount Int            @default(0) @map("followers_count")
-  bookmarks      Bookmark[]     @relation("user_bookmarks")
-  headerImage    File?          @relation("user_header_image")
-  iconImage      File?          @relation("user_icon_image")
-  likes          Like[]         @relation("user_likes")
-  notifications  Notification[] @relation("user_notifications")
-  posts          Post[]         @relation("user_posts")
-  references     Reference[]    @relation("user_references")
-  reactions      Reaction[]     @relation("user_reactions")
-  setting        Setting?       @relation("user_setting")
+  id                     String         @id @map("id")
+  createdAt              DateTime       @default(now()) @map("created_at")
+  updatedAt              DateTime       @default(now()) @updatedAt @map("updated_at")
+  name                   String?        @map("name")
+  username               String         @unique @map("username")
+  role                   UserRole       @default(USER)
+  email                  String?        @unique @map("email")
+  tokens                 Token[]        @relation("user_tokens")
+  sessions               Session[]      @relation("user_sessions")
+  biography              String         @default("") @map("biography")
+  siteURL                String?        @map("site_url")
+  followees              Friendship[]   @relation("user_followers")
+  followeesCount         Int            @default(0) @map("followees_count")
+  followers              Friendship[]   @relation("user_followees")
+  followersCount         Int            @default(0) @map("followers_count")
+  bookmarks              Bookmark[]     @relation("user_bookmarks")
+  headerFileId           String?        @map("header_file_id")
+  iconFileId             String?        @map("icon_file_id")
+  likes                  Like[]         @relation("user_likes")
+  notifications          Notification[] @relation("user_notifications")
+  posts                  Post[]         @relation("user_posts")
+  references             Reference[]    @relation("user_references")
+  reactions              Reaction[]     @relation("user_reactions")
+  loginProvider          LoginProvider  @map("login_provider")
+  fcmToken               String?        @map("fcm_token")
+  fcmTokenForMobile      String?        @map("fcm_token_for_mobile")
+  notificationEmail      String?        @map("notification_email")
+  protected              Boolean        @default(false) @map("protected")
+  discoverableByEmail    Boolean        @default(true) @map("discoverable_by_email")
+  subscribeMessage       Boolean        @default(false) @map("subscribe_message")
+  subscribePostLike      Boolean        @default(false) @map("subscribe_post_like")
+  subscribePostQuotation Boolean        @default(false) @map("subscribe_post_quotation")
 
   @@index([createdAt])
   @@map("users")
-}
-
-model Setting {
-  id                     String  @id @map("id")
-  fcmToken               String? @map("fcm_token")
-  fcmTokenForMobile      String? @map("fcm_token_for_mobile")
-  notificationEmail      String? @map("notification_email")
-  protected              Boolean @default(false) @map("protected")
-  discoverableByEmail    Boolean @default(true) @map("discoverable_by_email")
-  subscribeMessage       Boolean @default(false) @map("subscribe_message")
-  subscribePostLike      Boolean @default(false) @map("subscribe_post_like")
-  subscribePostQuotation Boolean @default(false) @map("subscribe_post_quotation")
-  user                   User    @relation("user_setting", fields: [userId], references: [id])
-  userId                 String  @map("user_id")
-
-  @@unique([userId])
-  @@map("settings")
 }
 
 model Friendship {
@@ -91,7 +81,7 @@ model Post {
   createdAt       DateTime       @default(now()) @map("created_at")
   updatedAt       DateTime       @default(now()) @updatedAt @map("updated_at")
   bookmarks       Bookmark[]     @relation("post_bookmarks")
-  files           File[]         @relation("post_files")
+  fileIds         String[]       @map("file_ids")
   likes           Like[]         @relation("post_likes")
   likesCount      Int            @default(0) @map("likes_count")
   reactions       Reaction[]     @relation("post_reactions")
@@ -106,8 +96,9 @@ model Post {
   reply           Post?          @relation("post_replies", fields: [replyId], references: [id])
   replyId         String?        @map("reply_id")
   text            String?        @map("text")
-  user            User           @relation("user_posts", fields: [userId], references: [id])
-  userId          String         @map("user_id")
+  user            User?          @relation("user_posts", fields: [userId], references: [id])
+  userId          String?        @map("user_id")
+  isDeleted       Boolean?       @default(false) @map("is_deleted")
 
   @@unique([userId, quotationId])
   @@index([createdAt])
@@ -146,10 +137,12 @@ model Like {
 model Reaction {
   id        String   @id @map("id")
   createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @default(now()) @map("updated_at")
   text      String   @map("text")
   post      Post     @relation("post_reactions", fields: [postId], references: [id])
   postId    String   @map("post_id")
   users     User[]   @relation("user_reactions")
+  count     Int      @default(0) @map("count")
 
   @@unique([postId, text])
   @@index([postId])
@@ -188,23 +181,6 @@ model Notification {
   @@map("notifications")
 }
 
-model File {
-  id           String   @id @map("id")
-  type         FileType @default(IMAGE_PNG)
-  createdAt    DateTime @default(now()) @map("created_at")
-  headerUser   User?    @relation("user_header_image", fields: [headerUserId], references: [id])
-  headerUserId String?  @map("header_user_id")
-  iconUser     User?    @relation("user_icon_image", fields: [iconUserId], references: [id])
-  iconUserId   String?  @map("icon_user_id")
-  path         String   @map("path")
-  post         Post?    @relation("post_files", fields: [postId], references: [id])
-  postId       String?  @map("post_id")
-  user         User     @relation("user_files", fields: [userId], references: [id])
-  userId       String   @map("user_id")
-
-  @@map("files")
-}
-
 model Token {
   id          String    @id @map("id")
   createdAt   DateTime  @default(now()) @map("created_at")
@@ -224,15 +200,6 @@ enum TokenType {
   RESET_PASSWORD
 }
 
-enum FileType {
-  IMAGE_GIF
-  IMAGE_JPEG
-  IMAGE_PNG
-  IMAGE_WEBP
-
-  @@map("file_type")
-}
-
 enum NotificationType {
   FOLLOW
   FRIENDSHIP
@@ -249,4 +216,11 @@ enum UserRole {
   USER
 
   @@map("user_role")
+}
+
+enum LoginProvider {
+  GOOGLE_COM
+  PASSWORD
+
+  @@map("login_provider")
 }

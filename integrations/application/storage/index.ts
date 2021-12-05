@@ -1,0 +1,1 @@
+export * from "./readImage.query"

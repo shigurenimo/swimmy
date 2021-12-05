@@ -1,19 +1,17 @@
 import { BlitzConfig, sessionMiddleware, simpleRolesIsAuthorized } from "blitz"
+import packageJSON from "./package.json"
 
 const config: BlitzConfig = {
+  log: { level: "error" },
   middleware: [
     sessionMiddleware({
       cookiePrefix: "swimmy",
       isAuthorized: simpleRolesIsAuthorized,
     }),
   ],
-  /* Uncomment this to customize the webpack config
-  webpack: (config, { buildId, dev, isServer, defaultLoaders, webpack }) => {
-    // Note: we provide webpack above so you should not `require` it
-    // Perform customizations to webpack config
-    // Important: return the modified config
-    return config
+  env: {
+    SENTRY_RELEASE: `knocker@${packageJSON.version}`,
   },
-  */
 }
+
 module.exports = config

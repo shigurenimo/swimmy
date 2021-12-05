@@ -7,6 +7,7 @@
     ".husky": true,
     ".firebase": true,
     ".tsbuildinfo": true,
+    ".blitz": true,
     "yarn-error.log": true,
     "yarn.lock": true,
     ".blitz.config.compiled.js": true
@@ -17,6 +18,10 @@
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": true
+  },
+  "files.associations": {
+    "*.xml": "html",
+    "*.svg": "html"
   },
   "deno.enable": false
 }

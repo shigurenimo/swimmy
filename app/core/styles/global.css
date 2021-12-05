@@ -1,0 +1,4 @@
+html {
+  overflow-y: auto;
+  overscroll-behavior-y: none;
+}

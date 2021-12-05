@@ -1,0 +1,67 @@
+import { Theme, useMediaQuery } from "@mui/material"
+import { LayoutHome } from "app/core/layouts/LayoutHome"
+import { BoxMainFeedPersonal } from "app/feed/components/BoxMainFeedPersonal"
+import { BoxAsideFeedThread } from "app/home/components/BoxAsideFeedThread"
+import { BoxAsideFeedThreadFallback } from "app/home/components/BoxAsideFeedThreadFallback"
+import { BoxAsideHelloWorld } from "app/home/components/BoxAsideHelloWorld"
+import { BoxFeedFallback } from "app/home/components/BoxFeedFallback"
+import { BlitzPage, useParam, useRouter } from "blitz"
+import React, { Suspense } from "react"
+
+const PageFeed: BlitzPage = () => {
+  const router = useRouter()
+
+  const threadId = useParam("threadId", "string") ?? null
+
+  const isTwoColumn = useMediaQuery<Theme>(
+    (theme) => theme.breakpoints.up("md"),
+    { noSsr: true }
+  )
+
+  const onChangeThreadId = (threadId: string) => {
+    router.push(`/feed/?threadId=${threadId}`, `/threads/${threadId}`, {
+      shallow: false,
+      scroll: false,
+    })
+  }
+
+  const onCloseThread = () => {
+    router.push("/feed", undefined, {
+      shallow: false,
+      scroll: false,
+    })
+  }
+
+  const forHello = isTwoColumn && threadId === null
+
+  const forThread = threadId !== null
+
+  const forFeed = isTwoColumn || threadId === null
+
+  return (
+    <>
+      {forHello && <BoxAsideHelloWorld />}
+      {forThread && (
+        <Suspense fallback={<BoxAsideFeedThreadFallback />}>
+          <BoxAsideFeedThread threadId={threadId} onClose={onCloseThread} />
+        </Suspense>
+      )}
+      {forFeed && (
+        <Suspense fallback={<BoxFeedFallback />}>
+          <BoxMainFeedPersonal
+            threadId={null}
+            onChangeThreadId={onChangeThreadId}
+          />
+        </Suspense>
+      )}
+    </>
+  )
+}
+
+// Home.suppressFirstRenderFlicker = true
+
+PageFeed.getLayout = (page) => {
+  return <LayoutHome title={"Home"}>{page}</LayoutHome>
+}
+
+export default PageFeed
