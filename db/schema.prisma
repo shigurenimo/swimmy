@@ -80,6 +80,7 @@ model Post {
   id              String         @id @map("id")
   createdAt       DateTime       @default(now()) @map("created_at")
   updatedAt       DateTime       @default(now()) @updatedAt @map("updated_at")
+  dateText        String         @map("date_text")
   bookmarks       Bookmark[]     @relation("post_bookmarks")
   fileIds         String[]       @map("file_ids")
   likes           Like[]         @relation("post_likes")

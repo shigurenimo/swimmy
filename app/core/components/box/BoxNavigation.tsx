@@ -88,6 +88,7 @@ export const BoxNavigation: FunctionComponent<Props> = (props) => {
 
   return (
     <Stack
+      component={"nav"}
       width={"100%"}
       minWidth={(theme) => {
         return props.isDense ? theme.spacing(11) : theme.spacing(32)

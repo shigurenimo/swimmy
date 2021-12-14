@@ -1,7 +1,7 @@
 import { List, ListItem, Stack } from "@mui/material"
 import { BoxCardPost } from "app/core/components/box/BoxCardPost"
 import readFeedThread from "app/threads/queries/readFeedThread"
-import { useInfiniteQuery } from "blitz"
+import { useInfiniteQuery, useSession } from "blitz"
 import React, { Fragment, FunctionComponent } from "react"
 
 type Props = {
@@ -10,6 +10,8 @@ type Props = {
 }
 
 export const BoxMainFeedThread: FunctionComponent<Props> = (props) => {
+  const session = useSession()
+
   const [pages, { refetch }] = useInfiniteQuery(
     readFeedThread,
     (page = { skip: 0 }) => {
@@ -32,6 +34,7 @@ export const BoxMainFeedThread: FunctionComponent<Props> = (props) => {
               <ListItem key={post.id}>
                 <BoxCardPost
                   {...post}
+                  isLoggedIn={session.userId !== null}
                   isActive={post.id === props.threadId}
                   onOpenThread={() => {
                     props.onChangeThreadId(post.id)

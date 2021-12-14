@@ -1,8 +1,12 @@
 import { List, ListItem, Stack } from "@mui/material"
 import { BoxCardPhoto } from "app/core/components/box/BoxCardPhoto"
-import readFeedPhotos from "app/photos/queries/readFeedPhotos"
-import { useInfiniteQuery } from "blitz"
+import { ButtonFetchMore } from "app/core/components/button/ButtonFetchMore"
+import readFeedPhotos, {
+  zReadFeedPhotos,
+} from "app/photos/queries/readFeedPhotos"
+import { useInfiniteQuery, useSession } from "blitz"
 import React, { Fragment, FunctionComponent } from "react"
+import { z } from "zod"
 
 type Props = {
   threadId: string | null
@@ -10,21 +14,42 @@ type Props = {
 }
 
 export const BoxMainFeedPhoto: FunctionComponent<Props> = (props) => {
-  const [pages, { refetch }] = useInfiniteQuery(
+  const session = useSession()
+
+  const [
+    pages,
+    { hasNextPage, isFetchingNextPage, fetchNextPage, isFetching },
+  ] = useInfiniteQuery(
     readFeedPhotos,
-    (page = { skip: 0 }) => {
+    (page = { skip: 0 }): z.infer<typeof zReadFeedPhotos> => {
       return { skip: page.skip }
     },
     {
+      refetchInterval: 4000,
       getNextPageParam(lastPage) {
         return lastPage.nextPage
       },
     }
-    // { refetchInterval: 10000 }
   )
 
   return (
-    <Stack flex={1} sx={{ pb: 2 }}>
+    <Stack
+      component={"main"}
+      flex={1}
+      sx={{
+        width: "100%",
+        maxWidth(theme) {
+          return theme.spacing(80)
+        },
+        minWidth(theme) {
+          return {
+            md: theme.spacing(40),
+            lg: theme.spacing(60),
+          }
+        },
+        margin: "0 auto",
+      }}
+    >
       <List>
         {pages.map((page, index) => (
           <Fragment key={index}>
@@ -32,6 +57,7 @@ export const BoxMainFeedPhoto: FunctionComponent<Props> = (props) => {
               <ListItem key={post.id}>
                 <BoxCardPhoto
                   {...post}
+                  isLoggedIn={session.userId !== null}
                   isActive={post.id === props.threadId}
                   onOpenThread={() => {
                     props.onChangeThreadId(post.id)
@@ -41,6 +67,14 @@ export const BoxMainFeedPhoto: FunctionComponent<Props> = (props) => {
             ))}
           </Fragment>
         ))}
+        <ListItem>
+          <ButtonFetchMore
+            isFetching={isFetching}
+            hasNextPage={hasNextPage}
+            isFetchingNextPage={isFetchingNextPage}
+            onClick={fetchNextPage}
+          />
+        </ListItem>
       </List>
     </Stack>
   )

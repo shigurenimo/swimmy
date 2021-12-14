@@ -17,6 +17,7 @@ type Props = AppPhoto & {
   onOpenThread?(): void
   onUpdate?(post: AppPost): void
   isActive?: boolean
+  isLoggedIn: boolean
 }
 
 export const BoxCardPhoto: FunctionComponent<Props> = (props) => {
@@ -86,11 +87,13 @@ export const BoxCardPhoto: FunctionComponent<Props> = (props) => {
                 />
               </Grid>
             ))}
-            <Grid item>
-              {!isReaction && (
-                <ChipReactionNew label={"+"} onClick={onInitReaction} />
-              )}
-            </Grid>
+            {props.isLoggedIn && (
+              <Grid item>
+                {!isReaction && (
+                  <ChipReactionNew label={"+"} onClick={onInitReaction} />
+                )}
+              </Grid>
+            )}
           </Grid>
         </Stack>
         {isReaction && (

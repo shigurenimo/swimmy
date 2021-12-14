@@ -5,7 +5,7 @@ import createPost from "app/home/mutations/createPost"
 import readFeedPublic from "app/home/queries/readFeedPublic"
 import { BoxFormPost } from "app/threads/components/BoxFormPost"
 import { FormNewPost } from "app/threads/types/formNewPost"
-import { useMutation, useQuery } from "blitz"
+import { useMutation, useQuery, useSession } from "blitz"
 import { AppPost } from "integrations/interface/types/appPost"
 import { useSnackbar } from "notistack"
 import React, { FunctionComponent } from "react"
@@ -16,6 +16,8 @@ type Props = {
 }
 
 export const BoxMainFeedPublic: FunctionComponent<Props> = (props) => {
+  const session = useSession()
+
   const [postsQuery, { refetch, setQueryData }] = useQuery(
     readFeedPublic,
     { skip: 0 },
@@ -59,6 +61,7 @@ export const BoxMainFeedPublic: FunctionComponent<Props> = (props) => {
           <ListItem key={post.id}>
             <BoxCardPost
               {...post}
+              isLoggedIn={session.userId !== null}
               isActive={post.id === props.threadId}
               onUpdate={onUpdatePosts}
               onOpenThread={() => {

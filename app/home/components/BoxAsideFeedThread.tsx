@@ -9,7 +9,7 @@ import { BoxFormResponse } from "app/threads/components/BoxFormResponse"
 import readPost from "app/threads/queries/readPost"
 import readThreadResponses from "app/threads/queries/readThreadResponses"
 import { FormNewPost } from "app/threads/types/formNewPost"
-import { useMutation, useQuery } from "blitz"
+import { useMutation, useQuery, useSession } from "blitz"
 import { AppPost } from "integrations/interface/types/appPost"
 import React, { Fragment, FunctionComponent } from "react"
 
@@ -19,6 +19,8 @@ type Props = {
 }
 
 export const BoxAsideFeedThread: FunctionComponent<Props> = (props) => {
+  const session = useSession()
+
   const [postQuery, { isFetching, setQueryData }] = useQuery(readPost, {
     postId: props.threadId,
   })
@@ -58,7 +60,11 @@ export const BoxAsideFeedThread: FunctionComponent<Props> = (props) => {
     <BoxAside title={"スレッド"} onClose={props.onClose}>
       <List disablePadding>
         <ListItem sx={{ pt: 2, pb: length === 0 ? 2 : 1 }}>
-          <BoxCardPost {...postQuery.post} onUpdate={onUpdatePosts} />
+          <BoxCardPost
+            {...postQuery.post}
+            isLoggedIn={session.userId !== null}
+            onUpdate={onUpdatePosts}
+          />
         </ListItem>
         {responsesQuery.posts.map((response, index) => (
           <Fragment key={response.id}>

@@ -10,6 +10,7 @@ type Props = {
 export const BoxAside: FunctionComponent<Props> = (props) => {
   return (
     <Stack
+      component={"aside"}
       position={"sticky"}
       width={"100%"}
       height={(theme) => {
@@ -34,10 +35,16 @@ export const BoxAside: FunctionComponent<Props> = (props) => {
           }
         },
         maxWidth(theme) {
-          return { md: theme.spacing(48) }
+          return {
+            md: theme.spacing(40),
+            lg: theme.spacing(60),
+          }
         },
         minWidth(theme) {
-          return { md: theme.spacing(48) }
+          return {
+            md: theme.spacing(40),
+            lg: theme.spacing(48),
+          }
         },
       }}
     >

@@ -1,7 +1,7 @@
 import { List, ListItem, Stack } from "@mui/material"
 import { BoxCardPost } from "app/core/components/box/BoxCardPost"
 import readFeedPersonal from "app/feed/queries/readFeedPersonal"
-import { useQuery } from "blitz"
+import { useQuery, useSession } from "blitz"
 import React, { FunctionComponent } from "react"
 
 type Props = {
@@ -10,6 +10,8 @@ type Props = {
 }
 
 export const BoxMainFeedPersonal: FunctionComponent<Props> = (props) => {
+  const session = useSession()
+
   const [query, { refetch }] = useQuery(
     readFeedPersonal,
     { skip: 0 }
@@ -23,6 +25,7 @@ export const BoxMainFeedPersonal: FunctionComponent<Props> = (props) => {
           <ListItem key={post.id}>
             <BoxCardPost
               {...post}
+              isLoggedIn={session.userId !== null}
               onOpenThread={() => {
                 props.onChangeThreadId(post.id)
               }}
