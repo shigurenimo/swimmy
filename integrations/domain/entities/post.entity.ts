@@ -10,6 +10,7 @@ export const zPostProps = z.object({
   text: z.instanceof(PostText).nullable(),
   userId: z.instanceof(Id).nullable(),
   fileIds: z.array(z.instanceof(Id)),
+  createdAt: z.instanceof(Date),
 })
 
 /**
@@ -56,9 +57,22 @@ export class PostEntity {
    */
   readonly fileIds!: Id[]
 
+  /**
+   * 作成日
+   */
+  readonly createdAt!: Date
+
   constructor(public props: z.infer<typeof zPostProps>) {
     zPostProps.parse(props)
     Object.assign(this, props)
     Object.freeze(this)
+  }
+
+  get dateText() {
+    return [
+      this.createdAt.getFullYear(),
+      this.createdAt.getMonth() + 1,
+      this.createdAt.getDate(),
+    ].join("-")
   }
 }

@@ -17,6 +17,7 @@ export class PostFactory {
       text: props.text,
       userId: props.userId,
       fileIds: [],
+      createdAt: new Date(),
     })
   }
 }

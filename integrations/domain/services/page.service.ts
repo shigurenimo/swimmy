@@ -1,14 +1,14 @@
-import { Count, Skip, Take } from "integrations/domain/valueObjects"
+import { Count } from "integrations/domain/valueObjects"
 
 /**
  * ページング
  */
 export class PageService {
-  hasMore(take: Take, skip: Skip, count: Count) {
-    return skip.value! + take.value! < count.value
+  hasMore(take: number, skip: number, count: Count) {
+    return skip! + take! < count.value
   }
 
-  nextPage(take: Take, skip: Skip) {
-    return { take: take, skip: skip.value! + take.value! }
+  nextPage(take: number, skip: number) {
+    return { take: take, skip: skip! + take! }
   }
 }

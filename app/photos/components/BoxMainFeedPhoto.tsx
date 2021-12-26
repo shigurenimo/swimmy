@@ -1,9 +1,8 @@
 import { List, ListItem, Stack } from "@mui/material"
 import { BoxCardPhoto } from "app/core/components/box/BoxCardPhoto"
 import { ButtonFetchMore } from "app/core/components/button/ButtonFetchMore"
-import readFeedPhotos, {
-  zReadFeedPhotos,
-} from "app/photos/queries/readFeedPhotos"
+import type { zReadFeedPhotos } from "app/photos/queries/readFeedPhotos"
+import readFeedPhotos from "app/photos/queries/readFeedPhotos"
 import { useInfiniteQuery, useSession } from "blitz"
 import React, { Fragment, FunctionComponent } from "react"
 import { z } from "zod"
@@ -25,7 +24,7 @@ export const BoxMainFeedPhoto: FunctionComponent<Props> = (props) => {
       return { skip: page.skip }
     },
     {
-      refetchInterval: 4000,
+      refetchInterval: 8000,
       getNextPageParam(lastPage) {
         return lastPage.nextPage
       },

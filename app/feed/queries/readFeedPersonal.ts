@@ -1,11 +1,11 @@
 import { withSentry } from "app/core/utils/withSentry"
 import { resolver } from "blitz"
 import { ReadPrivatePostsQuery } from "integrations/application"
-import { Id, Skip, Take, zSkip } from "integrations/domain"
+import { Id } from "integrations/domain"
 import { container } from "tsyringe"
 import * as z from "zod"
 
-const zReadFeedPersonal = z.object({ skip: zSkip })
+const zReadFeedPersonal = z.object({ skip: z.number() })
 
 const readFeedPersonal = resolver.pipe(
   resolver.zod(zReadFeedPersonal),
@@ -13,8 +13,8 @@ const readFeedPersonal = resolver.pipe(
   (props, ctx) => {
     return {
       userId: new Id(ctx.session.userId),
-      skip: new Skip(props.skip),
-      take: new Take(),
+      skip: props.skip,
+      take: 0,
     }
   },
   async (props) => {

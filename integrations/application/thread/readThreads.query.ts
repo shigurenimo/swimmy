@@ -1,12 +1,12 @@
 import { captureException } from "@sentry/node"
 import db from "db"
-import { Id, Skip, Take } from "integrations/domain"
+import { Id } from "integrations/domain"
 import { AppThread } from "integrations/interface/types/appThread"
 import { injectable } from "tsyringe"
 
 type Props = {
-  skip: Skip
-  take: Take
+  skip: number
+  take: number
   userId: Id | null
 }
 
@@ -19,8 +19,8 @@ export class ReadThreadsQuery {
           repliesCount: { gt: 0 },
         },
         orderBy: { createdAt: "desc" },
-        skip: props.skip.value,
-        take: props.take.value,
+        skip: props.skip,
+        take: props.take,
         include: {
           _count: {
             select: {

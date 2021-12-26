@@ -1,18 +1,18 @@
 import { withSentry } from "app/core/utils/withSentry"
 import { paginate, resolver } from "blitz"
 import { CountThreadsQuery, ReadThreadsQuery } from "integrations/application"
-import { Id, Skip, Take, zSkip } from "integrations/domain"
+import { Id } from "integrations/domain"
 import { container } from "tsyringe"
 import * as z from "zod"
 
-const zReadFeedThread = z.object({ skip: zSkip })
+export const zReadFeedThread = z.object({ skip: z.number() })
 
 const readFeedThread = resolver.pipe(
   resolver.zod(zReadFeedThread),
   (props, ctx) => {
     return {
-      skip: new Skip(props.skip),
-      take: new Take(),
+      skip: props.skip,
+      take: 0,
       userId: ctx.session?.userId ? new Id(ctx.session.userId) : null,
     }
   },
@@ -38,8 +38,8 @@ const readFeedThread = resolver.pipe(
     }
 
     return paginate({
-      skip: props.skip.value,
-      take: props.take.value,
+      skip: props.skip,
+      take: props.take,
       async count() {
         return count.value
       },

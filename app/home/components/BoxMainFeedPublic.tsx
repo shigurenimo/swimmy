@@ -1,14 +1,18 @@
 import { List, ListItem, Stack } from "@mui/material"
 import { captureException } from "@sentry/react"
 import { BoxCardPost } from "app/core/components/box/BoxCardPost"
+import { ButtonFetchMore } from "app/core/components/button/ButtonFetchMore"
 import createPost from "app/home/mutations/createPost"
-import readFeedPublic from "app/home/queries/readFeedPublic"
+import readFeedPublic, {
+  zReadFeedPublic,
+} from "app/home/queries/readFeedPublic"
 import { BoxFormPost } from "app/threads/components/BoxFormPost"
 import { FormNewPost } from "app/threads/types/formNewPost"
-import { useMutation, useQuery, useSession } from "blitz"
+import { useInfiniteQuery, useMutation, useSession } from "blitz"
 import { AppPost } from "integrations/interface/types/appPost"
 import { useSnackbar } from "notistack"
-import React, { FunctionComponent } from "react"
+import React, { Fragment, FunctionComponent } from "react"
+import { z } from "zod"
 
 type Props = {
   threadId: string | null
@@ -18,10 +22,27 @@ type Props = {
 export const BoxMainFeedPublic: FunctionComponent<Props> = (props) => {
   const session = useSession()
 
-  const [postsQuery, { refetch, setQueryData }] = useQuery(
+  const [
+    pages,
+    {
+      refetch,
+      setQueryData,
+      hasNextPage,
+      isFetchingNextPage,
+      fetchNextPage,
+      isFetching,
+    },
+  ] = useInfiniteQuery(
     readFeedPublic,
-    { skip: 0 },
-    { refetchInterval: 4000 }
+    (page = { skip: 0 }): z.infer<typeof zReadFeedPublic> => {
+      return { skip: page.skip }
+    },
+    {
+      refetchInterval: 2000,
+      getNextPageParam(lastPage) {
+        return lastPage.nextPage
+      },
+    }
   )
 
   const { enqueueSnackbar } = useSnackbar()
@@ -45,31 +66,61 @@ export const BoxMainFeedPublic: FunctionComponent<Props> = (props) => {
   }
 
   const onUpdatePosts = (postUpdated: AppPost) => {
-    for (const post of postsQuery.posts) {
-      if (post.id === postUpdated.id) {
-        post.reactions = postUpdated.reactions
+    for (const page of pages) {
+      for (const item of page.items) {
+        if (item.id === postUpdated.id) {
+          item.reactions = postUpdated.reactions
+        }
       }
+      setQueryData(page)
     }
-    setQueryData({ posts: postsQuery.posts })
   }
 
   return (
-    <Stack flex={1} sx={{ py: 2 }}>
+    <Stack
+      flex={1}
+      sx={{
+        py: 2,
+        width: "100%",
+        maxWidth(theme) {
+          return theme.spacing(80)
+        },
+        minWidth(theme) {
+          return {
+            md: theme.spacing(40),
+            lg: theme.spacing(60),
+          }
+        },
+        margin: "0 auto",
+      }}
+    >
       <BoxFormPost isLoading={isLoading} onCreatePost={onCreatePost} />
       <List>
-        {postsQuery.posts.map((post) => (
-          <ListItem key={post.id}>
-            <BoxCardPost
-              {...post}
-              isLoggedIn={session.userId !== null}
-              isActive={post.id === props.threadId}
-              onUpdate={onUpdatePosts}
-              onOpenThread={() => {
-                props.onChangeThreadId(post.id)
-              }}
-            />
-          </ListItem>
+        {pages.map((page, index) => (
+          <Fragment key={index}>
+            {page.items.map((post) => (
+              <ListItem key={post.id}>
+                <BoxCardPost
+                  {...post}
+                  isLoggedIn={session.userId !== null}
+                  isActive={post.id === props.threadId}
+                  onUpdate={onUpdatePosts}
+                  onOpenThread={() => {
+                    props.onChangeThreadId(post.id)
+                  }}
+                />
+              </ListItem>
+            ))}
+          </Fragment>
         ))}
+        <ListItem>
+          <ButtonFetchMore
+            isFetching={isFetching}
+            hasNextPage={hasNextPage}
+            isFetchingNextPage={isFetchingNextPage}
+            onClick={fetchNextPage}
+          />
+        </ListItem>
       </List>
     </Stack>
   )

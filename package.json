@@ -44,7 +44,7 @@
     "@babel/plugin-proposal-private-property-in-object": "7.16.5",
     "@types/react": "17.0.38",
     "babel-plugin-transform-typescript-metadata": "0.3.2",
-    "eslint": "8.5.0",
+    "eslint": "7.21.0",
     "firebase-tools": "10.0.1",
     "husky": "7.0.4",
     "lint-staged": "12.1.4",

@@ -1,18 +1,18 @@
 import { withSentry } from "app/core/utils/withSentry"
-import { resolver } from "blitz"
-import { ReadPostsQuery } from "integrations/application"
-import { Id, Skip, Take, zSkip } from "integrations/domain"
+import { paginate, resolver } from "blitz"
+import { CountPostsQuery, ReadPostsQuery } from "integrations/application"
+import { Id } from "integrations/domain"
 import { container } from "tsyringe"
 import * as z from "zod"
 
-const zReadPublicFeed = z.object({ skip: zSkip })
+export const zReadFeedPublic = z.object({ skip: z.number() })
 
 const readFeedPublic = resolver.pipe(
-  resolver.zod(zReadPublicFeed),
+  resolver.zod(zReadFeedPublic),
   (props, ctx) => {
     return {
-      skip: new Skip(props.skip),
-      take: new Take(),
+      skip: props.skip,
+      take: 40,
       userId: ctx.session?.userId ? new Id(ctx.session.userId) : null,
     }
   },
@@ -29,7 +29,24 @@ const readFeedPublic = resolver.pipe(
       throw posts
     }
 
-    return { posts }
+    const countPostsQuery = container.resolve(CountPostsQuery)
+
+    const count = await countPostsQuery.execute()
+
+    if (count instanceof Error) {
+      throw count
+    }
+
+    return paginate({
+      skip: props.skip,
+      take: props.take,
+      async count() {
+        return Math.min(8 * 40, count.value)
+      },
+      async query() {
+        return posts
+      },
+    })
   }
 )
 

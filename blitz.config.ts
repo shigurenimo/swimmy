@@ -10,7 +10,7 @@ const config: BlitzConfig = {
     }),
   ],
   env: {
-    SENTRY_RELEASE: `knocker@${packageJSON.version}`,
+    SENTRY_RELEASE: `swimmy@${packageJSON.version}`,
   },
 }
 

@@ -18,7 +18,6 @@ export const BoxFormPost: FunctionComponent<Props> = (props) => {
 
   const { register, handleSubmit, formState, reset } = useForm<FormNewPost>({
     resolver: zodResolver(zFormCreatePost),
-    reValidateMode: "onBlur",
   })
 
   const onSubmit: SubmitHandler<FormNewPost> = async (value) => {
@@ -34,6 +33,9 @@ export const BoxFormPost: FunctionComponent<Props> = (props) => {
       }
     }
   }
+
+  console.log("formState", formState.isDirty)
+  console.log("formState", formState.isValid)
 
   return (
     <Stack
