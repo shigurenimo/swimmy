@@ -1,12 +1,9 @@
-import { zodResolver } from "@hookform/resolvers/zod"
 import { LoadingButton } from "@mui/lab"
 import { Stack, TextField } from "@mui/material"
 import { captureException } from "@sentry/react"
 import { FormNewPost } from "app/threads/types/formNewPost"
-import { zFormCreatePost } from "app/threads/validations/formCreatePost"
 import { useSnackbar } from "notistack"
-import React, { FunctionComponent } from "react"
-import { SubmitHandler, useForm } from "react-hook-form"
+import React, { FunctionComponent, useState } from "react"
 
 type Props = {
   onCreatePost?(input: FormNewPost): Promise<void>
@@ -16,14 +13,14 @@ type Props = {
 export const BoxFormPost: FunctionComponent<Props> = (props) => {
   const { enqueueSnackbar } = useSnackbar()
 
-  const { register, handleSubmit, formState, reset } = useForm<FormNewPost>({
-    resolver: zodResolver(zFormCreatePost),
-  })
+  const [text, setText] = useState("")
 
-  const onSubmit: SubmitHandler<FormNewPost> = async (value) => {
+  const isValid = 0 < text.length && text.length < 124
+
+  const onSubmit = async () => {
     try {
-      await props.onCreatePost?.(value)
-      reset()
+      await props.onCreatePost?.({ text })
+      setText("")
       enqueueSnackbar("投稿しました")
     } catch (error) {
       captureException(error)
@@ -34,13 +31,8 @@ export const BoxFormPost: FunctionComponent<Props> = (props) => {
     }
   }
 
-  console.log("formState", formState.isDirty)
-  console.log("formState", formState.isValid)
-
   return (
     <Stack
-      onSubmit={handleSubmit(onSubmit)}
-      component={"form"}
       direction={"row"}
       spacing={2}
       px={2}
@@ -58,16 +50,18 @@ export const BoxFormPost: FunctionComponent<Props> = (props) => {
           maxRows={4}
           size={"small"}
           disabled={props.isLoading}
-          {...register("text")}
+          onChange={(event) => {
+            setText(event.target.value)
+          }}
         />
       </Stack>
-      {formState.isValid && (
+      {isValid && (
         <Stack>
           <LoadingButton
             loading={props.isLoading}
-            type={"submit"}
             variant={"outlined"}
             sx={{ py: 0.85 }}
+            onClick={onSubmit}
           >
             {"送信"}
           </LoadingButton>

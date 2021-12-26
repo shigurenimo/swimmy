@@ -1,6 +1,7 @@
-import { List, ListItem, Stack } from "@mui/material"
+import { List, ListItem } from "@mui/material"
 import { captureException } from "@sentry/react"
 import { BoxCardPost } from "app/core/components/box/BoxCardPost"
+import { BoxMain } from "app/core/components/box/BoxMain"
 import { ButtonFetchMore } from "app/core/components/button/ButtonFetchMore"
 import createPost from "app/home/mutations/createPost"
 import readFeedPublic, {
@@ -38,7 +39,7 @@ export const BoxMainFeedPublic: FunctionComponent<Props> = (props) => {
       return { skip: page.skip }
     },
     {
-      refetchInterval: 2000,
+      refetchInterval: 4000,
       getNextPageParam(lastPage) {
         return lastPage.nextPage
       },
@@ -77,23 +78,7 @@ export const BoxMainFeedPublic: FunctionComponent<Props> = (props) => {
   }
 
   return (
-    <Stack
-      flex={1}
-      sx={{
-        py: 2,
-        width: "100%",
-        maxWidth(theme) {
-          return theme.spacing(80)
-        },
-        minWidth(theme) {
-          return {
-            md: theme.spacing(40),
-            lg: theme.spacing(60),
-          }
-        },
-        margin: "0 auto",
-      }}
-    >
+    <BoxMain>
       <BoxFormPost isLoading={isLoading} onCreatePost={onCreatePost} />
       <List>
         {pages.map((page, index) => (
@@ -122,6 +107,6 @@ export const BoxMainFeedPublic: FunctionComponent<Props> = (props) => {
           />
         </ListItem>
       </List>
-    </Stack>
+    </BoxMain>
   )
 }
