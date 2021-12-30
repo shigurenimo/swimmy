@@ -14,7 +14,7 @@ const readFeedPersonal = resolver.pipe(
     return {
       userId: new Id(ctx.session.userId),
       skip: props.skip,
-      take: 0,
+      take: 8,
     }
   },
   async (props) => {

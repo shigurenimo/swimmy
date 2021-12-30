@@ -1,7 +1,9 @@
-import { Box, Stack } from "@mui/material"
+import { Box, Stack, StackProps } from "@mui/material"
 import React, { FC } from "react"
 
-export const BoxMain: FC = (props) => {
+type Props = StackProps
+
+export const BoxMain: FC<Props> = (props) => {
   return (
     <Box flex={1}>
       <Stack
@@ -19,6 +21,7 @@ export const BoxMain: FC = (props) => {
           },
           margin: "0 auto",
         }}
+        {...props}
       >
         {props.children}
       </Stack>

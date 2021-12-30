@@ -1,5 +1,6 @@
-import { List, ListItem, Stack } from "@mui/material"
+import { List, ListItem } from "@mui/material"
 import { BoxCardPost } from "app/core/components/box/BoxCardPost"
+import { BoxMain } from "app/core/components/box/BoxMain"
 import { ButtonFetchMore } from "app/core/components/button/ButtonFetchMore"
 import type { zReadFeedThread } from "app/threads/queries/readFeedThread"
 import readFeedThread from "app/threads/queries/readFeedThread"
@@ -31,26 +32,11 @@ export const BoxMainFeedThread: FunctionComponent<Props> = (props) => {
     }
   )
 
+  console.log(hasNextPage)
+
   return (
-    <Stack
-      component={"main"}
-      flex={1}
-      sx={{
-        pb: 2,
-        width: "100%",
-        maxWidth(theme) {
-          return theme.spacing(80)
-        },
-        minWidth(theme) {
-          return {
-            md: theme.spacing(40),
-            lg: theme.spacing(60),
-          }
-        },
-        margin: "0 auto",
-      }}
-    >
-      <List>
+    <BoxMain>
+      <List disablePadding>
         {pages.map((page, index) => (
           <Fragment key={index}>
             {page.items.map((post) => (
@@ -76,6 +62,6 @@ export const BoxMainFeedThread: FunctionComponent<Props> = (props) => {
           />
         </ListItem>
       </List>
-    </Stack>
+    </BoxMain>
   )
 }

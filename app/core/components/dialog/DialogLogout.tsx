@@ -25,7 +25,11 @@ export const DialogLogout: FunctionComponent<Props> = (props) => {
           >
             {"ログアウトしますか？"}
           </Typography>
-          <Stack direction={"row"} spacing={2}>
+          <Stack
+            direction={"row"}
+            spacing={2}
+            sx={{ justifyContent: "flex-end" }}
+          >
             <Button onClick={props.onClose}>{"キャンセル"}</Button>
             <Button variant={"contained"} onClick={props.onLogout}>
               {"ログアウト"}

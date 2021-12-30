@@ -15,6 +15,12 @@
     },
     "ui": {
       "enabled": true
+    },
+    "auth": {
+      "port": 9099
+    },
+    "storage": {
+      "port": 9199
     }
   },
   "remoteconfig": {

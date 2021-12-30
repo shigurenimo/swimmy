@@ -1,6 +1,6 @@
 import { captureException } from "@sentry/node"
 import { AuthenticationError, NotFoundError } from "blitz"
-import admin from "firebase-admin"
+import { getAuth } from "firebase-admin/auth"
 import {
   Email,
   Id,
@@ -28,9 +28,7 @@ export class LoginService {
     try {
       await this.firebaseAdapter.initialize()
 
-      const decodedIdToken = await admin
-        .auth()
-        .verifyIdToken(props.idToken.value)
+      const decodedIdToken = await getAuth().verifyIdToken(props.idToken.value)
 
       if (typeof decodedIdToken.email === "undefined") {
         return new AuthenticationError()

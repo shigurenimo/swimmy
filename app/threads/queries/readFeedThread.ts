@@ -12,7 +12,7 @@ const readFeedThread = resolver.pipe(
   (props, ctx) => {
     return {
       skip: props.skip,
-      take: 0,
+      take: 8,
       userId: ctx.session?.userId ? new Id(ctx.session.userId) : null,
     }
   },

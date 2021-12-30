@@ -1,4 +1,5 @@
-import { NoSsr, Theme, useMediaQuery } from "@mui/material"
+import { NoSsr } from "@mui/material"
+import { usePageLayout } from "app/core/hooks/usePageLayout"
 import { LayoutHome } from "app/core/layouts/LayoutHome"
 import { BoxAsideFeedThread } from "app/home/components/BoxAsideFeedThread"
 import { BoxAsideFeedThreadFallback } from "app/home/components/BoxAsideFeedThreadFallback"
@@ -13,10 +14,7 @@ const PageHome: BlitzPage = () => {
 
   const threadId = useParam("threadId", "string") ?? null
 
-  const isTwoColumn = useMediaQuery<Theme>(
-    (theme) => theme.breakpoints.up("md"),
-    { noSsr: true }
-  )
+  const pageLayout = usePageLayout(threadId !== null)
 
   const onChangeThreadId = (threadId: string) => {
     router.push(`/?threadId=${threadId}`, `/threads/${threadId}`, {
@@ -31,21 +29,15 @@ const PageHome: BlitzPage = () => {
     })
   }
 
-  const forHello = isTwoColumn && threadId === null
-
-  const forThread = threadId !== null
-
-  const forFeed = isTwoColumn || threadId === null
-
   return (
     <NoSsr>
-      {forHello && <BoxAsideHelloWorld />}
-      {forThread && (
+      {pageLayout.asideFallback && <BoxAsideHelloWorld />}
+      {pageLayout.aside && threadId !== null && (
         <Suspense fallback={<BoxAsideFeedThreadFallback />}>
           <BoxAsideFeedThread threadId={threadId} onClose={onCloseThread} />
         </Suspense>
       )}
-      {forFeed && (
+      {pageLayout.main && (
         <Suspense fallback={<BoxFeedFallback />}>
           <BoxMainFeedPublic
             threadId={threadId}

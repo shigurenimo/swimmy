@@ -1,5 +1,6 @@
-import { List, ListItem, Stack } from "@mui/material"
+import { List, ListItem } from "@mui/material"
 import { BoxCardPhoto } from "app/core/components/box/BoxCardPhoto"
+import { BoxMain } from "app/core/components/box/BoxMain"
 import { ButtonFetchMore } from "app/core/components/button/ButtonFetchMore"
 import type { zReadFeedPhotos } from "app/photos/queries/readFeedPhotos"
 import readFeedPhotos from "app/photos/queries/readFeedPhotos"
@@ -32,24 +33,8 @@ export const BoxMainFeedPhoto: FunctionComponent<Props> = (props) => {
   )
 
   return (
-    <Stack
-      component={"main"}
-      flex={1}
-      sx={{
-        width: "100%",
-        maxWidth(theme) {
-          return theme.spacing(80)
-        },
-        minWidth(theme) {
-          return {
-            md: theme.spacing(40),
-            lg: theme.spacing(60),
-          }
-        },
-        margin: "0 auto",
-      }}
-    >
-      <List>
+    <BoxMain>
+      <List disablePadding>
         {pages.map((page, index) => (
           <Fragment key={index}>
             {page.items.map((post) => (
@@ -75,6 +60,6 @@ export const BoxMainFeedPhoto: FunctionComponent<Props> = (props) => {
           />
         </ListItem>
       </List>
-    </Stack>
+    </BoxMain>
   )
 }

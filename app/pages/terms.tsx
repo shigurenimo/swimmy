@@ -1,4 +1,5 @@
-import { Stack, Typography } from "@mui/material"
+import { Typography } from "@mui/material"
+import { BoxMain } from "app/core/components/box/BoxMain"
 import { BoxMarkdown } from "app/core/components/box/BoxMarkdown"
 import { LayoutHome } from "app/core/layouts/LayoutHome"
 import { BlitzPage } from "blitz"
@@ -124,19 +125,12 @@ const PageTerms: BlitzPage = () => {
 1. 本サービスに関して紛争が生じた場合には、当運営の本店所在地を管轄する裁判所を専属的合意管轄とします。`
 
   return (
-    <Stack
-      spacing={4}
-      sx={{
-        p: 4,
-        maxWidth: (theme) => theme.breakpoints.values.md,
-        margin: "0 auto",
-      }}
-    >
+    <BoxMain>
       <Typography component={"h1"} sx={{ fontSize: 28, fontWeight: "bold" }}>
         {"利用規約"}
       </Typography>
       <BoxMarkdown>{markdown}</BoxMarkdown>
-    </Stack>
+    </BoxMain>
   )
 }
 

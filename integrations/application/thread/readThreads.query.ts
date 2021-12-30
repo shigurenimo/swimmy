@@ -30,11 +30,6 @@ export class ReadThreadsQuery {
           },
           reactions: {
             include: {
-              _count: {
-                select: {
-                  users: true,
-                },
-              },
               users: {
                 select: { id: true },
                 where: { id: props.userId ? props.userId.value : undefined },
@@ -43,6 +38,8 @@ export class ReadThreadsQuery {
           },
         },
       })
+
+      console.log("prismaPosts", prismaPosts.length)
 
       if (prismaPosts instanceof Error) {
         return prismaPosts

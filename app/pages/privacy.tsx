@@ -1,4 +1,5 @@
-import { Stack, Typography } from "@mui/material"
+import { Typography } from "@mui/material"
+import { BoxMain } from "app/core/components/box/BoxMain"
 import { BoxMarkdown } from "app/core/components/box/BoxMarkdown"
 import { LayoutHome } from "app/core/layouts/LayoutHome"
 import { BlitzPage } from "blitz"
@@ -77,19 +78,12 @@ const PagePrivacy: BlitzPage = () => {
 1. 当運営が別途定める場合を除いて、変更後のプライバシーポリシーは、本ウェブサイトに掲載したときから効力を生じるものとします。`
 
   return (
-    <Stack
-      spacing={4}
-      sx={{
-        p: 4,
-        maxWidth: (theme) => theme.breakpoints.values.md,
-        margin: "0 auto",
-      }}
-    >
+    <BoxMain spacing={4}>
       <Typography component={"h1"} sx={{ fontSize: 28, fontWeight: "bold" }}>
         {"個人情報保護方針"}
       </Typography>
       <BoxMarkdown>{markdown}</BoxMarkdown>
-    </Stack>
+    </BoxMain>
   )
 }
 
