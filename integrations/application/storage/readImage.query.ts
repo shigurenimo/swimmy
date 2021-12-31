@@ -21,13 +21,16 @@ export class ReadImageQuery {
 
       const bucket = getStorage().bucket()
 
-      const [buffer] = await bucket.file(props.fileId.value).download()
+      const [buffer] = await bucket.file(props.fileId.value).download({
+        validation: false,
+      })
 
       return sharp(buffer)
         .resize(props.width)
-        .jpeg({ quality: props.quality })
+        .png({ quality: props.quality })
         .toBuffer()
     } catch (error) {
+      console.error(error)
       captureException(error)
 
       if (error instanceof Error) {

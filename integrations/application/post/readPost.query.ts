@@ -50,6 +50,7 @@ export class ReadPostQuery {
         id: prismaPost.id,
         createdAt: prismaPost.createdAt,
         text: prismaPost.text,
+        fileIds: prismaPost.fileIds,
         likesCount: prismaPost._count?.likes ?? 0,
         repliesCount: prismaPost._count?.replies ?? 0,
         reactions: prismaPost.reactions

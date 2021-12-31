@@ -30,6 +30,11 @@ export class ReadThreadsQuery {
           },
           reactions: {
             include: {
+              _count: {
+                select: {
+                  users: true,
+                },
+              },
               users: {
                 select: { id: true },
                 where: { id: props.userId ? props.userId.value : undefined },
@@ -50,6 +55,7 @@ export class ReadThreadsQuery {
           id: post.id,
           createdAt: post.createdAt,
           text: post.text,
+          fileIds: post.fileIds,
           likesCount: post._count?.likes ?? 0,
           repliesCount: post._count?.replies ?? 0,
           reactions: post.reactions

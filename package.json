@@ -28,6 +28,7 @@
     "blitz": "^0.44.4",
     "firebase": "^9.6.1",
     "firebase-admin": "^10.0.1",
+    "immer": "9.0.7",
     "nanoid": "^3.1.30",
     "notistack": "^2.0.3",
     "react": "beta",

@@ -7,6 +7,7 @@ export class PostFactory {
     text: PostText
     replyId: Id | null
     userId: Id | null
+    fileIds: Id[]
   }) {
     return new PostEntity({
       id: IdFactory.create(),
@@ -16,7 +17,7 @@ export class PostFactory {
       replyId: props.replyId,
       text: props.text,
       userId: props.userId,
-      fileIds: [],
+      fileIds: props.fileIds,
       createdAt: new Date(),
     })
   }

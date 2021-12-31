@@ -10,7 +10,9 @@
     ".blitz": true,
     "yarn-error.log": true,
     "yarn.lock": true,
-    ".blitz.config.compiled.js": true
+    ".blitz.config.compiled.js": true,
+    ".next": true,
+    "*.log": true
   },
   "search.exclude": {
     "yarn.lock": true

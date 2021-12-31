@@ -11,6 +11,7 @@ export class PostRepository {
           text: entity.text?.value,
           replyId: entity.replyId?.value,
           userId: entity.userId?.value,
+          fileIds: entity.fileIds?.map((id) => id.value),
           dateText: entity.dateText,
         },
         update: {},

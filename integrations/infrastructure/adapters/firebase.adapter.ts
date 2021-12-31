@@ -33,7 +33,6 @@ export class FirebaseAdapter {
           privateKey: privateKey.replace(/\\n/g, "\n").replace(/\\/g, ""),
           projectId,
         }),
-        databaseURL: `https://${projectId}.firebaseio.com`,
         storageBucket: `${projectId}.appspot.com`,
       })
     } catch (error) {

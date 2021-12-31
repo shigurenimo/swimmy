@@ -36,6 +36,7 @@ export const BoxAsideFeedThread: FunctionComponent<Props> = (props) => {
       await createPostMutation({
         text: value.text,
         replyId: props.threadId,
+        fileIds: [],
       })
       refetch()
     } catch (error) {

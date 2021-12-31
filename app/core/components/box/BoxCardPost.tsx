@@ -2,6 +2,7 @@ import { Grid, Stack, Typography } from "@mui/material"
 import { captureException } from "@sentry/react"
 import { BoxCardPostFrame } from "app/core/components/box/BoxCardPostFrame"
 import { BoxFormReaction } from "app/core/components/box/BoxFormReaction"
+import { BoxImage } from "app/core/components/box/BoxImage"
 import { ChipReaction } from "app/core/components/chip/ChipReaction"
 import { ChipReactionNew } from "app/core/components/chip/ChipReactionNew"
 import { useDateText } from "app/core/hooks/useDateText"
@@ -72,6 +73,13 @@ export const BoxCardPost: FunctionComponent<Props> = (props) => {
             )}
           </Stack>
           <Typography fontWeight={"bold"}>{props.text}</Typography>
+          {props.fileIds.length > 0 && (
+            <Stack>
+              {props.fileIds.map((fileId) => (
+                <BoxImage key={fileId} fileId={fileId} />
+              ))}
+            </Stack>
+          )}
           <Grid container gap={1}>
             {props.reactions.map((reaction) => (
               <Grid item key={reaction.id}>

@@ -8,6 +8,7 @@ type Props = {
   userId: Id | null
   replyId: Id | null
   text: PostText
+  fileIds: Id[]
 }
 
 @injectable()
@@ -20,6 +21,7 @@ export class CreatePostService {
         text: props.text,
         replyId: props.replyId,
         userId: props.userId,
+        fileIds: props.fileIds,
       })
 
       await this.postRepository.persist(post)

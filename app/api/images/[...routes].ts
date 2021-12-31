@@ -6,8 +6,6 @@ import { container } from "tsyringe"
 
 const handler: BlitzApiHandler = async (req, resp) => {
   try {
-    console.log(req.query)
-
     if (!Array.isArray(req.query.routes)) {
       return resp.status(500).end()
     }

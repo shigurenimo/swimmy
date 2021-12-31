@@ -49,6 +49,7 @@ export class ReadPrivatePostsQuery {
           id: post.id,
           createdAt: post.createdAt,
           text: post.text,
+          fileIds: post.fileIds,
           likesCount: post._count?.likes ?? 0,
           repliesCount: post._count?.replies ?? 0,
           reactions: post.reactions

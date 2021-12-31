@@ -54,6 +54,7 @@ export const BoxMainFeedPublic: FunctionComponent<Props> = (props) => {
     try {
       await createPostMutation({
         text: value.text,
+        fileIds: value.fileIds,
         replyId: null,
       })
       refetch()

@@ -26,6 +26,7 @@ export class ReadResponsesQuery {
           id: post.id,
           createdAt: post.createdAt,
           text: post.text,
+          fileIds: post.fileIds,
           likesCount: 0,
           repliesCount: 0,
           reactions: [],
