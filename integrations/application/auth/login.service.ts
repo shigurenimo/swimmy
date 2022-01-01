@@ -45,7 +45,6 @@ export class LoginService {
 
       // バージョン5以前のユーザー
       if (decodedIdToken.firebase.sign_in_provider === "password") {
-        console.log(decodedIdToken)
         // メールアドレスを持たないユーザー
         const user = decodedIdToken.email.endsWith("@swimmy.io")
           ? await this.userRepository.findByUsername(

@@ -44,8 +44,6 @@ export class ReadThreadsQuery {
         },
       })
 
-      console.log("prismaPosts", prismaPosts.length)
-
       if (prismaPosts instanceof Error) {
         return prismaPosts
       }
@@ -60,7 +58,7 @@ export class ReadThreadsQuery {
           repliesCount: post._count?.replies ?? 0,
           reactions: post.reactions
             .filter((reaction) => {
-              return reaction._count?.users
+              return 0 < reaction.count + reaction._count?.users
             })
             .sort((a, b) => {
               return a.createdAt.getTime() - b.createdAt.getTime()

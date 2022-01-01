@@ -1,3 +1,5 @@
+import { AppReaction } from "integrations/interface/types/appReaction"
+
 export type AppThread = {
   id: string
   createdAt: Date
@@ -5,11 +7,6 @@ export type AppThread = {
   fileIds: string[]
   likesCount: number
   repliesCount: number
-  reactions: {
-    id: string
-    text: string
-    count: number
-    isConnected: boolean
-  }[]
+  reactions: AppReaction[]
   isDeleted: boolean
 }

@@ -77,8 +77,8 @@ export const BoxAside: FunctionComponent<Props> = (props) => {
           <Typography sx={{ fontWeight: "bold" }}>{props.title}</Typography>
           {props.onClose && (
             <Button
-              startIcon={<CloseIcon />}
-              color={"primary"}
+              variant={"outlined"}
+              endIcon={<CloseIcon />}
               size={"small"}
               onClick={props.onClose}
             >

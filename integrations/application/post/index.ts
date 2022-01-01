@@ -1,4 +1,5 @@
 export * from "./countPosts.query"
+export * from "./countUniquePosts.query"
 export * from "./createPost.service"
 export * from "./readPost.query"
 export * from "./readPosts.query"

@@ -55,7 +55,7 @@ export class ReadPostQuery {
         repliesCount: prismaPost._count?.replies ?? 0,
         reactions: prismaPost.reactions
           .filter((reaction) => {
-            return reaction._count?.users
+            return 0 < reaction.count + reaction._count?.users
           })
           .sort((a, b) => {
             return a.createdAt.getTime() - b.createdAt.getTime()

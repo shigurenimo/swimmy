@@ -80,6 +80,7 @@ export const BoxCardPhoto: FunctionComponent<Props> = (props) => {
                 <ChipReaction
                   text={reaction.text}
                   count={reaction.count}
+                  secretCount={reaction.secretCount}
                   isActive={reaction.isConnected}
                   onClick={() => {
                     onUpdateReaction(reaction.text)

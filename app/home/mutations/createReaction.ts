@@ -1,33 +1,49 @@
 import { withSentry } from "app/core/utils/withSentry"
 import { resolver } from "blitz"
-import { CreateReactionService, ReadPostQuery } from "integrations/application"
-import { Id, PostText, zId, zPostText } from "integrations/domain"
+import {
+  CreateReactionService,
+  CreateSecretReactionService,
+  ReadPostQuery,
+} from "integrations/application"
+import { Id, ReactionText } from "integrations/domain"
 import { container } from "tsyringe"
 import * as z from "zod"
 
 const CreateReaction = z.object({
-  postId: zId,
-  text: zPostText,
+  postId: z.string(),
+  text: z.string().min(1).max(280),
 })
 
 const createReaction = resolver.pipe(
   resolver.zod(CreateReaction),
-  resolver.authorize(),
   (props, ctx) => {
     return {
-      text: new PostText(props.text),
+      text: new ReactionText(props.text),
       postId: new Id(props.postId),
-      userId: new Id(ctx.session.userId),
+      userId: ctx.session.userId ? new Id(ctx.session.userId) : null,
     }
   },
   async (props) => {
-    const createReactionService = container.resolve(CreateReactionService)
+    if (props.userId === null) {
+      const createSecretReactionService = container.resolve(
+        CreateSecretReactionService
+      )
 
-    await createReactionService.execute({
-      text: props.text,
-      userId: props.userId,
-      postId: props.postId,
-    })
+      await createSecretReactionService.execute({
+        text: props.text,
+        postId: props.postId,
+      })
+    }
+
+    if (props.userId !== null) {
+      const createReactionService = container.resolve(CreateReactionService)
+
+      await createReactionService.execute({
+        text: props.text,
+        userId: props.userId,
+        postId: props.postId,
+      })
+    }
 
     const readPostQuery = container.resolve(ReadPostQuery)
 

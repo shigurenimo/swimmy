@@ -198,7 +198,6 @@ export const BoxMarkdown: FunctionComponent<Props> = (props) => {
             )
           },
           ol(props) {
-            console.log(props)
             return (
               <Box component={"ol"} sx={{ pl: 4 }}>
                 {props.children}
@@ -206,7 +205,6 @@ export const BoxMarkdown: FunctionComponent<Props> = (props) => {
             )
           },
           li(props) {
-            console.log(props)
             return (
               <Box component={"li"} sx={{ lineHeight: 2 }}>
                 {props.children}

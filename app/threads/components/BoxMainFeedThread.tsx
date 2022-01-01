@@ -32,8 +32,6 @@ export const BoxMainFeedThread: FunctionComponent<Props> = (props) => {
     }
   )
 
-  console.log(hasNextPage)
-
   return (
     <BoxMain>
       <List disablePadding>

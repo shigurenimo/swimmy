@@ -5,6 +5,7 @@ import { BoxFormReaction } from "app/core/components/box/BoxFormReaction"
 import { BoxImage } from "app/core/components/box/BoxImage"
 import { ChipReaction } from "app/core/components/chip/ChipReaction"
 import { ChipReactionNew } from "app/core/components/chip/ChipReactionNew"
+import { ChipSecretReaction } from "app/core/components/chip/ChipSecretReaction"
 import { useDateText } from "app/core/hooks/useDateText"
 import createReaction from "app/home/mutations/createReaction"
 import { useMutation } from "blitz"
@@ -83,23 +84,34 @@ export const BoxCardPost: FunctionComponent<Props> = (props) => {
           <Grid container gap={1}>
             {props.reactions.map((reaction) => (
               <Grid item key={reaction.id}>
-                <ChipReaction
-                  text={reaction.text}
-                  count={reaction.count}
-                  isActive={reaction.isConnected}
-                  onClick={() => {
-                    onUpdateReaction(reaction.text)
-                  }}
-                />
-              </Grid>
-            ))}
-            {props.isLoggedIn && (
-              <Grid item>
-                {!isReaction && (
-                  <ChipReactionNew label={"+"} onClick={onInitReaction} />
+                {props.isLoggedIn ? (
+                  <ChipReaction
+                    text={reaction.text}
+                    count={reaction.count}
+                    secretCount={reaction.secretCount}
+                    isActive={reaction.isConnected}
+                    onClick={() => {
+                      onUpdateReaction(reaction.text)
+                    }}
+                  />
+                ) : (
+                  <ChipSecretReaction
+                    text={reaction.text}
+                    count={reaction.count}
+                    secretCount={reaction.secretCount}
+                    isActive={reaction.isConnected}
+                    onClick={() => {
+                      onUpdateReaction(reaction.text)
+                    }}
+                  />
                 )}
               </Grid>
-            )}
+            ))}
+            <Grid item>
+              {!isReaction && (
+                <ChipReactionNew label={"+"} onClick={onInitReaction} />
+              )}
+            </Grid>
           </Grid>
         </Stack>
         {isReaction && (

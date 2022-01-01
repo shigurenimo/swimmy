@@ -4,7 +4,7 @@ import { BoxAside } from "app/core/components/box/BoxAside"
 import { BoxCardPost } from "app/core/components/box/BoxCardPost"
 import { BoxCardResponse } from "app/core/components/box/BoxCardResponse"
 import { BoxAsideFeedThreadFallback } from "app/home/components/BoxAsideFeedThreadFallback"
-import createPost from "app/home/mutations/createPost"
+import createPublicPost from "app/home/mutations/createPublicPost"
 import { BoxFormResponse } from "app/threads/components/BoxFormResponse"
 import readPost from "app/threads/queries/readPost"
 import readThreadResponses from "app/threads/queries/readThreadResponses"
@@ -29,7 +29,7 @@ export const BoxAsideFeedThread: FunctionComponent<Props> = (props) => {
     postId: props.threadId,
   })
 
-  const [createPostMutation, { isLoading }] = useMutation(createPost)
+  const [createPostMutation, { isLoading }] = useMutation(createPublicPost)
 
   const onCreateResponse = async (value: FormNewPost) => {
     try {

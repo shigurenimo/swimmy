@@ -6,9 +6,7 @@ const BoxProgress: FunctionComponent = () => {
   const router = useRouter()
 
   useEffect(() => {
-    const onRouteChangeStart = () => {
-      console.log("routeChangeStart")
-    }
+    const onRouteChangeStart = () => {}
 
     const onRouteChangeComplete = () => {}
 

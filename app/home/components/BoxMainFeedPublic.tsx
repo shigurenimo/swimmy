@@ -3,7 +3,7 @@ import { captureException } from "@sentry/react"
 import { BoxCardPost } from "app/core/components/box/BoxCardPost"
 import { BoxMain } from "app/core/components/box/BoxMain"
 import { ButtonFetchMore } from "app/core/components/button/ButtonFetchMore"
-import createPost from "app/home/mutations/createPost"
+import createPublicPost from "app/home/mutations/createPublicPost"
 import readFeedPublic, {
   zReadFeedPublic,
 } from "app/home/queries/readFeedPublic"
@@ -48,7 +48,7 @@ export const BoxMainFeedPublic: FunctionComponent<Props> = (props) => {
 
   const { enqueueSnackbar } = useSnackbar()
 
-  const [createPostMutation, { isLoading }] = useMutation(createPost)
+  const [createPostMutation, { isLoading }] = useMutation(createPublicPost)
 
   const onCreatePost = async (value: FormNewPost) => {
     try {

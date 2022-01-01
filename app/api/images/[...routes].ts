@@ -36,7 +36,6 @@ const handler: BlitzApiHandler = async (req, resp) => {
 
     resp.end(file)
   } catch (error) {
-    console.log(error)
     resp.end()
   }
 }

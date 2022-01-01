@@ -5,20 +5,21 @@ import { Id, PostText } from "integrations/domain"
 import { container } from "tsyringe"
 import * as z from "zod"
 
-const CreatePost = z.object({
+const CreateUniquePost = z.object({
   replyId: z.string().nullable(),
   text: z.string().min(1).max(280),
   fileIds: z.array(z.string()),
 })
 
-const createPost = resolver.pipe(
-  resolver.zod(CreatePost),
+const createUniquePost = resolver.pipe(
+  resolver.zod(CreateUniquePost),
+  resolver.authorize(),
   (props, ctx) => {
     return {
       replyId: props.replyId ? new Id(props.replyId) : null,
       text: new PostText(props.text),
       fileIds: props.fileIds ? props.fileIds.map((id) => new Id(id)) : [],
-      userId: ctx.session.userId ? new Id(ctx.session.userId) : null,
+      userId: new Id(ctx.session.userId),
     }
   },
   async (props) => {
@@ -35,4 +36,4 @@ const createPost = resolver.pipe(
   }
 )
 
-export default withSentry(createPost, "createPost")
+export default withSentry(createUniquePost, "createPost")

@@ -1,8 +1,42 @@
 import { captureException } from "@sentry/node"
 import db from "db"
-import { PostEntity } from "integrations/domain"
+import { Count, Id, PostEntity, PostText } from "integrations/domain"
 
 export class PostRepository {
+  async find(postId: Id) {
+    try {
+      const prismaPost = await db.post.findUnique({
+        where: { id: postId.value },
+      })
+
+      if (prismaPost === null) {
+        return null
+      }
+
+      return new PostEntity({
+        id: new Id(prismaPost.id),
+        createdAt: prismaPost.createdAt,
+        quotationsCount: new Count(prismaPost.quotationsCount),
+        repliesCount: new Count(prismaPost.repliesCount),
+        text: prismaPost.text ? new PostText(prismaPost.text) : null,
+        fileIds: prismaPost.fileIds.map((fileId) => new Id(fileId)),
+        quotationId: prismaPost.quotationId
+          ? new Id(prismaPost.quotationId)
+          : null,
+        replyId: prismaPost.replyId ? new Id(prismaPost.replyId) : null,
+        userId: prismaPost.userId ? new Id(prismaPost.userId) : null,
+      })
+    } catch (error) {
+      captureException(error)
+
+      if (error instanceof Error) {
+        return new Error(error.message)
+      }
+
+      throw error
+    }
+  }
+
   async persist(entity: PostEntity) {
     try {
       await db.post.upsert({
