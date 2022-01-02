@@ -30,6 +30,7 @@
     "firebase-admin": "^10.0.1",
     "immer": "9.0.7",
     "nanoid": "^3.1.30",
+    "next-pwa": "5.4.4",
     "notistack": "^2.0.3",
     "react": "beta",
     "react-dom": "beta",

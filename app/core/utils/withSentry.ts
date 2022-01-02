@@ -14,8 +14,6 @@ import "reflect-metadata"
 type Resolver<T, U> = (t: T, ctx: Ctx) => PromiseLike<U>
 
 export const withSentry = <T, U>(resolver: Resolver<T, U>, name: string) => {
-  console.log("process.env.NODE_ENV", process.env.NODE_ENV)
-
   if (process.env.NODE_ENV !== "development") {
     init({
       dsn: process.env.NEXT_PUBLIC_SENTRY_DSN,

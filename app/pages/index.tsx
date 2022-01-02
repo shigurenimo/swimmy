@@ -49,16 +49,6 @@ const PageHome: BlitzPage = () => {
   )
 }
 
-if (typeof window !== "undefined") {
-  if ("serviceWorker" in navigator) {
-    console.log("serviceWorker in navigator")
-    navigator.serviceWorker.ready.then((registration) => {
-      console.log("unregister")
-      registration.unregister()
-    })
-  }
-}
-
 // Home.suppressFirstRenderFlicker = true
 
 PageHome.getLayout = (page) => {
