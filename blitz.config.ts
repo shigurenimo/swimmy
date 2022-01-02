@@ -12,12 +12,6 @@ const config: BlitzConfig = {
   env: {
     SENTRY_RELEASE: `swimmy@${packageJSON.version}`,
   },
-  pwa: {
-    disable: true,
-    dest: "../../../public",
-  },
 }
 
-const withPWA = require("next-pwa")
-
-module.exports = withPWA(config)
+module.exports = config
