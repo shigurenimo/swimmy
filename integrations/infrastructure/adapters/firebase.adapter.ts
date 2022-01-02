@@ -9,7 +9,7 @@ export class FirebaseAdapter {
         return null
       }
 
-      if (process.env.NODE_ENV !== "production") {
+      if (process.env.NODE_ENV === "development") {
         process.env.FIREBASE_AUTH_EMULATOR_HOST = "localhost:9099"
         process.env.FIRESTORE_EMULATOR_HOST = "localhost:8080"
         process.env.FIREBASE_STORAGE_EMULATOR_HOST = "localhost:9199"

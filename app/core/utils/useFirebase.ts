@@ -29,7 +29,7 @@ export const useFirebase = () => {
 
     setPersistence(getAuth(), inMemoryPersistence)
 
-    if (process.env.NODE_ENV !== "production") {
+    if (process.env.NODE_ENV === "development") {
       connectAuthEmulator(getAuth(), "http://localhost:9099")
       connectFirestoreEmulator(getFirestore(), "localhost", 8080)
       connectStorageEmulator(getStorage(), "localhost", 9199)
