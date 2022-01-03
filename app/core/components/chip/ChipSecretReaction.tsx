@@ -1,20 +1,15 @@
-import { Chip, ChipProps } from "@mui/material"
+import { Chip } from "@mui/material"
 import { useSnackbar } from "notistack"
 import React, { FunctionComponent, useState } from "react"
 
-type Props = ChipProps & {
+type Props = {
   text: string
   count: number
   secretCount: number
-  isActive: boolean
   onClick(): void
 }
 
-export const ChipSecretReaction: FunctionComponent<Props> = ({
-  onClick,
-  isActive: isActiveInitialState,
-  ...props
-}) => {
+export const ChipSecretReaction: FunctionComponent<Props> = (props) => {
   const [count, setCount] = useState(props.count + props.secretCount)
 
   const { enqueueSnackbar } = useSnackbar()
@@ -32,7 +27,7 @@ export const ChipSecretReaction: FunctionComponent<Props> = ({
       return null
     }
     setCount(count + 1)
-    onClick()
+    props.onClick()
   }
 
   return (
@@ -47,7 +42,6 @@ export const ChipSecretReaction: FunctionComponent<Props> = ({
         event.stopPropagation()
         onClickChip()
       }}
-      {...props}
     />
   )
 }

@@ -1,7 +1,7 @@
-import { Chip, ChipProps } from "@mui/material"
+import { Chip } from "@mui/material"
 import React, { FunctionComponent, useState } from "react"
 
-type Props = ChipProps & {
+type Props = {
   text: string
   count: number
   secretCount: number
@@ -9,19 +9,15 @@ type Props = ChipProps & {
   onClick(): void
 }
 
-export const ChipReaction: FunctionComponent<Props> = ({
-  onClick,
-  isActive: isActiveInitialState,
-  ...props
-}) => {
+export const ChipReaction: FunctionComponent<Props> = (props) => {
   const [count, setCount] = useState(props.count + props.secretCount)
 
-  const [isActive, setActive] = useState(isActiveInitialState)
+  const [isActive, setActive] = useState(props.isActive)
 
   const onClickChip = () => {
     setCount(isActive ? count - 1 : count + 1)
     setActive(!isActive)
-    onClick()
+    props.onClick()
   }
 
   return (
@@ -35,7 +31,6 @@ export const ChipReaction: FunctionComponent<Props> = ({
         event.stopPropagation()
         onClickChip()
       }}
-      {...props}
     />
   )
 }

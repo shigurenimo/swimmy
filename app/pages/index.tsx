@@ -1,5 +1,6 @@
 import { NoSsr } from "@mui/material"
 import { usePageLayout } from "app/core/hooks/usePageLayout"
+import { useScreenView } from "app/core/hooks/useScreenView"
 import { LayoutHome } from "app/core/layouts/LayoutHome"
 import { BoxAsideFeedThread } from "app/home/components/BoxAsideFeedThread"
 import { BoxAsideFeedThreadFallback } from "app/home/components/BoxAsideFeedThreadFallback"
@@ -10,6 +11,8 @@ import { BlitzPage, useParam, useRouter } from "blitz"
 import React, { Suspense } from "react"
 
 const PageHome: BlitzPage = () => {
+  useScreenView("PageHome")
+
   const router = useRouter()
 
   const threadId = useParam("threadId", "string") ?? null

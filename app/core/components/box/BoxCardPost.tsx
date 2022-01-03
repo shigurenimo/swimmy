@@ -99,7 +99,6 @@ export const BoxCardPost: FunctionComponent<Props> = (props) => {
                     text={reaction.text}
                     count={reaction.count}
                     secretCount={reaction.secretCount}
-                    isActive={reaction.isConnected}
                     onClick={() => {
                       onUpdateReaction(reaction.text)
                     }}

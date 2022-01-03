@@ -1,4 +1,6 @@
-import { NoSsr, Theme, useMediaQuery } from "@mui/material"
+import { NoSsr } from "@mui/material"
+import { usePageLayout } from "app/core/hooks/usePageLayout"
+import { useScreenView } from "app/core/hooks/useScreenView"
 import { LayoutHome } from "app/core/layouts/LayoutHome"
 import { BoxAsideHelloWorld } from "app/home/components/BoxAsideHelloWorld"
 import { BoxFeedFallback } from "app/home/components/BoxFeedFallback"
@@ -6,13 +8,12 @@ import { BoxMainFeedThread } from "app/threads/components/BoxMainFeedThread"
 import { BlitzPage, useRouter } from "blitz"
 import React, { Suspense } from "react"
 
-const PageThreads: BlitzPage = () => {
+const PageThreadList: BlitzPage = () => {
+  useScreenView("PageThreadList")
+
   const router = useRouter()
 
-  const isTwoColumn = useMediaQuery<Theme>(
-    (theme) => theme.breakpoints.up("md"),
-    { noSsr: true }
-  )
+  const pageLayout = usePageLayout(false)
 
   const onChangeThreadId = (threadId: string) => {
     router.push(`/threads/${threadId}`, undefined, { scroll: false })
@@ -20,7 +21,7 @@ const PageThreads: BlitzPage = () => {
 
   return (
     <NoSsr>
-      {isTwoColumn && <BoxAsideHelloWorld />}
+      {pageLayout.asideFallback && <BoxAsideHelloWorld />}
       <Suspense fallback={<BoxFeedFallback />}>
         <BoxMainFeedThread
           threadId={null}
@@ -31,8 +32,8 @@ const PageThreads: BlitzPage = () => {
   )
 }
 
-PageThreads.getLayout = (page) => {
+PageThreadList.getLayout = (page) => {
   return <LayoutHome title={"スレッド"}>{page}</LayoutHome>
 }
 
-export default PageThreads
+export default PageThreadList

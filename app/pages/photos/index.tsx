@@ -1,4 +1,5 @@
-import { Theme, useMediaQuery } from "@mui/material"
+import { usePageLayout } from "app/core/hooks/usePageLayout"
+import { useScreenView } from "app/core/hooks/useScreenView"
 import { LayoutHome } from "app/core/layouts/LayoutHome"
 import { BoxAsideFeedThread } from "app/home/components/BoxAsideFeedThread"
 import { BoxAsideFeedThreadFallback } from "app/home/components/BoxAsideFeedThreadFallback"
@@ -8,15 +9,14 @@ import { BoxMainFeedPhoto } from "app/photos/components/BoxMainFeedPhoto"
 import { BlitzPage, useParam, useRouter } from "blitz"
 import React, { Suspense } from "react"
 
-const PagePhotos: BlitzPage = () => {
+const PagePhotoList: BlitzPage = () => {
+  useScreenView("PagePhotoList")
+
   const router = useRouter()
 
   const threadId = useParam("threadId", "string") ?? null
 
-  const isTwoColumn = useMediaQuery<Theme>(
-    (theme) => theme.breakpoints.up("md"),
-    { noSsr: true }
-  )
+  const pageLayout = usePageLayout(threadId !== null)
 
   const onChangeThreadId = (threadId: string) => {
     router.push(`/photos/?threadId=${threadId}`, `/threads/${threadId}`, {
@@ -32,21 +32,15 @@ const PagePhotos: BlitzPage = () => {
     })
   }
 
-  const forHello = isTwoColumn && threadId === null
-
-  const forThread = threadId !== null
-
-  const forFeed = isTwoColumn || threadId === null
-
   return (
     <>
-      {forHello && <BoxAsideHelloWorld />}
-      {forThread && (
+      {pageLayout.asideFallback && <BoxAsideHelloWorld />}
+      {pageLayout.aside && threadId !== null && (
         <Suspense fallback={<BoxAsideFeedThreadFallback />}>
           <BoxAsideFeedThread threadId={threadId} onClose={onCloseThread} />
         </Suspense>
       )}
-      {forFeed && (
+      {pageLayout.main && (
         <Suspense fallback={<BoxFeedFallback />}>
           <BoxMainFeedPhoto
             threadId={threadId}
@@ -58,8 +52,8 @@ const PagePhotos: BlitzPage = () => {
   )
 }
 
-PagePhotos.getLayout = (page) => {
+PagePhotoList.getLayout = (page) => {
   return <LayoutHome title={"Home"}>{page}</LayoutHome>
 }
 
-export default PagePhotos
+export default PagePhotoList
