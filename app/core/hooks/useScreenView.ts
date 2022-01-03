@@ -8,6 +8,7 @@ export const useScreenView = (className: string) => {
   useEffect(() => {
     if (!router.isReady) return
     if (typeof window === "undefined") return
+    if (process.env.NODE_ENV === "development") return
     setCurrentScreen(getAnalytics(), window.location.pathname)
     logEvent(getAnalytics(), "screen_view", {
       firebase_screen: router.asPath,
