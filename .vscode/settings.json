@@ -1,25 +1,24 @@
 {
   "typescript.preferences.importModuleSpecifier": "non-relative",
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnSave": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  },
   "typescript.tsdk": "node_modules/typescript/lib",
   "files.exclude": {
     "**/node_modules": true,
-    ".idea": true,
-    ".husky": true,
-    ".firebase": true,
-    ".tsbuildinfo": true,
     ".blitz": true,
-    "yarn-error.log": true,
-    "yarn.lock": true,
     ".blitz.config.compiled.js": true,
     ".next": true,
-    "*.log": true
+    ".tsbuildinfo": true,
+    ".vercel": true,
+    "docker-error.log": true,
+    "yarn-error.log": true,
+    "yarn.lock": true
   },
   "search.exclude": {
     "yarn.lock": true
-  },
-  "editor.defaultFormatter": "esbenp.prettier-vscode",
-  "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": true
   },
   "files.associations": {
     "*.xml": "html",
