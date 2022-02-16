@@ -1,7 +1,7 @@
 import { Id } from "integrations/domain/valueObjects"
-import * as z from "zod"
+import { z } from "zod"
 
-export const zBookmarkProps = z.object({
+const zProps = z.object({
   id: z.instanceof(Id),
   createdAt: z.instanceof(Date),
   postId: z.instanceof(Id),
@@ -32,8 +32,8 @@ export class BookmarkEntity {
    */
   readonly userId!: Id
 
-  constructor(public props: z.infer<typeof zBookmarkProps>) {
-    zBookmarkProps.parse(props)
+  constructor(public props: z.infer<typeof zProps>) {
+    zProps.parse(props)
     Object.assign(this, props)
     Object.freeze(this)
   }

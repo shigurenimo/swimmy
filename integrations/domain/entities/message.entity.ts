@@ -1,7 +1,7 @@
 import { Id, PostText } from "integrations/domain/valueObjects"
-import * as z from "zod"
+import { z } from "zod"
 
-export const zMessageProps = z.object({
+const zProps = z.object({
   id: z.instanceof(Id),
   createdAt: z.instanceof(Date),
   isRead: z.boolean(),
@@ -44,8 +44,8 @@ export class MessageEntity {
    */
   readonly relatedUserId!: Id
 
-  constructor(public props: z.infer<typeof zMessageProps>) {
-    zMessageProps.parse(props)
+  constructor(public props: z.infer<typeof zProps>) {
+    zProps.parse(props)
     Object.assign(this, props)
     Object.freeze(this)
   }

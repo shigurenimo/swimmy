@@ -3,7 +3,7 @@ import { resolver } from "blitz"
 import { CreatePostService } from "integrations/application"
 import { Id, PostText } from "integrations/domain"
 import { container } from "tsyringe"
-import * as z from "zod"
+import { z } from "zod"
 
 const CreatePublicPost = z.object({
   replyId: z.string().nullable(),

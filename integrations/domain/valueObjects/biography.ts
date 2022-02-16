@@ -1,8 +1,6 @@
-import * as z from "zod"
+import { z } from "zod"
 
-export const zBiography = z.string().max(128)
-
-export type BiographyValue = z.infer<typeof zBiography>
+const zProps = z.string().max(128)
 
 /**
  * 紹介文
@@ -18,8 +16,8 @@ export type BiographyValue = z.infer<typeof zBiography>
  * ```
  */
 export class Biography {
-  constructor(public value: BiographyValue) {
-    zBiography.parse(value)
+  constructor(public value: z.infer<typeof zProps>) {
+    zProps.parse(value)
     Object.freeze(this)
   }
 }

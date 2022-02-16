@@ -1,17 +1,15 @@
 import { SecurePassword } from "blitz"
 import { HashedPassword } from "integrations/domain/valueObjects/hashedPassword"
-import * as z from "zod"
+import { z } from "zod"
 
-export const zPassword = z.string().min(5).max(40)
-
-export type PasswordValue = z.infer<typeof zPassword>
+const zProps = z.string().min(5).max(40)
 
 /**
  * パスワード
  */
 export class Password {
-  constructor(public value: PasswordValue) {
-    zPassword.parse(value)
+  constructor(public value: z.infer<typeof zProps>) {
+    zProps.parse(value)
     Object.freeze(this)
   }
 

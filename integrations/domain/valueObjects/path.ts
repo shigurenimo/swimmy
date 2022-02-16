@@ -1,15 +1,13 @@
-import * as z from "zod"
+import { z } from "zod"
 
-export const zPath = z.string().max(160)
-
-export type PathValue = z.infer<typeof zPath>
+const zProps = z.string().max(160)
 
 /**
  * パス
  */
 export class Path {
-  constructor(public value: PathValue) {
-    zPath.parse(value)
+  constructor(public value: z.infer<typeof zProps>) {
+    zProps.parse(value)
     Object.freeze(this)
   }
 }

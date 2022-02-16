@@ -6,9 +6,9 @@ import {
   Name,
   Username,
 } from "integrations/domain/valueObjects"
-import * as z from "zod"
+import { z } from "zod"
 
-export const zUserProps = z.object({
+const zProps = z.object({
   id: z.instanceof(Id),
   email: z.instanceof(Email).nullable(),
   username: z.instanceof(Username),
@@ -63,8 +63,8 @@ export class UserEntity {
    */
   readonly loginProvider!: LoginProvider
 
-  constructor(public props: z.infer<typeof zUserProps>) {
-    zUserProps.parse(props)
+  constructor(public props: z.infer<typeof zProps>) {
+    zProps.parse(props)
     Object.assign(this, props)
     Object.freeze(this)
   }

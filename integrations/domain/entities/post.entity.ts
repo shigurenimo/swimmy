@@ -1,7 +1,7 @@
 import { Count, Id, PostText } from "integrations/domain/valueObjects"
-import * as z from "zod"
+import { z } from "zod"
 
-export const zPostProps = z.object({
+const zProps = z.object({
   id: z.instanceof(Id),
   quotationId: z.instanceof(Id).nullable(),
   quotationsCount: z.instanceof(Count),
@@ -62,8 +62,8 @@ export class PostEntity {
    */
   readonly createdAt!: Date
 
-  constructor(public props: z.infer<typeof zPostProps>) {
-    zPostProps.parse(props)
+  constructor(public props: z.infer<typeof zProps>) {
+    zProps.parse(props)
     Object.assign(this, props)
     Object.freeze(this)
   }

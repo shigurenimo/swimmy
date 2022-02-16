@@ -1,18 +1,13 @@
-import * as z from "zod"
+import { z } from "zod"
 
-export const zLoginProvider = z.union([
-  z.literal("GOOGLE_COM"),
-  z.literal("PASSWORD"),
-])
-
-export type LoginProviderValue = z.infer<typeof zLoginProvider>
+const zProps = z.union([z.literal("GOOGLE_COM"), z.literal("PASSWORD")])
 
 /**
  * ログイン・プロバイダ
  */
 export class LoginProvider {
-  constructor(public value: LoginProviderValue) {
-    zLoginProvider.parse(value)
+  constructor(public value: z.infer<typeof zProps>) {
+    zProps.parse(value)
     Object.freeze(this)
   }
 }

@@ -7,7 +7,7 @@ import {
 } from "integrations/application"
 import { Id, ReactionText } from "integrations/domain"
 import { container } from "tsyringe"
-import * as z from "zod"
+import { z } from "zod"
 
 const CreateReaction = z.object({
   postId: z.string(),

@@ -3,7 +3,7 @@ import { paginate, resolver } from "blitz"
 import { CountPhotosQuery, ReadPhotosQuery } from "integrations/application"
 import { Id } from "integrations/domain"
 import { container } from "tsyringe"
-import * as z from "zod"
+import { z } from "zod"
 
 export const zReadFeedPhotos = z.object({ skip: z.number() })
 

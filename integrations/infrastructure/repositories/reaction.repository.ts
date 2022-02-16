@@ -1,7 +1,7 @@
 import { captureException } from "@sentry/node"
 import db from "db"
 import { Count, Id, ReactionEntity, ReactionText } from "integrations/domain"
-;``
+
 export class ReactionRepository {
   async find(postId: Id, text: ReactionText) {
     try {

@@ -1,15 +1,13 @@
-import * as z from "zod"
+import { z } from "zod"
 
-export const zReactionText = z.string().min(1).max(8)
-
-export type ReactionTextValue = z.infer<typeof zReactionText>
+const zProps = z.string().min(1).max(8)
 
 /**
  * 投稿のテキスト
  */
 export class ReactionText {
-  constructor(public value: ReactionTextValue) {
-    zReactionText.parse(value)
+  constructor(public value: z.infer<typeof zProps>) {
+    zProps.parse(value)
     Object.freeze(this)
   }
 }

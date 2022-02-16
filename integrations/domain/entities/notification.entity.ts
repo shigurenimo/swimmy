@@ -1,7 +1,7 @@
 import { Id, NotificationType } from "integrations/domain/valueObjects"
-import * as z from "zod"
+import { z } from "zod"
 
-export const zNotificationProps = z.object({
+const zProps = z.object({
   id: z.instanceof(Id),
   friendshipId: z.instanceof(Id).nullable(),
   isRead: z.boolean(),

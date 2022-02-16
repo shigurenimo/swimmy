@@ -1,7 +1,7 @@
 import { Email, Id, Token } from "integrations/domain/valueObjects"
-import * as z from "zod"
+import { z } from "zod"
 
-export const zSettingProps = z.object({
+const zProps = z.object({
   id: z.instanceof(Id),
   discoverableByEmail: z.boolean(),
   fcmToken: z.instanceof(Token).nullable(),
@@ -70,8 +70,8 @@ export class SettingEntity {
    */
   readonly userId!: Id
 
-  constructor(public props: z.infer<typeof zSettingProps>) {
-    zSettingProps.parse(props)
+  constructor(public props: z.infer<typeof zProps>) {
+    zProps.parse(props)
     Object.assign(this, props)
     Object.freeze(this)
   }

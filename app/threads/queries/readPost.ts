@@ -1,14 +1,14 @@
 import { withSentry } from "app/core/utils/withSentry"
 import { resolver } from "blitz"
 import { ReadPostQuery } from "integrations/application"
-import { Id, zId } from "integrations/domain"
+import { Id } from "integrations/domain"
 import { container } from "tsyringe"
-import * as z from "zod"
+import { z } from "zod"
 
-const ReadPost = z.object({ postId: zId })
+export const zReadPost = z.object({ postId: z.string() })
 
 const readPost = resolver.pipe(
-  resolver.zod(ReadPost),
+  resolver.zod(zReadPost),
   (props, ctx) => {
     return {
       postId: new Id(props.postId),

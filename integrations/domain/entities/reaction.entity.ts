@@ -1,7 +1,7 @@
 import { Count, Id, ReactionText } from "integrations/domain/valueObjects"
-import * as z from "zod"
+import { z } from "zod"
 
-export const zReactionProps = z.object({
+const zProps = z.object({
   id: z.instanceof(Id),
   text: z.instanceof(ReactionText),
   postId: z.instanceof(Id),
@@ -38,8 +38,8 @@ export class ReactionEntity {
    */
   readonly count!: Count
 
-  constructor(public props: z.infer<typeof zReactionProps>) {
-    zReactionProps.parse(props)
+  constructor(public props: z.infer<typeof zProps>) {
+    zProps.parse(props)
     Object.assign(this, props)
     Object.freeze(this)
   }

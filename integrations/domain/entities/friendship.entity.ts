@@ -1,7 +1,7 @@
 import { Id } from "integrations/domain/valueObjects"
-import * as z from "zod"
+import { z } from "zod"
 
-export const zFriendshipProps = z.object({
+const zProps = z.object({
   id: z.instanceof(Id),
   followeeId: z.instanceof(Id),
   followerId: z.instanceof(Id),
@@ -26,8 +26,8 @@ export class FriendshipEntity {
    */
   readonly followerId!: Id
 
-  constructor(public props: z.infer<typeof zFriendshipProps>) {
-    zFriendshipProps.parse(props)
+  constructor(public props: z.infer<typeof zProps>) {
+    zProps.parse(props)
     Object.assign(this, props)
     Object.freeze(this)
   }

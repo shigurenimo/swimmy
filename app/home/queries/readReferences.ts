@@ -3,7 +3,7 @@ import { resolver } from "blitz"
 import { ReadPostsQuery } from "integrations/application"
 import { Id } from "integrations/domain"
 import { container } from "tsyringe"
-import * as z from "zod"
+import { z } from "zod"
 
 const zReadReferences = z.object({ skip: z.number() })
 

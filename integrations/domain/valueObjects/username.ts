@@ -1,18 +1,16 @@
-import * as z from "zod"
+import { z } from "zod"
 
-export const zUsername = z
+const zProps = z
   .string()
   .max(32)
   .regex(/^[a-z\d](?:[a-z\d]|-(?=[a-z\d])){0,38}$/i)
-
-type UsernameValue = z.infer<typeof zUsername>
 
 /**
  * ユーザーネーム
  */
 export class Username {
-  constructor(public value: UsernameValue) {
-    zUsername.parse(value)
+  constructor(public value: z.infer<typeof zProps>) {
+    zProps.parse(value)
     Object.freeze(this)
   }
 }
