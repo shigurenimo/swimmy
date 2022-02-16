@@ -1,6 +1,10 @@
 export const useChangelogs = () => {
   return [
     {
+      version: "6.0.1",
+      texts: ["苦しみを伴うリファクタリング。"],
+    },
+    {
       version: "6.0.0",
       texts: [
         "ログイン機能を復元しました。",
