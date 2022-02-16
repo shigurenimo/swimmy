@@ -1,5 +1,5 @@
 export * from "./auth"
-export * from "./photos"
+export * from "./photo"
 export * from "./post"
 export * from "./reaction"
 export * from "./reference"
