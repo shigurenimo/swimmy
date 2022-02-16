@@ -1,4 +1,4 @@
-import { AppReaction } from "integrations/interface/types/appReaction"
+import { AppReaction } from "integrations/types"
 
 export type AppThread = {
   id: string

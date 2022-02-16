@@ -3,7 +3,7 @@ import { Stack, TextField } from "@mui/material"
 import { captureException } from "@sentry/react"
 import createReaction from "app/home/mutations/createReaction"
 import { useMutation } from "blitz"
-import { AppPost } from "integrations/interface/types/appPost"
+import { AppPost } from "integrations/types"
 import { useSnackbar } from "notistack"
 import React, { FunctionComponent, useState } from "react"
 

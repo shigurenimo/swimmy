@@ -10,7 +10,7 @@ import readPost from "app/threads/queries/readPost"
 import readThreadResponses from "app/threads/queries/readThreadResponses"
 import { FormNewPost } from "app/threads/types/formNewPost"
 import { useMutation, useQuery, useSession } from "blitz"
-import { AppPost } from "integrations/interface/types/appPost"
+import { AppPost } from "integrations/types"
 import React, { Fragment, FunctionComponent } from "react"
 
 type Props = {

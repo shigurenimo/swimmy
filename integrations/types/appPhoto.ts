@@ -1,12 +1,12 @@
-import { AppReaction } from "integrations/interface/types/appReaction"
+import { AppReaction } from "integrations/types"
 
-export type AppPost = {
+export type AppPhoto = {
   id: string
   createdAt: Date
   text: string | null
-  fileIds: string[]
   likesCount: number
   repliesCount: number
   reactions: AppReaction[]
+  fileIds: string[]
   isDeleted: boolean
 }

@@ -1,7 +1,7 @@
 import { captureException } from "@sentry/node"
 import db from "db"
 import { Id } from "integrations/domain"
-import { AppPhoto } from "integrations/interface/types/appPhoto"
+import { AppPhoto } from "integrations/types"
 import { injectable } from "tsyringe"
 
 type Props = {

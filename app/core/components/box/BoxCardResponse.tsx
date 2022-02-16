@@ -1,6 +1,6 @@
 import { Stack, Typography } from "@mui/material"
 import { useDateText } from "app/core/hooks/useDateText"
-import { AppPost } from "integrations/interface/types/appPost"
+import { AppPost } from "integrations/types"
 import React, { FunctionComponent } from "react"
 
 type Props = AppPost & {

@@ -10,7 +10,7 @@ import readFeedPublic, {
 import { BoxFormPost } from "app/threads/components/BoxFormPost"
 import { FormNewPost } from "app/threads/types/formNewPost"
 import { useInfiniteQuery, useMutation, useSession } from "blitz"
-import { AppPost } from "integrations/interface/types/appPost"
+import { AppPost } from "integrations/types"
 import { useSnackbar } from "notistack"
 import React, { Fragment, FunctionComponent } from "react"
 import { z } from "zod"

@@ -2,7 +2,7 @@ import { captureException } from "@sentry/node"
 import { NotFoundError } from "blitz"
 import db from "db"
 import { Id } from "integrations/domain"
-import { AppPost } from "integrations/interface/types/appPost"
+import { AppPost } from "integrations/types"
 import { injectable } from "tsyringe"
 
 type Props = {
