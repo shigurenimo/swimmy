@@ -1,6 +1,6 @@
 import { z } from "zod"
 
-const zProps = z.union([
+const zValue = z.union([
   z.literal("FOLLOW"),
   z.literal("FRIENDSHIP"),
   z.literal("LIKE"),
@@ -12,8 +12,8 @@ const zProps = z.union([
  * 通知の種類
  */
 export class NotificationType {
-  constructor(public value: z.infer<typeof zProps>) {
-    zProps.parse(value)
+  constructor(public value: z.infer<typeof zValue>) {
+    zValue.parse(value)
     Object.freeze(this)
   }
 }

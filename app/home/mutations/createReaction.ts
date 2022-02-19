@@ -9,13 +9,13 @@ import { Id, ReactionText } from "integrations/domain"
 import { container } from "tsyringe"
 import { z } from "zod"
 
-const CreateReaction = z.object({
+const zProps = z.object({
   postId: z.string(),
   text: z.string().min(1).max(280),
 })
 
 const createReaction = resolver.pipe(
-  resolver.zod(CreateReaction),
+  resolver.zod(zProps),
   (props, ctx) => {
     return {
       text: new ReactionText(props.text),

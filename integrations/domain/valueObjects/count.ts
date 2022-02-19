@@ -1,6 +1,6 @@
 import { z } from "zod"
 
-const zProps = z.number().min(0)
+const zValue = z.number().min(0)
 
 /**
  * 集計した値
@@ -10,8 +10,8 @@ const zProps = z.number().min(0)
  * - 0以上
  */
 export class Count {
-  constructor(public value: z.infer<typeof zProps>) {
-    zProps.parse(value)
+  constructor(public value: z.infer<typeof zValue>) {
+    zValue.parse(value)
     Object.freeze(this)
   }
 }

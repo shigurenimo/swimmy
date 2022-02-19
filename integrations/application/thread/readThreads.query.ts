@@ -1,6 +1,7 @@
 import { captureException } from "@sentry/node"
 import db from "db"
 import { Id } from "integrations/domain"
+import { InternalError } from "integrations/errors"
 import { AppThread } from "integrations/types"
 import { injectable } from "tsyringe"
 
@@ -81,10 +82,10 @@ export class ReadThreadsQuery {
       captureException(error)
 
       if (error instanceof Error) {
-        return new Error(error.message)
+        return new InternalError(error.message)
       }
 
-      return new Error()
+      return new InternalError()
     }
   }
 }

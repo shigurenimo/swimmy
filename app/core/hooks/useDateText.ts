@@ -29,5 +29,9 @@ export const useDateText = (date: Date) => {
     return `${diff.monthes}ヶ月前（${Y}年${M}月${D}日）`
   }
 
-  return `${Y}年${M}月${D}日`
+  const mText = M.toString().padStart(2, "0")
+
+  const dText = D.toString().padStart(2, "0")
+
+  return `${Y}年${mText}月${dText}日`
 }

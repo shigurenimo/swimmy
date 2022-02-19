@@ -1,3 +1,4 @@
+import "reflect-metadata"
 export * from "./auth"
 export * from "./photo"
 export * from "./post"

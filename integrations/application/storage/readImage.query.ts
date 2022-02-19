@@ -1,6 +1,7 @@
 import { captureException } from "@sentry/node"
 import { getStorage } from "firebase-admin/storage"
 import { Id } from "integrations/domain"
+import { InternalError } from "integrations/errors"
 import { FirebaseAdapter } from "integrations/infrastructure"
 import sharp from "sharp"
 import { injectable } from "tsyringe"
@@ -34,10 +35,10 @@ export class ReadImageQuery {
       captureException(error)
 
       if (error instanceof Error) {
-        return new Error(error.message)
+        return new InternalError(error.message)
       }
 
-      return new Error()
+      return new InternalError()
     }
   }
 }

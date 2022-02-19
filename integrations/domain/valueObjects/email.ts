@@ -1,6 +1,6 @@
 import { z } from "zod"
 
-const zProps = z.string().email()
+const zValue = z.string().email()
 
 /**
  * メールアドレス
@@ -13,8 +13,8 @@ export class Email {
    *
    * @param value
    */
-  constructor(public value: z.infer<typeof zProps>) {
-    zProps.parse(value)
+  constructor(public value: z.infer<typeof zValue>) {
+    zValue.parse(value)
     this.value = value.toLowerCase()
     Object.freeze(this)
   }

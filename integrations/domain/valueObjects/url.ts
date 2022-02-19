@@ -1,13 +1,13 @@
 import { z } from "zod"
 
-const zProps = z.string().url()
+const zValue = z.string().url()
 
 /**
  * URL
  */
 export class Url {
-  constructor(public value: z.infer<typeof zProps>) {
-    zProps.parse(value)
+  constructor(public value: z.infer<typeof zValue>) {
+    zValue.parse(value)
     Object.freeze(this)
   }
 }

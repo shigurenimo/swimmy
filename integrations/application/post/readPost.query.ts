@@ -2,6 +2,7 @@ import { captureException } from "@sentry/node"
 import { NotFoundError } from "blitz"
 import db from "db"
 import { Id } from "integrations/domain"
+import { InternalError } from "integrations/errors"
 import { AppPost } from "integrations/types"
 import { injectable } from "tsyringe"
 
@@ -77,10 +78,10 @@ export class ReadPostQuery {
       captureException(error)
 
       if (error instanceof Error) {
-        return new Error(error.message)
+        return new InternalError(error.message)
       }
 
-      return new Error()
+      return new InternalError()
     }
   }
 }

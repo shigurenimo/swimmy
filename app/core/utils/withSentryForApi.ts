@@ -7,7 +7,6 @@ import {
 } from "@sentry/node"
 import "@sentry/tracing"
 import { BlitzApiHandler } from "blitz"
-import "reflect-metadata"
 
 export const withSentryForApi = (handler: BlitzApiHandler, name: string) => {
   const internalHandler: BlitzApiHandler = async (req, resp) => {
