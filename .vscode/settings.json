@@ -12,6 +12,7 @@
     "*.log": true,
     "*.tsbuildinfo": true,
     ".blitz**": true,
+    ".husky": true,
     ".next": true,
     ".vercel": true
   },
