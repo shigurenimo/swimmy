@@ -16,7 +16,6 @@ import {
   setPersistence,
 } from "firebase/auth"
 import { connectFirestoreEmulator, getFirestore } from "firebase/firestore"
-import { getPerformance } from "firebase/performance"
 import { connectStorageEmulator, getStorage } from "firebase/storage"
 import "integrations/errors"
 import { SnackbarProvider } from "notistack"
@@ -61,7 +60,7 @@ if (typeof window !== "undefined") {
 }
 
 if (getApps().length === 0) {
-  const app = initializeApp({
+  initializeApp({
     apiKey: "AIzaSyBCojMAj-JQxc4-Ceu8nppJO_qx-gKYliU",
     authDomain: "fqcwljdj7qt9rphssvk3.firebaseapp.com",
     projectId: "fqcwljdj7qt9rphssvk3",
@@ -71,14 +70,14 @@ if (getApps().length === 0) {
     measurementId: "G-HEP2VBXJZR",
   })
 
-  getPerformance(app)
-
-  setPersistence(getAuth(), inMemoryPersistence)
-
   if (process.env.NODE_ENV === "development") {
     connectAuthEmulator(getAuth(), "http://localhost:9099")
     connectFirestoreEmulator(getFirestore(), "localhost", 8080)
     connectStorageEmulator(getStorage(), "localhost", 9199)
+  }
+
+  if (typeof window !== "undefined") {
+    setPersistence(getAuth(), inMemoryPersistence)
   }
 
   if (typeof window !== "undefined" && process.env.NODE_ENV !== "production") {
