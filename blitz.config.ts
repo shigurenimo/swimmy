@@ -10,7 +10,7 @@ const config: BlitzConfig = {
   ],
   log: { level: "error" },
   env: {
-    SENTRY_RELEASE: `swimmy@${packageJSON.version}`,
+    NEXT_PUBLIC_SENTRY_RELEASE: `swimmy@${packageJSON.version}`,
   },
 }
 

@@ -22,7 +22,7 @@ export const withSentry = <T, U>(resolver: Resolver<T, U>, name: string) => {
         normalizeDepth: 5,
         environment: process.env.NEXT_PUBLIC_SENTRY_ENVIRONMENT,
         integrations: [new Integrations.Http({ tracing: true })],
-        release: process.env.SENTRY_RELEASE,
+        release: process.env.NEXT_PUBLIC_SENTRY_RELEASE,
         debug: false,
         beforeSend(event) {
           if (process.env.NODE_ENV !== "production") {

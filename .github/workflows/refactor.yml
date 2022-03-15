@@ -1,0 +1,39 @@
+name: リファクタリング
+on:
+  pull_request:
+    branches:
+      - main
+      - develop
+    paths:
+      - "app/**/*"
+      - "integrations/**/*"
+jobs:
+  test:
+    name: テストを実行する
+    runs-on: ubuntu-latest
+    steps:
+      - name: チェックアウト
+        uses: actions/checkout@v2
+      - name: Setup Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: "14.x"
+      - name: Cache Node.js modules
+        uses: actions/cache@v2
+        with:
+          path: ~/.cache/yarn
+          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: ${{ runner.os }}-modules-
+      - name: $ Install Node.js modules
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: yarn install
+      - name: ビルドのエラーを検出する
+        run: yarn blitz build
+      - name: TypeScriptのエラーを検出する
+        run: yarn tsc --noEmit
+      - name: Prettierのエラーを検出する
+        run: yarn prettier --check . --ignore-path .gitignore
+      - name: ESLintのエラーを検出する
+        run: yarn eslint . --fix --ignore-path .gitignore
+      - name: テストのエラーを検出する
+        run: yarn jest
