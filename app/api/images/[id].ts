@@ -28,8 +28,6 @@ const handler: BlitzApiHandler = async (req, resp) => {
       return resp.status(500).end()
     }
 
-    // resp.writeHead(200, { "Content-Type": "image/jpeg" })
-
     resp.setHeader("Cache-control", "public, max-age=86400")
 
     resp.end(file)
