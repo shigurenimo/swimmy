@@ -3,6 +3,7 @@ import { getStorage } from "firebase-admin/storage"
 import { Id } from "integrations/domain"
 import { InternalError } from "integrations/errors"
 import { FirebaseAdapter } from "integrations/infrastructure"
+import { tmpdir } from "os"
 import sharp from "sharp"
 import { injectable } from "tsyringe"
 
@@ -20,18 +21,35 @@ export class ReadImageQuery {
     try {
       await this.firebaseAdapter.initialize()
 
+      const tmpPath = `${tmpdir()}/${props.fileId.value}`
+
+      try {
+        const buffer = await sharp(tmpPath).toBuffer()
+        return buffer
+      } catch (error) {}
+
       const bucket = getStorage().bucket()
 
-      const [buffer] = await bucket.file(props.fileId.value).download({
+      const [file] = await bucket.file(props.fileId.value).download({
         validation: false,
       })
 
-      return sharp(buffer)
-        .resize(props.width)
-        .png({ quality: props.quality })
-        .toBuffer()
+      try {
+        const shapeImage = sharp(file)
+          .resize(props.width)
+          .png({ quality: props.quality })
+
+        const buffer = shapeImage.toBuffer()
+
+        await shapeImage.toFile(tmpPath)
+
+        return buffer
+      } catch (error) {
+        captureException(error)
+
+        return file
+      }
     } catch (error) {
-      console.error(error)
       captureException(error)
 
       if (error instanceof Error) {

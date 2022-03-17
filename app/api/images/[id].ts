@@ -6,21 +6,15 @@ import { container } from "tsyringe"
 
 const handler: BlitzApiHandler = async (req, resp) => {
   try {
-    if (!Array.isArray(req.query.routes)) {
-      return resp.status(500).end()
-    }
-
     if (typeof req.query.w !== "string" || typeof req.query.q !== "string") {
       return resp.status(500).end()
     }
 
-    const [queryId] = req.query.routes
-
-    if (typeof queryId !== "string") {
+    if (typeof req.query.id !== "string") {
       return resp.status(500).end()
     }
 
-    const fileId = new Id(queryId)
+    const fileId = new Id(req.query.id)
 
     const readFileQuery = container.resolve(ReadImageQuery)
 
@@ -30,9 +24,13 @@ const handler: BlitzApiHandler = async (req, resp) => {
 
     const file = await readFileQuery.execute({ fileId, width, quality })
 
+    if (file instanceof Error) {
+      return resp.status(500).end()
+    }
+
     // resp.writeHead(200, { "Content-Type": "image/jpeg" })
 
-    // resp.setHeader("Cache-control", "public, max-age=86400")
+    resp.setHeader("Cache-control", "public, max-age=86400")
 
     resp.end(file)
   } catch (error) {
