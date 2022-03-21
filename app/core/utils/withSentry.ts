@@ -26,6 +26,9 @@ export const withSentry = <T, U>(resolver: Resolver<T, U>, name: string) => {
         debug: false,
         beforeSend(event) {
           if (process.env.NODE_ENV !== "production") {
+            for (const exception of event.exception?.values ?? []) {
+              console.error(exception.value)
+            }
             return null
           }
           return event

@@ -21,6 +21,9 @@ export const withSentryForApi = (handler: BlitzApiHandler, name: string) => {
       debug: false,
       beforeSend(event) {
         if (process.env.NODE_ENV !== "production") {
+          for (const exception of event.exception?.values ?? []) {
+            console.error(exception.value)
+          }
           return null
         }
         return event
