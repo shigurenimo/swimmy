@@ -1,6 +1,6 @@
 {
   "name": "swimmy",
-  "version": "1.0.0",
+  "version": "6.0.2",
   "scripts": {
     "dev": "blitz dev",
     "build": "blitz build",

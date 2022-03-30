@@ -6,6 +6,7 @@ import { Integrations } from "@sentry/tracing"
 import { BoxErrorFallback } from "app/core/components/box/BoxErrorFallback"
 import "app/core/styles/global.css"
 import { theme } from "app/core/theme/theme"
+import { unregister } from "app/core/utils/serviceWorker"
 import { AppProps, ErrorBoundary, useQueryErrorResetBoundary } from "blitz"
 import { getAnalytics, setAnalyticsCollectionEnabled } from "firebase/analytics"
 import { getApps, initializeApp } from "firebase/app"
@@ -83,6 +84,10 @@ if (getApps().length === 0) {
   if (typeof window !== "undefined" && process.env.NODE_ENV !== "production") {
     setAnalyticsCollectionEnabled(getAnalytics(), false)
   }
+}
+
+if (typeof window !== "undefined") {
+  unregister()
 }
 
 export default App
