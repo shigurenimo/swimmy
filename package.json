@@ -1,6 +1,6 @@
 {
   "name": "swimmy",
-  "version": "6.0.2",
+  "version": "6.0.3",
   "scripts": {
     "dev": "blitz dev",
     "build": "blitz build",
@@ -30,10 +30,9 @@
     "firebase-admin": "^10.0.2",
     "immer": "9.0.12",
     "nanoid": "^3.3.1",
-    "next-pwa": "5.4.4",
     "notistack": "^2.0.3",
-    "react": "beta",
-    "react-dom": "beta",
+    "react": "18.0.0",
+    "react-dom": "18.0.0",
     "react-hook-form": "^7.27.1",
     "react-markdown": "^8.0.0",
     "reflect-metadata": "^0.1.13",
