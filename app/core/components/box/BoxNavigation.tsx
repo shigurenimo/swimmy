@@ -18,7 +18,7 @@ import {
   Typography,
 } from "@mui/material"
 import { Link, useRouter, useSession } from "blitz"
-import React, { FunctionComponent } from "react"
+import { FC } from "react"
 
 type Props = {
   isDense: boolean
@@ -26,7 +26,7 @@ type Props = {
   onLogout(): void
 }
 
-export const BoxNavigation: FunctionComponent<Props> = (props) => {
+export const BoxNavigation: FC<Props> = (props) => {
   const session = useSession()
 
   const router = useRouter()

@@ -1,11 +1,11 @@
 import { Grid, Skeleton, Stack, Typography } from "@mui/material"
 import { BoxCardPostFrame } from "app/core/components/box/BoxCardPostFrame"
 import { ChipReactionSkeleton } from "app/core/components/chip/ChipReactionSkeleton"
-import React, { FunctionComponent } from "react"
+import { FC } from "react"
 
 type Props = {}
 
-export const BoxCardPostSkeleton: FunctionComponent<Props> = () => {
+export const BoxCardPostSkeleton: FC<Props> = () => {
   return (
     <BoxCardPostFrame>
       <Stack spacing={0.5}>

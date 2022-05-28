@@ -15,7 +15,7 @@ import {
   ListItemText,
 } from "@mui/material"
 import { Link, useSession } from "blitz"
-import React, { FunctionComponent } from "react"
+import { FC } from "react"
 
 type Props = {
   pathname: string
@@ -26,7 +26,7 @@ type Props = {
   onLogout(): void
 }
 
-export const DrawerNavigation: FunctionComponent<Props> = (props) => {
+export const DrawerNavigation: FC<Props> = (props) => {
   const session = useSession()
 
   const isLoggedIn = session.userId != null

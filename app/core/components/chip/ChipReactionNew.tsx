@@ -1,14 +1,11 @@
 import { Chip, ChipProps } from "@mui/material"
-import React, { FunctionComponent } from "react"
+import { FC } from "react"
 
 type Props = ChipProps & {
   onClick(): void
 }
 
-export const ChipReactionNew: FunctionComponent<Props> = ({
-  onClick,
-  ...props
-}) => {
+export const ChipReactionNew: FC<Props> = ({ onClick, ...props }) => {
   return (
     <Chip
       sx={{ borderRadius: 1 }}

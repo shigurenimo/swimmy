@@ -1,5 +1,5 @@
 import { Button, Dialog, DialogContent, Stack, Typography } from "@mui/material"
-import React, { FunctionComponent } from "react"
+import { FC } from "react"
 
 type Props = {
   onClose(): void
@@ -7,7 +7,7 @@ type Props = {
   onLogout(): void
 }
 
-export const DialogLogout: FunctionComponent<Props> = (props) => {
+export const DialogLogout: FC<Props> = (props) => {
   return (
     <Dialog
       onClose={props.onClose}

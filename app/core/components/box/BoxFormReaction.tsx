@@ -5,7 +5,7 @@ import createReaction from "app/home/mutations/createReaction"
 import { useMutation } from "blitz"
 import { AppPost } from "integrations/types"
 import { useSnackbar } from "notistack"
-import React, { FunctionComponent, useState } from "react"
+import { FC, useState } from "react"
 
 type Props = {
   postId: string
@@ -13,7 +13,7 @@ type Props = {
   onUpdatePost?(post: AppPost): void
 }
 
-export const BoxFormReaction: FunctionComponent<Props> = (props) => {
+export const BoxFormReaction: FC<Props> = (props) => {
   const { enqueueSnackbar } = useSnackbar()
 
   const [text, setText] = useState("")

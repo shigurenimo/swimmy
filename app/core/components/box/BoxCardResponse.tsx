@@ -1,14 +1,14 @@
 import { Stack, Typography } from "@mui/material"
 import { useDateText } from "app/core/hooks/useDateText"
 import { AppPost } from "integrations/types"
-import React, { FunctionComponent } from "react"
+import { FC } from "react"
 
 type Props = AppPost & {
   index: number
   onClick?(): void
 }
 
-export const BoxCardResponse: FunctionComponent<Props> = (props) => {
+export const BoxCardResponse: FC<Props> = (props) => {
   const dateText = useDateText(props.createdAt)
 
   return (

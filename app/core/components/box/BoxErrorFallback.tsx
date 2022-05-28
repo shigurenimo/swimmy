@@ -4,11 +4,9 @@ import {
   ErrorComponent,
   ErrorFallbackProps,
 } from "blitz"
-import { FunctionComponent } from "react"
+import { FC } from "react"
 
-export const BoxErrorFallback: FunctionComponent<ErrorFallbackProps> = (
-  props
-) => {
+export const BoxErrorFallback: FC<ErrorFallbackProps> = (props) => {
   if (props.error instanceof AuthenticationError) {
     return (
       <ErrorComponent

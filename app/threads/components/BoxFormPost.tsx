@@ -7,14 +7,14 @@ import { useFileUploader } from "app/core/hooks/useFileUploader"
 import { FormNewPost } from "app/threads/types/formNewPost"
 import produce from "immer"
 import { useSnackbar } from "notistack"
-import React, { FunctionComponent, useState } from "react"
+import { FC, useState } from "react"
 
 type Props = {
   onCreatePost?(input: FormNewPost): Promise<void>
   isLoading: boolean
 }
 
-export const BoxFormPost: FunctionComponent<Props> = (props) => {
+export const BoxFormPost: FC<Props> = (props) => {
   const { enqueueSnackbar } = useSnackbar()
 
   const [text, setText] = useState("")

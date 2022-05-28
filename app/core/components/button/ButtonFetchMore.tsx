@@ -1,5 +1,5 @@
 import { LoadingButton } from "@mui/lab"
-import React, { FunctionComponent } from "react"
+import { FC } from "react"
 
 type Props = {
   isFetching: boolean
@@ -8,7 +8,7 @@ type Props = {
   onClick(): void
 }
 
-export const ButtonFetchMore: FunctionComponent<Props> = (props) => {
+export const ButtonFetchMore: FC<Props> = (props) => {
   return (
     <LoadingButton
       variant={"outlined"}

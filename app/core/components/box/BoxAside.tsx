@@ -1,19 +1,20 @@
 import CloseIcon from "@mui/icons-material/CloseRounded"
 import { Box, Button, Stack, Typography } from "@mui/material"
-import React, { FunctionComponent } from "react"
+import { FC, ReactNode } from "react"
 
 type Props = {
+  children: ReactNode
   title: string
   onClose?(): void
 }
 
-export const BoxAside: FunctionComponent<Props> = (props) => {
+export const BoxAside: FC<Props> = (props) => {
   return (
     <Stack
       component={"aside"}
       position={"sticky"}
       width={"100%"}
-      height={(theme) => {
+      height={() => {
         return {
           xs: "auto",
           sm: "100vh",

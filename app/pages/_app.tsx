@@ -20,7 +20,7 @@ import { connectFirestoreEmulator, getFirestore } from "firebase/firestore"
 import { connectStorageEmulator, getStorage } from "firebase/storage"
 import "integrations/errors"
 import { SnackbarProvider } from "notistack"
-import React, { FunctionComponent } from "react"
+import { FC } from "react"
 
 const clientSideEmotionCache = createCache({ key: "css" })
 
@@ -28,7 +28,7 @@ interface Props extends AppProps {
   emotionCache?: EmotionCache
 }
 
-const App: FunctionComponent<Props> = ({ Component, ...props }) => {
+const App: FC<Props> = ({ Component, ...props }) => {
   const getLayout = Component.getLayout || ((page) => page)
 
   const queryErrorResetBoundary = useQueryErrorResetBoundary()

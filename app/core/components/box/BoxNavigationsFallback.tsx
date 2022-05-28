@@ -12,9 +12,9 @@ import {
   ListItemIcon,
   ListItemText,
 } from "@mui/material"
-import React, { FunctionComponent } from "react"
+import { FC } from "react"
 
-export const BoxNavigationsFallback: FunctionComponent = (props) => {
+export const BoxNavigationsFallback: FC = (props) => {
   const listItems = [
     { primary: "ホーム", icon: <HomeIcon /> },
     { primary: "スレッド", icon: <QuickreplyIcon /> },

@@ -1,6 +1,6 @@
 import { Chip } from "@mui/material"
 import { useSnackbar } from "notistack"
-import React, { FunctionComponent, useState } from "react"
+import { FC, useState } from "react"
 
 type Props = {
   text: string
@@ -9,7 +9,7 @@ type Props = {
   onClick(): void
 }
 
-export const ChipSecretReaction: FunctionComponent<Props> = (props) => {
+export const ChipSecretReaction: FC<Props> = (props) => {
   const [count, setCount] = useState(props.count + props.secretCount)
 
   const { enqueueSnackbar } = useSnackbar()

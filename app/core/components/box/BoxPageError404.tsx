@@ -8,9 +8,9 @@ import {
 } from "@mui/material"
 import { BoxPageCenter } from "app/core/components/box/BoxPageCenter"
 import { Image, Link } from "blitz"
-import React, { FunctionComponent } from "react"
+import { FC } from "react"
 
-export const BoxPageError404: FunctionComponent = () => {
+export const BoxPageError404: FC = () => {
   const isTwoColumn = useMediaQuery<Theme>(
     (theme) => theme.breakpoints.up("md"),
     { noSsr: true }

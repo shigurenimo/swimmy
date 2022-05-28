@@ -1,7 +1,7 @@
 import { Chip, Skeleton } from "@mui/material"
-import React, { FunctionComponent } from "react"
+import { FC } from "react"
 
-export const ChipReactionSkeleton: FunctionComponent = () => {
+export const ChipReactionSkeleton: FC = () => {
   return (
     <Chip
       sx={{ borderRadius: 1 }}

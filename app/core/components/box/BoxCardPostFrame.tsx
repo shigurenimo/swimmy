@@ -1,12 +1,13 @@
 import { Stack } from "@mui/material"
-import React, { FunctionComponent } from "react"
+import { FC, ReactNode } from "react"
 
 type Props = {
+  children: ReactNode
   onClick?(): void
   isActive?: boolean
 }
 
-export const BoxCardPostFrame: FunctionComponent<Props> = (props) => {
+export const BoxCardPostFrame: FC<Props> = (props) => {
   const isClickable = typeof props.onClick !== "undefined"
 
   return (

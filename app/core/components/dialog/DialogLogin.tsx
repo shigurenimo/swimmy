@@ -10,7 +10,7 @@ import {
 } from "@mui/material"
 import { ButtonLoginWithGoogle } from "app/core/components/button/ButtonLoginWithGoogle"
 import { FormLogin } from "app/threads/types/formLogin"
-import React, { FunctionComponent } from "react"
+import { FC } from "react"
 import { SubmitHandler, useForm } from "react-hook-form"
 
 type Props = {
@@ -21,7 +21,7 @@ type Props = {
   onLoginWithPassword(username: string, password: string): void
 }
 
-export const DialogLogin: FunctionComponent<Props> = (props) => {
+export const DialogLogin: FC<Props> = (props) => {
   const { register, handleSubmit, formState } = useForm<FormLogin>()
 
   const onSubmit: SubmitHandler<FormLogin> = (data) => {

@@ -1,8 +1,8 @@
 import { Box } from "@mui/material"
 import { useRouter } from "blitz"
-import React, { FunctionComponent, useEffect } from "react"
+import { FC, useEffect } from "react"
 
-const BoxProgress: FunctionComponent = () => {
+const BoxProgress: FC = () => {
   const router = useRouter()
 
   useEffect(() => {

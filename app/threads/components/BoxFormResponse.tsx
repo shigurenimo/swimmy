@@ -2,7 +2,7 @@ import { LoadingButton } from "@mui/lab"
 import { Stack, TextField } from "@mui/material"
 import { FormNewPost } from "app/threads/types/formNewPost"
 import { useSnackbar } from "notistack"
-import React, { FunctionComponent } from "react"
+import { FC } from "react"
 import { SubmitHandler, useForm } from "react-hook-form"
 
 type Props = {
@@ -10,7 +10,7 @@ type Props = {
   isLoading: boolean
 }
 
-export const BoxFormResponse: FunctionComponent<Props> = (props) => {
+export const BoxFormResponse: FC<Props> = (props) => {
   const { enqueueSnackbar } = useSnackbar()
 
   const { register, handleSubmit, formState, reset } = useForm<FormNewPost>()

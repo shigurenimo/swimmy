@@ -1,7 +1,11 @@
 import { Stack } from "@mui/material"
-import React, { FunctionComponent } from "react"
+import { FC, ReactNode } from "react"
 
-export const BoxPageCenter: FunctionComponent = (props) => {
+type Props = {
+  children: ReactNode
+}
+
+export const BoxPageCenter: FC<Props> = (props) => {
   return (
     <Stack
       sx={{

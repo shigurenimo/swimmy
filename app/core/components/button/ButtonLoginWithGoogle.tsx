@@ -1,9 +1,9 @@
 import { Box, Button, ButtonProps, Stack, Typography } from "@mui/material"
-import React, { FunctionComponent } from "react"
+import { FC } from "react"
 
 type Props = ButtonProps
 
-export const ButtonLoginWithGoogle: FunctionComponent<Props> = (props) => {
+export const ButtonLoginWithGoogle: FC<Props> = (props) => {
   return (
     <Button
       variant={"contained"}

@@ -1,9 +1,9 @@
 import { Divider, List, ListItem, ListItemText } from "@mui/material"
 import { BoxAside } from "app/core/components/box/BoxAside"
 import { useChangelogs } from "app/core/hooks/useChangelogs"
-import React, { Fragment, FunctionComponent } from "react"
+import { FC, Fragment } from "react"
 
-export const BoxAsideHelloWorld: FunctionComponent = () => {
+export const BoxAsideHelloWorld: FC = () => {
   const changelogs = useChangelogs()
 
   return (

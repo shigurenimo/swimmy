@@ -1,13 +1,13 @@
 import { Box, Button, Stack, Typography } from "@mui/material"
 import { BoxPageCenter } from "app/core/components/box/BoxPageCenter"
 import { Image, Link } from "blitz"
-import React, { FunctionComponent } from "react"
+import { FC } from "react"
 
 type Props = {
   error: Error
 }
 
-export const BoxPageError: FunctionComponent<Props> = (props) => {
+export const BoxPageError: FC<Props> = (props) => {
   return (
     <BoxPageCenter>
       <Stack alignItems={"center"}>

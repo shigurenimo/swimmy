@@ -1,16 +1,15 @@
 import { Link as MuiLink, Typography } from "@mui/material"
 import { Box } from "@mui/system"
 import { Link } from "blitz"
-import React, { FunctionComponent } from "react"
+import { FC, ReactNode } from "react"
 import ReactMarkdown from "react-markdown"
 
 type Props = {
+  children: ReactNode
   fontSize?: number
 }
 
-export const BoxMarkdown: FunctionComponent<Props> = (props) => {
-  let index = 0
-
+export const BoxMarkdown: FC<Props> = (props) => {
   const baseFontSize = props.fontSize ? props.fontSize : 16
 
   if (typeof props.children !== "string") {
@@ -22,13 +21,11 @@ export const BoxMarkdown: FunctionComponent<Props> = (props) => {
       <ReactMarkdown
         components={{
           h1(props) {
-            index += 1
-
             return (
               <Typography
                 component={"h1"}
                 sx={{
-                  mt: index === 1 ? 0 : 12,
+                  mt: props.node.position?.start.line === 1 ? 0 : 12,
                   mb: 2,
                   fontWeight: "bold",
                   fontSize: baseFontSize + 8,
@@ -39,13 +36,11 @@ export const BoxMarkdown: FunctionComponent<Props> = (props) => {
             )
           },
           h2(props) {
-            index += 1
-
             return (
               <Typography
                 component={"h2"}
                 sx={{
-                  mt: index === 1 ? 0 : 6,
+                  mt: props.node.position?.start.line === 1 ? 0 : 6,
                   mb: 2,
                   fontWeight: "bold",
                   fontSize: baseFontSize + 6,
@@ -56,13 +51,11 @@ export const BoxMarkdown: FunctionComponent<Props> = (props) => {
             )
           },
           h3(props) {
-            index += 1
-
             return (
               <Typography
                 component={"h3"}
                 sx={{
-                  mt: index === 1 ? 0 : 4,
+                  mt: props.node.position?.start.line === 1 ? 0 : 4,
                   mb: 2,
                   fontWeight: "bold",
                   fontSize: baseFontSize + 4,
@@ -73,13 +66,11 @@ export const BoxMarkdown: FunctionComponent<Props> = (props) => {
             )
           },
           h4(props) {
-            index += 1
-
             return (
               <Typography
                 component={"h4"}
                 sx={{
-                  mt: index === 1 ? 0 : 4,
+                  mt: props.node.position?.start.line === 1 ? 0 : 4,
                   mb: 2,
                   fontWeight: "bold",
                   fontSize: baseFontSize + 4,
@@ -90,13 +81,11 @@ export const BoxMarkdown: FunctionComponent<Props> = (props) => {
             )
           },
           h5(props) {
-            index += 1
-
             return (
               <Typography
                 component={"h5"}
                 sx={{
-                  mt: index === 1 ? 0 : 4,
+                  mt: props.node.position?.start.line === 1 ? 0 : 4,
                   mb: 2,
                   fontWeight: "bold",
                   fontSize: baseFontSize + 4,
@@ -107,13 +96,11 @@ export const BoxMarkdown: FunctionComponent<Props> = (props) => {
             )
           },
           h6(props) {
-            index += 1
-
             return (
               <Typography
                 component={"h6"}
                 sx={{
-                  mt: index === 1 ? 0 : 4,
+                  mt: props.node.position?.start.line === 1 ? 0 : 4,
                   mb: 2,
                   fontWeight: "bold",
                   fontSize: baseFontSize + 4,
@@ -124,14 +111,12 @@ export const BoxMarkdown: FunctionComponent<Props> = (props) => {
             )
           },
           p(props) {
-            index += 1
-
             return (
               <Typography
                 component={"p"}
                 sx={{
                   fontSize: baseFontSize,
-                  mt: index === 1 ? 0 : 2,
+                  mt: props.node.position?.start.line === 1 ? 0 : 2,
                 }}
               >
                 {props.children}
@@ -139,40 +124,10 @@ export const BoxMarkdown: FunctionComponent<Props> = (props) => {
             )
           },
           code(props) {
-            return (
-              <Typography
-                component={"code"}
-                sx={{
-                  color: "white",
-                  fontFamily: "monospace, monospace",
-                  fontSize: baseFontSize - 2,
-                }}
-              >
-                {props.children}
-              </Typography>
-            )
+            return null
           },
           pre(props) {
-            index += 1
-
-            return (
-              <Box
-                component={"pre"}
-                sx={{
-                  mt: 2,
-                  mb: 0,
-                  borderRadius: 1,
-                  px: 2,
-                  py: 1.5,
-                  overflow: "auto",
-                  wordBreak: "break-all",
-                  whiteSpace: "pre-wrap",
-                  backgroundColor: (theme) => theme.palette.grey[900],
-                }}
-              >
-                {props.children}
-              </Box>
-            )
+            return null
           },
           a(props) {
             const [text] = props.children
@@ -195,20 +150,6 @@ export const BoxMarkdown: FunctionComponent<Props> = (props) => {
                   {text}
                 </MuiLink>
               </Link>
-            )
-          },
-          ol(props) {
-            return (
-              <Box component={"ol"} sx={{ pl: 4 }}>
-                {props.children}
-              </Box>
-            )
-          },
-          li(props) {
-            return (
-              <Box component={"li"} sx={{ lineHeight: 2 }}>
-                {props.children}
-              </Box>
             )
           },
         }}

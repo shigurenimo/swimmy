@@ -12,7 +12,7 @@ import { FormNewPost } from "app/threads/types/formNewPost"
 import { useInfiniteQuery, useMutation, useSession } from "blitz"
 import { AppPost } from "integrations/types"
 import { useSnackbar } from "notistack"
-import React, { Fragment, FunctionComponent } from "react"
+import { FC, Fragment } from "react"
 import { z } from "zod"
 
 type Props = {
@@ -20,7 +20,7 @@ type Props = {
   onChangeThreadId(threadId: string): void
 }
 
-export const BoxMainFeedPublic: FunctionComponent<Props> = (props) => {
+export const BoxMainFeedPublic: FC<Props> = (props) => {
   const session = useSession()
 
   const [

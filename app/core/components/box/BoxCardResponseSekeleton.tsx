@@ -1,9 +1,9 @@
 import { Skeleton, Stack, Typography } from "@mui/material"
-import React, { FunctionComponent } from "react"
+import { FC } from "react"
 
 type Props = { index: number }
 
-export const BoxCardResponseSekeleton: FunctionComponent<Props> = (props) => {
+export const BoxCardResponseSekeleton: FC<Props> = (props) => {
   return (
     <Stack spacing={0.5} sx={{ width: "100%" }}>
       <Stack direction={"row"} alignItems={"center"} gap={1}>

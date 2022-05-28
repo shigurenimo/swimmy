@@ -2,9 +2,9 @@ import { Divider, List, ListItem } from "@mui/material"
 import { BoxAside } from "app/core/components/box/BoxAside"
 import { BoxCardPostSkeleton } from "app/core/components/box/BoxCardPostSkeleton"
 import { BoxCardResponseSekeleton } from "app/core/components/box/BoxCardResponseSekeleton"
-import React, { Fragment, FunctionComponent } from "react"
+import { FC, Fragment } from "react"
 
-export const BoxAsideFeedThreadFallback: FunctionComponent = () => {
+export const BoxAsideFeedThreadFallback: FC = () => {
   const skeletons = [0, 1, 2, 3]
 
   return (

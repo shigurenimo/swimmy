@@ -11,14 +11,14 @@ import readThreadResponses from "app/threads/queries/readThreadResponses"
 import { FormNewPost } from "app/threads/types/formNewPost"
 import { useMutation, useQuery, useSession } from "blitz"
 import { AppPost } from "integrations/types"
-import React, { Fragment, FunctionComponent } from "react"
+import { FC, Fragment } from "react"
 
 type Props = {
   threadId: string
   onClose(): void
 }
 
-export const BoxAsideFeedThread: FunctionComponent<Props> = (props) => {
+export const BoxAsideFeedThread: FC<Props> = (props) => {
   const session = useSession()
 
   const [postQuery, { isFetching, setQueryData }] = useQuery(readPost, {

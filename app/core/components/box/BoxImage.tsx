@@ -1,12 +1,12 @@
 import { Box, Stack } from "@mui/material"
 import { Image } from "blitz"
-import React, { FunctionComponent } from "react"
+import { FC } from "react"
 
 type Props = {
   fileId: string
 }
 
-export const BoxImage: FunctionComponent<Props> = (props) => {
+export const BoxImage: FC<Props> = (props) => {
   return (
     <Box sx={{ py: 1 }}>
       <Stack

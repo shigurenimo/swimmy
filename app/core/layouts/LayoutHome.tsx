@@ -18,14 +18,14 @@ import {
   signInWithPopup,
 } from "firebase/auth"
 import { useSnackbar } from "notistack"
-import React, { FunctionComponent, ReactNode, Suspense, useState } from "react"
+import { FC, ReactNode, Suspense, useState } from "react"
 
 type Props = {
   title?: string
   children: ReactNode
 }
 
-export const LayoutHome: FunctionComponent<Props> = (props) => {
+export const LayoutHome: FC<Props> = (props) => {
   const isTwoColumn = useTwoColumn()
 
   const isDense = useDense()

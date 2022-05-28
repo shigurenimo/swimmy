@@ -8,7 +8,7 @@ import {
   Typography,
   useScrollTrigger,
 } from "@mui/material"
-import React, { FunctionComponent } from "react"
+import { FC } from "react"
 
 type Props = {
   onLogin(): void
@@ -16,7 +16,7 @@ type Props = {
   onOpenDrawer(): void
 }
 
-export const BoxHeader: FunctionComponent<Props> = (props) => {
+export const BoxHeader: FC<Props> = (props) => {
   const trigger = useScrollTrigger({
     target: typeof window !== "undefined" ? window : undefined,
   })

@@ -5,7 +5,7 @@ import { ButtonFetchMore } from "app/core/components/button/ButtonFetchMore"
 import type { zReadFeedPhotos } from "app/photos/queries/readFeedPhotos"
 import readFeedPhotos from "app/photos/queries/readFeedPhotos"
 import { useInfiniteQuery, useSession } from "blitz"
-import React, { Fragment, FunctionComponent } from "react"
+import { FC, Fragment } from "react"
 import { z } from "zod"
 
 type Props = {
@@ -13,7 +13,7 @@ type Props = {
   onChangeThreadId(threadId: string): void
 }
 
-export const BoxMainFeedPhoto: FunctionComponent<Props> = (props) => {
+export const BoxMainFeedPhoto: FC<Props> = (props) => {
   const session = useSession()
 
   const [

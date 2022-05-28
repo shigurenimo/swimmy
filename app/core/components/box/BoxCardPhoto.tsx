@@ -10,7 +10,7 @@ import createReaction from "app/home/mutations/createReaction"
 import { useMutation } from "blitz"
 import { AppPhoto, AppPost } from "integrations/types"
 import { useSnackbar } from "notistack"
-import React, { FunctionComponent, useState } from "react"
+import { FC, useState } from "react"
 
 type Props = AppPhoto & {
   onOpenThread?(): void
@@ -19,7 +19,7 @@ type Props = AppPhoto & {
   isLoggedIn: boolean
 }
 
-export const BoxCardPhoto: FunctionComponent<Props> = (props) => {
+export const BoxCardPhoto: FC<Props> = (props) => {
   const dateText = useDateText(props.createdAt)
 
   const { enqueueSnackbar } = useSnackbar()
