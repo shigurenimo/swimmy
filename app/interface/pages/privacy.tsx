@@ -1,8 +1,8 @@
 import { Typography } from "@mui/material"
-import { BoxMain } from "app/interface/core/components/box/BoxMain"
-import { BoxMarkdown } from "app/interface/core/components/box/BoxMarkdown"
-import { useScreenView } from "app/interface/core/hooks/useScreenView"
-import { LayoutHome } from "app/interface/core/layouts/LayoutHome"
+import { BoxMain } from "app/interface/components/box/BoxMain"
+import { BoxMarkdown } from "app/interface/components/box/BoxMarkdown"
+import { useScreenView } from "app/interface/hooks/useScreenView"
+import { LayoutHome } from "app/interface/layouts/LayoutHome"
 import { BlitzPage } from "blitz"
 
 const PagePrivacy: BlitzPage = () => {

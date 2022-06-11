@@ -1,1 +1,1 @@
-export * from "./login.service"
+export { LoginService } from "./login.service"

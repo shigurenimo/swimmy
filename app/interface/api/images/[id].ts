@@ -1,6 +1,6 @@
 import { ReadImageQuery } from "app/application"
 import { Id } from "app/domain"
-import { withSentryForApi } from "app/interface/core/utils/withSentryForApi"
+import { withSentryForApi } from "app/interface/utils/withSentryForApi"
 import { BlitzApiHandler } from "blitz"
 import { container } from "tsyringe"
 

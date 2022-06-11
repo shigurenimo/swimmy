@@ -1,1 +1,1 @@
-export * from "./readImage.query"
+export { ReadImageQuery } from "./readImage.query"

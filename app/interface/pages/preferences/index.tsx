@@ -1,5 +1,5 @@
 import { Box } from "@mui/material"
-import { LayoutHome } from "app/interface/core/layouts/LayoutHome"
+import { LayoutHome } from "app/interface/layouts/LayoutHome"
 import { BlitzPage } from "blitz"
 
 const PagePreferences: BlitzPage = () => {

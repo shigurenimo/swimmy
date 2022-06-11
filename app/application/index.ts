@@ -1,9 +1,16 @@
 import "reflect-metadata"
-export * from "./auth"
-export * from "./photo"
-export * from "./post"
-export * from "./reaction"
-export * from "./reference"
-export * from "./response"
-export * from "./storage"
-export * from "./thread"
+export { LoginService } from "./auth"
+export { CountPhotosQuery, ReadPhotosQuery } from "./photo"
+export {
+  CountPostsQuery,
+  CountUniquePostsQuery,
+  CreatePostService,
+  ReadPostQuery,
+  ReadPostsQuery,
+  ReadPrivatePostsQuery,
+} from "./post"
+export { CreateReactionService, CreateSecretReactionService } from "./reaction"
+export { ReadReferencesQuery } from "./reference"
+export { ReadResponsesQuery } from "./response"
+export { ReadImageQuery } from "./storage"
+export { CountThreadsQuery, ReadThreadsQuery } from "./thread"

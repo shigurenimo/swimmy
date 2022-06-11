@@ -1,5 +1,5 @@
-import { BoxPageError404 } from "app/interface/core/components/box/BoxPageError404"
-import { useScreenView } from "app/interface/core/hooks/useScreenView"
+import { BoxPageError404 } from "app/interface/components/box/BoxPageError404"
+import { useScreenView } from "app/interface/hooks/useScreenView"
 import { BlitzPage, Head } from "blitz"
 
 const Page404: BlitzPage = () => {

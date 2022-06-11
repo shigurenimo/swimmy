@@ -1,2 +1,2 @@
-export * from "./countThreads.query"
-export * from "./readThreads.query"
+export { CountThreadsQuery } from "./countThreads.query"
+export { ReadThreadsQuery } from "./readThreads.query"

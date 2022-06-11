@@ -1,2 +1,2 @@
-export * from "./countPhotos.query"
-export * from "./readPhotos.query"
+export { CountPhotosQuery } from "./countPhotos.query"
+export { ReadPhotosQuery } from "./readPhotos.query"

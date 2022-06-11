@@ -1,1 +1,1 @@
-export * from "./readResponses.query"
+export { ReadResponsesQuery } from "./readResponses.query"
