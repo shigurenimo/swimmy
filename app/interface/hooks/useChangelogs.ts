@@ -1,6 +1,10 @@
 export const useChangelogs = () => {
   return [
     {
+      version: "6.0.3",
+      texts: ["リファクタリング"],
+    },
+    {
       version: "6.0.2",
       texts: ["React18にアップデートしました。"],
     },

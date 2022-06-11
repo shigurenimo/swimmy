@@ -7,7 +7,7 @@ export const BoxAsideHelloWorld: FC = () => {
   const changelogs = useChangelogs()
 
   return (
-    <BoxAside title={"アップデート履歴"}>
+    <BoxAside title={"アップデート"}>
       <List disablePadding>
         {changelogs.map((changelog, index) => (
           <Fragment key={changelog.version}>
