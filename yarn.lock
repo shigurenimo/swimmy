@@ -6148,6 +6148,11 @@ eslint-config-blitz@0.45.4:
     eslint-plugin-react "^7.23.1"
     eslint-plugin-react-hooks "^4.2.0"
 
+eslint-config-prettier@8.5.0:
+  version "8.5.0"
+  resolved "https://registry.yarnpkg.com/eslint-config-prettier/-/eslint-config-prettier-8.5.0.tgz#5a81680ec934beca02c7b1a61cf8ca34b66feab1"
+  integrity sha512-obmWKLUNCnhtQRKc+tmnYuQl0pFU1ibYJQ5BGhTVB08bHe9wC8qUeG7c08dj9XX+AuPj1YSGSQIHl1pnDHZR0Q==
+
 eslint-import-resolver-node@^0.3.4, eslint-import-resolver-node@^0.3.6:
   version "0.3.6"
   resolved "https://registry.yarnpkg.com/eslint-import-resolver-node/-/eslint-import-resolver-node-0.3.6.tgz#4048b958395da89668252001dbd9eca6b83bacbd"
@@ -6236,6 +6241,18 @@ eslint-plugin-react@^7.23.1:
     prop-types "^15.7.2"
     resolve "^2.0.0-next.3"
     string.prototype.matchall "^4.0.5"
+
+eslint-plugin-unused-imports@2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-unused-imports/-/eslint-plugin-unused-imports-2.0.0.tgz#d8db8c4d0cfa0637a8b51ce3fd7d1b6bc3f08520"
+  integrity sha512-3APeS/tQlTrFa167ThtP0Zm0vctjr4M44HMpeg1P4bK6wItarumq0Ma82xorMKdFsWpphQBlRPzw/pxiVELX1A==
+  dependencies:
+    eslint-rule-composer "^0.3.0"
+
+eslint-rule-composer@^0.3.0:
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/eslint-rule-composer/-/eslint-rule-composer-0.3.0.tgz#79320c927b0c5c0d3d3d2b76c8b4a488f25bbaf9"
+  integrity sha512-bt+Sh8CtDmn2OajxvNO+BX7Wn4CIWMpTRm3MaiKPCQcnnlm0CS2mhui6QaoeQugs+3Kj2ESKEEGJUdVafwhiCg==
 
 eslint-scope@^5.1.1:
   version "5.1.1"
@@ -11690,11 +11707,6 @@ prepend-http@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/prepend-http/-/prepend-http-2.0.0.tgz#e92434bfa5ea8c19f41cdfd401d741a3c819d897"
   integrity sha1-6SQ0v6XqjBn0HN/UAddBo8gZ2Jc=
-
-prettier-plugin-organize-imports@2.3.4:
-  version "2.3.4"
-  resolved "https://registry.yarnpkg.com/prettier-plugin-organize-imports/-/prettier-plugin-organize-imports-2.3.4.tgz#65473861ae5ab7960439fff270a2258558fbe9ba"
-  integrity sha512-R8o23sf5iVL/U71h9SFUdhdOEPsi3nm42FD/oDYIZ2PQa4TNWWuWecxln6jlIQzpZTDMUeO1NicJP6lLn2TtRw==
 
 prettier-plugin-prisma@3.14.0:
   version "3.14.0"
