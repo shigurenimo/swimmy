@@ -57,5 +57,11 @@
   "private": true,
   "prisma": {
     "schema": "db/schema.prisma"
+  },
+  "volta": {
+    "node": "16.15.0"
+  },
+  "engines": {
+    "node": "16.15.0"
   }
 }
