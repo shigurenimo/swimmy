@@ -1,6 +1,10 @@
 export const useChangelogs = () => {
   return [
     {
+      version: "6.1.0",
+      texts: ["フィードバック機能を追加しました。"],
+    },
+    {
       version: "6.0.3",
       texts: ["リファクタリング"],
     },

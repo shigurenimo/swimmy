@@ -127,7 +127,7 @@ const PageTerms: BlitzPage = () => {
 1. 本サービスに関して紛争が生じた場合には、当運営の本店所在地を管轄する裁判所を専属的合意管轄とします。`
 
   return (
-    <BoxMain>
+    <BoxMain spacing={4}>
       <Typography component={"h1"} sx={{ fontSize: 28, fontWeight: "bold" }}>
         {"利用規約"}
       </Typography>
