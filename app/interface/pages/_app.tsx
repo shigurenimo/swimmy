@@ -21,6 +21,7 @@ import { connectStorageEmulator, getStorage } from "firebase/storage"
 import "integrations/errors"
 import { SnackbarProvider } from "notistack"
 import { FC } from "react"
+import { Nocker, NockerProvider } from "@nocker/mui"
 
 const clientSideEmotionCache = createCache({ key: "css" })
 
@@ -33,6 +34,12 @@ const App: FC<Props> = ({ Component, ...props }) => {
 
   const queryErrorResetBoundary = useQueryErrorResetBoundary()
 
+  const nocker = new Nocker({
+    projectId: "aBbJfR821I70oHO9KGHly",
+    environment:
+      process.env.NODE_ENV === "development" ? "DEVELOPMENT" : "PRODUCTION",
+  })
+
   return (
     <ErrorBoundary
       FallbackComponent={BoxErrorFallback}
@@ -42,7 +49,9 @@ const App: FC<Props> = ({ Component, ...props }) => {
         <ThemeProvider theme={theme}>
           <CssBaseline />
           <SnackbarProvider maxSnack={3}>
-            {getLayout(<Component {...props.pageProps} />)}
+            <NockerProvider client={nocker}>
+              {getLayout(<Component {...props.pageProps} />)}
+            </NockerProvider>
           </SnackbarProvider>
         </ThemeProvider>
       </CacheProvider>

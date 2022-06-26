@@ -90,21 +90,15 @@ export const BoxNavigation: FC<Props> = (props) => {
     },
   ]
 
-  const nocker = new Nocker({
-    projectId: "aBbJfR821I70oHO9KGHly",
-  })
-
   return (
     <>
-      <NockerProvider client={nocker}>
-        <WidgetFloating
-          isOpen={isOpenWidget}
-          onClose={() => {
-            openWidget(false)
-          }}
-          position={{ left: 16, bottom: 16 }}
-        />
-      </NockerProvider>
+      <WidgetFloating
+        isOpen={isOpenWidget}
+        onClose={() => {
+          openWidget(false)
+        }}
+        position={{ left: 16, bottom: 16 }}
+      />
       <Stack
         component={"nav"}
         width={"100%"}

@@ -1226,7 +1226,7 @@
   resolved "https://registry.yarnpkg.com/@emotion/memoize/-/memoize-0.7.5.tgz#2c40f81449a4e554e9fc6396910ed4843ec2be50"
   integrity sha512-igX9a37DR2ZPGYtV6suZ6whr8pTFtyHL3K/oLUotxpSVO2ASaprmAe2Dkq7tBo7CRY7MMDrAa9nuQP9/YG8FxQ==
 
-"@emotion/react@^11.9.3":
+"@emotion/react@^11.9.0", "@emotion/react@^11.9.3":
   version "11.9.3"
   resolved "https://registry.yarnpkg.com/@emotion/react/-/react-11.9.3.tgz#f4f4f34444f6654a2e550f5dab4f2d360c101df9"
   integrity sha512-g9Q1GcTOlzOEjqwuLF/Zd9LC+4FljjPjDfxSM7KmEakm+hsHXk+bYZ2q+/hTJzr0OUNkujo72pXLQvXj6H+GJQ==
@@ -1281,7 +1281,7 @@
   resolved "https://registry.yarnpkg.com/@emotion/sheet/-/sheet-1.1.1.tgz#015756e2a9a3c7c5f11d8ec22966a8dbfbfac787"
   integrity sha512-J3YPccVRMiTZxYAY0IOq3kd+hUP8idY8Kz6B/Cyo+JuXq52Ek+zbPbSQUrVQp95aJ+lsAW7DPL1P2Z+U1jGkKA==
 
-"@emotion/styled@^11.9.3":
+"@emotion/styled@^11.8.1", "@emotion/styled@^11.9.3":
   version "11.9.3"
   resolved "https://registry.yarnpkg.com/@emotion/styled/-/styled-11.9.3.tgz#47f0c71137fec7c57035bf3659b52fb536792340"
   integrity sha512-o3sBNwbtoVz9v7WB1/Y/AmXl69YHmei2mrVnK7JgyBJ//Rst5yqPZCecEJlMlJrFeWHp+ki/54uN265V2pEcXA==
@@ -2332,39 +2332,41 @@
   resolved "https://registry.yarnpkg.com/@next/react-refresh-utils/-/react-refresh-utils-11.1.0.tgz#60c3c7b127a5dab8b0a2889a7dcf8a90d2c4e592"
   integrity sha512-g5DtFTpLTGa36iy9DuZawtJeitI11gysFGKPQQqy+mNbSFazguArcJ10gAYFlbqpIi4boUamWNI5mAoSPx3kog==
 
-"@nocker/client@^0.1.27":
-  version "0.1.28"
-  resolved "https://registry.yarnpkg.com/@nocker/client/-/client-0.1.28.tgz#f891e415af684d61fec1b59ba799ac759872c156"
-  integrity sha512-iNryGzd8Msz8G+rW9FqQSylB31muI+Cu1UjnpEB+LMq8r2QUUS6P2kIJU8+SZ4GzuDAUtjX5YaG56OktufPQ5Q==
+"@nocker/client@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@nocker/client/-/client-1.0.0.tgz#716e2f43d1b050d557e0b9398fe7316bcb7b4710"
+  integrity sha512-N5IjPBYDWdT2lHV0+pgflqgiN4ENoVHnrO6X2vFNDPMQCloC0aQjXyBvOyl38aZe+V3uTZlExdxxxmQu0CV/ZQ==
   dependencies:
-    "@nocker/core" "^0.1.0"
+    "@nocker/core" "^1.0.0"
     "@sentry/hub" "^7.1.0"
 
-"@nocker/core@^0.1.0":
-  version "0.1.3"
-  resolved "https://registry.yarnpkg.com/@nocker/core/-/core-0.1.3.tgz#4d1539959b2bb1f4716ca5ed3a13a915e5d71eb8"
-  integrity sha512-+KydqhTa8FyCvpTS7Wu8ZwqfBtoeyZem/fUxp6C4cSqU9AaJj+Lt75wEwSgnDZPZZFjwfXx86fBuYx/RJ9ub/Q==
+"@nocker/core@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@nocker/core/-/core-1.0.0.tgz#eb78d466103248fdedfc4ab84d57c34720102aa8"
+  integrity sha512-YCIub9YkQ6alYYhdoTdymy6K9CkDhyeJ6lnUviCVNiubJmmYhRaLU/rfz6HEmAEt/eXXtclNukJZZCxyrOn2QQ==
   dependencies:
     zod "^3.17.3"
 
-"@nocker/mui@0.4.21":
-  version "0.4.21"
-  resolved "https://registry.yarnpkg.com/@nocker/mui/-/mui-0.4.21.tgz#7eb51b3466b0d362c2d2db6cb63047f9ec2810b8"
-  integrity sha512-ORAHCr4nlrKloGGpFj3cqBDiGPolCUDcwiUfjgDKMnqzEw8VFKseAaKhYevLo/zYJg9VP0g8TpFnXPYhTyT9Xw==
+"@nocker/mui@1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@nocker/mui/-/mui-1.0.0.tgz#16c91289e8c0eb6d18aded4736d2307b842541a4"
+  integrity sha512-H9cDBk+YVkmVsKFAXBEPWOxAGuee9ZA3MCrnc6K05+KAYdrwuKYVJLlL7dJ3ryjTcPlqIgT7PwZDTv6AyfCvDA==
   dependencies:
-    "@nocker/client" "^0.1.27"
-    "@nocker/react" "^0.1.10"
+    "@nocker/client" "^1.0.0"
+    "@nocker/react" "^1.0.0"
     "@sentry/hub" "^7.1.0"
     html2canvas "^1.4.1"
     react-transition-group "^4.4.2"
 
-"@nocker/react@^0.1.10":
-  version "0.1.10"
-  resolved "https://registry.yarnpkg.com/@nocker/react/-/react-0.1.10.tgz#913efde36aa7e627903135968c8aaceafb318bc4"
-  integrity sha512-Fh+v+wz7xDGLB81ruEMF4aHh9aJE38SD+vAzvyohim4iAK3qgu8RSN4/YtueWhMCzc9q77TUQDg7PEEpR3C2XQ==
+"@nocker/react@^1.0.0":
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/@nocker/react/-/react-1.0.1.tgz#86b64e88a29f21017cb63b8ae17e35a060ec3d8c"
+  integrity sha512-wZf9rq/HYnu6mqmDV9KPIFGc53DDO7BRohjuydIW08LCBOc4b4aPCtDAG/uTYdTKz6Mv8+wQ3eDSkcOzIF74bA==
   dependencies:
+    "@emotion/react" "^11.9.0"
+    "@emotion/styled" "^11.8.1"
     "@mui/material" "^5.8.2"
-    "@nocker/client" "^0.1.27"
+    "@nocker/client" "^1.0.0"
     "@sentry/hub" "^7.1.0"
     clsx "^1.1.1"
     react-icons "^4.4.0"
