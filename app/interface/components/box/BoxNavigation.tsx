@@ -18,7 +18,7 @@ import {
   Stack,
   Typography,
 } from "@mui/material"
-import { Nocker, NockerProvider, WidgetFloating } from "@nocker/mui"
+import { WidgetFloating } from "@nocker/mui"
 import { Link, useRouter, useSession } from "blitz"
 import { FC, useState } from "react"
 

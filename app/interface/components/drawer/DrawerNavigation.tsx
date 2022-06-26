@@ -15,7 +15,7 @@ import {
   ListItemIcon,
   ListItemText,
 } from "@mui/material"
-import { Nocker, NockerProvider, WidgetFloating } from "@nocker/mui"
+import { WidgetFloating } from "@nocker/mui"
 import { Link, useSession } from "blitz"
 import { FC, useState } from "react"
 
@@ -80,20 +80,14 @@ export const DrawerNavigation: FC<Props> = (props) => {
     },
   ]
 
-  const nocker = new Nocker({
-    projectId: "aBbJfR821I70oHO9KGHly",
-  })
-
   return (
     <>
-      <NockerProvider client={nocker}>
-        <WidgetFloating
-          isOpen={isOpenWidget}
-          onClose={() => {
-            openWidget(false)
-          }}
-        />
-      </NockerProvider>
+      <WidgetFloating
+        isOpen={isOpenWidget}
+        onClose={() => {
+          openWidget(false)
+        }}
+      />
       <Drawer
         anchor={"top"}
         open={props.isOpen}
