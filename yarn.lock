@@ -2332,41 +2332,41 @@
   resolved "https://registry.yarnpkg.com/@next/react-refresh-utils/-/react-refresh-utils-11.1.0.tgz#60c3c7b127a5dab8b0a2889a7dcf8a90d2c4e592"
   integrity sha512-g5DtFTpLTGa36iy9DuZawtJeitI11gysFGKPQQqy+mNbSFazguArcJ10gAYFlbqpIi4boUamWNI5mAoSPx3kog==
 
-"@nocker/client@^1.0.0":
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/@nocker/client/-/client-1.0.0.tgz#716e2f43d1b050d557e0b9398fe7316bcb7b4710"
-  integrity sha512-N5IjPBYDWdT2lHV0+pgflqgiN4ENoVHnrO6X2vFNDPMQCloC0aQjXyBvOyl38aZe+V3uTZlExdxxxmQu0CV/ZQ==
+"@nocker/client@^1.2.0":
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/@nocker/client/-/client-1.2.0.tgz#2843e680812d29d7e62816afe3686891d2e17d62"
+  integrity sha512-oSnUAYi4UcOOeRPvIdd0q7Mm56OIvIXMt/uTkJqiMN8/+IF08QKPX5WspvxopjuCsUAkPdVBihpZr2g2pL5Kbg==
   dependencies:
-    "@nocker/core" "^1.0.0"
+    "@nocker/core" "^1.2.0"
     "@sentry/hub" "^7.1.0"
 
-"@nocker/core@^1.0.0":
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/@nocker/core/-/core-1.0.0.tgz#eb78d466103248fdedfc4ab84d57c34720102aa8"
-  integrity sha512-YCIub9YkQ6alYYhdoTdymy6K9CkDhyeJ6lnUviCVNiubJmmYhRaLU/rfz6HEmAEt/eXXtclNukJZZCxyrOn2QQ==
+"@nocker/core@^1.2.0":
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/@nocker/core/-/core-1.2.0.tgz#e85928db52c84254da596c66cdc3b8df359752e8"
+  integrity sha512-xVmTeIX1lwlOrx79u5MgOUFxGKYAKZokeJkN5MltHwZGmGDgaDFet1uEuYjX3e0s1rCahdRXdqTMPA8wdChxOQ==
   dependencies:
     zod "^3.17.3"
 
-"@nocker/mui@1.0.0":
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/@nocker/mui/-/mui-1.0.0.tgz#16c91289e8c0eb6d18aded4736d2307b842541a4"
-  integrity sha512-H9cDBk+YVkmVsKFAXBEPWOxAGuee9ZA3MCrnc6K05+KAYdrwuKYVJLlL7dJ3ryjTcPlqIgT7PwZDTv6AyfCvDA==
+"@nocker/mui@1.2.0":
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/@nocker/mui/-/mui-1.2.0.tgz#16d96eedb5789195ff89c8a02d564389b4ed1ba1"
+  integrity sha512-oyPOL96aW8gbnOd9uv4JAwsgq/5MJQvegIHox8mmJk+JbU1pSlwCdM6cwVkJLxlNz6Qnjv9zUBfGhpDMDK8jrg==
   dependencies:
-    "@nocker/client" "^1.0.0"
-    "@nocker/react" "^1.0.0"
+    "@nocker/client" "^1.2.0"
+    "@nocker/react" "^1.2.0"
     "@sentry/hub" "^7.1.0"
     html2canvas "^1.4.1"
     react-transition-group "^4.4.2"
 
-"@nocker/react@^1.0.0":
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/@nocker/react/-/react-1.0.1.tgz#86b64e88a29f21017cb63b8ae17e35a060ec3d8c"
-  integrity sha512-wZf9rq/HYnu6mqmDV9KPIFGc53DDO7BRohjuydIW08LCBOc4b4aPCtDAG/uTYdTKz6Mv8+wQ3eDSkcOzIF74bA==
+"@nocker/react@^1.2.0":
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/@nocker/react/-/react-1.2.0.tgz#148b113ea1c6bbceaec3bd236ce86f6b41f963d4"
+  integrity sha512-tmjvoQqqej0kShHAvSNUm71f0Wp2mCp/QhmSUvjiprE8x0YRV0crC0bL8XGBZCjvm7KTudoX2tvlfA7tXiLJUA==
   dependencies:
     "@emotion/react" "^11.9.0"
     "@emotion/styled" "^11.8.1"
     "@mui/material" "^5.8.2"
-    "@nocker/client" "^1.0.0"
+    "@nocker/client" "^1.2.0"
     "@sentry/hub" "^7.1.0"
     clsx "^1.1.1"
     react-icons "^4.4.0"

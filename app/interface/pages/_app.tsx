@@ -35,7 +35,7 @@ const App: FC<Props> = ({ Component, ...props }) => {
   const queryErrorResetBoundary = useQueryErrorResetBoundary()
 
   const nocker = new Nocker({
-    projectId: "aBbJfR821I70oHO9KGHly",
+    projectId: "jX1A2O0pA1wR_6eqh_SGn",
     environment:
       process.env.NODE_ENV === "development" ? "DEVELOPMENT" : "PRODUCTION",
   })
