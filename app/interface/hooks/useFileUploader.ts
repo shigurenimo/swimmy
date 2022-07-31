@@ -1,6 +1,6 @@
 import { createDocId } from "app/interface/utils/createDocId"
 import { getStorage, ref, uploadBytes } from "firebase/storage"
-import { useMutation } from "react-query"
+import { useMutation } from "@tanstack/react-query"
 
 export const useFileUploader = () => {
   const upload = async (file: File) => {

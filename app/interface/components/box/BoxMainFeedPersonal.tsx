@@ -1,3 +1,5 @@
+import { useSession } from "@blitzjs/auth";
+import { useInfiniteQuery, useMutation } from "@blitzjs/rpc";
 import { List, ListItem } from "@mui/material"
 import { captureException } from "@sentry/react"
 import { BoxCardPost } from "app/interface/components/box/BoxCardPost"
@@ -8,7 +10,6 @@ import readFeedPersonal, {
 import createUniquePost from "app/interface/mutations/createUniquePost"
 import { BoxFormPost } from "app/interface/components/box/BoxFormPost"
 import { FormNewPost } from "app/interface/types/formNewPost"
-import { useInfiniteQuery, useMutation, useSession } from "blitz"
 import { AppPost } from "integrations/types"
 import { useSnackbar } from "notistack"
 import { FC, Fragment } from "react"

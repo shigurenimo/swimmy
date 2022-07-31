@@ -1,4 +1,4 @@
-import { useRouter } from "blitz"
+import { useRouter } from "next/router";
 import { getAnalytics, logEvent, setCurrentScreen } from "firebase/analytics"
 import { useEffect } from "react"
 

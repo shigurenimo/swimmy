@@ -1,6 +1,6 @@
+import Image from "next/image";
 import CloseIcon from "@mui/icons-material/CloseRounded"
 import { Box, IconButton, Stack } from "@mui/material"
-import { Image } from "blitz"
 import React, { FC } from "react"
 
 type Props = {

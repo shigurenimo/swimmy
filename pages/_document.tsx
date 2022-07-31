@@ -1,13 +1,12 @@
+import Document, {
+  Html,
+  Head,
+  Main,
+  NextScript,
+  DocumentContext,
+} from "next/document"
 import createCache from "@emotion/cache"
 import createEmotionServer from "@emotion/server/create-instance"
-import {
-  BlitzScript,
-  Document,
-  DocumentContext,
-  DocumentHead,
-  Html,
-  Main,
-} from "blitz"
 import React from "react"
 
 class MyDocument extends Document {
@@ -58,7 +57,7 @@ class MyDocument extends Document {
 
     return (
       <Html lang={"ja"}>
-        <DocumentHead>
+        <Head>
           <link rel={"preconnect"} href={"https://fonts.googleapis.com"} />
           <link
             rel={"preconnect"}
@@ -66,10 +65,10 @@ class MyDocument extends Document {
             crossOrigin={""}
           />
           <link href={fontURL} rel={"stylesheet"} />
-        </DocumentHead>
+        </Head>
         <body>
           <Main />
-          <BlitzScript />
+          <NextScript />
         </body>
       </Html>
     )

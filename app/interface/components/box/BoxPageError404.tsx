@@ -1,3 +1,5 @@
+import Link from "next/link";
+import Image from "next/image";
 import {
   Box,
   Button,
@@ -7,7 +9,6 @@ import {
   useMediaQuery,
 } from "@mui/material"
 import { BoxPageCenter } from "app/interface/components/box/BoxPageCenter"
-import { Image, Link } from "blitz"
 import { FC } from "react"
 
 export const BoxPageError404: FC = () => {

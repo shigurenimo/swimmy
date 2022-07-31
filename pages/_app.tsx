@@ -1,3 +1,4 @@
+import { withBlitz } from "app/blitz-client"
 import createCache from "@emotion/cache"
 import { CacheProvider, EmotionCache } from "@emotion/react"
 import { CssBaseline, ThemeProvider } from "@mui/material"
@@ -7,7 +8,7 @@ import "app/interface/theme/global.css"
 import { BoxErrorFallback } from "app/interface/components/box/BoxErrorFallback"
 import { theme } from "app/interface/theme/theme"
 import { unregister } from "app/interface/utils/serviceWorker"
-import { AppProps, ErrorBoundary, useQueryErrorResetBoundary } from "blitz"
+import { useQueryErrorResetBoundary } from "@blitzjs/rpc"
 import { getAnalytics, setAnalyticsCollectionEnabled } from "firebase/analytics"
 import { getApps, initializeApp } from "firebase/app"
 import {
@@ -22,6 +23,8 @@ import "integrations/errors"
 import { SnackbarProvider } from "notistack"
 import { FC } from "react"
 import { Nocker, NockerProvider } from "@nocker/mui"
+import { AppProps, ErrorBoundary } from "@blitzjs/next"
+import Head from "next/head"
 
 const clientSideEmotionCache = createCache({ key: "css" })
 
@@ -41,21 +44,27 @@ const App: FC<Props> = ({ Component, ...props }) => {
   })
 
   return (
-    <ErrorBoundary
-      FallbackComponent={BoxErrorFallback}
-      onReset={queryErrorResetBoundary.reset}
-    >
-      <CacheProvider value={props.emotionCache || clientSideEmotionCache}>
-        <ThemeProvider theme={theme}>
-          <CssBaseline />
-          <SnackbarProvider maxSnack={3}>
-            <NockerProvider client={nocker}>
-              {getLayout(<Component {...props.pageProps} />)}
-            </NockerProvider>
-          </SnackbarProvider>
-        </ThemeProvider>
-      </CacheProvider>
-    </ErrorBoundary>
+    <>
+      <Head>
+        {/** https://github.com/vercel/next.js/discussions/13387#discussioncomment-2387429 */}
+        <style>{"nextjs-portal { display: none; }"}</style>
+      </Head>
+      <ErrorBoundary
+        FallbackComponent={BoxErrorFallback}
+        onReset={queryErrorResetBoundary.reset}
+      >
+        <CacheProvider value={props.emotionCache || clientSideEmotionCache}>
+          <ThemeProvider theme={theme}>
+            <CssBaseline />
+            <SnackbarProvider maxSnack={3}>
+              <NockerProvider client={nocker}>
+                {getLayout(<Component {...props.pageProps} />)}
+              </NockerProvider>
+            </SnackbarProvider>
+          </ThemeProvider>
+        </CacheProvider>
+      </ErrorBoundary>
+    </>
   )
 }
 
@@ -99,4 +108,4 @@ if (typeof window !== "undefined") {
   unregister()
 }
 
-export default App
+export default withBlitz(App)

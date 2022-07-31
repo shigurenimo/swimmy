@@ -5,8 +5,9 @@ import { LayoutHome } from "app/interface/layouts/LayoutHome"
 import { BoxAsideHelloWorld } from "app/interface/components/box/BoxAsideHelloWorld"
 import { BoxFeedFallback } from "app/interface/components/box/BoxFeedFallback"
 import { BoxMainFeedThread } from "app/interface/components/box/BoxMainFeedThread"
-import { BlitzPage, useRouter } from "blitz"
+import { BlitzPage } from "@blitzjs/next"
 import { Suspense } from "react"
+import { useRouter } from "next/router"
 
 const PageThreadList: BlitzPage = () => {
   useScreenView("PageThreadList")

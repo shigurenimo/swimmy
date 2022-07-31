@@ -1,10 +1,10 @@
+import { NextApiHandler } from "next"
 import { ReadImageQuery } from "app/application"
 import { Id } from "app/domain"
 import { withSentryForApi } from "app/interface/utils/withSentryForApi"
-import { BlitzApiHandler } from "blitz"
 import { container } from "tsyringe"
 
-const handler: BlitzApiHandler = async (req, resp) => {
+const handler: NextApiHandler = async (req, resp) => {
   try {
     if (typeof req.query.w !== "string" || typeof req.query.q !== "string") {
       return resp.status(500).end()

@@ -1,10 +1,11 @@
+import { useSession } from "@blitzjs/auth";
+import { useInfiniteQuery } from "@blitzjs/rpc";
 import { List, ListItem } from "@mui/material"
 import { BoxCardPost } from "app/interface/components/box/BoxCardPost"
 import { BoxMain } from "app/interface/components/box/BoxMain"
 import { ButtonFetchMore } from "app/interface/components/button/ButtonFetchMore"
 import type { zReadFeedThread } from "app/interface/queries/readFeedThread"
 import readFeedThread from "app/interface/queries/readFeedThread"
-import { useInfiniteQuery, useSession } from "blitz"
 import { FC, Fragment } from "react"
 import { z } from "zod"
 

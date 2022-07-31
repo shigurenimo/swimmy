@@ -1,8 +1,8 @@
+import { useMutation } from "@blitzjs/rpc";
 import { LoadingButton } from "@mui/lab"
 import { Stack, TextField } from "@mui/material"
 import { captureException } from "@sentry/react"
 import createReaction from "app/interface/mutations/createReaction"
-import { useMutation } from "blitz"
 import { AppPost } from "integrations/types"
 import { useSnackbar } from "notistack"
 import { FC, useState } from "react"

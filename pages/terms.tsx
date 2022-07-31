@@ -3,7 +3,7 @@ import { BoxMain } from "app/interface/components/box/BoxMain"
 import { BoxMarkdown } from "app/interface/components/box/BoxMarkdown"
 import { useScreenView } from "app/interface/hooks/useScreenView"
 import { LayoutHome } from "app/interface/layouts/LayoutHome"
-import { BlitzPage } from "blitz"
+import { BlitzPage } from "@blitzjs/next"
 
 const PageTerms: BlitzPage = () => {
   useScreenView("PageTerms")

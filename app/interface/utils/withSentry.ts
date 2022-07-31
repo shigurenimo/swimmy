@@ -1,3 +1,4 @@
+import { Ctx } from "@blitzjs/next"
 import {
   configureScope,
   init,
@@ -7,7 +8,6 @@ import {
   startTransaction,
 } from "@sentry/node"
 import "@sentry/tracing"
-import { Ctx } from "blitz"
 import { InternalError } from "integrations/errors"
 
 type Resolver<T, U> = (t: T, ctx: Ctx) => PromiseLike<U>

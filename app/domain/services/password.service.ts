@@ -1,5 +1,5 @@
+import { SecurePassword } from "@blitzjs/auth";
 import { HashedPassword, Password } from "app/domain/valueObjects"
-import { SecurePassword } from "blitz"
 
 /**
  * パスワード

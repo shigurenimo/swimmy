@@ -1,9 +1,5 @@
-import {
-  AuthenticationError,
-  AuthorizationError,
-  ErrorComponent,
-  ErrorFallbackProps,
-} from "blitz"
+import { ErrorComponent, ErrorFallbackProps } from "@blitzjs/next"
+import { AuthenticationError, AuthorizationError } from "blitz"
 import { FC } from "react"
 
 export const BoxErrorFallback: FC<ErrorFallbackProps> = (props) => {

@@ -1,3 +1,4 @@
+import { useMutation } from "@blitzjs/rpc";
 import { Grid, Stack, Typography } from "@mui/material"
 import { captureException } from "@sentry/react"
 import { BoxCardPostFrame } from "app/interface/components/box/BoxCardPostFrame"
@@ -8,7 +9,6 @@ import { ChipReactionNew } from "app/interface/components/chip/ChipReactionNew"
 import { ChipSecretReaction } from "app/interface/components/chip/ChipSecretReaction"
 import { useDateText } from "app/interface/hooks/useDateText"
 import createReaction from "app/interface/mutations/createReaction"
-import { useMutation } from "blitz"
 import { AppPost, AppThread } from "integrations/types"
 import { useSnackbar } from "notistack"
 import { FC, useState } from "react"

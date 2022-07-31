@@ -1,3 +1,4 @@
+import { resolver } from "@blitzjs/rpc";
 import {
   CreateReactionService,
   CreateSecretReactionService,
@@ -5,7 +6,6 @@ import {
 } from "app/application"
 import { Id, ReactionText } from "app/domain"
 import { withSentry } from "app/interface/utils/withSentry"
-import { resolver } from "blitz"
 import { container } from "tsyringe"
 import { z } from "zod"
 

@@ -5,8 +5,9 @@ import { BoxAsideFeedThread } from "app/interface/components/box/BoxAsideFeedThr
 import { BoxAsideFeedThreadFallback } from "app/interface/components/box/BoxAsideFeedThreadFallback"
 import { BoxFeedFallback } from "app/interface/components/box/BoxFeedFallback"
 import { BoxMainFeedThread } from "app/interface/components/box/BoxMainFeedThread"
-import { BlitzPage, useParam, useRouter } from "blitz"
+import { BlitzPage, useParam } from "@blitzjs/next"
 import { Suspense } from "react"
+import { useRouter } from "next/router"
 
 const PageThread: BlitzPage = () => {
   useScreenView("PageThread")

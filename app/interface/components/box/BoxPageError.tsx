@@ -1,6 +1,7 @@
+import Link from "next/link";
+import Image from "next/image";
 import { Box, Button, Stack, Typography } from "@mui/material"
 import { BoxPageCenter } from "app/interface/components/box/BoxPageCenter"
-import { Image, Link } from "blitz"
 import { FC } from "react"
 
 type Props = {

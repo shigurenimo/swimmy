@@ -1,7 +1,7 @@
+import { resolver } from "@blitzjs/rpc";
 import { ReadPostsQuery } from "app/application"
 import { Id } from "app/domain"
 import { withSentry } from "app/interface/utils/withSentry"
-import { resolver } from "blitz"
 import { container } from "tsyringe"
 import { z } from "zod"
 
