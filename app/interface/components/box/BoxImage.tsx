@@ -1,5 +1,5 @@
-import Image from "next/image";
 import { Box, Stack } from "@mui/material"
+import Image from "next/image"
 import { FC } from "react"
 
 type Props = {

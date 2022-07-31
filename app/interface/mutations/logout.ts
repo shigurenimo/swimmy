@@ -1,4 +1,4 @@
-import { resolver } from "@blitzjs/rpc";
+import { resolver } from "@blitzjs/rpc"
 import { withSentry } from "app/interface/utils/withSentry"
 
 const logout = resolver.pipe(resolver.authorize(), async (_, ctx) => {

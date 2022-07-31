@@ -1,9 +1,9 @@
 import { captureException } from "@sentry/node"
+import { injectable } from "tsyringe"
 import { Id } from "app/domain"
 import db from "db"
 import { InternalError } from "integrations/errors"
 import { AppThread } from "integrations/types"
-import { injectable } from "tsyringe"
 
 type Props = {
   skip: number

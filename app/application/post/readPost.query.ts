@@ -1,10 +1,10 @@
 import { captureException } from "@sentry/node"
-import { Id } from "app/domain"
 import { NotFoundError } from "blitz"
+import { injectable } from "tsyringe"
+import { Id } from "app/domain"
 import db from "db"
 import { InternalError } from "integrations/errors"
 import { AppPost } from "integrations/types"
-import { injectable } from "tsyringe"
 
 type Props = {
   postId: Id

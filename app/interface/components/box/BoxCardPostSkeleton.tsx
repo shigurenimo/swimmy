@@ -1,7 +1,7 @@
 import { Grid, Skeleton, Stack, Typography } from "@mui/material"
+import { FC } from "react"
 import { BoxCardPostFrame } from "app/interface/components/box/BoxCardPostFrame"
 import { ChipReactionSkeleton } from "app/interface/components/chip/ChipReactionSkeleton"
-import { FC } from "react"
 
 type Props = {}
 

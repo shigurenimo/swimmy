@@ -1,9 +1,9 @@
-import { resolver } from "@blitzjs/rpc";
+import { resolver } from "@blitzjs/rpc"
+import { container } from "tsyringe"
 import { LoginService } from "app/application"
 import { Token } from "app/domain"
 import { withSentry } from "app/interface/utils/withSentry"
 import { zLoginMutation } from "app/interface/validations/loginMutation"
-import { container } from "tsyringe"
 
 const login = resolver.pipe(
   resolver.zod(zLoginMutation),

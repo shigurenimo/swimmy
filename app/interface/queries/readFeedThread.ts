@@ -1,10 +1,10 @@
 import { resolver } from "@blitzjs/rpc"
 import { paginate } from "blitz"
+import { container } from "tsyringe"
+import { z } from "zod"
 import { CountThreadsQuery, ReadThreadsQuery } from "app/application"
 import { Id } from "app/domain"
 import { withSentry } from "app/interface/utils/withSentry"
-import { container } from "tsyringe"
-import { z } from "zod"
 
 export const zReadFeedThread = z.object({ skip: z.number() })
 

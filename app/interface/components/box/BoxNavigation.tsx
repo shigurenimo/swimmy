@@ -1,16 +1,13 @@
-import Link from "next/link";
-import { useSession } from "@blitzjs/auth";
-import { useRouter } from "next/router";
+import { useSession } from "@blitzjs/auth"
+import AssistantIcon from "@mui/icons-material/AssistantRounded"
 import DescriptionIcon from "@mui/icons-material/DescriptionRounded"
 import HomeIcon from "@mui/icons-material/HomeRounded"
 import LockIcon from "@mui/icons-material/LockRounded"
 import LoginIcon from "@mui/icons-material/LoginRounded"
-import LogoutIcon from "@mui/icons-material/LogoutRounded"
 import PhotoIcon from "@mui/icons-material/PhotoRounded"
 import QuickreplyIcon from "@mui/icons-material/QuickreplyRounded"
 import SecurityIcon from "@mui/icons-material/SecurityRounded"
 import SettingsIcon from "@mui/icons-material/SettingsRounded"
-import AssistantIcon from "@mui/icons-material/AssistantRounded"
 import {
   Box,
   List,
@@ -22,6 +19,8 @@ import {
   Typography,
 } from "@mui/material"
 import { WidgetFloating } from "@nocker/mui"
+import Link from "next/link"
+import { useRouter } from "next/router"
 import { FC, useState } from "react"
 
 type Props = {

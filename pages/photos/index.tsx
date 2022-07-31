@@ -1,14 +1,14 @@
-import { usePageLayout } from "app/interface/hooks/usePageLayout"
-import { useScreenView } from "app/interface/hooks/useScreenView"
-import { LayoutHome } from "app/interface/layouts/LayoutHome"
+import { BlitzPage, useParam } from "@blitzjs/next"
+import { useRouter } from "next/router"
+import { Suspense } from "react"
 import { BoxAsideFeedThread } from "app/interface/components/box/BoxAsideFeedThread"
 import { BoxAsideFeedThreadFallback } from "app/interface/components/box/BoxAsideFeedThreadFallback"
 import { BoxAsideHelloWorld } from "app/interface/components/box/BoxAsideHelloWorld"
 import { BoxFeedFallback } from "app/interface/components/box/BoxFeedFallback"
 import { BoxMainFeedPhoto } from "app/interface/components/box/BoxMainFeedPhoto"
-import { BlitzPage, useParam } from "@blitzjs/next"
-import { Suspense } from "react"
-import { useRouter } from "next/router"
+import { usePageLayout } from "app/interface/hooks/usePageLayout"
+import { useScreenView } from "app/interface/hooks/useScreenView"
+import { LayoutHome } from "app/interface/layouts/LayoutHome"
 
 const PagePhotoList: BlitzPage = () => {
   useScreenView("PagePhotoList")

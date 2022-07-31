@@ -1,5 +1,5 @@
-import { useRouter } from "next/router";
 import { getAnalytics, logEvent, setCurrentScreen } from "firebase/analytics"
+import { useRouter } from "next/router"
 import { useEffect } from "react"
 
 export const useScreenView = (className: string) => {

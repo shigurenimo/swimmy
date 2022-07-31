@@ -1,3 +1,5 @@
+import createCache from "@emotion/cache"
+import createEmotionServer from "@emotion/server/create-instance"
 import Document, {
   Html,
   Head,
@@ -5,24 +7,36 @@ import Document, {
   NextScript,
   DocumentContext,
 } from "next/document"
-import createCache from "@emotion/cache"
-import createEmotionServer from "@emotion/server/create-instance"
-import React from "react"
+import React, { FC } from "react"
+
+const createEmotionCache = () => {
+  let insertionPoint
+
+  if (typeof document !== "undefined") {
+    const emotionInsertionPoint = document.querySelector<HTMLMetaElement>(
+      'meta[name="emotion-insertion-point"]'
+    )
+    insertionPoint = emotionInsertionPoint ?? undefined
+  }
+
+  return createCache({ key: "mui-style", insertionPoint })
+}
 
 class MyDocument extends Document {
   static async getInitialProps(ctx: DocumentContext) {
     const originalRenderPage = ctx.renderPage
 
-    const cache = createCache({ key: "css" })
+    const cache = createEmotionCache()
 
     const { extractCriticalToChunks } = createEmotionServer(cache)
 
     ctx.renderPage = () => {
       return originalRenderPage({
         enhanceApp(App: any) {
-          return (props) => {
+          const EnhanceApp: FC = (props) => {
             return <App emotionCache={cache} {...props} />
           }
+          return EnhanceApp
         },
       })
     }
@@ -44,10 +58,7 @@ class MyDocument extends Document {
 
     return {
       ...initialProps,
-      styles: [
-        ...React.Children.toArray(initialProps.styles),
-        ...emotionStyleTags,
-      ],
+      emotionStyleTags,
     }
   }
 

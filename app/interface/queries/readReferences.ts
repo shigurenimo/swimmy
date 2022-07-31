@@ -1,9 +1,9 @@
-import { resolver } from "@blitzjs/rpc";
+import { resolver } from "@blitzjs/rpc"
+import { container } from "tsyringe"
+import { z } from "zod"
 import { ReadPostsQuery } from "app/application"
 import { Id } from "app/domain"
 import { withSentry } from "app/interface/utils/withSentry"
-import { container } from "tsyringe"
-import { z } from "zod"
 
 const zReadReferences = z.object({ skip: z.number() })
 

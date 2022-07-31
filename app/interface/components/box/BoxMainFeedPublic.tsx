@@ -1,20 +1,20 @@
-import { useSession } from "@blitzjs/auth";
-import { useInfiniteQuery, useMutation } from "@blitzjs/rpc";
+import { useSession } from "@blitzjs/auth"
+import { useInfiniteQuery, useMutation } from "@blitzjs/rpc"
 import { List, ListItem } from "@mui/material"
 import { captureException } from "@sentry/react"
+import { useSnackbar } from "notistack"
+import { FC, Fragment } from "react"
+import { z } from "zod"
 import { BoxCardPost } from "app/interface/components/box/BoxCardPost"
+import { BoxFormPost } from "app/interface/components/box/BoxFormPost"
 import { BoxMain } from "app/interface/components/box/BoxMain"
 import { ButtonFetchMore } from "app/interface/components/button/ButtonFetchMore"
 import createPublicPost from "app/interface/mutations/createPublicPost"
 import readFeedPublic, {
   zReadFeedPublic,
 } from "app/interface/queries/readFeedPublic"
-import { BoxFormPost } from "app/interface/components/box/BoxFormPost"
 import { FormNewPost } from "app/interface/types/formNewPost"
 import { AppPost } from "integrations/types"
-import { useSnackbar } from "notistack"
-import { FC, Fragment } from "react"
-import { z } from "zod"
 
 type Props = {
   threadId: string | null

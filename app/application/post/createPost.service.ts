@@ -1,8 +1,8 @@
 import { captureException } from "@sentry/node"
+import { injectable } from "tsyringe"
 import { Id, PostFactory, PostText } from "app/domain"
 import { PostRepository } from "app/infrastructure"
 import { InternalError } from "integrations/errors"
-import { injectable } from "tsyringe"
 
 type Props = {
   userId: Id | null

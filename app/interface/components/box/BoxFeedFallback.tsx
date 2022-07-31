@@ -1,8 +1,8 @@
 import { List, ListItem } from "@mui/material"
-import { BoxCardPostSkeleton } from "app/interface/components/box/BoxCardPostSkeleton"
-import { BoxMain } from "app/interface/components/box/BoxMain"
-import { BoxFormPost } from "app/interface/components/box/BoxFormPost"
 import { FC } from "react"
+import { BoxCardPostSkeleton } from "app/interface/components/box/BoxCardPostSkeleton"
+import { BoxFormPost } from "app/interface/components/box/BoxFormPost"
+import { BoxMain } from "app/interface/components/box/BoxMain"
 
 export const BoxFeedFallback: FC = () => {
   const skeletons = [0, 1, 2, 3, 4, 5]

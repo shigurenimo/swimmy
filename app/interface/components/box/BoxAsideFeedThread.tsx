@@ -1,18 +1,18 @@
-import { useSession } from "@blitzjs/auth";
-import { useMutation, useQuery } from "@blitzjs/rpc";
+import { useSession } from "@blitzjs/auth"
+import { useMutation, useQuery } from "@blitzjs/rpc"
 import { Box, Divider, List, ListItem } from "@mui/material"
 import { captureException } from "@sentry/react"
+import { FC, Fragment } from "react"
 import { BoxAside } from "app/interface/components/box/BoxAside"
+import { BoxAsideFeedThreadFallback } from "app/interface/components/box/BoxAsideFeedThreadFallback"
 import { BoxCardPost } from "app/interface/components/box/BoxCardPost"
 import { BoxCardResponse } from "app/interface/components/box/BoxCardResponse"
-import { BoxAsideFeedThreadFallback } from "app/interface/components/box/BoxAsideFeedThreadFallback"
-import createPublicPost from "app/interface/mutations/createPublicPost"
 import { BoxFormResponse } from "app/interface/components/box/BoxFormResponse"
+import createPublicPost from "app/interface/mutations/createPublicPost"
 import readPost from "app/interface/queries/readPost"
 import readThreadResponses from "app/interface/queries/readThreadResponses"
 import { FormNewPost } from "app/interface/types/formNewPost"
 import { AppPost } from "integrations/types"
-import { FC, Fragment } from "react"
 
 type Props = {
   threadId: string

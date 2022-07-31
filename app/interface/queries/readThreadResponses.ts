@@ -1,9 +1,9 @@
-import { resolver } from "@blitzjs/rpc";
+import { resolver } from "@blitzjs/rpc"
+import { container } from "tsyringe"
+import { z } from "zod"
 import { ReadResponsesQuery } from "app/application"
 import { Id } from "app/domain"
 import { withSentry } from "app/interface/utils/withSentry"
-import { container } from "tsyringe"
-import { z } from "zod"
 
 export const zReadThreadResponses = z.object({ postId: z.string() })
 

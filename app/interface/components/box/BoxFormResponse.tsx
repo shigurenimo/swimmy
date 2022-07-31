@@ -1,9 +1,9 @@
 import { LoadingButton } from "@mui/lab"
 import { Stack, TextField } from "@mui/material"
-import { FormNewPost } from "app/interface/types/formNewPost"
 import { useSnackbar } from "notistack"
 import { FC } from "react"
 import { SubmitHandler, useForm } from "react-hook-form"
+import { FormNewPost } from "app/interface/types/formNewPost"
 
 type Props = {
   onCreateResponse(input: FormNewPost): Promise<void>

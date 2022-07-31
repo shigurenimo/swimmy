@@ -1,13 +1,13 @@
+import { BlitzPage } from "@blitzjs/next"
 import { NoSsr } from "@mui/material"
-import { usePageLayout } from "app/interface/hooks/usePageLayout"
-import { useScreenView } from "app/interface/hooks/useScreenView"
-import { LayoutHome } from "app/interface/layouts/LayoutHome"
+import { useRouter } from "next/router"
+import { Suspense } from "react"
 import { BoxAsideHelloWorld } from "app/interface/components/box/BoxAsideHelloWorld"
 import { BoxFeedFallback } from "app/interface/components/box/BoxFeedFallback"
 import { BoxMainFeedThread } from "app/interface/components/box/BoxMainFeedThread"
-import { BlitzPage } from "@blitzjs/next"
-import { Suspense } from "react"
-import { useRouter } from "next/router"
+import { usePageLayout } from "app/interface/hooks/usePageLayout"
+import { useScreenView } from "app/interface/hooks/useScreenView"
+import { LayoutHome } from "app/interface/layouts/LayoutHome"
 
 const PageThreadList: BlitzPage = () => {
   useScreenView("PageThreadList")

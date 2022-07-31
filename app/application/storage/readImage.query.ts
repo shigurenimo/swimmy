@@ -1,11 +1,11 @@
-import { captureException } from "@sentry/node"
-import { Id } from "app/domain"
-import { FirebaseAdapter } from "app/infrastructure"
-import { getStorage } from "firebase-admin/storage"
-import { InternalError } from "integrations/errors"
 import { tmpdir } from "os"
+import { captureException } from "@sentry/node"
+import { getStorage } from "firebase-admin/storage"
 import sharp from "sharp"
 import { injectable } from "tsyringe"
+import { Id } from "app/domain"
+import { FirebaseAdapter } from "app/infrastructure"
+import { InternalError } from "integrations/errors"
 
 type Props = {
   fileId: Id

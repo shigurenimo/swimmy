@@ -1,6 +1,6 @@
-import Link from "next/link";
 import { Link as MuiLink, Typography } from "@mui/material"
 import { Box } from "@mui/system"
+import Link from "next/link"
 import { FC, ReactNode } from "react"
 import ReactMarkdown from "react-markdown"
 

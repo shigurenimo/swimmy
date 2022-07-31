@@ -1,6 +1,6 @@
-import { SecurePassword } from "@blitzjs/auth";
-import { HashedPassword } from "app/domain/valueObjects/hashedPassword"
+import { SecurePassword } from "@blitzjs/auth"
 import { z } from "zod"
+import { HashedPassword } from "app/domain/valueObjects/hashedPassword"
 
 const zValue = z.string().min(5).max(40)
 

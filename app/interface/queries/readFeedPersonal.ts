@@ -1,10 +1,10 @@
 import { resolver } from "@blitzjs/rpc"
-import { CountUniquePostsQuery, ReadPrivatePostsQuery } from "app/application"
-import { Id } from "app/domain"
 import { paginate } from "blitz"
-import { withSentry } from "app/interface/utils/withSentry"
 import { container } from "tsyringe"
 import { z } from "zod"
+import { CountUniquePostsQuery, ReadPrivatePostsQuery } from "app/application"
+import { Id } from "app/domain"
+import { withSentry } from "app/interface/utils/withSentry"
 
 export const zReadFeedPersonal = z.object({ skip: z.number() })
 

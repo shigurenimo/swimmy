@@ -1,5 +1,5 @@
 {
-  "extends": ["blitz", "prettier"],
+  "extends": ["next", "prettier"],
   "plugins": ["unused-imports"],
   "rules": {
     "import/no-anonymous-default-export": 0,

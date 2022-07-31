@@ -8,7 +8,9 @@
     "studio": "blitz prisma studio --browser none",
     "test": "echo ''",
     "test:watch": "jest --watch",
-    "emulators": "firebase emulators:start"
+    "emulators": "firebase emulators:start",
+    "lint": "eslint --fix app pages",
+    "format": "prettier --write app pages"
   },
   "dependencies": {
     "@blitzjs/auth": "alpha",
@@ -29,6 +31,7 @@
     "@tanstack/react-query": "4.0.10",
     "@types/sharp": "0.30.4",
     "blitz": "2.0.0-alpha.63",
+    "eslint-config-next": "12.2.3",
     "firebase": "^9.8.3",
     "firebase-admin": "^11.0.0",
     "immer": "9.0.15",

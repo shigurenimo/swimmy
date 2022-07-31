@@ -1,9 +1,9 @@
 import { captureException } from "@sentry/node"
+import { injectable } from "tsyringe"
 import { Id } from "app/domain"
 import db from "db"
 import { InternalError } from "integrations/errors"
 import { AppResponse } from "integrations/types/appResponse"
-import { injectable } from "tsyringe"
 
 type Props = {
   replyId: Id

@@ -1,5 +1,5 @@
-import { Count, Id, ReactionText } from "app/domain/valueObjects"
 import { z } from "zod"
+import { Count, Id, ReactionText } from "app/domain/valueObjects"
 
 const zProps = z.object({
   id: z.instanceof(Id),

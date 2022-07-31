@@ -1,5 +1,5 @@
-import { Id } from "app/domain/valueObjects"
 import { customAlphabet, nanoid } from "nanoid"
+import { Id } from "app/domain/valueObjects"
 
 export class IdFactory {
   static create() {

@@ -1,5 +1,5 @@
-import Link from "next/link";
-import { useSession } from "@blitzjs/auth";
+import { useSession } from "@blitzjs/auth"
+import AssistantIcon from "@mui/icons-material/AssistantRounded"
 import DescriptionIcon from "@mui/icons-material/DescriptionRounded"
 import HomeIcon from "@mui/icons-material/HomeRounded"
 import LockIcon from "@mui/icons-material/LockRounded"
@@ -8,7 +8,6 @@ import LogoutIcon from "@mui/icons-material/LogoutRounded"
 import QuickreplyIcon from "@mui/icons-material/QuickreplyRounded"
 import SecurityIcon from "@mui/icons-material/SecurityRounded"
 import SettingsIcon from "@mui/icons-material/SettingsRounded"
-import AssistantIcon from "@mui/icons-material/AssistantRounded"
 import {
   Drawer,
   List,
@@ -18,6 +17,7 @@ import {
   ListItemText,
 } from "@mui/material"
 import { WidgetFloating } from "@nocker/mui"
+import Link from "next/link"
 import { FC, useState } from "react"
 
 type Props = {

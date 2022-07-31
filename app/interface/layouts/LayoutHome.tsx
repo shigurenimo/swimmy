@@ -1,7 +1,16 @@
-import Head from "next/head";
-import { useRouter } from "next/router";
-import { useMutation } from "@blitzjs/rpc";
+import { useMutation } from "@blitzjs/rpc"
 import { NoSsr, Stack } from "@mui/material"
+import {
+  getAuth,
+  getIdToken,
+  GoogleAuthProvider,
+  signInWithEmailAndPassword,
+  signInWithPopup,
+} from "firebase/auth"
+import Head from "next/head"
+import { useRouter } from "next/router"
+import { useSnackbar } from "notistack"
+import { FC, ReactNode, Suspense, useState } from "react"
 import { BoxHeader } from "app/interface/components/box/BoxHeader"
 import { BoxNavigation } from "app/interface/components/box/BoxNavigation"
 import { BoxNavigationsFallback } from "app/interface/components/box/BoxNavigationsFallback"
@@ -12,15 +21,6 @@ import { useDense } from "app/interface/hooks/useDense"
 import { useTwoColumn } from "app/interface/hooks/useTwoColumn"
 import login from "app/interface/mutations/login"
 import logout from "app/interface/mutations/logout"
-import {
-  getAuth,
-  getIdToken,
-  GoogleAuthProvider,
-  signInWithEmailAndPassword,
-  signInWithPopup,
-} from "firebase/auth"
-import { useSnackbar } from "notistack"
-import { FC, ReactNode, Suspense, useState } from "react"
 
 type Props = {
   title?: string

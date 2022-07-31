@@ -1,7 +1,7 @@
 import { Stack, Typography } from "@mui/material"
+import { FC } from "react"
 import { useDateText } from "app/interface/hooks/useDateText"
 import { AppPost } from "integrations/types"
-import { FC } from "react"
 
 type Props = AppPost & {
   index: number

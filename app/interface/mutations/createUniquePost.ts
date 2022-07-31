@@ -1,9 +1,9 @@
-import { resolver } from "@blitzjs/rpc";
+import { resolver } from "@blitzjs/rpc"
+import { container } from "tsyringe"
+import { z } from "zod"
 import { CreatePostService } from "app/application"
 import { Id, PostText } from "app/domain"
 import { withSentry } from "app/interface/utils/withSentry"
-import { container } from "tsyringe"
-import { z } from "zod"
 
 const CreateUniquePost = z.object({
   replyId: z.string().nullable(),

@@ -1,8 +1,8 @@
-import Link from "next/link";
-import Image from "next/image";
 import { Box, Button, Stack, Typography } from "@mui/material"
-import { BoxPageCenter } from "app/interface/components/box/BoxPageCenter"
+import Image from "next/image"
+import Link from "next/link"
 import { FC } from "react"
+import { BoxPageCenter } from "app/interface/components/box/BoxPageCenter"
 
 type Props = {
   error: Error
