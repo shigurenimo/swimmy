@@ -1,5 +1,4 @@
 import "reflect-metadata"
-import createCache from "@emotion/cache"
 import createEmotionServer from "@emotion/server/create-instance"
 import Document, {
   Html,
@@ -9,19 +8,7 @@ import Document, {
   DocumentContext,
 } from "next/document"
 import React, { FC } from "react"
-
-const createEmotionCache = () => {
-  let insertionPoint
-
-  if (typeof document !== "undefined") {
-    const emotionInsertionPoint = document.querySelector<HTMLMetaElement>(
-      'meta[name="emotion-insertion-point"]'
-    )
-    insertionPoint = emotionInsertionPoint ?? undefined
-  }
-
-  return createCache({ key: "mui-style", insertionPoint })
-}
+import { createEmotionCache } from "app/interface/utils/createEmotionCache"
 
 class MyDocument extends Document {
   static async getInitialProps(ctx: DocumentContext) {

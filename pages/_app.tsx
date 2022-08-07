@@ -1,6 +1,5 @@
 import { AppProps, ErrorBoundary } from "@blitzjs/next"
 import { useQueryErrorResetBoundary } from "@blitzjs/rpc"
-import createCache from "@emotion/cache"
 import { CacheProvider, EmotionCache } from "@emotion/react"
 import { CssBaseline, ThemeProvider } from "@mui/material"
 import { Nocker, NockerProvider } from "@nocker/mui"
@@ -23,12 +22,13 @@ import { withBlitz } from "app/blitz-client"
 import "app/interface/theme/global.css"
 import { BoxErrorFallback } from "app/interface/components/box/BoxErrorFallback"
 import { theme } from "app/interface/theme/theme"
+import { createEmotionCache } from "app/interface/utils/createEmotionCache"
 import { unregister } from "app/interface/utils/serviceWorker"
 import "integrations/errors"
 
-const clientSideEmotionCache = createCache({ key: "css" })
+const clientSideEmotionCache = createEmotionCache()
 
-interface Props extends AppProps {
+type Props = AppProps & {
   emotionCache?: EmotionCache
 }
 
