@@ -1,4 +1,4 @@
-import { getAnalytics, logEvent, setCurrentScreen } from "firebase/analytics"
+import { getAnalytics, logEvent } from "firebase/analytics"
 import { useRouter } from "next/router"
 import { useEffect } from "react"
 
@@ -9,10 +9,10 @@ export const useScreenView = (className: string) => {
     if (!router.isReady) return
     if (typeof window === "undefined") return
     if (process.env.NODE_ENV === "development") return
-    setCurrentScreen(getAnalytics(), window.location.pathname)
-    logEvent(getAnalytics(), "screen_view", {
-      firebase_screen: router.asPath,
-      firebase_screen_class: className,
+    logEvent(getAnalytics(), "page_view", {
+      page_location: document.title,
+      page_path: window.location.href,
+      page_title: window.location.pathname,
     })
   }, [router.isReady, router.asPath, className])
 }

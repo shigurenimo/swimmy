@@ -5,7 +5,11 @@ import { CssBaseline, ThemeProvider } from "@mui/material"
 import { Nocker, NockerProvider } from "@nocker/mui"
 import { init } from "@sentry/browser"
 import { Integrations } from "@sentry/tracing"
-import { getAnalytics, setAnalyticsCollectionEnabled } from "firebase/analytics"
+import {
+  getAnalytics,
+  logEvent,
+  setAnalyticsCollectionEnabled,
+} from "firebase/analytics"
 import { getApps, initializeApp } from "firebase/app"
 import {
   connectAuthEmulator,
@@ -16,8 +20,9 @@ import {
 import { connectFirestoreEmulator, getFirestore } from "firebase/firestore"
 import { connectStorageEmulator, getStorage } from "firebase/storage"
 import Head from "next/head"
+import { Router } from "next/router"
 import { SnackbarProvider } from "notistack"
-import { FC } from "react"
+import { FC, useEffect } from "react"
 import { withBlitz } from "app/blitz-client"
 import "app/interface/theme/global.css"
 import { BoxErrorFallback } from "app/interface/components/box/BoxErrorFallback"
@@ -37,6 +42,24 @@ const App: FC<Props> = ({ Component, ...props }) => {
 
   const queryErrorResetBoundary = useQueryErrorResetBoundary()
 
+  useEffect(() => {
+    if (typeof window === "undefined") return
+    if (process.env.NODE_ENV !== "production") return
+    const routeChangeComplete = () => {
+      if (getApps().length === 0) return
+      logEvent(getAnalytics(), "page_view", {
+        page_location: document.title,
+        page_path: location.href,
+        page_title: location.pathname,
+      })
+    }
+    Router.events.on("routeChangeComplete", routeChangeComplete)
+    routeChangeComplete()
+    return () => {
+      Router.events.off("routeChangeComplete", routeChangeComplete)
+    }
+  }, [])
+
   const nocker = new Nocker({
     projectId: "jX1A2O0pA1wR_6eqh_SGn",
     environment:
@@ -49,21 +72,21 @@ const App: FC<Props> = ({ Component, ...props }) => {
         {/** https://github.com/vercel/next.js/discussions/13387#discussioncomment-2387429 */}
         <style>{"nextjs-portal { display: none; }"}</style>
       </Head>
-      <ErrorBoundary
-        FallbackComponent={BoxErrorFallback}
-        onReset={queryErrorResetBoundary.reset}
-      >
-        <CacheProvider value={props.emotionCache || clientSideEmotionCache}>
-          <ThemeProvider theme={theme}>
-            <CssBaseline />
-            <SnackbarProvider maxSnack={3}>
+      <CacheProvider value={props.emotionCache || clientSideEmotionCache}>
+        <ThemeProvider theme={theme}>
+          <CssBaseline />
+          <SnackbarProvider maxSnack={3}>
+            <ErrorBoundary
+              FallbackComponent={BoxErrorFallback}
+              onReset={queryErrorResetBoundary.reset}
+            >
               <NockerProvider client={nocker}>
                 {getLayout(<Component {...props.pageProps} />)}
               </NockerProvider>
-            </SnackbarProvider>
-          </ThemeProvider>
-        </CacheProvider>
-      </ErrorBoundary>
+            </ErrorBoundary>
+          </SnackbarProvider>
+        </ThemeProvider>
+      </CacheProvider>
     </>
   )
 }

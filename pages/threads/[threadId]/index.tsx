@@ -6,12 +6,9 @@ import { BoxAsideFeedThreadFallback } from "app/interface/components/box/BoxAsid
 import { BoxFeedFallback } from "app/interface/components/box/BoxFeedFallback"
 import { BoxMainFeedThread } from "app/interface/components/box/BoxMainFeedThread"
 import { usePageLayout } from "app/interface/hooks/usePageLayout"
-import { useScreenView } from "app/interface/hooks/useScreenView"
 import { LayoutHome } from "app/interface/layouts/LayoutHome"
 
 const PageThread: BlitzPage = () => {
-  useScreenView("PageThread")
-
   const router = useRouter()
 
   const threadId = useParam("threadId", "string") ?? null

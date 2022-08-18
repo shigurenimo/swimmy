@@ -124,7 +124,11 @@ export const LayoutHome: FC<Props> = (props) => {
   return (
     <>
       <Head>
-        <title>{props.title || "スイミー電子掲示板"}</title>
+        <title>
+          {typeof props.title === "string"
+            ? `${props.title} | スイミー電子掲示板`
+            : "スイミー電子掲示板"}
+        </title>
         <link rel={"icon"} href={"/favicon.ico"} />
       </Head>
       <NoSsr>

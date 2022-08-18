@@ -2,12 +2,9 @@ import { BlitzPage } from "@blitzjs/next"
 import { Typography } from "@mui/material"
 import { BoxMain } from "app/interface/components/box/BoxMain"
 import { BoxMarkdown } from "app/interface/components/box/BoxMarkdown"
-import { useScreenView } from "app/interface/hooks/useScreenView"
 import { LayoutHome } from "app/interface/layouts/LayoutHome"
 
 const PageTerms: BlitzPage = () => {
-  useScreenView("PageTerms")
-
   const markdown = `この利用規約（以下、「本規約」といいます。）は、スイミー電子掲示板・運営（以下、「当運営」といいます。）がこのウェブサイト上で提供するサービス（以下、「本サービス」といいます。）の利用条件を定めるものです。登録ユーザーの皆さま（以下、「ユーザー」といいます。）には、本規約に従って、本サービスをご利用いただきます。
 
 ## 第1条（適用）

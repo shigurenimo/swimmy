@@ -2,12 +2,9 @@ import { BlitzPage } from "@blitzjs/next"
 import { Typography } from "@mui/material"
 import { BoxMain } from "app/interface/components/box/BoxMain"
 import { BoxMarkdown } from "app/interface/components/box/BoxMarkdown"
-import { useScreenView } from "app/interface/hooks/useScreenView"
 import { LayoutHome } from "app/interface/layouts/LayoutHome"
 
 const PagePrivacy: BlitzPage = () => {
-  useScreenView("PagePrivacy")
-
   const markdown = `スイミー電子掲示板・運営（以下、「当運営」といいます。）は、本ウェブサイト上で提供するサービス（以下、「本サービス」といいます。）における、ユーザーの個人情報の取扱いについて、以下のとおりプライバシーポリシー（以下、「本ポリシー」といいます。）を定めます。
 
 ## 第1条（個人情報）

@@ -8,12 +8,9 @@ import { BoxAsideHelloWorld } from "app/interface/components/box/BoxAsideHelloWo
 import { BoxFeedFallback } from "app/interface/components/box/BoxFeedFallback"
 import { BoxMainFeedPublic } from "app/interface/components/box/BoxMainFeedPublic"
 import { usePageLayout } from "app/interface/hooks/usePageLayout"
-import { useScreenView } from "app/interface/hooks/useScreenView"
 import { LayoutHome } from "app/interface/layouts/LayoutHome"
 
 const PageHome: BlitzPage = () => {
-  useScreenView("PageHome")
-
   const router = useRouter()
 
   const threadId = useParam("threadId", "string") ?? null
@@ -64,7 +61,7 @@ if (typeof window !== "undefined") {
 // Home.suppressFirstRenderFlicker = true
 
 PageHome.getLayout = (page) => {
-  return <LayoutHome title={"Home"}>{page}</LayoutHome>
+  return <LayoutHome>{page}</LayoutHome>
 }
 
 export default PageHome
