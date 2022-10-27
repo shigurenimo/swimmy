@@ -3,6 +3,7 @@ import { Grid, Stack, Typography } from "@mui/material"
 import { captureException } from "@sentry/react"
 import { useSnackbar } from "notistack"
 import { FC, useState } from "react"
+import createReaction from "integrations/mutations/createReaction"
 import { AppPost, AppThread } from "integrations/types"
 import { BoxCardPostFrame } from "interface/components/box/BoxCardPostFrame"
 import { BoxFormReaction } from "interface/components/box/BoxFormReaction"
@@ -11,7 +12,6 @@ import { ChipReaction } from "interface/components/chip/ChipReaction"
 import { ChipReactionNew } from "interface/components/chip/ChipReactionNew"
 import { ChipSecretReaction } from "interface/components/chip/ChipSecretReaction"
 import { useDateText } from "interface/hooks/useDateText"
-import createReaction from "integrations/mutations/createReaction"
 
 type AppAnyPost = AppPost | AppThread
 

@@ -1,7 +1,7 @@
 import { captureException } from "@sentry/node"
 import { injectable } from "tsyringe"
-import { ReactionRepository } from "infrastructure"
 import { Id, ReactionFactory, ReactionText } from "core"
+import { ReactionRepository } from "infrastructure"
 import { InternalError } from "integrations/errors"
 
 type Props = {

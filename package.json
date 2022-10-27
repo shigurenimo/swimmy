@@ -9,8 +9,8 @@
     "test": "echo ''",
     "test:watch": "jest --watch",
     "emulators": "firebase emulators:start",
-    "lint": "eslint --fix app pages",
-    "format": "prettier --write app pages"
+    "lint": "eslint --fix application core infrastructure integrations interface",
+    "format": "prettier --write application core infrastructure integrations interface"
   },
   "dependencies": {
     "@blitzjs/auth": "2.0.0-beta.14",

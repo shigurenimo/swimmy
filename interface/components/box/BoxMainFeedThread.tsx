@@ -3,11 +3,11 @@ import { useInfiniteQuery } from "@blitzjs/rpc"
 import { List, ListItem } from "@mui/material"
 import { FC, Fragment } from "react"
 import { z } from "zod"
+import type { zReadFeedThread } from "integrations/queries/readFeedThread"
+import readFeedThread from "integrations/queries/readFeedThread"
 import { BoxCardPost } from "interface/components/box/BoxCardPost"
 import { BoxMain } from "interface/components/box/BoxMain"
 import { ButtonFetchMore } from "interface/components/button/ButtonFetchMore"
-import type { zReadFeedThread } from "integrations/queries/readFeedThread"
-import readFeedThread from "integrations/queries/readFeedThread"
 
 type Props = {
   threadId: string | null

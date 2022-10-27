@@ -5,16 +5,16 @@ import { captureException } from "@sentry/react"
 import { useSnackbar } from "notistack"
 import { FC, Fragment } from "react"
 import { z } from "zod"
-import { BoxCardPost } from "interface/components/box/BoxCardPost"
-import { BoxFormPost } from "interface/components/box/BoxFormPost"
-import { BoxMain } from "interface/components/box/BoxMain"
-import { ButtonFetchMore } from "interface/components/button/ButtonFetchMore"
 import createPublicPost from "integrations/mutations/createPublicPost"
 import readFeedPublic, {
   zReadFeedPublic,
 } from "integrations/queries/readFeedPublic"
-import { FormNewPost } from "interface/types/formNewPost"
 import { AppPost } from "integrations/types"
+import { BoxCardPost } from "interface/components/box/BoxCardPost"
+import { BoxFormPost } from "interface/components/box/BoxFormPost"
+import { BoxMain } from "interface/components/box/BoxMain"
+import { ButtonFetchMore } from "interface/components/button/ButtonFetchMore"
+import { FormNewPost } from "interface/types/formNewPost"
 
 type Props = {
   threadId: string | null

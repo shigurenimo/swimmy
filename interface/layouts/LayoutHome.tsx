@@ -11,6 +11,8 @@ import Head from "next/head"
 import { useRouter } from "next/router"
 import { useSnackbar } from "notistack"
 import { FC, ReactNode, Suspense, useState } from "react"
+import login from "integrations/mutations/login"
+import logout from "integrations/mutations/logout"
 import { BoxHeader } from "interface/components/box/BoxHeader"
 import { BoxNavigation } from "interface/components/box/BoxNavigation"
 import { BoxNavigationsFallback } from "interface/components/box/BoxNavigationsFallback"
@@ -19,8 +21,6 @@ import { DialogLogout } from "interface/components/dialog/DialogLogout"
 import { DrawerNavigation } from "interface/components/drawer/DrawerNavigation"
 import { useDense } from "interface/hooks/useDense"
 import { useTwoColumn } from "interface/hooks/useTwoColumn"
-import login from "integrations/mutations/login"
-import logout from "integrations/mutations/logout"
 
 type Props = {
   title?: string
