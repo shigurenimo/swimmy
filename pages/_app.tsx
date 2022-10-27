@@ -111,17 +111,14 @@ if (getApps().length === 0) {
     appId: "1:511409109964:web:1e5502c45cb09581223b69",
     measurementId: "G-HEP2VBXJZR",
   })
-
   if (process.env.NODE_ENV === "development") {
     connectAuthEmulator(getAuth(), "http://localhost:9099")
     connectFirestoreEmulator(getFirestore(), "localhost", 8080)
     connectStorageEmulator(getStorage(), "localhost", 9199)
   }
-
   if (typeof window !== "undefined") {
     setPersistence(getAuth(), inMemoryPersistence)
   }
-
   if (typeof window !== "undefined" && process.env.NODE_ENV !== "production") {
     setAnalyticsCollectionEnabled(getAnalytics(), false)
   }
