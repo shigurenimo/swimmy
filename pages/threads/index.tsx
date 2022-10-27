@@ -2,11 +2,11 @@ import { BlitzPage } from "@blitzjs/next"
 import { NoSsr } from "@mui/material"
 import { useRouter } from "next/router"
 import { Suspense } from "react"
-import { BoxAsideHelloWorld } from "app/interface/components/box/BoxAsideHelloWorld"
-import { BoxFeedFallback } from "app/interface/components/box/BoxFeedFallback"
-import { BoxMainFeedThread } from "app/interface/components/box/BoxMainFeedThread"
-import { usePageLayout } from "app/interface/hooks/usePageLayout"
-import { LayoutHome } from "app/interface/layouts/LayoutHome"
+import { BoxAsideHelloWorld } from "interface/components/box/BoxAsideHelloWorld"
+import { BoxFeedFallback } from "interface/components/box/BoxFeedFallback"
+import { BoxMainFeedThread } from "interface/components/box/BoxMainFeedThread"
+import { usePageLayout } from "interface/hooks/usePageLayout"
+import { LayoutHome } from "interface/layouts/LayoutHome"
 
 const PageThreadList: BlitzPage = () => {
   const router = useRouter()

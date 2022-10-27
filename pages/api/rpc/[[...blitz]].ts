@@ -1,6 +1,6 @@
 import { rpcHandler } from "@blitzjs/rpc"
 import { captureException } from "@sentry/node"
-import { api } from "app/blitz-server"
+import { api } from "integrations/blitz-server"
 
 export default api(
   rpcHandler({

@@ -1,8 +1,8 @@
 import { NextApiHandler } from "next"
 import { container } from "tsyringe"
-import { ReadImageQuery } from "app/application"
-import { Id } from "app/domain"
-import { withSentryForApi } from "app/interface/utils/withSentryForApi"
+import { ReadImageQuery } from "application"
+import { Id } from "core"
+import { withSentryForApi } from "interface/utils/withSentryForApi"
 
 const handler: NextApiHandler = async (req, resp) => {
   try {

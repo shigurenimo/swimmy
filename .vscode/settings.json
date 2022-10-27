@@ -23,5 +23,13 @@
     "*.xml": "html",
     "*.svg": "html"
   },
-  "deno.enable": false
+  "deno.enable": false,
+  "cSpell.words": [
+    "blitzjs",
+    "Firestore",
+    "nextjs",
+    "Nocker",
+    "notistack",
+    "tsbuildinfo"
+  ]
 }

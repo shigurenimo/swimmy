@@ -8,7 +8,7 @@ import Document, {
   DocumentContext,
 } from "next/document"
 import React, { FC } from "react"
-import { createEmotionCache } from "app/interface/utils/createEmotionCache"
+import { createEmotionCache } from "interface/utils/createEmotionCache"
 
 class MyDocument extends Document {
   static async getInitialProps(ctx: DocumentContext) {

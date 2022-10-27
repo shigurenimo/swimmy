@@ -1,6 +1,6 @@
 import { BlitzPage } from "@blitzjs/next"
 import Head from "next/head"
-import { BoxPageError404 } from "app/interface/components/box/BoxPageError404"
+import { BoxPageError404 } from "interface/components/box/BoxPageError404"
 
 const Page404: BlitzPage = () => {
   return (

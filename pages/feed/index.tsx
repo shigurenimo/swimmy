@@ -1,13 +1,13 @@
 import { BlitzPage, useParam } from "@blitzjs/next"
 import { useRouter } from "next/router"
 import { Suspense } from "react"
-import { BoxAsideFeedThread } from "app/interface/components/box/BoxAsideFeedThread"
-import { BoxAsideFeedThreadFallback } from "app/interface/components/box/BoxAsideFeedThreadFallback"
-import { BoxAsideHelloWorld } from "app/interface/components/box/BoxAsideHelloWorld"
-import { BoxFeedFallback } from "app/interface/components/box/BoxFeedFallback"
-import { BoxMainFeedPersonal } from "app/interface/components/box/BoxMainFeedPersonal"
-import { usePageLayout } from "app/interface/hooks/usePageLayout"
-import { LayoutHome } from "app/interface/layouts/LayoutHome"
+import { BoxAsideFeedThread } from "interface/components/box/BoxAsideFeedThread"
+import { BoxAsideFeedThreadFallback } from "interface/components/box/BoxAsideFeedThreadFallback"
+import { BoxAsideHelloWorld } from "interface/components/box/BoxAsideHelloWorld"
+import { BoxFeedFallback } from "interface/components/box/BoxFeedFallback"
+import { BoxMainFeedPersonal } from "interface/components/box/BoxMainFeedPersonal"
+import { usePageLayout } from "interface/hooks/usePageLayout"
+import { LayoutHome } from "interface/layouts/LayoutHome"
 
 const PageFeed: BlitzPage = () => {
   const router = useRouter()

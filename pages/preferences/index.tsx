@@ -1,6 +1,6 @@
 import { BlitzPage } from "@blitzjs/next"
 import { Box } from "@mui/material"
-import { LayoutHome } from "app/interface/layouts/LayoutHome"
+import { LayoutHome } from "interface/layouts/LayoutHome"
 
 const PagePreferences: BlitzPage = () => {
   return <Box />
