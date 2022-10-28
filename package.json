@@ -9,9 +9,9 @@
     "test": "echo ''",
     "test:watch": "jest --watch",
     "emulators": "firebase emulators:start",
-    "lint": "eslint --ignore-path .gitignore --ext .js,.ts,.tsx .",
-    "lint:fix": "eslint --fix --ignore-path .gitignore --ext .js,.ts,.tsx .",
-    "format": "prettier --write --ignore-path .gitignore --ext .js,.ts,.tsx ."
+    "lint": "eslint --ignore-path .gitignore --ext .ts,.tsx .",
+    "lint:fix": "eslint --fix --ignore-path .gitignore --ext .ts,.tsx .",
+    "format": "prettier --write --ignore-path .gitignore */**/*.{ts,tsx}"
   },
   "dependencies": {
     "@blitzjs/auth": "2.0.0-beta.14",
