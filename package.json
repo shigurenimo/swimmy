@@ -9,8 +9,9 @@
     "test": "echo ''",
     "test:watch": "jest --watch",
     "emulators": "firebase emulators:start",
-    "lint": "eslint --fix application core infrastructure integrations interface",
-    "format": "prettier --write application core infrastructure integrations interface"
+    "lint": "eslint --ignore-path .gitignore --ext .js,.ts,.tsx .",
+    "lint:fix": "eslint --fix --ignore-path .gitignore --ext .js,.ts,.tsx .",
+    "format": "prettier --write --ignore-path .gitignore --ext .js,.ts,.tsx ."
   },
   "dependencies": {
     "@blitzjs/auth": "2.0.0-beta.14",

@@ -1,8 +1,13 @@
 const { withBlitz } = require("@blitzjs/next")
 const packageJSON = require("./package.json")
 
-module.exports = withBlitz({
+/**
+ * @type {import('next').NextConfig}
+ **/
+const nextConfig = {
   env: {
     NEXT_PUBLIC_SENTRY_RELEASE: `swimmy@${packageJSON.version}`,
   },
-})
+}
+
+module.exports = withBlitz(nextConfig)
