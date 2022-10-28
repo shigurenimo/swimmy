@@ -1,6 +1,10 @@
 export const useChangelogs = () => {
   return [
     {
+      version: "6.2.0",
+      texts: ["Next.js13に対応しました。"],
+    },
+    {
       version: "6.1.0",
       texts: ["フィードバック機能を追加しました。"],
     },
@@ -10,7 +14,7 @@ export const useChangelogs = () => {
     },
     {
       version: "6.0.2",
-      texts: ["React18にアップデートしました。"],
+      texts: ["React18に対応しました。"],
     },
     {
       version: "6.0.1",

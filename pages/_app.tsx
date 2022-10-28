@@ -37,6 +37,12 @@ type Props = AppProps & {
   emotionCache?: EmotionCache
 }
 
+const nocker = new Nocker({
+  projectId: "jX1A2O0pA1wR_6eqh_SGn",
+  environment:
+    process.env.NODE_ENV === "development" ? "DEVELOPMENT" : "PRODUCTION",
+})
+
 const App: FC<Props> = ({ Component, ...props }) => {
   const getLayout = Component.getLayout || ((page) => page)
 
@@ -59,12 +65,6 @@ const App: FC<Props> = ({ Component, ...props }) => {
       Router.events.off("routeChangeComplete", routeChangeComplete)
     }
   }, [])
-
-  const nocker = new Nocker({
-    projectId: "jX1A2O0pA1wR_6eqh_SGn",
-    environment:
-      process.env.NODE_ENV === "development" ? "DEVELOPMENT" : "PRODUCTION",
-  })
 
   return (
     <>

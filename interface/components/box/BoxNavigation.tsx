@@ -19,7 +19,6 @@ import {
   Typography,
 } from "@mui/material"
 import { WidgetFloating } from "@nocker/mui"
-import Link from "next/link"
 import { useRouter } from "next/router"
 import { FC, useState } from "react"
 
@@ -37,6 +36,10 @@ export const BoxNavigation: FC<Props> = (props) => {
   const [isOpenWidget, openWidget] = useState(false)
 
   const isLoggedIn = session.userId != null
+
+  const onRoute = (path: string) => {
+    router.push(path)
+  }
 
   const listItems = [
     {
@@ -125,33 +128,32 @@ export const BoxNavigation: FC<Props> = (props) => {
           )}
           <List dense>
             {listItems.map((item) => (
-              <Link href={item.href} key={item.primary}>
-                <ListItem
-                  key={item.primary}
-                  sx={{ pl: 0, pr: props.isDense ? 0 : 2 }}
+              <ListItem
+                key={item.primary}
+                sx={{ pl: 0, pr: props.isDense ? 0 : 2 }}
+              >
+                <ListItemButton
+                  disabled={item.isDisabled}
+                  selected={item.isActive}
+                  onClick={() => {
+                    onRoute(item.href)
+                  }}
+                  sx={{
+                    borderTopRightRadius: 16,
+                    borderBottomRightRadius: 16,
+                  }}
                 >
-                  <ListItemButton
-                    sx={{
-                      borderTopRightRadius: 16,
-                      borderBottomRightRadius: 16,
-                    }}
-                    disabled={item.isDisabled}
-                    selected={item.isActive}
-                  >
-                    <ListItemIcon
-                      sx={{ minWidth: (theme) => theme.spacing(5) }}
-                    >
-                      {item.icon}
-                    </ListItemIcon>
-                    <ListItemText
-                      primary={
-                        props.isDense ? item.primary.slice(0, 1) : item.primary
-                      }
-                      primaryTypographyProps={{ sx: { fontWeight: "bold" } }}
-                    />
-                  </ListItemButton>
-                </ListItem>
-              </Link>
+                  <ListItemIcon sx={{ minWidth: (theme) => theme.spacing(5) }}>
+                    {item.icon}
+                  </ListItemIcon>
+                  <ListItemText
+                    primary={
+                      props.isDense ? item.primary.slice(0, 1) : item.primary
+                    }
+                    primaryTypographyProps={{ sx: { fontWeight: "bold" } }}
+                  />
+                </ListItemButton>
+              </ListItem>
             ))}
             <ListItem sx={{ px: 0 }}>
               <ListItemButton
