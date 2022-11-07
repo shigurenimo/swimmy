@@ -13,7 +13,10 @@
     "*.tsbuildinfo": true,
     ".blitz**": true,
     ".next": true,
-    ".vercel": true
+    ".npmrc": true,
+    ".vercel": true,
+    ".yarn": true,
+    ".yarnrc.yml": true
   },
   "search.exclude": {
     "yarn.lock": true

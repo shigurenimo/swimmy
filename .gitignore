@@ -1,3 +1,6 @@
+# Yarn
+.yarn
+
 # dependencies
 node_modules
 .yarn/cache
