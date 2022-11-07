@@ -1,11 +1,10 @@
 import { captureException } from "@sentry/node"
 import { injectable } from "tsyringe"
-import { Count, Id } from "core"
 import db from "db"
 import { InternalError } from "integrations/errors"
 
 type Props = {
-  userId: Id
+  userId: string
 }
 
 @injectable()
@@ -15,18 +14,16 @@ export class CountUniquePostsQuery {
       const count = await db.post.count({
         where: {
           replyId: { equals: null },
-          userId: { equals: props.userId.value },
+          userId: { equals: props.userId },
         },
       })
 
-      return new Count(count)
+      return count
     } catch (error) {
       captureException(error)
-
       if (error instanceof Error) {
         return new InternalError(error.message)
       }
-
       return new InternalError()
     }
   }

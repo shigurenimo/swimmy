@@ -3,7 +3,6 @@ import { paginate } from "blitz"
 import { container } from "tsyringe"
 import { z } from "zod"
 import { CountUniquePostsQuery, ReadPrivatePostsQuery } from "application"
-import { Id } from "core"
 import { withSentry } from "interface/utils/withSentry"
 
 export const zReadFeedPersonal = z.object({ skip: z.number() })
@@ -11,29 +10,26 @@ export const zReadFeedPersonal = z.object({ skip: z.number() })
 const readFeedPersonal = resolver.pipe(
   resolver.zod(zReadFeedPersonal),
   resolver.authorize(),
-  (props, ctx) => {
-    return {
-      userId: new Id(ctx.session.userId),
-      skip: props.skip,
-      take: 40,
-    }
-  },
-  async (props) => {
-    const readPrivatePostsQuery = container.resolve(ReadPrivatePostsQuery)
+  async (props, ctx) => {
+    const take = 40
 
-    const posts = await readPrivatePostsQuery.execute({
-      userId: props.userId,
+    const query = container.resolve(ReadPrivatePostsQuery)
+
+    const posts = await query.execute({
+      userId: ctx.session.userId ?? null,
       skip: props.skip,
-      take: props.take,
+      take: take,
     })
 
     if (posts instanceof Error) {
       throw posts
     }
 
-    const countUniquePostsQuery = container.resolve(CountUniquePostsQuery)
+    const countQuery = container.resolve(CountUniquePostsQuery)
 
-    const count = await countUniquePostsQuery.execute({ userId: props.userId })
+    const count = await countQuery.execute({
+      userId: ctx.session.userId,
+    })
 
     if (count instanceof Error) {
       throw count
@@ -41,9 +37,9 @@ const readFeedPersonal = resolver.pipe(
 
     return paginate({
       skip: props.skip,
-      take: props.take,
+      take: take,
       async count() {
-        return Math.min(8 * 40, count.value)
+        return Math.min(8 * 40, count)
       },
       async query() {
         return posts

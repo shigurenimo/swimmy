@@ -1,6 +1,5 @@
 import { captureException } from "@sentry/node"
 import { injectable } from "tsyringe"
-import { Id } from "core"
 import db from "db"
 import { InternalError } from "integrations/errors"
 import { AppPost } from "integrations/types"
@@ -8,14 +7,14 @@ import { AppPost } from "integrations/types"
 type Props = {
   skip: number
   take: number
-  userId: Id | null
+  userId: string | null
 }
 
 @injectable()
 export class ReadPostsQuery {
   async execute(props: Props) {
     try {
-      const prismaPosts = await db.post.findMany({
+      const posts = await db.post.findMany({
         where: {
           replyId: { equals: null },
         },
@@ -36,18 +35,18 @@ export class ReadPostsQuery {
               },
               users: {
                 select: { id: true },
-                where: { id: props.userId ? props.userId.value : undefined },
+                where: { id: props.userId ? props.userId : undefined },
               },
             },
           },
         },
       })
 
-      if (prismaPosts instanceof Error) {
-        return prismaPosts
+      if (posts instanceof Error) {
+        return posts
       }
 
-      const appPosts: AppPost[] = prismaPosts.map((post) => {
+      const appPosts: AppPost[] = posts.map((post) => {
         return {
           id: post.id,
           createdAt: post.createdAt,
@@ -78,11 +77,9 @@ export class ReadPostsQuery {
       return appPosts
     } catch (error) {
       captureException(error)
-
       if (error instanceof Error) {
         return new InternalError(error.message)
       }
-
       return new InternalError()
     }
   }

@@ -17,11 +17,9 @@ export class CountPostsQuery {
       return new Count(count)
     } catch (error) {
       captureException(error)
-
       if (error instanceof Error) {
         return new InternalError(error.message)
       }
-
       return new InternalError()
     }
   }

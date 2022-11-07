@@ -5,9 +5,9 @@ import { ReactionRepository } from "infrastructure"
 import { InternalError } from "integrations/errors"
 
 type Props = {
-  userId: Id
-  postId: Id
-  text: ReactionText
+  userId: string
+  postId: string
+  text: string
 }
 
 @injectable()
@@ -17,9 +17,9 @@ export class CreateReactionService {
   async execute(props: Props) {
     try {
       const reaction = ReactionFactory.create({
-        text: props.text,
-        postId: props.postId,
-        userId: props.userId,
+        text: new ReactionText(props.text),
+        postId: new Id(props.postId),
+        userId: new Id(props.userId),
       })
 
       await this.reactionRepository.persist(reaction)
@@ -27,11 +27,9 @@ export class CreateReactionService {
       return null
     } catch (error) {
       captureException(error)
-
       if (error instanceof Error) {
         return new InternalError(error.message)
       }
-
       return new InternalError()
     }
   }

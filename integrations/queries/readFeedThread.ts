@@ -3,36 +3,30 @@ import { paginate } from "blitz"
 import { container } from "tsyringe"
 import { z } from "zod"
 import { CountThreadsQuery, ReadThreadsQuery } from "application"
-import { Id } from "core"
 import { withSentry } from "interface/utils/withSentry"
 
 export const zReadFeedThread = z.object({ skip: z.number() })
 
 const readFeedThread = resolver.pipe(
   resolver.zod(zReadFeedThread),
-  (props, ctx) => {
-    return {
-      skip: props.skip,
-      take: 8,
-      userId: ctx.session?.userId ? new Id(ctx.session.userId) : null,
-    }
-  },
-  async (props) => {
+  async (props, ctx) => {
+    const take = 8
+
     const readThreadsQuery = container.resolve(ReadThreadsQuery)
 
     const posts = await readThreadsQuery.execute({
       skip: props.skip,
-      take: props.take,
-      userId: props.userId,
+      take: take,
+      userId: ctx.session.userId,
     })
 
     if (posts instanceof Error) {
       throw posts
     }
 
-    const countThreadsQuery = container.resolve(CountThreadsQuery)
+    const countQuery = container.resolve(CountThreadsQuery)
 
-    const count = await countThreadsQuery.execute()
+    const count = await countQuery.execute()
 
     if (count instanceof Error) {
       throw count
@@ -40,7 +34,7 @@ const readFeedThread = resolver.pipe(
 
     return paginate({
       skip: props.skip,
-      take: props.take,
+      take: take,
       async count() {
         return count.value
       },

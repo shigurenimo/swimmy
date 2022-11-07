@@ -1,12 +1,11 @@
 import { captureException } from "@sentry/node"
 import { injectable } from "tsyringe"
-import { Id } from "core"
 import db from "db"
 import { InternalError } from "integrations/errors"
 import { AppPost } from "integrations/types"
 
 type Props = {
-  userId: Id
+  userId: string
   skip: number
   take: number
 }
@@ -17,7 +16,7 @@ export class ReadPrivatePostsQuery {
     try {
       const prismaPosts = await db.post.findMany({
         where: {
-          userId: { equals: props.userId.value },
+          userId: { equals: props.userId },
         },
         orderBy: { createdAt: "desc" },
         skip: props.skip,
@@ -76,11 +75,9 @@ export class ReadPrivatePostsQuery {
       return appPosts
     } catch (error) {
       captureException(error)
-
       if (error instanceof Error) {
         return new InternalError(error.message)
       }
-
       return new InternalError()
     }
   }

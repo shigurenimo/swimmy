@@ -1,6 +1,5 @@
 import { captureException } from "@sentry/node"
 import { injectable } from "tsyringe"
-import { Id } from "core"
 import db from "db"
 import { InternalError } from "integrations/errors"
 import { AppPhoto } from "integrations/types"
@@ -8,7 +7,7 @@ import { AppPhoto } from "integrations/types"
 type Props = {
   skip: number
   take: number
-  userId: Id | null
+  userId: string | null
 }
 
 @injectable()
@@ -38,7 +37,7 @@ export class ReadPhotosQuery {
               },
               users: {
                 select: { id: true },
-                where: { id: props.userId ? props.userId.value : undefined },
+                where: { id: props.userId ? props.userId : undefined },
               },
             },
           },
@@ -80,11 +79,9 @@ export class ReadPhotosQuery {
       return appPhotos
     } catch (error) {
       captureException(error)
-
       if (error instanceof Error) {
         return new InternalError(error.message)
       }
-
       return new InternalError()
     }
   }

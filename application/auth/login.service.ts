@@ -2,19 +2,12 @@ import { captureException } from "@sentry/node"
 import { AuthenticationError, NotFoundError } from "blitz"
 import { getAuth } from "firebase-admin/auth"
 import { injectable } from "tsyringe"
-import {
-  Email,
-  Id,
-  LoginProviderFactory,
-  Token,
-  UserFactory,
-  Username,
-} from "core"
+import { Email, Id, LoginProviderFactory, UserFactory, Username } from "core"
 import { FirebaseAdapter, UserRepository } from "infrastructure"
 import { InternalError } from "integrations/errors"
 
 type Props = {
-  idToken: Token
+  idToken: string
 }
 
 @injectable()
@@ -28,7 +21,7 @@ export class LoginService {
     try {
       await this.firebaseAdapter.initialize()
 
-      const decodedIdToken = await getAuth().verifyIdToken(props.idToken.value)
+      const decodedIdToken = await getAuth().verifyIdToken(props.idToken)
 
       if (typeof decodedIdToken.email === "undefined") {
         return new AuthenticationError()
@@ -91,11 +84,9 @@ export class LoginService {
       return newUser
     } catch (error) {
       captureException(error)
-
       if (error instanceof Error) {
         return new InternalError(error.message)
       }
-
       return new InternalError()
     }
   }

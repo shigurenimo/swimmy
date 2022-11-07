@@ -2,7 +2,6 @@ import { resolver } from "@blitzjs/rpc"
 import { container } from "tsyringe"
 import { z } from "zod"
 import { CreatePostService } from "application"
-import { Id, PostText } from "core"
 import { withSentry } from "interface/utils/withSentry"
 
 const CreateUniquePost = z.object({
@@ -14,19 +13,11 @@ const CreateUniquePost = z.object({
 const createUniquePost = resolver.pipe(
   resolver.zod(CreateUniquePost),
   resolver.authorize(),
-  (props, ctx) => {
-    return {
-      replyId: props.replyId ? new Id(props.replyId) : null,
-      text: new PostText(props.text),
-      fileIds: props.fileIds ? props.fileIds.map((id) => new Id(id)) : [],
-      userId: new Id(ctx.session.userId),
-    }
-  },
-  async (props) => {
-    const createPostService = container.resolve(CreatePostService)
+  async (props, ctx) => {
+    const command = container.resolve(CreatePostService)
 
-    await createPostService.execute({
-      userId: props.userId,
+    await command.execute({
+      userId: ctx.session.userId,
       replyId: props.replyId,
       fileIds: props.fileIds,
       text: props.text,

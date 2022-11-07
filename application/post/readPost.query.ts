@@ -1,22 +1,21 @@
 import { captureException } from "@sentry/node"
 import { NotFoundError } from "blitz"
 import { injectable } from "tsyringe"
-import { Id } from "core"
 import db from "db"
 import { InternalError } from "integrations/errors"
 import { AppPost } from "integrations/types"
 
 type Props = {
-  postId: Id
-  userId: Id | null
+  postId: string
+  userId: string | null
 }
 
 @injectable()
 export class ReadPostQuery {
   async execute(props: Props) {
     try {
-      const prismaPost = await db.post.findUnique({
-        where: { id: props.postId.value },
+      const post = await db.post.findUnique({
+        where: { id: props.postId },
         include: {
           _count: {
             select: {
@@ -32,29 +31,29 @@ export class ReadPostQuery {
                 },
               },
               users: {
-                where: { id: props.userId ? props.userId.value : undefined },
+                where: { id: props.userId ? props.userId : undefined },
               },
             },
           },
         },
       })
 
-      if (prismaPost === null) {
+      if (post === null) {
         return new NotFoundError()
       }
 
-      if (prismaPost instanceof Error) {
-        return prismaPost
+      if (post instanceof Error) {
+        return post
       }
 
       const appPost: AppPost = {
-        id: prismaPost.id,
-        createdAt: prismaPost.createdAt,
-        text: prismaPost.text,
-        fileIds: prismaPost.fileIds,
-        likesCount: prismaPost._count?.likes ?? 0,
-        repliesCount: prismaPost._count?.replies ?? 0,
-        reactions: prismaPost.reactions
+        id: post.id,
+        createdAt: post.createdAt,
+        text: post.text,
+        fileIds: post.fileIds,
+        likesCount: post._count?.likes ?? 0,
+        repliesCount: post._count?.replies ?? 0,
+        reactions: post.reactions
           .filter((reaction) => {
             return 0 < reaction.count + reaction._count?.users
           })
@@ -70,17 +69,15 @@ export class ReadPostQuery {
               isConnected: 0 < reaction.users.length,
             }
           }),
-        isDeleted: prismaPost.isDeleted ?? false,
+        isDeleted: post.isDeleted ?? false,
       }
 
       return appPost
     } catch (error) {
       captureException(error)
-
       if (error instanceof Error) {
         return new InternalError(error.message)
       }
-
       return new InternalError()
     }
   }

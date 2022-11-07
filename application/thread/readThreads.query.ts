@@ -1,6 +1,5 @@
 import { captureException } from "@sentry/node"
 import { injectable } from "tsyringe"
-import { Id } from "core"
 import db from "db"
 import { InternalError } from "integrations/errors"
 import { AppThread } from "integrations/types"
@@ -8,14 +7,14 @@ import { AppThread } from "integrations/types"
 type Props = {
   skip: number
   take: number
-  userId: Id | null
+  userId: string | null
 }
 
 @injectable()
 export class ReadThreadsQuery {
   async execute(props: Props) {
     try {
-      const prismaPosts = await db.post.findMany({
+      const posts = await db.post.findMany({
         where: {
           repliesCount: { gt: 0 },
         },
@@ -38,18 +37,18 @@ export class ReadThreadsQuery {
               },
               users: {
                 select: { id: true },
-                where: { id: props.userId ? props.userId.value : undefined },
+                where: { id: props.userId ? props.userId : undefined },
               },
             },
           },
         },
       })
 
-      if (prismaPosts instanceof Error) {
-        return prismaPosts
+      if (posts instanceof Error) {
+        return posts
       }
 
-      const appThreads = prismaPosts.map((post): AppThread => {
+      const appThreads = posts.map((post): AppThread => {
         return {
           id: post.id,
           createdAt: post.createdAt,
@@ -80,11 +79,9 @@ export class ReadThreadsQuery {
       return appThreads
     } catch (error) {
       captureException(error)
-
       if (error instanceof Error) {
         return new InternalError(error.message)
       }
-
       return new InternalError()
     }
   }

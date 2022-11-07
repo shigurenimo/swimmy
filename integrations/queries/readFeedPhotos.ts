@@ -3,36 +3,30 @@ import { paginate } from "blitz"
 import { container } from "tsyringe"
 import { z } from "zod"
 import { CountPhotosQuery, ReadPhotosQuery } from "application"
-import { Id } from "core"
 import { withSentry } from "interface/utils/withSentry"
 
 export const zReadFeedPhotos = z.object({ skip: z.number() })
 
 const readFeedPhotos = resolver.pipe(
   resolver.zod(zReadFeedPhotos),
-  (props, ctx) => {
-    return {
-      skip: props.skip,
-      take: 40,
-      userId: ctx.session?.userId ? new Id(ctx.session.userId) : null,
-    }
-  },
-  async (props) => {
-    const readPhotosQuery = container.resolve(ReadPhotosQuery)
+  async (props, ctx) => {
+    const take = 40
 
-    const posts = await readPhotosQuery.execute({
-      userId: props.userId,
+    const query = container.resolve(ReadPhotosQuery)
+
+    const posts = await query.execute({
+      userId: ctx.session.userId ?? null,
       skip: props.skip,
-      take: props.take,
+      take: take,
     })
 
     if (posts instanceof Error) {
       throw posts
     }
 
-    const countPhotosQuery = container.resolve(CountPhotosQuery)
+    const countQuery = container.resolve(CountPhotosQuery)
 
-    const count = await countPhotosQuery.execute()
+    const count = await countQuery.execute()
 
     if (count instanceof Error) {
       throw count
@@ -40,9 +34,9 @@ const readFeedPhotos = resolver.pipe(
 
     return paginate({
       skip: props.skip,
-      take: props.take,
+      take: take,
       async count() {
-        return Math.min(8 * 40, count.value)
+        return Math.min(8 * 40, count)
       },
       async query() {
         return posts

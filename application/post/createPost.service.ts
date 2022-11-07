@@ -5,10 +5,10 @@ import { PostRepository } from "infrastructure"
 import { InternalError } from "integrations/errors"
 
 type Props = {
-  userId: Id | null
-  replyId: Id | null
-  text: PostText
-  fileIds: Id[]
+  userId: string | null
+  replyId: string | null
+  text: string
+  fileIds: string[]
 }
 
 @injectable()
@@ -17,23 +17,25 @@ export class CreatePostService {
 
   async execute(props: Props) {
     try {
-      const post = PostFactory.create({
-        text: props.text,
-        replyId: props.replyId,
-        userId: props.userId,
-        fileIds: props.fileIds,
+      const draftPost = PostFactory.create({
+        text: new PostText(props.text),
+        replyId: props.replyId ? new Id(props.replyId) : null,
+        userId: props.userId ? new Id(props.userId) : null,
+        fileIds: props.fileIds.map((fileId) => new Id(fileId)),
       })
 
-      await this.postRepository.persist(post)
+      const transaction = await this.postRepository.persist(draftPost)
+
+      if (transaction instanceof Error) {
+        return new InternalError("投稿に失敗しました")
+      }
 
       return null
     } catch (error) {
       captureException(error)
-
       if (error instanceof Error) {
         return new InternalError(error.message)
       }
-
       return new InternalError()
     }
   }

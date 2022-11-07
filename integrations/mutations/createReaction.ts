@@ -6,7 +6,6 @@ import {
   CreateSecretReactionService,
   ReadPostQuery,
 } from "application"
-import { Id, ReactionText } from "core"
 import { withSentry } from "interface/utils/withSentry"
 
 const zProps = z.object({
@@ -16,40 +15,31 @@ const zProps = z.object({
 
 const createReaction = resolver.pipe(
   resolver.zod(zProps),
-  (props, ctx) => {
-    return {
-      text: new ReactionText(props.text),
-      postId: new Id(props.postId),
-      userId: ctx.session.userId ? new Id(ctx.session.userId) : null,
-    }
-  },
-  async (props) => {
-    if (props.userId === null) {
-      const createSecretReactionService = container.resolve(
-        CreateSecretReactionService
-      )
+  async (props, ctx) => {
+    if (ctx.session.userId === null) {
+      const command = container.resolve(CreateSecretReactionService)
 
-      await createSecretReactionService.execute({
+      await command.execute({
         text: props.text,
         postId: props.postId,
       })
     }
 
-    if (props.userId !== null) {
-      const createReactionService = container.resolve(CreateReactionService)
+    if (ctx.session.userId !== null) {
+      const command = container.resolve(CreateReactionService)
 
-      await createReactionService.execute({
+      await command.execute({
         text: props.text,
-        userId: props.userId,
+        userId: ctx.session.userId,
         postId: props.postId,
       })
     }
 
-    const readPostQuery = container.resolve(ReadPostQuery)
+    const query = container.resolve(ReadPostQuery)
 
-    const post = await readPostQuery.execute({
+    const post = await query.execute({
       postId: props.postId,
-      userId: props.userId,
+      userId: ctx.session.userId,
     })
 
     if (post instanceof Error) {
