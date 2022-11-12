@@ -1,6 +1,10 @@
 export const useChangelogs = () => {
   return [
     {
+      version: "6.3.0",
+      texts: ["GraphQLに対応しました。"],
+    },
+    {
       version: "6.2.0",
       texts: ["Next.js13に対応しました。"],
     },
@@ -18,7 +22,7 @@ export const useChangelogs = () => {
     },
     {
       version: "6.0.1",
-      texts: ["苦しみを伴うリファクタリング。"],
+      texts: ["リファクタリング"],
     },
     {
       version: "6.0.0",
