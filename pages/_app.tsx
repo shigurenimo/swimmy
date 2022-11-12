@@ -7,7 +7,6 @@ import { CacheProvider, EmotionCache } from "@emotion/react"
 import { CssBaseline, ThemeProvider } from "@mui/material"
 import { Nocker, NockerProvider } from "@nocker/mui"
 import { init } from "@sentry/browser"
-import { Integrations } from "@sentry/tracing"
 import {
   getAnalytics,
   logEvent,
@@ -98,7 +97,6 @@ const App: FC<Props> = ({ Component, ...props }) => {
 if (typeof window !== "undefined") {
   init({
     dsn: process.env.NEXT_PUBLIC_SENTRY_DSN,
-    integrations: [new Integrations.BrowserTracing()],
     environment: process.env.NEXT_PUBLIC_SENTRY_ENVIRONMENT,
     tracesSampleRate: 1.0,
     release: `${process.env.NEXT_PUBLIC_SENTRY_RELEASE}`,
