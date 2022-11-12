@@ -33,7 +33,7 @@ export const BoxCardPost: FC<Props> = (props) => {
 
   const [isReaction, setReaction] = useState(false)
 
-  const [addReactionMutation] = useAddReactionMutation()
+  const [addReactionMutation] = useAddReactionMutation({})
 
   const onUpdateReaction = async (text: string) => {
     try {

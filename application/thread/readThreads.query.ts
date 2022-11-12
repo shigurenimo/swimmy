@@ -2,7 +2,7 @@ import { captureException } from "@sentry/node"
 import { injectable } from "tsyringe"
 import db from "db"
 import { InternalError } from "integrations/errors"
-import { ThreadNode } from "interface/__generated__/node"
+import { PostNode } from "interface/__generated__/node"
 
 type Props = {
   userId: string | null
@@ -19,6 +19,7 @@ export class ReadThreadsQuery {
           repliesCount: { gt: 0 },
         },
         orderBy: { createdAt: "desc" },
+        skip: props.cursor ? 1 : 0,
         cursor: props.cursor ? { id: props.cursor } : undefined,
         take: props.take,
         include: {
@@ -44,7 +45,7 @@ export class ReadThreadsQuery {
         },
       })
 
-      const nodes: ThreadNode[] = posts.map((post) => {
+      const nodes: PostNode[] = posts.map((post) => {
         return {
           id: post.id,
           createdAt: Math.floor(post.createdAt.getTime() / 1000),

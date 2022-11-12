@@ -14,9 +14,7 @@ type Props = {
 export const BoxMainFeedThread: FC<Props> = (props) => {
   const session = useSession()
 
-  const threadsQuery = useThreadsQuery({
-    pollInterval: 16000,
-  })
+  const threadsQuery = useThreadsQuery({})
 
   const onFetchNextPage = () => {
     threadsQuery.fetchMore({

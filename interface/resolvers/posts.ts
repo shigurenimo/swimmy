@@ -5,7 +5,7 @@ import { CountPostsQuery, ReadPostsQuery } from "application"
 import { QueryResolvers } from "interface/__generated__/node"
 
 export const posts: QueryResolvers["posts"] = async (_, args) => {
-  const take = 2
+  const take = 40
 
   const query = container.resolve(ReadPostsQuery)
 

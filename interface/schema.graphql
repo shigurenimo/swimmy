@@ -2,7 +2,7 @@ type Query {
   feed(after: ID): PostsConnection!
   posts(after: ID): PostsConnection!
   threads(after: ID): ThreadsConnection!
-  thread(threadId: ID!): ThreadNode!
+  thread(threadId: ID!): PostNode!
   responses(threadId: ID!): ResponsesConnection!
 }
 
@@ -15,17 +15,6 @@ type PostNode implements Node {
   createdAt: Int!
   text: String
   fileIds: [String!]!
-  likesCount: Int!
-  repliesCount: Int!
-  reactions: [ReactionNode!]!
-  isDeleted: Boolean!
-}
-
-type ThreadNode implements Node {
-  id: ID!
-  createdAt: Int!
-  text: String
-  fileIds: [ID!]!
   likesCount: Int!
   repliesCount: Int!
   reactions: [ReactionNode!]!
@@ -57,8 +46,8 @@ type PostsConnection implements Connection {
 type ThreadsConnection implements Connection {
   totalCount: Int
   pageInfo: PageInfo!
-  edges: [ThreadEdge!]!
-  nodes: [ThreadNode!]!
+  edges: [PostEdge!]!
+  nodes: [PostNode!]!
 }
 
 type ResponsesConnection implements Connection {
@@ -80,7 +69,7 @@ type PostEdge implements Edge {
 
 type ThreadEdge implements Edge {
   cursor: String!
-  node: ThreadNode!
+  node: PostNode!
 }
 
 type PageInfo {
