@@ -3,9 +3,6 @@ import { Box, Divider, List, ListItem } from "@mui/material"
 import { captureException } from "@sentry/react"
 import { FC, Fragment } from "react"
 import {
-  ResponsesDocument,
-  ResponsesQuery,
-  useCreatePostMutation,
   useResponsesQuery,
   useThreadQuery,
 } from "interface/__generated__/react"
@@ -14,6 +11,7 @@ import { BoxAsideFeedThreadFallback } from "interface/components/box/BoxAsideFee
 import { BoxCardPost } from "interface/components/box/BoxCardPost"
 import { BoxCardResponse } from "interface/components/box/BoxCardResponse"
 import { BoxFormResponse } from "interface/components/box/BoxFormResponse"
+import { useCreateResponseMutation } from "interface/hooks/useCreateResponseMutation"
 import { FormNewPost } from "interface/types/formNewPost"
 
 type Props = {
@@ -32,34 +30,8 @@ export const BoxAsideFeedThread: FC<Props> = (props) => {
     variables: { threadId: props.threadId },
   })
 
-  const [createPostMutation] = useCreatePostMutation({
-    update(cache, result) {
-      const query = cache.readQuery<ResponsesQuery>({
-        query: ResponsesDocument,
-        variables: { threadId: props.threadId },
-      })
-      if (query === null) return
-      if (typeof result.data === "undefined" || result.data === null) return
-      const data: ResponsesQuery = {
-        ...query,
-        responses: {
-          ...query.responses,
-          edges: [
-            ...query.responses.edges,
-            {
-              __typename: "PostEdge",
-              cursor: result.data.createPost.id,
-              node: result.data.createPost,
-            },
-          ],
-        },
-      }
-      cache.writeQuery<ResponsesQuery>({
-        query: ResponsesDocument,
-        variables: { threadId: props.threadId },
-        data: data,
-      })
-    },
+  const [createPostMutation] = useCreateResponseMutation({
+    threadId: props.threadId,
   })
 
   const onCreateResponse = async (value: FormNewPost) => {

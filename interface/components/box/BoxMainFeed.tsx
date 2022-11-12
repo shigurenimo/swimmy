@@ -8,8 +8,8 @@ import { BoxCardPost } from "interface/components/box/BoxCardPost"
 import { BoxFormPost } from "interface/components/box/BoxFormPost"
 import { BoxMain } from "interface/components/box/BoxMain"
 import { ButtonFetchMore } from "interface/components/button/ButtonFetchMore"
+import { useCreateFeedPostMutation } from "interface/hooks/useCreateFeedPostMutation"
 import { FormNewPost } from "interface/types/formNewPost"
-import { useCreateFeedPostMutation } from "interface/updates/createPostMutationUpdate"
 
 type Props = {
   threadId: string | null
