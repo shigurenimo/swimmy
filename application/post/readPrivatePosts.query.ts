@@ -2,11 +2,11 @@ import { captureException } from "@sentry/node"
 import { injectable } from "tsyringe"
 import db from "db"
 import { InternalError } from "integrations/errors"
-import { AppPost } from "integrations/types"
+import { PostNode } from "interface/__generated__/node"
 
 type Props = {
   userId: string
-  skip: number
+  cursor: string | null
   take: number
 }
 
@@ -14,12 +14,13 @@ type Props = {
 export class ReadPrivatePostsQuery {
   async execute(props: Props) {
     try {
-      const prismaPosts = await db.post.findMany({
+      const posts = await db.post.findMany({
         where: {
           userId: { equals: props.userId },
         },
         orderBy: { createdAt: "desc" },
-        skip: props.skip,
+        skip: props.cursor ? 1 : 0,
+        cursor: props.cursor ? { id: props.cursor } : undefined,
         take: props.take,
         include: {
           _count: {
@@ -40,14 +41,14 @@ export class ReadPrivatePostsQuery {
         },
       })
 
-      if (prismaPosts instanceof Error) {
-        return prismaPosts
+      if (posts instanceof Error) {
+        return posts
       }
 
-      const appPosts: AppPost[] = prismaPosts.map((post): AppPost => {
+      const nodes = posts.map((post): PostNode => {
         return {
           id: post.id,
-          createdAt: post.createdAt,
+          createdAt: Math.floor(post.createdAt.getTime() / 1000),
           text: post.text,
           fileIds: post.fileIds,
           likesCount: post._count?.likes ?? 0,
@@ -72,7 +73,7 @@ export class ReadPrivatePostsQuery {
         }
       })
 
-      return appPosts
+      return nodes
     } catch (error) {
       captureException(error)
       if (error instanceof Error) {

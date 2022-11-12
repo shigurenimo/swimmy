@@ -6,7 +6,7 @@ import { BoxAsideFeedThread } from "interface/components/box/BoxAsideFeedThread"
 import { BoxAsideFeedThreadFallback } from "interface/components/box/BoxAsideFeedThreadFallback"
 import { BoxAsideHelloWorld } from "interface/components/box/BoxAsideHelloWorld"
 import { BoxFeedFallback } from "interface/components/box/BoxFeedFallback"
-import { BoxMainFeedPublic } from "interface/components/box/BoxMainFeedPublic"
+import { BoxMainFeed } from "interface/components/box/BoxMainFeed"
 import { usePageLayout } from "interface/hooks/usePageLayout"
 import { LayoutHome } from "interface/layouts/LayoutHome"
 
@@ -40,7 +40,7 @@ const PageHome: BlitzPage = () => {
       )}
       {pageLayout.main && (
         <Suspense fallback={<BoxFeedFallback />}>
-          <BoxMainFeedPublic
+          <BoxMainFeed
             threadId={threadId}
             onChangeThreadId={onChangeThreadId}
           />

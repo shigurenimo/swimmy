@@ -1,5 +1,6 @@
 import "integrations/errors"
 import "interface/theme/global.css"
+import { ApolloProvider } from "@apollo/client"
 import { AppProps, ErrorBoundary } from "@blitzjs/next"
 import { useQueryErrorResetBoundary } from "@blitzjs/rpc"
 import { CacheProvider, EmotionCache } from "@emotion/react"
@@ -28,6 +29,7 @@ import { FC, useEffect } from "react"
 import { withBlitz } from "integrations/blitz-client"
 import { BoxErrorFallback } from "interface/components/box/BoxErrorFallback"
 import { theme } from "interface/theme/theme"
+import { createClient } from "interface/utils/createClient"
 import { createEmotionCache } from "interface/utils/createEmotionCache"
 import { unregister } from "interface/utils/serviceWorker"
 
@@ -42,6 +44,8 @@ const nocker = new Nocker({
   environment:
     process.env.NODE_ENV === "development" ? "DEVELOPMENT" : "PRODUCTION",
 })
+
+const client = createClient()
 
 const App: FC<Props> = ({ Component, ...props }) => {
   const getLayout = Component.getLayout || ((page) => page)
@@ -67,7 +71,7 @@ const App: FC<Props> = ({ Component, ...props }) => {
   }, [])
 
   return (
-    <>
+    <ApolloProvider client={client}>
       <Head>
         {/** https://github.com/vercel/next.js/discussions/13387#discussioncomment-2387429 */}
         <style>{"nextjs-portal { display: none; }"}</style>
@@ -87,7 +91,7 @@ const App: FC<Props> = ({ Component, ...props }) => {
           </SnackbarProvider>
         </ThemeProvider>
       </CacheProvider>
-    </>
+    </ApolloProvider>
   )
 }
 

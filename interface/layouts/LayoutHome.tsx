@@ -1,4 +1,3 @@
-import { useMutation } from "@blitzjs/rpc"
 import { NoSsr, Stack } from "@mui/material"
 import {
   getAuth,
@@ -11,8 +10,7 @@ import Head from "next/head"
 import { useRouter } from "next/router"
 import { useSnackbar } from "notistack"
 import { FC, ReactNode, Suspense, useState } from "react"
-import login from "integrations/mutations/login"
-import logout from "integrations/mutations/logout"
+import { useLoginMutation } from "interface/__generated__/react"
 import { BoxHeader } from "interface/components/box/BoxHeader"
 import { BoxNavigation } from "interface/components/box/BoxNavigation"
 import { BoxNavigationsFallback } from "interface/components/box/BoxNavigationsFallback"
@@ -49,9 +47,9 @@ export const LayoutHome: FC<Props> = (props) => {
     }
   }
 
-  const [loginMutation, { isLoading }] = useMutation(login)
+  const [loginMutation, { loading: isLoading }] = useLoginMutation()
 
-  const [logoutMutation] = useMutation(logout)
+  const [logoutMutation] = useLoginMutation()
 
   const { enqueueSnackbar } = useSnackbar()
 
@@ -66,7 +64,7 @@ export const LayoutHome: FC<Props> = (props) => {
       const provider = new GoogleAuthProvider()
       const credential = await signInWithPopup(getAuth(), provider)
       const idToken = await getIdToken(credential.user)
-      await loginMutation({ idToken })
+      await loginMutation({ variables: { input: { token: idToken } } })
       setOpenDialogLogin(false)
       enqueueSnackbar("ログインしました")
     } catch (error) {
@@ -85,7 +83,7 @@ export const LayoutHome: FC<Props> = (props) => {
         password
       )
       const idToken = await getIdToken(credential.user)
-      await loginMutation({ idToken })
+      await loginMutation({ variables: { input: { token: idToken } } })
       setOpenDialogLogin(false)
       enqueueSnackbar("ログインしました")
     } catch (error) {

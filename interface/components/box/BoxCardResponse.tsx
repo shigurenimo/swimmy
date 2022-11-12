@@ -1,15 +1,16 @@
 import { Stack, Typography } from "@mui/material"
 import { FC } from "react"
-import { AppPost } from "integrations/types"
 import { useDateText } from "interface/hooks/useDateText"
 
-type Props = AppPost & {
+type Props = {
+  createdAt: number
   index: number
+  text: string | null
   onClick?(): void
 }
 
 export const BoxCardResponse: FC<Props> = (props) => {
-  const dateText = useDateText(props.createdAt)
+  const dateText = useDateText(new Date(props.createdAt * 1000))
 
   return (
     <Stack spacing={0.5} sx={{ width: "100%" }}>
@@ -21,9 +22,11 @@ export const BoxCardResponse: FC<Props> = (props) => {
           {dateText}
         </Typography>
       </Stack>
-      <Typography fontWeight={"bold"} sx={{ whiteSpace: "pre-wrap" }}>
-        {props.text}
-      </Typography>
+      {props.text && (
+        <Typography fontWeight={"bold"} sx={{ whiteSpace: "pre-wrap" }}>
+          {props.text}
+        </Typography>
+      )}
     </Stack>
   )
 }

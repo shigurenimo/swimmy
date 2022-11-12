@@ -2,29 +2,25 @@ import { captureException } from "@sentry/node"
 import { injectable } from "tsyringe"
 import db from "db"
 import { InternalError } from "integrations/errors"
-import { AppResponse } from "integrations/types/appResponse"
+import { PostNode } from "interface/__generated__/node"
 
 type Props = {
-  replyId: string
+  threadId: string
 }
 
 @injectable()
 export class ReadResponsesQuery {
   async execute(props: Props) {
     try {
-      const prismaPosts = await db.post.findMany({
+      const posts = await db.post.findMany({
         orderBy: { createdAt: "asc" },
-        where: { replyId: props.replyId },
+        where: { replyId: props.threadId },
       })
 
-      if (prismaPosts instanceof Error) {
-        return prismaPosts
-      }
-
-      const appResponses = prismaPosts.map((post): AppResponse => {
+      const nodes = posts.map((post): PostNode => {
         return {
           id: post.id,
-          createdAt: post.createdAt,
+          createdAt: Math.floor(post.createdAt.getTime() / 1000),
           text: post.text,
           fileIds: post.fileIds,
           likesCount: 0,
@@ -34,7 +30,7 @@ export class ReadResponsesQuery {
         }
       })
 
-      return appResponses
+      return nodes
     } catch (error) {
       captureException(error)
       if (error instanceof Error) {

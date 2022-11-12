@@ -1,0 +1,111 @@
+type Query {
+  feed(after: ID): PostsConnection!
+  posts(after: ID): PostsConnection!
+  threads(after: ID): ThreadsConnection!
+  thread(threadId: ID!): ThreadNode!
+  responses(threadId: ID!): ResponsesConnection!
+}
+
+interface Node {
+  id: ID!
+}
+
+type PostNode implements Node {
+  id: ID!
+  createdAt: Int!
+  text: String
+  fileIds: [String!]!
+  likesCount: Int!
+  repliesCount: Int!
+  reactions: [ReactionNode!]!
+  isDeleted: Boolean!
+}
+
+type ThreadNode implements Node {
+  id: ID!
+  createdAt: Int!
+  text: String
+  fileIds: [ID!]!
+  likesCount: Int!
+  repliesCount: Int!
+  reactions: [ReactionNode!]!
+  isDeleted: Boolean!
+}
+
+type ReactionNode implements Node {
+  id: ID!
+  text: String!
+  count: Int!
+  secretCount: Int!
+  isConnected: Boolean!
+}
+
+interface Connection {
+  totalCount: Int
+  pageInfo: PageInfo!
+  edges: [Edge!]!
+  nodes: [Node!]!
+}
+
+type PostsConnection implements Connection {
+  totalCount: Int
+  pageInfo: PageInfo!
+  edges: [PostEdge!]!
+  nodes: [PostNode!]!
+}
+
+type ThreadsConnection implements Connection {
+  totalCount: Int
+  pageInfo: PageInfo!
+  edges: [ThreadEdge!]!
+  nodes: [ThreadNode!]!
+}
+
+type ResponsesConnection implements Connection {
+  totalCount: Int
+  pageInfo: PageInfo!
+  edges: [PostEdge!]!
+  nodes: [PostNode!]!
+}
+
+interface Edge {
+  cursor: String!
+  node: Node!
+}
+
+type PostEdge implements Edge {
+  cursor: String!
+  node: PostNode!
+}
+
+type ThreadEdge implements Edge {
+  cursor: String!
+  node: ThreadNode!
+}
+
+type PageInfo {
+  endCursor: String
+  hasNextPage: Boolean!
+}
+
+type Mutation {
+  createPost(input: CreatePostInput!): PostNode!
+  addReaction(input: AddReactionInput!): PostNode!
+  login(input: LoginInput!): Boolean
+  logout: Boolean
+}
+
+input CreatePostInput {
+  threadId: String
+  text: String!
+  fileIds: [String!]!
+}
+
+input AddReactionInput {
+  postId: String!
+  text: String!
+}
+
+input LoginInput {
+  token: String!
+}

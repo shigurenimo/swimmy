@@ -42,7 +42,6 @@ export const BoxFormPost: FC<Props> = (props) => {
       setFileIds(nextFileIds)
     } catch (error) {
       captureException(error)
-
       if (error instanceof Error) {
         enqueueSnackbar(error.message)
       }
@@ -57,7 +56,6 @@ export const BoxFormPost: FC<Props> = (props) => {
       enqueueSnackbar("投稿しました")
     } catch (error) {
       captureException(error)
-
       if (error instanceof Error) {
         enqueueSnackbar(error.message)
       }

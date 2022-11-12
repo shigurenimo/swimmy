@@ -2,12 +2,12 @@ import { captureException } from "@sentry/node"
 import { injectable } from "tsyringe"
 import db from "db"
 import { InternalError } from "integrations/errors"
-import { AppThread } from "integrations/types"
+import { ThreadNode } from "interface/__generated__/node"
 
 type Props = {
-  skip: number
-  take: number
   userId: string | null
+  cursor: string | null
+  take: number
 }
 
 @injectable()
@@ -19,7 +19,7 @@ export class ReadThreadsQuery {
           repliesCount: { gt: 0 },
         },
         orderBy: { createdAt: "desc" },
-        skip: props.skip,
+        cursor: props.cursor ? { id: props.cursor } : undefined,
         take: props.take,
         include: {
           _count: {
@@ -44,14 +44,10 @@ export class ReadThreadsQuery {
         },
       })
 
-      if (posts instanceof Error) {
-        return posts
-      }
-
-      const appThreads = posts.map((post): AppThread => {
+      const nodes: ThreadNode[] = posts.map((post) => {
         return {
           id: post.id,
-          createdAt: post.createdAt,
+          createdAt: Math.floor(post.createdAt.getTime() / 1000),
           text: post.text,
           fileIds: post.fileIds,
           likesCount: post._count?.likes ?? 0,
@@ -76,7 +72,7 @@ export class ReadThreadsQuery {
         }
       })
 
-      return appThreads
+      return nodes
     } catch (error) {
       captureException(error)
       if (error instanceof Error) {

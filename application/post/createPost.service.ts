@@ -6,7 +6,7 @@ import { InternalError } from "integrations/errors"
 
 type Props = {
   userId: string | null
-  replyId: string | null
+  threadId: string | null
   text: string
   fileIds: string[]
 }
@@ -19,7 +19,7 @@ export class CreatePostService {
     try {
       const draftPost = PostFactory.create({
         text: new PostText(props.text),
-        replyId: props.replyId ? new Id(props.replyId) : null,
+        replyId: props.threadId ? new Id(props.threadId) : null,
         userId: props.userId ? new Id(props.userId) : null,
         fileIds: props.fileIds.map((fileId) => new Id(fileId)),
       })
@@ -30,7 +30,7 @@ export class CreatePostService {
         return new InternalError("投稿に失敗しました")
       }
 
-      return null
+      return { postId: draftPost.id.value }
     } catch (error) {
       captureException(error)
       if (error instanceof Error) {

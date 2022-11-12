@@ -1,10 +1,7 @@
 import { useSession } from "@blitzjs/auth"
-import { useInfiniteQuery } from "@blitzjs/rpc"
 import { List, ListItem } from "@mui/material"
-import { FC, Fragment } from "react"
-import { z } from "zod"
-import type { zReadFeedThread } from "integrations/queries/readFeedThread"
-import readFeedThread from "integrations/queries/readFeedThread"
+import { FC } from "react"
+import { useThreadsQuery } from "interface/__generated__/react"
 import { BoxCardPost } from "interface/components/box/BoxCardPost"
 import { BoxMain } from "interface/components/box/BoxMain"
 import { ButtonFetchMore } from "interface/components/button/ButtonFetchMore"
@@ -17,47 +14,44 @@ type Props = {
 export const BoxMainFeedThread: FC<Props> = (props) => {
   const session = useSession()
 
-  const [
-    pages,
-    { hasNextPage, isFetchingNextPage, fetchNextPage, isFetching },
-  ] = useInfiniteQuery(
-    readFeedThread,
-    (page = { skip: 0 }): z.infer<typeof zReadFeedThread> => {
-      return { skip: page.skip }
-    },
-    {
-      refetchInterval: 8000,
-      getNextPageParam(lastPage) {
-        return lastPage.nextPage
+  const threadsQuery = useThreadsQuery({
+    pollInterval: 16000,
+  })
+
+  const onFetchNextPage = () => {
+    threadsQuery.fetchMore({
+      variables: {
+        after: threadsQuery.data?.threads.pageInfo.endCursor,
       },
-    }
-  )
+    })
+  }
 
   return (
     <BoxMain>
       <List disablePadding>
-        {pages.map((page, index) => (
-          <Fragment key={index}>
-            {page.items.map((post) => (
-              <ListItem key={post.id}>
-                <BoxCardPost
-                  {...post}
-                  isLoggedIn={session.userId !== null}
-                  isActive={post.id === props.threadId}
-                  onOpenThread={() => {
-                    props.onChangeThreadId(post.id)
-                  }}
-                />
-              </ListItem>
-            ))}
-          </Fragment>
+        {threadsQuery.data?.threads.edges.map((edge) => (
+          <ListItem key={edge.cursor}>
+            <BoxCardPost
+              id={edge.node.id}
+              text={edge.node.text ?? null}
+              createdAt={edge.node.createdAt}
+              fileIds={edge.node.fileIds}
+              repliesCount={edge.node.repliesCount}
+              reactions={edge.node.reactions}
+              isLoggedIn={session.userId !== null}
+              isActive={edge.node.id === props.threadId}
+              onOpenThread={() => {
+                props.onChangeThreadId(edge.node.id)
+              }}
+            />
+          </ListItem>
         ))}
         <ListItem>
           <ButtonFetchMore
-            isFetching={isFetching}
-            hasNextPage={hasNextPage}
-            isFetchingNextPage={isFetchingNextPage}
-            onClick={fetchNextPage}
+            isFetching={threadsQuery.loading}
+            hasNextPage={threadsQuery.data?.threads.pageInfo.hasNextPage}
+            isFetchingNextPage={threadsQuery.loading}
+            onClick={onFetchNextPage}
           />
         </ListItem>
       </List>

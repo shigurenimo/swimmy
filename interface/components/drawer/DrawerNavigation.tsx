@@ -2,12 +2,8 @@ import { useSession } from "@blitzjs/auth"
 import AssistantIcon from "@mui/icons-material/AssistantRounded"
 import DescriptionIcon from "@mui/icons-material/DescriptionRounded"
 import HomeIcon from "@mui/icons-material/HomeRounded"
-import LockIcon from "@mui/icons-material/LockRounded"
-import LoginIcon from "@mui/icons-material/LoginRounded"
-import LogoutIcon from "@mui/icons-material/LogoutRounded"
 import QuickreplyIcon from "@mui/icons-material/QuickreplyRounded"
 import SecurityIcon from "@mui/icons-material/SecurityRounded"
-import SettingsIcon from "@mui/icons-material/SettingsRounded"
 import {
   Drawer,
   List,
@@ -51,20 +47,13 @@ export const DrawerNavigation: FC<Props> = (props) => {
       isDisabled: false,
       isActive: props.pathname.startsWith("/threads"),
     },
-    {
-      primary: "マイスペース",
-      icon: <LockIcon />,
-      href: "/feed",
-      isDisabled: !isLoggedIn,
-      isActive: props.pathname.startsWith("/feed"),
-    },
-    {
-      primary: "設定",
-      icon: <SettingsIcon />,
-      href: "/preferences",
-      isDisabled: true,
-      isActive: props.pathname.startsWith("/preferences"),
-    },
+    // {
+    //   primary: "設定",
+    //   icon: <SettingsIcon />,
+    //   href: "/preferences",
+    //   isDisabled: true,
+    //   isActive: props.pathname.startsWith("/preferences"),
+    // },
     {
       primary: "利用規約",
       icon: <DescriptionIcon />,
@@ -137,32 +126,34 @@ export const DrawerNavigation: FC<Props> = (props) => {
               />
             </ListItemButton>
           </ListItem>
-          {!isLoggedIn && (
-            <ListItem sx={{ px: 0 }}>
-              <ListItemButton onClick={props.onLogin}>
-                <ListItemIcon sx={{ minWidth: (theme) => theme.spacing(5) }}>
-                  <LoginIcon />
-                </ListItemIcon>
-                <ListItemText
-                  primary={"ログイン"}
-                  primaryTypographyProps={{ sx: { fontWeight: "bold" } }}
-                />
-              </ListItemButton>
-            </ListItem>
-          )}
-          {isLoggedIn && (
-            <ListItem sx={{ px: 0 }}>
-              <ListItemButton onClick={props.onLogout}>
-                <ListItemIcon sx={{ minWidth: (theme) => theme.spacing(5) }}>
-                  <LogoutIcon />
-                </ListItemIcon>
-                <ListItemText
-                  primary={props.isDense ? "ロ" : "ログアウト"}
-                  primaryTypographyProps={{ sx: { fontWeight: "bold" } }}
-                />
-              </ListItemButton>
-            </ListItem>
-          )}
+          {/* <>
+            {!isLoggedIn && (
+              <ListItem sx={{ px: 0 }}>
+                <ListItemButton onClick={props.onLogin}>
+                  <ListItemIcon sx={{ minWidth: (theme) => theme.spacing(5) }}>
+                    <LoginIcon />
+                  </ListItemIcon>
+                  <ListItemText
+                    primary={"ログイン"}
+                    primaryTypographyProps={{ sx: { fontWeight: "bold" } }}
+                  />
+                </ListItemButton>
+              </ListItem>
+            )}
+            {isLoggedIn && (
+              <ListItem sx={{ px: 0 }}>
+                <ListItemButton onClick={props.onLogout}>
+                  <ListItemIcon sx={{ minWidth: (theme) => theme.spacing(5) }}>
+                    <LogoutIcon />
+                  </ListItemIcon>
+                  <ListItemText
+                    primary={props.isDense ? "ロ" : "ログアウト"}
+                    primaryTypographyProps={{ sx: { fontWeight: "bold" } }}
+                  />
+                </ListItemButton>
+              </ListItem>
+            )}
+          </> */}
         </List>
       </Drawer>
     </>

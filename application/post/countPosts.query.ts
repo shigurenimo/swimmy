@@ -1,6 +1,5 @@
 import { captureException } from "@sentry/node"
 import { injectable } from "tsyringe"
-import { Count } from "core"
 import db from "db"
 import { InternalError } from "integrations/errors"
 
@@ -14,7 +13,7 @@ export class CountPostsQuery {
         },
       })
 
-      return new Count(count)
+      return count
     } catch (error) {
       captureException(error)
       if (error instanceof Error) {

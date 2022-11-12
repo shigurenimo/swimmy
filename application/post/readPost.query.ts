@@ -3,7 +3,7 @@ import { NotFoundError } from "blitz"
 import { injectable } from "tsyringe"
 import db from "db"
 import { InternalError } from "integrations/errors"
-import { AppPost } from "integrations/types"
+import { PostNode } from "interface/__generated__/node"
 
 type Props = {
   postId: string
@@ -46,9 +46,9 @@ export class ReadPostQuery {
         return post
       }
 
-      const appPost: AppPost = {
+      const node: PostNode = {
         id: post.id,
-        createdAt: post.createdAt,
+        createdAt: Math.floor(post.createdAt.getTime() / 1000),
         text: post.text,
         fileIds: post.fileIds,
         likesCount: post._count?.likes ?? 0,
@@ -72,7 +72,7 @@ export class ReadPostQuery {
         isDeleted: post.isDeleted ?? false,
       }
 
-      return appPost
+      return node
     } catch (error) {
       captureException(error)
       if (error instanceof Error) {

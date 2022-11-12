@@ -1,10 +1,8 @@
 import DescriptionIcon from "@mui/icons-material/DescriptionRounded"
 import HomeIcon from "@mui/icons-material/HomeRounded"
-import LockIcon from "@mui/icons-material/LockRounded"
 import LoginIcon from "@mui/icons-material/LoginRounded"
 import QuickreplyIcon from "@mui/icons-material/QuickreplyRounded"
 import SecurityIcon from "@mui/icons-material/SecurityRounded"
-import SettingsIcon from "@mui/icons-material/SettingsRounded"
 import {
   List,
   ListItem,
@@ -18,8 +16,8 @@ export const BoxNavigationsFallback: FC = (props) => {
   const listItems = [
     { primary: "ホーム", icon: <HomeIcon /> },
     { primary: "スレッド", icon: <QuickreplyIcon /> },
-    { primary: "マイスペース", icon: <LockIcon /> },
-    { primary: "設定", icon: <SettingsIcon /> },
+    // { primary: "マイスペース", icon: <LockIcon /> },
+    // { primary: "設定", icon: <SettingsIcon /> },
     { primary: "利用規約", icon: <DescriptionIcon /> },
     { primary: "個人情報保護方針", icon: <SecurityIcon /> },
   ]

@@ -1,10 +1,11 @@
-import { useMutation } from "@blitzjs/rpc"
 import { Grid, Stack, Typography } from "@mui/material"
 import { captureException } from "@sentry/react"
 import { useSnackbar } from "notistack"
 import { FC, useState } from "react"
-import createReaction from "integrations/mutations/createReaction"
-import { AppPost, AppThread } from "integrations/types"
+import {
+  ReactionNode,
+  useAddReactionMutation,
+} from "interface/__generated__/react"
 import { BoxCardPostFrame } from "interface/components/box/BoxCardPostFrame"
 import { BoxFormReaction } from "interface/components/box/BoxFormReaction"
 import { BoxImage } from "interface/components/box/BoxImage"
@@ -13,31 +14,39 @@ import { ChipReactionNew } from "interface/components/chip/ChipReactionNew"
 import { ChipSecretReaction } from "interface/components/chip/ChipSecretReaction"
 import { useDateText } from "interface/hooks/useDateText"
 
-type AppAnyPost = AppPost | AppThread
-
-type Props = AppAnyPost & {
+type Props = {
+  id: string
+  text: string | null
+  createdAt: number
+  fileIds: string[]
+  repliesCount: number
+  reactions: ReactionNode[]
   onOpenThread?(): void
-  onUpdate?(post: AppPost): void
   isActive?: boolean
   isLoggedIn: boolean
 }
 
 export const BoxCardPost: FC<Props> = (props) => {
-  const dateText = useDateText(props.createdAt)
+  const dateText = useDateText(new Date(props.createdAt * 1000))
 
   const { enqueueSnackbar } = useSnackbar()
 
   const [isReaction, setReaction] = useState(false)
 
-  const [createReactionMutation, { isLoading }] = useMutation(createReaction)
+  const [addReactionMutation] = useAddReactionMutation()
 
   const onUpdateReaction = async (text: string) => {
     try {
-      const result = await createReactionMutation({ text, postId: props.id })
-      props.onUpdate?.(result.post)
+      await addReactionMutation({
+        variables: {
+          input: {
+            text,
+            postId: props.id,
+          },
+        },
+      })
     } catch (error) {
       captureException(error)
-
       if (error instanceof Error) {
         enqueueSnackbar(error.message)
       }
@@ -113,11 +122,7 @@ export const BoxCardPost: FC<Props> = (props) => {
           </Grid>
         </Stack>
         {isReaction && (
-          <BoxFormReaction
-            postId={props.id}
-            onClose={onCancelReaction}
-            onUpdatePost={props.onUpdate}
-          />
+          <BoxFormReaction postId={props.id} onClose={onCancelReaction} />
         )}
       </Stack>
     </BoxCardPostFrame>

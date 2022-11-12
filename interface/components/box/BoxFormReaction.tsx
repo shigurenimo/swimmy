@@ -1,16 +1,13 @@
-import { useMutation } from "@blitzjs/rpc"
 import { LoadingButton } from "@mui/lab"
 import { Stack, TextField } from "@mui/material"
 import { captureException } from "@sentry/react"
 import { useSnackbar } from "notistack"
 import { FC, useState } from "react"
-import createReaction from "integrations/mutations/createReaction"
-import { AppPost } from "integrations/types"
+import { useAddReactionMutation } from "interface/__generated__/react"
 
 type Props = {
   postId: string
   onClose(): void
-  onUpdatePost?(post: AppPost): void
 }
 
 export const BoxFormReaction: FC<Props> = (props) => {
@@ -18,7 +15,7 @@ export const BoxFormReaction: FC<Props> = (props) => {
 
   const [text, setText] = useState("")
 
-  const [createReactionMutation, { isLoading }] = useMutation(createReaction)
+  const [addReactionMutation, { loading }] = useAddReactionMutation()
 
   const onCancelReaction = () => {
     if (text !== "") return
@@ -29,16 +26,18 @@ export const BoxFormReaction: FC<Props> = (props) => {
   const onCreateReaction = async () => {
     try {
       if (text === "") return
-      const result = await createReactionMutation({
-        text,
-        postId: props.postId,
+      await addReactionMutation({
+        variables: {
+          input: {
+            text,
+            postId: props.postId,
+          },
+        },
       })
       setText("")
       props.onClose()
-      props.onUpdatePost?.(result.post)
     } catch (error) {
       captureException(error)
-
       if (error instanceof Error) {
         enqueueSnackbar(error.message)
       }
@@ -62,7 +61,7 @@ export const BoxFormReaction: FC<Props> = (props) => {
       />
       <LoadingButton
         disabled={text === ""}
-        loading={isLoading}
+        loading={loading}
         onClick={(event) => {
           event.stopPropagation()
           onCreateReaction()

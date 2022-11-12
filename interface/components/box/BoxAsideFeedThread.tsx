@@ -1,12 +1,14 @@
 import { useSession } from "@blitzjs/auth"
-import { useMutation, useQuery } from "@blitzjs/rpc"
 import { Box, Divider, List, ListItem } from "@mui/material"
 import { captureException } from "@sentry/react"
 import { FC, Fragment } from "react"
-import createPublicPost from "integrations/mutations/createPublicPost"
-import readPost from "integrations/queries/readPost"
-import readThreadResponses from "integrations/queries/readThreadResponses"
-import { AppPost } from "integrations/types"
+import {
+  ResponsesDocument,
+  ResponsesQuery,
+  useCreatePostMutation,
+  useResponsesQuery,
+  useThreadQuery,
+} from "interface/__generated__/react"
 import { BoxAside } from "interface/components/box/BoxAside"
 import { BoxAsideFeedThreadFallback } from "interface/components/box/BoxAsideFeedThreadFallback"
 import { BoxCardPost } from "interface/components/box/BoxCardPost"
@@ -22,24 +24,56 @@ type Props = {
 export const BoxAsideFeedThread: FC<Props> = (props) => {
   const session = useSession()
 
-  const [postQuery, { isFetching, setQueryData }] = useQuery(readPost, {
-    postId: props.threadId,
+  const threadQuery = useThreadQuery({
+    variables: { threadId: props.threadId },
   })
 
-  const [responsesQuery, { refetch }] = useQuery(readThreadResponses, {
-    postId: props.threadId,
+  const responsesQuery = useResponsesQuery({
+    variables: { threadId: props.threadId },
   })
 
-  const [createPostMutation, { isLoading }] = useMutation(createPublicPost)
+  const [createPostMutation] = useCreatePostMutation({
+    update(cache, result) {
+      const query = cache.readQuery<ResponsesQuery>({
+        query: ResponsesDocument,
+        variables: { threadId: props.threadId },
+      })
+      if (query === null) return
+      if (typeof result.data === "undefined" || result.data === null) return
+      const data: ResponsesQuery = {
+        ...query,
+        responses: {
+          ...query.responses,
+          edges: [
+            ...query.responses.edges,
+            {
+              __typename: "PostEdge",
+              cursor: result.data.createPost.id,
+              node: result.data.createPost,
+            },
+          ],
+        },
+      }
+      cache.writeQuery<ResponsesQuery>({
+        query: ResponsesDocument,
+        variables: { threadId: props.threadId },
+        data: data,
+      })
+    },
+  })
 
   const onCreateResponse = async (value: FormNewPost) => {
     try {
       await createPostMutation({
-        text: value.text,
-        replyId: props.threadId,
-        fileIds: [],
+        variables: {
+          input: {
+            text: value.text,
+            threadId: props.threadId,
+            fileIds: [],
+          },
+        },
       })
-      refetch()
+      await threadQuery.refetch()
     } catch (error) {
       if (error instanceof Error) {
         captureException(error)
@@ -47,31 +81,32 @@ export const BoxAsideFeedThread: FC<Props> = (props) => {
     }
   }
 
-  const onUpdatePosts = (postUpdated: AppPost) => {
-    postQuery.post = postUpdated
-    setQueryData({ post: postQuery.post }, { refetch: false })
-  }
-
-  if (isFetching) {
+  if (threadQuery.loading) {
     return <BoxAsideFeedThreadFallback />
   }
 
-  const length = responsesQuery.posts.length
+  const length = responsesQuery.data?.responses.edges.length ?? 0
 
   return (
     <BoxAside title={"スレッド"} onClose={props.onClose}>
       <List disablePadding>
         <ListItem sx={{ pt: 2, pb: length === 0 ? 2 : 1 }}>
-          <BoxCardPost
-            {...postQuery.post}
-            isLoggedIn={session.userId !== null}
-            onUpdate={onUpdatePosts}
-          />
+          {threadQuery.data && (
+            <BoxCardPost
+              {...threadQuery.data.thread}
+              text={threadQuery.data.thread.text ?? null}
+              isLoggedIn={session.userId !== null}
+            />
+          )}
         </ListItem>
-        {responsesQuery.posts.map((response, index) => (
-          <Fragment key={response.id}>
+        {responsesQuery.data?.responses.edges.map((edge, index) => (
+          <Fragment key={edge.cursor}>
             <ListItem sx={index === 0 ? { pb: 2, pt: 1 } : { py: 2 }}>
-              <BoxCardResponse {...response} index={index + 1} />
+              <BoxCardResponse
+                createdAt={edge.node.createdAt}
+                text={edge.node.text ?? null}
+                index={index + 1}
+              />
             </ListItem>
             {index !== length - 1 && (
               <Box sx={{ px: 2 }}>
@@ -82,7 +117,7 @@ export const BoxAsideFeedThread: FC<Props> = (props) => {
         ))}
       </List>
       <BoxFormResponse
-        isLoading={isLoading}
+        isLoading={responsesQuery.loading}
         onCreateResponse={onCreateResponse}
       />
     </BoxAside>

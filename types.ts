@@ -16,3 +16,8 @@ declare module "@blitzjs/auth" {
     }
   }
 }
+
+// GraphQL
+export type Context = {
+  session: SessionContext
+}

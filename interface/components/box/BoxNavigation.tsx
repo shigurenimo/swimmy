@@ -2,12 +2,8 @@ import { useSession } from "@blitzjs/auth"
 import AssistantIcon from "@mui/icons-material/AssistantRounded"
 import DescriptionIcon from "@mui/icons-material/DescriptionRounded"
 import HomeIcon from "@mui/icons-material/HomeRounded"
-import LockIcon from "@mui/icons-material/LockRounded"
-import LoginIcon from "@mui/icons-material/LoginRounded"
-import PhotoIcon from "@mui/icons-material/PhotoRounded"
 import QuickreplyIcon from "@mui/icons-material/QuickreplyRounded"
 import SecurityIcon from "@mui/icons-material/SecurityRounded"
-import SettingsIcon from "@mui/icons-material/SettingsRounded"
 import {
   Box,
   List,
@@ -49,14 +45,13 @@ export const BoxNavigation: FC<Props> = (props) => {
       isDisabled: false,
       isActive: router.pathname === "/",
     },
-
-    {
-      primary: "マイスペース",
-      icon: <LockIcon />,
-      href: "/feed",
-      isDisabled: !isLoggedIn,
-      isActive: router.pathname.startsWith("/feed"),
-    },
+    // {
+    //   primary: "マイスペース",
+    //   icon: <LockIcon />,
+    //   href: "/feed",
+    //   isDisabled: !isLoggedIn,
+    //   isActive: router.pathname.startsWith("/feed"),
+    // },
     {
       primary: "スレッド",
       icon: <QuickreplyIcon />,
@@ -64,20 +59,20 @@ export const BoxNavigation: FC<Props> = (props) => {
       isDisabled: false,
       isActive: router.pathname.startsWith("/threads"),
     },
-    {
-      primary: "フォト",
-      icon: <PhotoIcon />,
-      href: "/photos",
-      isDisabled: false,
-      isActive: router.pathname.startsWith("/photos"),
-    },
-    {
-      primary: "設定",
-      icon: <SettingsIcon />,
-      href: "/preferences",
-      isDisabled: true,
-      isActive: router.pathname.startsWith("/preferences"),
-    },
+    // {
+    //   primary: "フォト",
+    //   icon: <PhotoIcon />,
+    //   href: "/photos",
+    //   isDisabled: false,
+    //   isActive: router.pathname.startsWith("/photos"),
+    // },
+    // {
+    //   primary: "設定",
+    //   icon: <SettingsIcon />,
+    //   href: "/preferences",
+    //   isDisabled: true,
+    //   isActive: router.pathname.startsWith("/preferences"),
+    // },
     {
       primary: "利用規約",
       icon: <DescriptionIcon />,
@@ -170,38 +165,50 @@ export const BoxNavigation: FC<Props> = (props) => {
                 />
               </ListItemButton>
             </ListItem>
-            {!isLoggedIn && (
-              <ListItem sx={{ pl: 0, pr: props.isDense ? 0 : 2 }}>
-                <ListItemButton
-                  sx={{ borderTopRightRadius: 16, borderBottomRightRadius: 16 }}
-                  onClick={props.onLogin}
-                >
-                  <ListItemIcon sx={{ minWidth: (theme) => theme.spacing(5) }}>
-                    <LoginIcon />
-                  </ListItemIcon>
-                  <ListItemText
-                    primary={props.isDense ? "ロ" : "ログイン"}
-                    primaryTypographyProps={{ sx: { fontWeight: "bold" } }}
-                  />
-                </ListItemButton>
-              </ListItem>
-            )}
-            {isLoggedIn && (
-              <ListItem sx={{ pl: 0, pr: props.isDense ? 0 : 2 }}>
-                <ListItemButton
-                  sx={{ borderTopRightRadius: 16, borderBottomRightRadius: 16 }}
-                  onClick={props.onLogout}
-                >
-                  <ListItemIcon sx={{ minWidth: (theme) => theme.spacing(5) }}>
-                    <LoginIcon />
-                  </ListItemIcon>
-                  <ListItemText
-                    primary={props.isDense ? "ロ" : "ログアウト"}
-                    primaryTypographyProps={{ sx: { fontWeight: "bold" } }}
-                  />
-                </ListItemButton>
-              </ListItem>
-            )}
+            {/* <>
+              {!isLoggedIn && (
+                <ListItem sx={{ pl: 0, pr: props.isDense ? 0 : 2 }}>
+                  <ListItemButton
+                    sx={{
+                      borderTopRightRadius: 16,
+                      borderBottomRightRadius: 16,
+                    }}
+                    onClick={props.onLogin}
+                  >
+                    <ListItemIcon
+                      sx={{ minWidth: (theme) => theme.spacing(5) }}
+                    >
+                      <LoginIcon />
+                    </ListItemIcon>
+                    <ListItemText
+                      primary={props.isDense ? "ロ" : "ログイン"}
+                      primaryTypographyProps={{ sx: { fontWeight: "bold" } }}
+                    />
+                  </ListItemButton>
+                </ListItem>
+              )}
+              {isLoggedIn && (
+                <ListItem sx={{ pl: 0, pr: props.isDense ? 0 : 2 }}>
+                  <ListItemButton
+                    sx={{
+                      borderTopRightRadius: 16,
+                      borderBottomRightRadius: 16,
+                    }}
+                    onClick={props.onLogout}
+                  >
+                    <ListItemIcon
+                      sx={{ minWidth: (theme) => theme.spacing(5) }}
+                    >
+                      <LoginIcon />
+                    </ListItemIcon>
+                    <ListItemText
+                      primary={props.isDense ? "ロ" : "ログアウト"}
+                      primaryTypographyProps={{ sx: { fontWeight: "bold" } }}
+                    />
+                  </ListItemButton>
+                </ListItem>
+              )}
+            </> */}
           </List>
         </Box>
       </Stack>

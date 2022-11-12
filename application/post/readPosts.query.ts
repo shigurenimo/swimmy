@@ -2,12 +2,12 @@ import { captureException } from "@sentry/node"
 import { injectable } from "tsyringe"
 import db from "db"
 import { InternalError } from "integrations/errors"
-import { AppPost } from "integrations/types"
+import { PostNode } from "interface/__generated__/node"
 
 type Props = {
-  skip: number
-  take: number
   userId: string | null
+  cursor: string | null
+  take: number
 }
 
 @injectable()
@@ -19,7 +19,8 @@ export class ReadPostsQuery {
           replyId: { equals: null },
         },
         orderBy: { createdAt: "desc" },
-        skip: props.skip,
+        skip: props.cursor ? 1 : 0,
+        cursor: props.cursor ? { id: props.cursor } : undefined,
         take: props.take,
         include: {
           _count: {
@@ -46,10 +47,10 @@ export class ReadPostsQuery {
         return posts
       }
 
-      const appPosts: AppPost[] = posts.map((post) => {
+      const graphPosts: PostNode[] = posts.map((post) => {
         return {
           id: post.id,
-          createdAt: post.createdAt,
+          createdAt: Math.floor(post.createdAt.getTime() / 1000),
           text: post.text,
           fileIds: post.fileIds,
           likesCount: post._count?.likes ?? 0,
@@ -74,7 +75,7 @@ export class ReadPostsQuery {
         }
       })
 
-      return appPosts
+      return graphPosts
     } catch (error) {
       captureException(error)
       if (error instanceof Error) {
