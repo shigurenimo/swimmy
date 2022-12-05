@@ -1,11 +1,7 @@
 import { ApolloServerErrorCode } from "@apollo/server/errors"
 import { GraphQLError } from "graphql"
 import { container } from "tsyringe"
-import {
-  CreateReactionService,
-  CreateSecretReactionService,
-  ReadPostQuery,
-} from "application"
+import { CreateSecretReactionService, ReadPostQuery } from "application"
 import { MutationResolvers } from "interface/__generated__/node"
 
 export const addReaction: MutationResolvers["addReaction"] = async (
@@ -13,22 +9,29 @@ export const addReaction: MutationResolvers["addReaction"] = async (
   args,
   ctx
 ) => {
-  if (ctx.session === null) {
-    const command = container.resolve(CreateSecretReactionService)
-    await command.execute({
-      text: args.input.text,
-      postId: args.input.postId,
-    })
-  }
+  const command = container.resolve(CreateSecretReactionService)
 
-  if (ctx.session !== null && ctx.session.userId !== null) {
-    const command = container.resolve(CreateReactionService)
-    await command.execute({
-      text: args.input.text,
-      userId: ctx.session.userId,
-      postId: args.input.postId,
-    })
-  }
+  await command.execute({
+    text: args.input.text,
+    postId: args.input.postId,
+  })
+
+  // if (ctx.session === null) {
+  //   const command = container.resolve(CreateSecretReactionService)
+  //   await command.execute({
+  //     text: args.input.text,
+  //     postId: args.input.postId,
+  //   })
+  // }
+
+  // if (ctx.session !== null && ctx.session.userId !== null) {
+  //   const command = container.resolve(CreateReactionService)
+  //   await command.execute({
+  //     text: args.input.text,
+  //     userId: ctx.session.userId,
+  //     postId: args.input.postId,
+  //   })
+  // }
 
   const query = container.resolve(ReadPostQuery)
 
