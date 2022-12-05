@@ -7,7 +7,7 @@ import { QueryResolvers } from "interface/__generated__/node"
 export const feed: QueryResolvers["feed"] = async (_, args, ctx) => {
   const take = 40
 
-  if (ctx.session.userId === null) {
+  if (ctx.session === null || ctx.session.userId === null) {
     throw new GraphQLError("ERROR", {
       extensions: { code: ApolloServerErrorCode.BAD_REQUEST },
     })
@@ -16,7 +16,7 @@ export const feed: QueryResolvers["feed"] = async (_, args, ctx) => {
   const query = container.resolve(ReadPrivatePostsQuery)
 
   const nodes = await query.execute({
-    userId: ctx.session.userId,
+    userId: ctx.session?.userId,
     cursor: args.after ?? null,
     take: take,
   })

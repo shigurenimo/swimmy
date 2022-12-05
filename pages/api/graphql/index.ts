@@ -17,10 +17,14 @@ const server = new ApolloServer({
 
 export default startServerAndCreateNextHandler(server, {
   async context(req, res) {
-    if (req.body.operationName === "IntrospectionQuery") {
-      return {}
+    try {
+      if (req.body.operationName === "IntrospectionQuery") {
+        return {}
+      }
+      const session = await getSession(req, res)
+      return { session }
+    } catch (error) {
+      return { session: null }
     }
-    const session = await getSession(req, res)
-    return { session }
   },
 })
