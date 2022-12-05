@@ -13,7 +13,7 @@ export const login: MutationResolvers["login"] = async (_, args, ctx) => {
     throw user
   }
 
-  await ctx.session.$create({
+  await ctx.session?.$create({
     userId: user.id.value,
     role: "USER",
   })

@@ -26,7 +26,7 @@ export const createPost: MutationResolvers["createPost"] = async (
 
   const node = await query.execute({
     postId: output.postId,
-    userId: ctx.session.userId,
+    userId: ctx.session?.userId ?? null,
   })
 
   if (node instanceof Error) {

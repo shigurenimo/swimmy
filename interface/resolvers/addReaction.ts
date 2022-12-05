@@ -13,7 +13,7 @@ export const addReaction: MutationResolvers["addReaction"] = async (
   args,
   ctx
 ) => {
-  if (ctx.session.userId === null) {
+  if (ctx.session === null) {
     const command = container.resolve(CreateSecretReactionService)
     await command.execute({
       text: args.input.text,
@@ -21,7 +21,7 @@ export const addReaction: MutationResolvers["addReaction"] = async (
     })
   }
 
-  if (ctx.session.userId !== null) {
+  if (ctx.session !== null && ctx.session.userId !== null) {
     const command = container.resolve(CreateReactionService)
     await command.execute({
       text: args.input.text,
@@ -34,7 +34,7 @@ export const addReaction: MutationResolvers["addReaction"] = async (
 
   const node = await query.execute({
     postId: args.input.postId,
-    userId: ctx.session.userId,
+    userId: ctx.session?.userId ?? null,
   })
 
   if (node instanceof Error) {
