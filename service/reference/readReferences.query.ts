@@ -1,26 +1,26 @@
 import { captureException } from "@sentry/node"
 import { injectable } from "tsyringe"
+import { Id } from "core"
 import db from "db"
-import { InternalError } from "integrations/errors"
-import { PostNode } from "interface/__generated__/node"
+import { InternalError } from "infrastructure/errors"
+import { AppPost } from "infrastructure/types"
 
 type Props = {
-  userId: string | null
-  cursor: string | null
+  skip: number
   take: number
+  userId: Id
 }
 
 @injectable()
-export class ReadPostsQuery {
+export class ReadReferencesQuery {
   async execute(props: Props) {
     try {
-      const posts = await db.post.findMany({
+      const prismaPosts = await db.post.findMany({
         where: {
           replyId: { equals: null },
         },
         orderBy: { createdAt: "desc" },
-        skip: props.cursor ? 1 : 0,
-        cursor: props.cursor ? { id: props.cursor } : undefined,
+        skip: props.skip,
         take: props.take,
         include: {
           _count: {
@@ -36,21 +36,21 @@ export class ReadPostsQuery {
               },
               users: {
                 select: { id: true },
-                where: { id: props.userId ? props.userId : undefined },
+                where: { id: props.userId ? props.userId.value : undefined },
               },
             },
           },
         },
       })
 
-      if (posts instanceof Error) {
-        return posts
+      if (prismaPosts instanceof Error) {
+        return prismaPosts
       }
 
-      const graphPosts: PostNode[] = posts.map((post) => {
+      const appPosts = prismaPosts.map((post): AppPost => {
         return {
           id: post.id,
-          createdAt: Math.floor(post.createdAt.getTime() / 1000),
+          createdAt: post.createdAt,
           text: post.text,
           fileIds: post.fileIds,
           likesCount: post._count?.likes ?? 0,
@@ -75,7 +75,7 @@ export class ReadPostsQuery {
         }
       })
 
-      return graphPosts
+      return appPosts
     } catch (error) {
       captureException(error)
       if (error instanceof Error) {

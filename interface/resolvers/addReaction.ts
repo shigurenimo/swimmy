@@ -1,8 +1,8 @@
 import { ApolloServerErrorCode } from "@apollo/server/errors"
 import { GraphQLError } from "graphql"
 import { container } from "tsyringe"
-import { CreateSecretReactionService, ReadPostQuery } from "application"
 import { MutationResolvers } from "interface/__generated__/node"
+import { CreateSecretReactionService, ReadPostQuery } from "service"
 
 export const addReaction: MutationResolvers["addReaction"] = async (
   _,

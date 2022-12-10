@@ -1,15 +1,15 @@
 import { captureException } from "@sentry/node"
 import { injectable } from "tsyringe"
 import db from "db"
-import { InternalError } from "integrations/errors"
+import { InternalError } from "infrastructure/errors"
 
 @injectable()
-export class CountPostsQuery {
+export class CountPhotosQuery {
   async execute() {
     try {
       const count = await db.post.count({
         where: {
-          replyId: { equals: null },
+          fileIds: { isEmpty: false },
         },
       })
 

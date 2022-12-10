@@ -1,6 +1,6 @@
-import { AppReaction } from "integrations/types"
+import { AppReaction } from "infrastructure/types"
 
-export type AppThread = {
+export type AppPost = {
   id: string
   createdAt: Date
   text: string | null

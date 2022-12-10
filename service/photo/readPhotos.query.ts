@@ -1,8 +1,8 @@
 import { captureException } from "@sentry/node"
 import { injectable } from "tsyringe"
 import db from "db"
-import { InternalError } from "integrations/errors"
-import { AppPhoto } from "integrations/types"
+import { InternalError } from "infrastructure/errors"
+import { AppPhoto } from "infrastructure/types"
 
 type Props = {
   skip: number

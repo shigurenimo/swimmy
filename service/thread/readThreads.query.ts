@@ -1,26 +1,26 @@
 import { captureException } from "@sentry/node"
 import { injectable } from "tsyringe"
-import { Id } from "core"
 import db from "db"
-import { InternalError } from "integrations/errors"
-import { AppPost } from "integrations/types"
+import { InternalError } from "infrastructure/errors"
+import { PostNode } from "interface/__generated__/node"
 
 type Props = {
-  skip: number
+  userId: string | null
+  cursor: string | null
   take: number
-  userId: Id
 }
 
 @injectable()
-export class ReadReferencesQuery {
+export class ReadThreadsQuery {
   async execute(props: Props) {
     try {
-      const prismaPosts = await db.post.findMany({
+      const posts = await db.post.findMany({
         where: {
-          replyId: { equals: null },
+          repliesCount: { gt: 0 },
         },
         orderBy: { createdAt: "desc" },
-        skip: props.skip,
+        skip: props.cursor ? 1 : 0,
+        cursor: props.cursor ? { id: props.cursor } : undefined,
         take: props.take,
         include: {
           _count: {
@@ -32,25 +32,23 @@ export class ReadReferencesQuery {
           reactions: {
             include: {
               _count: {
-                select: { users: true },
+                select: {
+                  users: true,
+                },
               },
               users: {
                 select: { id: true },
-                where: { id: props.userId ? props.userId.value : undefined },
+                where: { id: props.userId ? props.userId : undefined },
               },
             },
           },
         },
       })
 
-      if (prismaPosts instanceof Error) {
-        return prismaPosts
-      }
-
-      const appPosts = prismaPosts.map((post): AppPost => {
+      const nodes: PostNode[] = posts.map((post) => {
         return {
           id: post.id,
-          createdAt: post.createdAt,
+          createdAt: Math.floor(post.createdAt.getTime() / 1000),
           text: post.text,
           fileIds: post.fileIds,
           likesCount: post._count?.likes ?? 0,
@@ -75,7 +73,7 @@ export class ReadReferencesQuery {
         }
       })
 
-      return appPosts
+      return nodes
     } catch (error) {
       captureException(error)
       if (error instanceof Error) {

@@ -1,8 +1,8 @@
 import { ApolloServerErrorCode } from "@apollo/server/errors"
 import { GraphQLError } from "graphql"
 import { container } from "tsyringe"
-import { ReadResponsesQuery } from "application"
 import { QueryResolvers } from "interface/__generated__/node"
+import { ReadResponsesQuery } from "service"
 
 export const responses: QueryResolvers["responses"] = async (_, args) => {
   const query = container.resolve(ReadResponsesQuery)

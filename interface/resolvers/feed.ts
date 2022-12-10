@@ -1,8 +1,8 @@
 import { ApolloServerErrorCode } from "@apollo/server/errors"
 import { GraphQLError } from "graphql"
 import { container } from "tsyringe"
-import { CountPostsQuery, ReadPrivatePostsQuery } from "application"
 import { QueryResolvers } from "interface/__generated__/node"
+import { CountPostsQuery, ReadPrivatePostsQuery } from "service"
 
 export const feed: QueryResolvers["feed"] = async (_, args, ctx) => {
   const take = 40

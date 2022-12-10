@@ -1,6 +1,6 @@
 import { container } from "tsyringe"
-import { LoginService } from "application"
 import { MutationResolvers } from "interface/__generated__/node"
+import { LoginService } from "service"
 
 export const login: MutationResolvers["login"] = async (_, args, ctx) => {
   const service = container.resolve(LoginService)

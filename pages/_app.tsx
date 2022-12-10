@@ -1,4 +1,4 @@
-import "integrations/errors"
+import "infrastructure/errors"
 import "interface/theme/global.css"
 import { ApolloProvider } from "@apollo/client"
 import { AppProps, ErrorBoundary } from "@blitzjs/next"
@@ -13,19 +13,12 @@ import {
   setAnalyticsCollectionEnabled,
 } from "firebase/analytics"
 import { getApps, initializeApp } from "firebase/app"
-import {
-  connectAuthEmulator,
-  getAuth,
-  inMemoryPersistence,
-  setPersistence,
-} from "firebase/auth"
-import { connectFirestoreEmulator, getFirestore } from "firebase/firestore"
-import { connectStorageEmulator, getStorage } from "firebase/storage"
+import { getAuth, inMemoryPersistence, setPersistence } from "firebase/auth"
 import Head from "next/head"
 import { Router } from "next/router"
 import { SnackbarProvider } from "notistack"
 import { FC, useEffect } from "react"
-import { withBlitz } from "integrations/blitz-client"
+import { withBlitz } from "interface/blitz-client"
 import { BoxErrorFallback } from "interface/components/box/BoxErrorFallback"
 import { theme } from "interface/theme/theme"
 import { createClient } from "interface/utils/createClient"
@@ -113,11 +106,11 @@ if (getApps().length === 0) {
     appId: "1:511409109964:web:1e5502c45cb09581223b69",
     measurementId: "G-HEP2VBXJZR",
   })
-  if (process.env.NODE_ENV === "development") {
-    connectAuthEmulator(getAuth(), "http://localhost:9099")
-    connectFirestoreEmulator(getFirestore(), "localhost", 8080)
-    connectStorageEmulator(getStorage(), "localhost", 9199)
-  }
+  // if (process.env.NODE_ENV === "development") {
+  //   connectAuthEmulator(getAuth(), "http://localhost:9099")
+  //   connectFirestoreEmulator(getFirestore(), "localhost", 8080)
+  //   connectStorageEmulator(getStorage(), "localhost", 9199)
+  // }
   if (typeof window !== "undefined") {
     setPersistence(getAuth(), inMemoryPersistence)
   }

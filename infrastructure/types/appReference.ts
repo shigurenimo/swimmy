@@ -1,4 +1,4 @@
-import { AppPost } from "integrations/types"
+import { AppPost } from "infrastructure/types"
 
 export type AppReference = {
   type: "post"

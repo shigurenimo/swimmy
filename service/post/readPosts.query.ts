@@ -1,7 +1,7 @@
 import { captureException } from "@sentry/node"
 import { injectable } from "tsyringe"
 import db from "db"
-import { InternalError } from "integrations/errors"
+import { InternalError } from "infrastructure/errors"
 import { PostNode } from "interface/__generated__/node"
 
 type Props = {
@@ -11,12 +11,12 @@ type Props = {
 }
 
 @injectable()
-export class ReadThreadsQuery {
+export class ReadPostsQuery {
   async execute(props: Props) {
     try {
       const posts = await db.post.findMany({
         where: {
-          repliesCount: { gt: 0 },
+          replyId: { equals: null },
         },
         orderBy: { createdAt: "desc" },
         skip: props.cursor ? 1 : 0,
@@ -32,9 +32,7 @@ export class ReadThreadsQuery {
           reactions: {
             include: {
               _count: {
-                select: {
-                  users: true,
-                },
+                select: { users: true },
               },
               users: {
                 select: { id: true },
@@ -45,7 +43,11 @@ export class ReadThreadsQuery {
         },
       })
 
-      const nodes: PostNode[] = posts.map((post) => {
+      if (posts instanceof Error) {
+        return posts
+      }
+
+      const graphPosts: PostNode[] = posts.map((post) => {
         return {
           id: post.id,
           createdAt: Math.floor(post.createdAt.getTime() / 1000),
@@ -73,7 +75,7 @@ export class ReadThreadsQuery {
         }
       })
 
-      return nodes
+      return graphPosts
     } catch (error) {
       captureException(error)
       if (error instanceof Error) {

@@ -5,7 +5,7 @@ import sharp from "sharp"
 import { injectable } from "tsyringe"
 import { Id } from "core"
 import { FirebaseAdapter } from "infrastructure"
-import { InternalError } from "integrations/errors"
+import { InternalError } from "infrastructure/errors"
 
 type Props = {
   fileId: Id

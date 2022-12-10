@@ -4,7 +4,7 @@ import { getAuth } from "firebase-admin/auth"
 import { injectable } from "tsyringe"
 import { Email, Id, LoginProviderFactory, UserFactory, Username } from "core"
 import { FirebaseAdapter, UserRepository } from "infrastructure"
-import { InternalError } from "integrations/errors"
+import { InternalError } from "infrastructure/errors"
 
 type Props = {
   idToken: string

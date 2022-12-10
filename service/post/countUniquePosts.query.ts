@@ -1,20 +1,24 @@
 import { captureException } from "@sentry/node"
 import { injectable } from "tsyringe"
-import { Count } from "core"
 import db from "db"
-import { InternalError } from "integrations/errors"
+import { InternalError } from "infrastructure/errors"
+
+type Props = {
+  userId: string
+}
 
 @injectable()
-export class CountThreadsQuery {
-  async execute() {
+export class CountUniquePostsQuery {
+  async execute(props: Props) {
     try {
       const count = await db.post.count({
         where: {
-          repliesCount: { gt: 0 },
+          replyId: { equals: null },
+          userId: { equals: props.userId },
         },
       })
 
-      return new Count(count)
+      return count
     } catch (error) {
       captureException(error)
       if (error instanceof Error) {
