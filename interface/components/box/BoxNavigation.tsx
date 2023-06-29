@@ -1,5 +1,3 @@
-import { useSession } from "@blitzjs/auth"
-import AssistantIcon from "@mui/icons-material/AssistantRounded"
 import DescriptionIcon from "@mui/icons-material/DescriptionRounded"
 import HomeIcon from "@mui/icons-material/HomeRounded"
 import QuickreplyIcon from "@mui/icons-material/QuickreplyRounded"
@@ -14,9 +12,8 @@ import {
   Stack,
   Typography,
 } from "@mui/material"
-import { WidgetFloating } from "@nocker/mui"
 import { useRouter } from "next/router"
-import { FC, useState } from "react"
+import { FC } from "react"
 
 type Props = {
   isDense: boolean
@@ -25,13 +22,7 @@ type Props = {
 }
 
 export const BoxNavigation: FC<Props> = (props) => {
-  const session = useSession()
-
   const router = useRouter()
-
-  const [isOpenWidget, openWidget] = useState(false)
-
-  const isLoggedIn = session.userId != null
 
   const onRoute = (path: string) => {
     router.push(path)
@@ -91,13 +82,6 @@ export const BoxNavigation: FC<Props> = (props) => {
 
   return (
     <>
-      <WidgetFloating
-        isOpen={isOpenWidget}
-        onClose={() => {
-          openWidget(false)
-        }}
-        position={{ left: 16, bottom: 16 }}
-      />
       <Stack
         component={"nav"}
         width={"100%"}
@@ -150,21 +134,6 @@ export const BoxNavigation: FC<Props> = (props) => {
                 </ListItemButton>
               </ListItem>
             ))}
-            <ListItem sx={{ px: 0 }}>
-              <ListItemButton
-                onClick={() => {
-                  openWidget(true)
-                }}
-              >
-                <ListItemIcon sx={{ minWidth: (theme) => theme.spacing(5) }}>
-                  <AssistantIcon />
-                </ListItemIcon>
-                <ListItemText
-                  primary={"ご意見・ご要望"}
-                  primaryTypographyProps={{ sx: { fontWeight: "bold" } }}
-                />
-              </ListItemButton>
-            </ListItem>
             {/* <>
               {!isLoggedIn && (
                 <ListItem sx={{ pl: 0, pr: props.isDense ? 0 : 2 }}>

@@ -5,7 +5,6 @@ import { AppProps, ErrorBoundary } from "@blitzjs/next"
 import { useQueryErrorResetBoundary } from "@blitzjs/rpc"
 import { CacheProvider, EmotionCache } from "@emotion/react"
 import { CssBaseline, ThemeProvider } from "@mui/material"
-import { Nocker, NockerProvider } from "@nocker/mui"
 import { init } from "@sentry/browser"
 import {
   getAnalytics,
@@ -30,12 +29,6 @@ const clientSideEmotionCache = createEmotionCache()
 type Props = AppProps & {
   emotionCache?: EmotionCache
 }
-
-const nocker = new Nocker({
-  projectId: "jX1A2O0pA1wR_6eqh_SGn",
-  environment:
-    process.env.NODE_ENV === "development" ? "DEVELOPMENT" : "PRODUCTION",
-})
 
 const client = createClient()
 
@@ -76,9 +69,7 @@ const App: FC<Props> = ({ Component, ...props }) => {
               FallbackComponent={BoxErrorFallback}
               onReset={queryErrorResetBoundary.reset}
             >
-              <NockerProvider client={nocker}>
-                {getLayout(<Component {...props.pageProps} />)}
-              </NockerProvider>
+              {getLayout(<Component {...props.pageProps} />)}
             </ErrorBoundary>
           </SnackbarProvider>
         </ThemeProvider>

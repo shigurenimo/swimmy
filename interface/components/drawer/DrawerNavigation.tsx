@@ -1,5 +1,3 @@
-import { useSession } from "@blitzjs/auth"
-import AssistantIcon from "@mui/icons-material/AssistantRounded"
 import DescriptionIcon from "@mui/icons-material/DescriptionRounded"
 import HomeIcon from "@mui/icons-material/HomeRounded"
 import QuickreplyIcon from "@mui/icons-material/QuickreplyRounded"
@@ -12,9 +10,8 @@ import {
   ListItemIcon,
   ListItemText,
 } from "@mui/material"
-import { WidgetFloating } from "@nocker/mui"
 import Link from "next/link"
-import { FC, useState } from "react"
+import { FC } from "react"
 
 type Props = {
   pathname: string
@@ -26,12 +23,6 @@ type Props = {
 }
 
 export const DrawerNavigation: FC<Props> = (props) => {
-  const session = useSession()
-
-  const [isOpenWidget, openWidget] = useState(false)
-
-  const isLoggedIn = session.userId != null
-
   const listItems = [
     {
       primary: "ホーム",
@@ -72,12 +63,6 @@ export const DrawerNavigation: FC<Props> = (props) => {
 
   return (
     <>
-      <WidgetFloating
-        isOpen={isOpenWidget}
-        onClose={() => {
-          openWidget(false)
-        }}
-      />
       <Drawer
         anchor={"top"}
         open={props.isOpen}
@@ -110,22 +95,6 @@ export const DrawerNavigation: FC<Props> = (props) => {
               </ListItem>
             </Link>
           ))}
-          <ListItem sx={{ px: 0 }}>
-            <ListItemButton
-              onClick={() => {
-                props.onClose()
-                openWidget(true)
-              }}
-            >
-              <ListItemIcon sx={{ minWidth: (theme) => theme.spacing(5) }}>
-                <AssistantIcon />
-              </ListItemIcon>
-              <ListItemText
-                primary={"ご意見・ご要望"}
-                primaryTypographyProps={{ sx: { fontWeight: "bold" } }}
-              />
-            </ListItemButton>
-          </ListItem>
           {/* <>
             {!isLoggedIn && (
               <ListItem sx={{ px: 0 }}>

@@ -29,7 +29,6 @@
     "@mui/icons-material": "^5.10.9",
     "@mui/lab": "^5.0.0-alpha.105",
     "@mui/material": "^5.10.11",
-    "@nocker/mui": "1.2.0",
     "@prisma/client": "latest",
     "@sentry/node": "7.17.1",
     "@sentry/react": "^7.17.1",

@@ -26,12 +26,5 @@
     "*.svg": "html"
   },
   "deno.enable": false,
-  "cSpell.words": [
-    "blitzjs",
-    "Firestore",
-    "nextjs",
-    "Nocker",
-    "notistack",
-    "tsbuildinfo"
-  ]
+  "cSpell.words": ["blitzjs", "Firestore", "nextjs", "notistack", "tsbuildinfo"]
 }
