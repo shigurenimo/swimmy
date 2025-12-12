@@ -91,7 +91,7 @@ export const BoxCardPost: FC<Props> = (props) => {
           )}
           <Grid container gap={1}>
             {props.reactions.map((reaction) => (
-              <Grid item key={reaction.id}>
+              <Grid key={reaction.id}>
                 {props.isLoggedIn ? (
                   <ChipReaction
                     text={reaction.text}
@@ -114,7 +114,7 @@ export const BoxCardPost: FC<Props> = (props) => {
                 )}
               </Grid>
             ))}
-            <Grid item>
+            <Grid>
               {!isReaction && (
                 <ChipReactionNew label={"+"} onClick={onInitReaction} />
               )}

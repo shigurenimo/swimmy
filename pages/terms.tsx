@@ -1,10 +1,10 @@
-import { BlitzPage } from "@blitzjs/next"
 import { Typography } from "@mui/material"
+import type { ReactElement } from "react"
 import { BoxMain } from "interface/components/box/BoxMain"
 import { BoxMarkdown } from "interface/components/box/BoxMarkdown"
 import { LayoutHome } from "interface/layouts/LayoutHome"
 
-const PageTerms: BlitzPage = () => {
+const PageTerms = () => {
   const markdown = `この利用規約（以下、「本規約」といいます。）は、スイミー電子掲示板・運営（以下、「当運営」といいます。）がこのウェブサイト上で提供するサービス（以下、「本サービス」といいます。）の利用条件を定めるものです。登録ユーザーの皆さま（以下、「ユーザー」といいます。）には、本規約に従って、本サービスをご利用いただきます。
 
 ## 第1条（適用）
@@ -133,7 +133,7 @@ const PageTerms: BlitzPage = () => {
   )
 }
 
-PageTerms.getLayout = (page) => {
+PageTerms.getLayout = (page: ReactElement) => {
   return <LayoutHome title={"Home"}>{page}</LayoutHome>
 }
 

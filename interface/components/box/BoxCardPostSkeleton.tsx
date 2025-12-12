@@ -18,10 +18,10 @@ export const BoxCardPostSkeleton: FC<Props> = () => {
           <Skeleton variant={"text"} />
         </Typography>
         <Grid container gap={1}>
-          <Grid item>
+          <Grid>
             <ChipReactionSkeleton />
           </Grid>
-          <Grid item>
+          <Grid>
             <ChipReactionSkeleton />
           </Grid>
         </Grid>

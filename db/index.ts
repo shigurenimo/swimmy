@@ -1,8 +1,15 @@
 import { PrismaClient } from "@prisma/client"
-import { enhancePrisma } from "blitz"
 
-const EnhancedPrisma = enhancePrisma(PrismaClient)
+const globalForPrisma = globalThis as unknown as {
+  prisma: PrismaClient | undefined
+}
+
+const prisma = globalForPrisma.prisma ?? new PrismaClient()
+
+if (process.env.NODE_ENV !== "production") {
+  globalForPrisma.prisma = prisma
+}
 
 export * from "@prisma/client"
 
-export default new EnhancedPrisma()
+export default prisma

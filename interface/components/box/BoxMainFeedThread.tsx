@@ -1,4 +1,4 @@
-import { useSession } from "@blitzjs/auth"
+import { useSession } from "interface/hooks/useSession"
 import { List, ListItem } from "@mui/material"
 import { FC } from "react"
 import { useThreadsQuery } from "interface/__generated__/react"

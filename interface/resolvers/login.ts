@@ -2,7 +2,7 @@ import { container } from "tsyringe"
 import { MutationResolvers } from "interface/__generated__/node"
 import { LoginService } from "service"
 
-export const login: MutationResolvers["login"] = async (_, args, ctx) => {
+export const login: MutationResolvers["login"] = async (_, args) => {
   const service = container.resolve(LoginService)
 
   const user = await service.execute({
@@ -13,10 +13,8 @@ export const login: MutationResolvers["login"] = async (_, args, ctx) => {
     throw user
   }
 
-  await ctx.session?.$create({
-    userId: user.id.value,
-    role: "USER",
-  })
+  // Session is managed client-side via Firebase Auth
+  // The ID token is verified server-side on each request
 
   return null
 }

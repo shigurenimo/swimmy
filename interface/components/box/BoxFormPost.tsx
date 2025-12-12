@@ -1,7 +1,7 @@
 import { LoadingButton } from "@mui/lab"
 import { Box, Grid, Stack, TextField } from "@mui/material"
 import { captureException } from "@sentry/react"
-import produce from "immer"
+import { produce } from "immer"
 import { useSnackbar } from "notistack"
 import { FC, useState } from "react"
 import { BoxImagePreview } from "interface/components/box/BoxImagePreview"
@@ -115,7 +115,7 @@ export const BoxFormPost: FC<Props> = (props) => {
         <Box>
           <Grid container spacing={2}>
             {fileIds.map((fileId) => (
-              <Grid item xs={6} key={fileId}>
+              <Grid size={6} key={fileId}>
                 <BoxImagePreview
                   fileId={fileId}
                   onDelete={() => {

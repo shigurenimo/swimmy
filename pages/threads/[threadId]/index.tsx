@@ -1,5 +1,5 @@
-import { BlitzPage, useParam } from "@blitzjs/next"
 import { useRouter } from "next/router"
+import type { ReactElement } from "react"
 import { Suspense } from "react"
 import { BoxAsideFeedThread } from "interface/components/box/BoxAsideFeedThread"
 import { BoxAsideFeedThreadFallback } from "interface/components/box/BoxAsideFeedThreadFallback"
@@ -8,10 +8,10 @@ import { BoxMainFeedThread } from "interface/components/box/BoxMainFeedThread"
 import { usePageLayout } from "interface/hooks/usePageLayout"
 import { LayoutHome } from "interface/layouts/LayoutHome"
 
-const PageThread: BlitzPage = () => {
+const PageThread = () => {
   const router = useRouter()
 
-  const threadId = useParam("threadId", "string") ?? null
+  const threadId = (router.query.threadId as string) ?? null
 
   const pageLayout = usePageLayout(threadId !== null)
 
@@ -48,7 +48,7 @@ const PageThread: BlitzPage = () => {
   )
 }
 
-PageThread.getLayout = (page) => {
+PageThread.getLayout = (page: ReactElement) => {
   return <LayoutHome title={"Home"}>{page}</LayoutHome>
 }
 

@@ -1,16 +1,9 @@
-import SuperJson from "superjson"
-
 export class AlreadyExistsError extends Error {
   readonly name = "AlreadyExistsError"
 
   readonly code = "ALREADY_EXISTS"
 
-  constructor(message = "内部サーバーエラー。") {
-    super()
-    this.message = message
+  constructor(message = "既に存在します") {
+    super(message)
   }
 }
-
-SuperJson.registerClass(AlreadyExistsError)
-
-SuperJson.allowErrorProps("message")

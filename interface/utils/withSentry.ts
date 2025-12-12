@@ -1,55 +1,43 @@
-import { Ctx } from "@blitzjs/next"
-import {
-  configureScope,
-  init,
-  Integrations,
-  setContext,
-  setUser,
-  startTransaction,
-} from "@sentry/node"
-import "@sentry/tracing"
+import * as Sentry from "@sentry/node"
 import { InternalError } from "infrastructure/errors"
+import type { Context } from "types"
 
-type Resolver<T, U> = (t: T, ctx: Ctx) => PromiseLike<U>
+type Resolver<T, U> = (t: T, ctx: Context) => PromiseLike<U>
+
+let isInitialized = false
 
 export const withSentry = <T, U>(resolver: Resolver<T, U>, name: string) => {
-  return async (props: T, ctx: Ctx) => {
+  return async (props: T, ctx: Context) => {
     try {
-      init({
-        dsn: process.env.NEXT_PUBLIC_SENTRY_DSN,
-        tracesSampleRate: 1.0,
-        attachStacktrace: true,
-        normalizeDepth: 5,
-        environment: process.env.NEXT_PUBLIC_SENTRY_ENVIRONMENT,
-        integrations: [new Integrations.Http({ tracing: true })],
-        release: process.env.NEXT_PUBLIC_SENTRY_RELEASE,
-        debug: false,
-        beforeSend(event) {
-          if (process.env.NODE_ENV !== "production") {
-            for (const exception of event.exception?.values ?? []) {
-              console.error(exception.value)
+      if (!isInitialized) {
+        Sentry.init({
+          dsn: process.env.NEXT_PUBLIC_SENTRY_DSN,
+          tracesSampleRate: 1.0,
+          attachStacktrace: true,
+          normalizeDepth: 5,
+          environment: process.env.NEXT_PUBLIC_SENTRY_ENVIRONMENT,
+          release: process.env.NEXT_PUBLIC_SENTRY_RELEASE,
+          debug: false,
+          beforeSend(event) {
+            if (process.env.NODE_ENV !== "production") {
+              for (const exception of event.exception?.values ?? []) {
+                console.error(exception.value)
+              }
+              return null
             }
-            return null
-          }
-          return event
-        },
+            return event
+          },
+        })
+        isInitialized = true
+      }
+
+      Sentry.setUser({ id: ctx.session?.userId ?? undefined })
+
+      Sentry.setContext("props", props as Record<string, unknown>)
+
+      return await Sentry.startSpan({ op: "function", name }, async () => {
+        return await resolver(props, ctx)
       })
-
-      setUser({ user: { id: ctx.session?.userId } })
-
-      setContext("props", props)
-
-      const transaction = startTransaction({ op: "function", name })
-
-      configureScope((scope) => {
-        scope.setSpan(transaction)
-      })
-
-      const result = await resolver(props, ctx)
-
-      transaction.finish()
-
-      return result
     } catch (error) {
       if (error instanceof Error) {
         throw error

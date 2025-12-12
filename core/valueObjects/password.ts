@@ -1,4 +1,4 @@
-import { SecurePassword } from "@blitzjs/auth"
+import { hash } from "bcrypt-ts"
 import { z } from "zod"
 import { HashedPassword } from "core/valueObjects/hashedPassword"
 
@@ -19,7 +19,7 @@ export class Password {
    * @returns
    */
   async toHashPassword(password: Password) {
-    const hashedPassword = await SecurePassword.hash(password.value)
+    const hashedPassword = await hash(password.value, 10)
 
     return new HashedPassword(hashedPassword)
   }

@@ -1,10 +1,13 @@
 import { captureException } from "@sentry/node"
-import { AuthenticationError, NotFoundError } from "blitz"
 import { getAuth } from "firebase-admin/auth"
 import { injectable } from "tsyringe"
 import { Email, Id, LoginProviderFactory, UserFactory, Username } from "core"
 import { FirebaseAdapter, UserRepository } from "infrastructure"
-import { InternalError } from "infrastructure/errors"
+import {
+  AuthenticationError,
+  InternalError,
+  NotFoundError,
+} from "infrastructure/errors"
 
 type Props = {
   idToken: string

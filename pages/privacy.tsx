@@ -1,10 +1,10 @@
-import { BlitzPage } from "@blitzjs/next"
 import { Typography } from "@mui/material"
+import type { ReactElement } from "react"
 import { BoxMain } from "interface/components/box/BoxMain"
 import { BoxMarkdown } from "interface/components/box/BoxMarkdown"
 import { LayoutHome } from "interface/layouts/LayoutHome"
 
-const PagePrivacy: BlitzPage = () => {
+const PagePrivacy = () => {
   const markdown = `スイミー電子掲示板・運営（以下、「当運営」といいます。）は、本ウェブサイト上で提供するサービス（以下、「本サービス」といいます。）における、ユーザーの個人情報の取扱いについて、以下のとおりプライバシーポリシー（以下、「本ポリシー」といいます。）を定めます。
 
 ## 第1条（個人情報）
@@ -86,7 +86,7 @@ const PagePrivacy: BlitzPage = () => {
   )
 }
 
-PagePrivacy.getLayout = (page) => {
+PagePrivacy.getLayout = (page: ReactElement) => {
   return <LayoutHome title={"Home"}>{page}</LayoutHome>
 }
 

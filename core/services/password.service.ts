@@ -1,5 +1,10 @@
-import { SecurePassword } from "@blitzjs/auth"
+import { compare, hash } from "bcrypt-ts"
 import { HashedPassword, Password } from "core/valueObjects"
+
+export const VerifyResult = {
+  VALID: Symbol("VALID"),
+  INVALID: Symbol("INVALID"),
+} as const
 
 /**
  * パスワード
@@ -11,7 +16,7 @@ export class PasswordService {
    * @returns
    */
   async hashPassword(password: Password) {
-    const improvedHash = await SecurePassword.hash(password.value)
+    const improvedHash = await hash(password.value, 10)
 
     return new HashedPassword(improvedHash)
   }
@@ -24,24 +29,12 @@ export class PasswordService {
    */
   async verifyPassword(hashedPassword: HashedPassword, password: Password) {
     try {
-      const result = await SecurePassword.verify(
-        hashedPassword.value,
-        password.value
-      )
+      const isValid = await compare(password.value, hashedPassword.value)
 
-      return result
+      return isValid ? VerifyResult.VALID : VerifyResult.INVALID
     } catch (error) {
       return error
     }
-  }
-
-  /**
-   * 再度ハッシュ化が必要であるかどうか
-   * @param result
-   * @returns
-   */
-  needsRehash(result: symbol) {
-    return result === SecurePassword.VALID_NEEDS_REHASH
   }
 
   /**
@@ -50,9 +43,6 @@ export class PasswordService {
    * @returns
    */
   isInvalid(result: symbol) {
-    return (
-      result !== SecurePassword.VALID &&
-      result !== SecurePassword.VALID_NEEDS_REHASH
-    )
+    return result !== VerifyResult.VALID
   }
 }

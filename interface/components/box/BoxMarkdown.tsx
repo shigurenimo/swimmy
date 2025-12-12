@@ -25,7 +25,7 @@ export const BoxMarkdown: FC<Props> = (props) => {
               <Typography
                 component={"h1"}
                 sx={{
-                  mt: props.node.position?.start.line === 1 ? 0 : 12,
+                  mt: props.node?.position?.start.line === 1 ? 0 : 12,
                   mb: 2,
                   fontWeight: "bold",
                   fontSize: baseFontSize + 8,
@@ -40,7 +40,7 @@ export const BoxMarkdown: FC<Props> = (props) => {
               <Typography
                 component={"h2"}
                 sx={{
-                  mt: props.node.position?.start.line === 1 ? 0 : 6,
+                  mt: props.node?.position?.start.line === 1 ? 0 : 6,
                   mb: 2,
                   fontWeight: "bold",
                   fontSize: baseFontSize + 6,
@@ -55,7 +55,7 @@ export const BoxMarkdown: FC<Props> = (props) => {
               <Typography
                 component={"h3"}
                 sx={{
-                  mt: props.node.position?.start.line === 1 ? 0 : 4,
+                  mt: props.node?.position?.start.line === 1 ? 0 : 4,
                   mb: 2,
                   fontWeight: "bold",
                   fontSize: baseFontSize + 4,
@@ -70,7 +70,7 @@ export const BoxMarkdown: FC<Props> = (props) => {
               <Typography
                 component={"h4"}
                 sx={{
-                  mt: props.node.position?.start.line === 1 ? 0 : 4,
+                  mt: props.node?.position?.start.line === 1 ? 0 : 4,
                   mb: 2,
                   fontWeight: "bold",
                   fontSize: baseFontSize + 4,
@@ -85,7 +85,7 @@ export const BoxMarkdown: FC<Props> = (props) => {
               <Typography
                 component={"h5"}
                 sx={{
-                  mt: props.node.position?.start.line === 1 ? 0 : 4,
+                  mt: props.node?.position?.start.line === 1 ? 0 : 4,
                   mb: 2,
                   fontWeight: "bold",
                   fontSize: baseFontSize + 4,
@@ -100,7 +100,7 @@ export const BoxMarkdown: FC<Props> = (props) => {
               <Typography
                 component={"h6"}
                 sx={{
-                  mt: props.node.position?.start.line === 1 ? 0 : 4,
+                  mt: props.node?.position?.start.line === 1 ? 0 : 4,
                   mb: 2,
                   fontWeight: "bold",
                   fontSize: baseFontSize + 4,
@@ -116,7 +116,7 @@ export const BoxMarkdown: FC<Props> = (props) => {
                 component={"p"}
                 sx={{
                   fontSize: baseFontSize,
-                  mt: props.node.position?.start.line === 1 ? 0 : 2,
+                  mt: props.node?.position?.start.line === 1 ? 0 : 2,
                 }}
               >
                 {props.children}
@@ -130,7 +130,8 @@ export const BoxMarkdown: FC<Props> = (props) => {
             return null
           },
           a(props) {
-            const [text] = props.children
+            const children = props.children
+            const text = Array.isArray(children) ? children[0] : children
 
             if (typeof props.href === "undefined" || typeof text !== "string") {
               return (

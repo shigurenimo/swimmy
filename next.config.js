@@ -1,4 +1,3 @@
-const { withBlitz } = require("@blitzjs/next")
 const packageJSON = require("./package.json")
 
 /**
@@ -10,4 +9,4 @@ const nextConfig = {
   },
 }
 
-module.exports = withBlitz(nextConfig)
+module.exports = nextConfig

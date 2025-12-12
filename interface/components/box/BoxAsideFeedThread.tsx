@@ -1,4 +1,4 @@
-import { useSession } from "@blitzjs/auth"
+import { useSession } from "interface/hooks/useSession"
 import { Box, Divider, List, ListItem } from "@mui/material"
 import { captureException } from "@sentry/react"
 import { FC, Fragment } from "react"

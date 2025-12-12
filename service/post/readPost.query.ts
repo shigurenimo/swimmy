@@ -1,8 +1,7 @@
 import { captureException } from "@sentry/node"
-import { NotFoundError } from "blitz"
 import { injectable } from "tsyringe"
 import db from "db"
-import { InternalError } from "infrastructure/errors"
+import { InternalError, NotFoundError } from "infrastructure/errors"
 import { PostNode } from "interface/__generated__/node"
 
 type Props = {

@@ -1,9 +1,9 @@
 import "infrastructure/errors"
 import "interface/theme/global.css"
 import { ApolloProvider } from "@apollo/client"
-import { AppProps, ErrorBoundary } from "@blitzjs/next"
-import { useQueryErrorResetBoundary } from "@blitzjs/rpc"
-import { CacheProvider, EmotionCache } from "@emotion/react"
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
+import type { EmotionCache } from "@emotion/react"
+import { CacheProvider } from "@emotion/react"
 import { CssBaseline, ThemeProvider } from "@mui/material"
 import { init } from "@sentry/browser"
 import {
@@ -13,12 +13,13 @@ import {
 } from "firebase/analytics"
 import { getApps, initializeApp } from "firebase/app"
 import { getAuth, inMemoryPersistence, setPersistence } from "firebase/auth"
+import type { NextPage } from "next"
+import type { AppProps } from "next/app"
 import Head from "next/head"
 import { Router } from "next/router"
 import { SnackbarProvider } from "notistack"
-import { FC, useEffect } from "react"
-import { withBlitz } from "interface/blitz-client"
-import { BoxErrorFallback } from "interface/components/box/BoxErrorFallback"
+import type { FC, ReactElement, ReactNode } from "react"
+import { useEffect } from "react"
 import { theme } from "interface/theme/theme"
 import { createClient } from "interface/utils/createClient"
 import { createEmotionCache } from "interface/utils/createEmotionCache"
@@ -26,16 +27,20 @@ import { unregister } from "interface/utils/serviceWorker"
 
 const clientSideEmotionCache = createEmotionCache()
 
+type NextPageWithLayout = NextPage & {
+  getLayout?: (page: ReactElement) => ReactNode
+}
+
 type Props = AppProps & {
   emotionCache?: EmotionCache
+  Component: NextPageWithLayout
 }
 
 const client = createClient()
+const queryClient = new QueryClient()
 
 const App: FC<Props> = ({ Component, ...props }) => {
-  const getLayout = Component.getLayout || ((page) => page)
-
-  const queryErrorResetBoundary = useQueryErrorResetBoundary()
+  const getLayout = Component.getLayout ?? ((page) => page)
 
   useEffect(() => {
     if (typeof window === "undefined") return
@@ -56,7 +61,8 @@ const App: FC<Props> = ({ Component, ...props }) => {
   }, [])
 
   return (
-    <ApolloProvider client={client}>
+    <QueryClientProvider client={queryClient}>
+      <ApolloProvider client={client}>
       <Head>
         {/** https://github.com/vercel/next.js/discussions/13387#discussioncomment-2387429 */}
         <style>{"nextjs-portal { display: none; }"}</style>
@@ -65,16 +71,12 @@ const App: FC<Props> = ({ Component, ...props }) => {
         <ThemeProvider theme={theme}>
           <CssBaseline />
           <SnackbarProvider maxSnack={3}>
-            <ErrorBoundary
-              FallbackComponent={BoxErrorFallback}
-              onReset={queryErrorResetBoundary.reset}
-            >
-              {getLayout(<Component {...props.pageProps} />)}
-            </ErrorBoundary>
+            {getLayout(<Component {...props.pageProps} />)}
           </SnackbarProvider>
         </ThemeProvider>
       </CacheProvider>
     </ApolloProvider>
+  </QueryClientProvider>
   )
 }
 
@@ -114,4 +116,4 @@ if (typeof window !== "undefined") {
   unregister()
 }
 
-export default withBlitz(App)
+export default App

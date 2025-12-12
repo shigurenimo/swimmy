@@ -1,50 +1,39 @@
-import {
-  configureScope,
-  init,
-  Integrations,
-  setContext,
-  startTransaction,
-} from "@sentry/node"
-import "@sentry/tracing"
+import * as Sentry from "@sentry/node"
 import { NextApiHandler } from "next"
+
+let isInitialized = false
 
 export const withSentryForApi = (handler: NextApiHandler, name: string) => {
   const internalHandler: NextApiHandler = async (req, resp) => {
-    init({
-      dsn: process.env.NEXT_PUBLIC_SENTRY_DSN,
-      tracesSampleRate: 1.0,
-      attachStacktrace: true,
-      normalizeDepth: 5,
-      environment: process.env.NEXT_PUBLIC_SENTRY_ENVIRONMENT,
-      integrations: [new Integrations.Http({ tracing: true })],
-      release: process.env.NEXT_PUBLIC_SENTRY_RELEASE,
-      debug: false,
-      beforeSend(event) {
-        if (process.env.NODE_ENV !== "production") {
-          for (const exception of event.exception?.values ?? []) {
-            console.error(exception.value)
+    if (!isInitialized) {
+      Sentry.init({
+        dsn: process.env.NEXT_PUBLIC_SENTRY_DSN,
+        tracesSampleRate: 1.0,
+        attachStacktrace: true,
+        normalizeDepth: 5,
+        environment: process.env.NEXT_PUBLIC_SENTRY_ENVIRONMENT,
+        release: process.env.NEXT_PUBLIC_SENTRY_RELEASE,
+        debug: false,
+        beforeSend(event) {
+          if (process.env.NODE_ENV !== "production") {
+            for (const exception of event.exception?.values ?? []) {
+              console.error(exception.value)
+            }
+            return null
           }
-          return null
-        }
-        return event
-      },
+          return event
+        },
+      })
+      isInitialized = true
+    }
+
+    Sentry.setContext("req.query", req.query)
+
+    Sentry.setContext("req.body", req.body as Record<string, unknown>)
+
+    return await Sentry.startSpan({ op: "function", name }, async () => {
+      return await handler(req, resp)
     })
-
-    setContext("req.query", req.query)
-
-    setContext("req.body", req.body)
-
-    const transaction = startTransaction({ op: "function", name })
-
-    configureScope((scope) => {
-      scope.setSpan(transaction)
-    })
-
-    const result = await handler(req, resp)
-
-    transaction.finish()
-
-    return result
   }
 
   return internalHandler
