@@ -78,8 +78,5 @@
   "private": true,
   "prisma": {
     "schema": "db/schema.prisma"
-  },
-  "volta": {
-    "yarn": "1.22.19"
   }
 }
