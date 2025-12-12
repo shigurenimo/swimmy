@@ -1,4 +1,3 @@
-import { useSession } from "interface/hooks/useSession"
 import { List, ListItem } from "@mui/material"
 import { captureException } from "@sentry/react"
 import { useSnackbar } from "notistack"
@@ -17,7 +16,6 @@ type Props = {
 }
 
 export const BoxMainFeed: FC<Props> = (props) => {
-  const session = useSession()
 
   const query = usePostsQuery({
     variables: { after: null },
@@ -68,7 +66,6 @@ export const BoxMainFeed: FC<Props> = (props) => {
               fileIds={edge.node.fileIds}
               repliesCount={edge.node.repliesCount}
               reactions={edge.node.reactions}
-              isLoggedIn={session.userId !== null}
               isActive={edge.node.id === props.threadId}
               onOpenThread={() => {
                 props.onChangeThreadId(edge.node.id)

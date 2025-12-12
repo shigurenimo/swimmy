@@ -6,7 +6,6 @@ import {
 import { addReaction } from "interface/resolvers/addReaction"
 import { createPost } from "interface/resolvers/createPost"
 import { feed } from "interface/resolvers/feed"
-import { login } from "interface/resolvers/login"
 import { logout } from "interface/resolvers/logout"
 import { posts } from "interface/resolvers/posts"
 import { responses } from "interface/resolvers/responses"
@@ -24,7 +23,6 @@ const Query: QueryResolvers = {
 const Mutation: MutationResolvers = {
   addReaction: addReaction,
   createPost: createPost,
-  login: login,
   logout: logout,
 }
 

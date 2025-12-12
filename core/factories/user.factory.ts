@@ -3,7 +3,6 @@ import {
   Biography,
   Email,
   Id,
-  LoginProvider,
   Username,
 } from "core/valueObjects"
 
@@ -12,7 +11,6 @@ export class UserFactory {
     id: Id
     email: Email
     username: Username
-    loginProvider: LoginProvider
   }) {
     return new UserEntity({
       id: props.id,
@@ -22,7 +20,6 @@ export class UserFactory {
       biography: new Biography(""),
       headerImageId: null,
       iconImageId: null,
-      loginProvider: props.loginProvider,
     })
   }
 }

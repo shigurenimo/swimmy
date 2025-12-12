@@ -17,8 +17,6 @@ import { FC } from "react"
 
 type Props = {
   isDense: boolean
-  onLogin(): void
-  onLogout(): void
 }
 
 export const BoxNavigation: FC<Props> = (props) => {
@@ -134,50 +132,6 @@ export const BoxNavigation: FC<Props> = (props) => {
                 </ListItemButton>
               </ListItem>
             ))}
-            {/* <>
-              {!isLoggedIn && (
-                <ListItem sx={{ pl: 0, pr: props.isDense ? 0 : 2 }}>
-                  <ListItemButton
-                    sx={{
-                      borderTopRightRadius: 16,
-                      borderBottomRightRadius: 16,
-                    }}
-                    onClick={props.onLogin}
-                  >
-                    <ListItemIcon
-                      sx={{ minWidth: (theme) => theme.spacing(5) }}
-                    >
-                      <LoginIcon />
-                    </ListItemIcon>
-                    <ListItemText
-                      primary={props.isDense ? "ロ" : "ログイン"}
-                      primaryTypographyProps={{ sx: { fontWeight: "bold" } }}
-                    />
-                  </ListItemButton>
-                </ListItem>
-              )}
-              {isLoggedIn && (
-                <ListItem sx={{ pl: 0, pr: props.isDense ? 0 : 2 }}>
-                  <ListItemButton
-                    sx={{
-                      borderTopRightRadius: 16,
-                      borderBottomRightRadius: 16,
-                    }}
-                    onClick={props.onLogout}
-                  >
-                    <ListItemIcon
-                      sx={{ minWidth: (theme) => theme.spacing(5) }}
-                    >
-                      <LoginIcon />
-                    </ListItemIcon>
-                    <ListItemText
-                      primary={props.isDense ? "ロ" : "ログアウト"}
-                      primaryTypographyProps={{ sx: { fontWeight: "bold" } }}
-                    />
-                  </ListItemButton>
-                </ListItem>
-              )}
-            </> */}
           </List>
         </Box>
       </Stack>

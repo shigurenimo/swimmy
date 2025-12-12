@@ -3,7 +3,6 @@ import {
   Biography,
   Email,
   Id,
-  LoginProvider,
   Name,
   Username,
 } from "core/valueObjects"
@@ -16,7 +15,6 @@ const zProps = z.object({
   biography: z.instanceof(Biography),
   headerImageId: z.instanceof(Id).nullable(),
   iconImageId: z.instanceof(Id).nullable(),
-  loginProvider: z.instanceof(LoginProvider),
 })
 
 /**
@@ -53,15 +51,11 @@ export class UserEntity {
    */
   readonly headerImageId!: Id | null
 
+
   /**
    * アイコン画像
    */
   readonly iconImageId!: Id | null
-
-  /**
-   * ログイン・プロバイダ
-   */
-  readonly loginProvider!: LoginProvider
 
   constructor(public props: z.infer<typeof zProps>) {
     zProps.parse(props)

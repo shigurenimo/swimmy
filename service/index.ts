@@ -1,5 +1,4 @@
 import "reflect-metadata"
-export { LoginService } from "./auth"
 export { CountPhotosQuery, ReadPhotosQuery } from "./photo"
 export {
   CountPostsQuery,

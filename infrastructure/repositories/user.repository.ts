@@ -1,5 +1,6 @@
+import { LoginProvider } from "@prisma/client"
 import { captureException } from "@sentry/node"
-import { Biography, Email, Id, LoginProvider, UserEntity, Username } from "core"
+import { Biography, Email, Id, UserEntity, Username } from "core"
 import db from "db"
 
 export class UserRepository {
@@ -21,7 +22,6 @@ export class UserRepository {
         biography: new Biography(""),
         headerImageId: null,
         iconImageId: null,
-        loginProvider: new LoginProvider(user.loginProvider),
       })
     } catch (error) {
       captureException(error)
@@ -52,7 +52,6 @@ export class UserRepository {
         biography: new Biography(""),
         headerImageId: null,
         iconImageId: null,
-        loginProvider: new LoginProvider(user.loginProvider),
       })
     } catch (error) {
       captureException(error)
@@ -72,7 +71,7 @@ export class UserRepository {
           id: entity.id.value,
           email: entity.email?.value,
           username: entity.username.value,
-          loginProvider: entity.loginProvider.value,
+          loginProvider: LoginProvider.GOOGLE_COM,
         },
         update: {},
         where: { email: entity.email?.value },

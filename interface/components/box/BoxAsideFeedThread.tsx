@@ -1,4 +1,3 @@
-import { useSession } from "interface/hooks/useSession"
 import { Box, Divider, List, ListItem } from "@mui/material"
 import { captureException } from "@sentry/react"
 import { FC, Fragment } from "react"
@@ -20,7 +19,6 @@ type Props = {
 }
 
 export const BoxAsideFeedThread: FC<Props> = (props) => {
-  const session = useSession()
 
   const threadQuery = useThreadQuery({
     variables: { threadId: props.threadId },
@@ -57,7 +55,7 @@ export const BoxAsideFeedThread: FC<Props> = (props) => {
     return <BoxAsideFeedThreadFallback />
   }
 
-  const length = responsesQuery.data?.responses.edges.length ?? 0
+  responsesQuery.data?.responses.edges.length ?? 0
 
   return (
     <BoxAside title={"スレッド"} onClose={props.onClose}>
@@ -67,7 +65,6 @@ export const BoxAsideFeedThread: FC<Props> = (props) => {
             <BoxCardPost
               {...threadQuery.data.thread}
               text={threadQuery.data.thread.text ?? null}
-              isLoggedIn={session.userId !== null}
             />
           )}
         </ListItem>

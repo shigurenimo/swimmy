@@ -11,8 +11,6 @@ import {
 import { FC } from "react"
 
 type Props = {
-  onLogin(): void
-  onLogout(): void
   onOpenDrawer(): void
 }
 

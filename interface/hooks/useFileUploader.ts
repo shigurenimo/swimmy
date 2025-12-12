@@ -15,5 +15,5 @@ export const useFileUploader = () => {
     return fileId
   }
 
-  return useMutation(upload)
+  return useMutation({ mutationFn: upload })
 }

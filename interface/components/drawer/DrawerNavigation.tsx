@@ -18,8 +18,6 @@ type Props = {
   isOpen: boolean
   isDense: boolean
   onClose(): void
-  onLogin(): void
-  onLogout(): void
 }
 
 export const DrawerNavigation: FC<Props> = (props) => {
@@ -95,34 +93,6 @@ export const DrawerNavigation: FC<Props> = (props) => {
               </ListItem>
             </Link>
           ))}
-          {/* <>
-            {!isLoggedIn && (
-              <ListItem sx={{ px: 0 }}>
-                <ListItemButton onClick={props.onLogin}>
-                  <ListItemIcon sx={{ minWidth: (theme) => theme.spacing(5) }}>
-                    <LoginIcon />
-                  </ListItemIcon>
-                  <ListItemText
-                    primary={"ログイン"}
-                    primaryTypographyProps={{ sx: { fontWeight: "bold" } }}
-                  />
-                </ListItemButton>
-              </ListItem>
-            )}
-            {isLoggedIn && (
-              <ListItem sx={{ px: 0 }}>
-                <ListItemButton onClick={props.onLogout}>
-                  <ListItemIcon sx={{ minWidth: (theme) => theme.spacing(5) }}>
-                    <LogoutIcon />
-                  </ListItemIcon>
-                  <ListItemText
-                    primary={props.isDense ? "ロ" : "ログアウト"}
-                    primaryTypographyProps={{ sx: { fontWeight: "bold" } }}
-                  />
-                </ListItemButton>
-              </ListItem>
-            )}
-          </> */}
         </List>
       </Drawer>
     </>

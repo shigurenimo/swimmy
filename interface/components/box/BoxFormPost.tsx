@@ -92,7 +92,7 @@ export const BoxFormPost: FC<Props> = (props) => {
               variant={"outlined"}
               onChange={onUploadFile}
               disabled={3 < fileIds.length}
-              loading={props.isLoading || fileUploader.isLoading}
+              loading={props.isLoading || fileUploader.isPending}
             >
               {"画像"}
             </ButtonFile>

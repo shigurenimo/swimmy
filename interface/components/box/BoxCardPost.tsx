@@ -23,7 +23,6 @@ type Props = {
   reactions: ReactionNode[]
   onOpenThread?(): void
   isActive?: boolean
-  isLoggedIn: boolean
 }
 
 export const BoxCardPost: FC<Props> = (props) => {
@@ -92,26 +91,15 @@ export const BoxCardPost: FC<Props> = (props) => {
           <Grid container gap={1}>
             {props.reactions.map((reaction) => (
               <Grid key={reaction.id}>
-                {props.isLoggedIn ? (
-                  <ChipReaction
-                    text={reaction.text}
-                    count={reaction.count}
-                    secretCount={reaction.secretCount}
-                    isActive={reaction.isConnected}
-                    onClick={() => {
-                      onUpdateReaction(reaction.text)
-                    }}
-                  />
-                ) : (
-                  <ChipSecretReaction
-                    text={reaction.text}
-                    count={reaction.count}
-                    secretCount={reaction.secretCount}
-                    onClick={() => {
-                      onUpdateReaction(reaction.text)
-                    }}
-                  />
-                )}
+                <ChipReaction
+                  text={reaction.text}
+                  count={reaction.count}
+                  secretCount={reaction.secretCount}
+                  isActive={reaction.isConnected}
+                  onClick={() => {
+                    onUpdateReaction(reaction.text)
+                  }}
+                />
               </Grid>
             ))}
             <Grid>

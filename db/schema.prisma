@@ -225,3 +225,4 @@ enum LoginProvider {
 
   @@map("login_provider")
 }
+

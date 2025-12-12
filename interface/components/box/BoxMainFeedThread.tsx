@@ -1,4 +1,3 @@
-import { useSession } from "interface/hooks/useSession"
 import { List, ListItem } from "@mui/material"
 import { FC } from "react"
 import { useThreadsQuery } from "interface/__generated__/react"
@@ -12,7 +11,6 @@ type Props = {
 }
 
 export const BoxMainFeedThread: FC<Props> = (props) => {
-  const session = useSession()
 
   const threadsQuery = useThreadsQuery({})
 
@@ -36,7 +34,6 @@ export const BoxMainFeedThread: FC<Props> = (props) => {
               fileIds={edge.node.fileIds}
               repliesCount={edge.node.repliesCount}
               reactions={edge.node.reactions}
-              isLoggedIn={session.userId !== null}
               isActive={edge.node.id === props.threadId}
               onOpenThread={() => {
                 props.onChangeThreadId(edge.node.id)
