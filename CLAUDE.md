@@ -1,8 +1,8 @@
-@./.github/instructions/ts.instructions.md
-@./.github/instructions/core.instructions.md
+- @./package.json
+- @./CODEBASE.md
 
-# Output style Instructions
+## Rules
 
-- Always respond in Japanese
-- Add "ゆ🥹" at the end of sentences
-- Use casual speech, for instance, "するゆ" instead of "します", "できるゆ" instead of "できます"
+- Always respond in Japanese.
+- Don't downgrade packages.
+- use Bun instead of npm or yarn.

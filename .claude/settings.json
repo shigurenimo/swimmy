@@ -1,6 +1,34 @@
 {
   "permissions": {
-    "defaultMode": "bypassPermissions"
+    "defaultMode": "bypassPermissions",
+    "deny": [
+      "Bash(bun run dev)",
+      "Edit(components/theme-provider.tsx)",
+      "Edit(components/ui/*)",
+      "Edit(hooks/use-mobile.ts)",
+      "Edit(lib/utils.ts)",
+      "Write(components/theme-provider.tsx)",
+      "Write(components/ui/*)",
+      "Write(hooks/use-mobile.ts)",
+      "Write(lib/utils.ts)"
+    ]
   },
-  "enableAllProjectMcpServers": true
+  "enableAllProjectMcpServers": true,
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Write|Edit|MultiEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "jq -r '.tool_input.file_path | select(endswith(\".ts\") or endswith(\".tsx\"))' | xargs -r bun tsgo --noEmit"
+          },
+          {
+            "type": "command",
+            "command": "jq -r '.tool_input.file_path | select(endswith(\".ts\") or endswith(\".tsx\"))' | xargs -r bun test"
+          }
+        ]
+      }
+    ]
+  }
 }

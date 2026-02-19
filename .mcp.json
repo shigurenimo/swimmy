@@ -1,10 +1,5 @@
 {
   "mcpServers": {
-    "chrome-devtools": {
-      "command": "bunx",
-      "args": ["chrome-devtools-mcp@latest", "--isolated"],
-      "env": {}
-    },
     "shadcn": {
       "command": "bunx",
       "args": ["shadcn@latest", "mcp"]

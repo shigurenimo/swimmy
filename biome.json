@@ -1,33 +1,37 @@
 {
   "$schema": "node_modules/@biomejs/biome/configuration_schema.json",
-  "files": {
-    "includes": [
-      "**/*",
-      "!**/components/ui/*",
-      "!**/*.css"
-    ]
-  },
   "formatter": {
     "indentStyle": "space"
+  },
+  "linter": {
+    "rules": {
+      "recommended": true,
+      "correctness": {
+        "noUnusedImports": "error"
+      },
+      "nursery": {
+        "useSortedClasses": "error"
+      }
+    }
   },
   "javascript": {
     "formatter": {
       "semicolons": "asNeeded"
     }
   },
-  "linter": {
-    "rules": {
-      "correctness": {
-        "noChildrenProp": "off",
-        "noUnusedImports": "error"
-      },
-      "nursery": {
-        "useSortedClasses": "error"
-      },
-      "recommended": true,
-      "style": {
-        "useImportType": "off"
-      }
-    }
+  "files": {
+    "includes": [
+      "**/*.ts",
+      "**/*.tsx",
+      "**/*.json",
+      "!.next",
+      "!components.json",
+      "!components/theme-provider.tsx",
+      "!components/ui/**/*",
+      "!hooks/use-toast.ts",
+      "!lib/utils.ts",
+      "!next.config.mjs",
+      "!postcss.config.mjs"
+    ]
   }
 }
