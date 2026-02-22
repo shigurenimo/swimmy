@@ -1,5 +1,5 @@
 ---
-name: copilot-notification
+name: notification
 description: Desktop and channel notifications for important events and status changes
 ---
 
@@ -22,7 +22,7 @@ osascript -e 'display notification "メッセージ" with title "Claude Code"'
 `CUSTOM_CHANNEL_INBOX_ID` 環境変数が設定されている場合のみ実行:
 
 ```bash
-bun .claude/skills/copilot-notification/scripts/send-message.ts "ここにメッセージを書く"
+bun .claude/skills/notification/scripts/send-message.ts "ここにメッセージを書く"
 ```
 
 senderId / senderName は環境変数 `CUSTOM_CHANNEL_INBOX_ID` / `CUSTOM_CHANNEL_INBOX_NAME` から自動付与される。送信先は常に "default"。
@@ -43,6 +43,7 @@ senderId / senderName は環境変数 `CUSTOM_CHANNEL_INBOX_ID` / `CUSTOM_CHANNE
 - チームメンバーの役割名はカタカナで書く（プログラマ、デザイナなど）。英語のエージェント名は使わない
 - 簡潔に書く（1-3文程度）
 - 内部用語やシステム用語を避ける（「粗探し」「重要度: 高」「Notion」「タスク起票」など）
+- PR・Issue・タスクへのリンクがある場合は URL を含める（受け取った側がすぐ開けるように）
 
 ### 代わりに使う表現の例
 
@@ -58,7 +59,7 @@ senderId / senderName は環境変数 `CUSTOM_CHANNEL_INBOX_ID` / `CUSTOM_CHANNE
 良い例:
 
 - 「投稿の公開範囲を選択できるようになりました。計画の確認をお願いします」
-- 「ログイン機能の実装が完了しました。PR #123 で確認をお願いします」
+- 「ログイン機能の実装が完了しました。PR #123 で確認をお願いします https://github.com/org/repo/pull/123」
 - 「セキュリティ上の問題を発見しました。優先的に対応が必要です」
 - 「新しいタスクを起票しました」
 - 「PR を作成しました」
