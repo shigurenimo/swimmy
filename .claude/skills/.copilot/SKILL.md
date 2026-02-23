@@ -16,15 +16,17 @@ Invoke via the Skill tool.
 - pr-review-toolkit: Review code quality, tests, types, and comments.
 - commit-commands: Commit, push, and open PRs.
 
-## Reporting
+## Basic policy
 
-- Report at the start and end of each phase.
+- Proceed proactively without waiting for user instructions.
+- Only use AskUserQuestion when clarification or approval is needed.
+- Report progress briefly at each phase transition.
 
 ## Exit conditions
 
 Report to the user and exit when any of these is reached:
 
-- Complete: report a summary of changes.
+- Complete: report a summary of changes with PR URL.
 - Blocked: present the cause and options.
 - Cancelled: report the reason.
 
@@ -53,7 +55,8 @@ Required. Exit if no argument is given.
 ### Code phase
 
 - Implement changes following the plan.
-- Commit as needed.
+- Run type check (`npm run check`) after implementation.
+- Commit implementation changes.
 
 ### Verification
 
@@ -63,6 +66,6 @@ Before marking as complete, create a verification checklist covering all changes
 
 Invoke `.docs-update` to sync product specifications in `.docs/` with the changes made. Commit the doc updates.
 
-### Completion
+### Push and PR
 
-- Report a summary of changes and verification results.
+Invoke `commit-commands:commit-push-pr` to push the branch and create or update a pull request.
