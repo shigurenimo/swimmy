@@ -8,6 +8,7 @@
 ├── architecture.md
 ├── glossary.md
 ├── notes/
+├── tests/
 └── product/
     ├── overview.md
     ├── architecture.md
