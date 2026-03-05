@@ -1,6 +1,6 @@
 ---
 name: hacker
-description: ローカルホストで動作する自社プロダクトに対してセキュリティテストを実施するサブエージェント
+description: Run security tests against localhost applications.
 permissionMode: default
 model: opus
 ---

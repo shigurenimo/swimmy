@@ -1,71 +1,70 @@
 ---
 name: pr
-description: "[number] GitHub PR. Lists if omitted."
+description: "[number] Implement a GitHub Issue and create a PR."
+user_invocable: true
+arguments: Issue 番号
 ---
+
+Issue の計画に基づいて実装し、PR を作成する。
+
+## Arguments
+
+```
+/pr {number}
+/pr
+```
+
+番号あり: その Issue を取得して実装を開始する。
+
+番号なし: 会話中の Issue に紐づく PR を `gh pr list` で探す。PR があればそのブランチをチェックアウトするか確認する。PR がなければブランチを新規作成するか確認する。
 
 ## Skills and plugins
 
 Invoke via the Skill tool.
 
-- gh-pr-template: PR template, formatting, and required sections.
 - feature-dev: Investigate codebase and assess impact.
 - frontend-design: Design UI components and pages.
-- .agent-browser: Browser automation for verification.
-- .docs-update: Sync product specifications with code changes.
+- agent-browser: Browser automation for verification.
 - superpowers: Spawn parallel agents, create plans, review code.
 - pr-review-toolkit: Review code quality, tests, types, and comments.
 - commit-commands: Commit, push, and open PRs.
+- gh-pr-template: PR template, formatting, and required sections.
 
-## Reporting
+## Team
 
-- Report at the start and end of each action.
+Create a team and delegate work to teammates. This saves context in the main session.
 
-## Exit conditions
-
-Report to the user and exit when any of these is reached:
-
-- Complete: PR is updated and ready. Report what was done.
-- Blocked: problem encountered. Present the cause and options.
-- Cancelled: user requested stop. Report the reason.
-
-## Arguments
-
-```
-/pr [number]
-```
-
-No argument: run `gh pr list` for open PRs, display as a formatted list, then exit.
-
-With argument: fetch the PR by number and manage it (review, update, fix).
+| Role | Name | subagent_type | Purpose |
+|---|---|---|---|
+| Hacker | `hacker` | `hacker` | Security testing on localhost after implementation. |
+| Debugger | `debugger` | `debugger` | Review changes for bugs and code quality issues. |
 
 ## Workflow
 
-### List display (no argument)
+### Branch
 
-Fetch open PRs via `gh pr list` and display as a list.
+`{issue番号}-{自然な英文}` のブランチを切る。例: `42-fix-pagination-offset`
 
-```
-├─ #[**112**](https://github.com/.../pull/112) fix: オフセット修正 `OPEN`
-├─ #[**113**](https://github.com/.../pull/113) fix: リダイレクト先を修正 `DRAFT`
-└─ #[**114**](https://github.com/.../pull/114) feat: 新機能追加 `OPEN`
-```
+### Code phase
 
-Rules:
+Issue のタスクリストに沿って実装する。タスクを完了したらチェックを入れる。適宜コミットする。
 
-- `#` outside the link; number bold and linked to GitHub URL
-- Status as inline code at the end of the line
+### Security phase (optional)
 
-Exit after display.
+ユーザー入力、認証、データ処理に関わる変更がある場合、`hacker` を起動してセキュリティテストを行う。
 
-### With number
+### Verification
 
-- Fetch the PR details, diff, and check status.
-- Determine what action is needed:
-  - Failing checks: investigate and fix.
-  - Review comments: address feedback.
-  - Ready to merge: report status.
-  - Needs update: rebase or resolve conflicts.
-- Implement fixes, commit, and push.
-- Create a verification checklist covering all fixes. Use `.agent-browser` to verify each item by actually operating the application in the browser. All items must pass.
-- Invoke `.docs-update` to sync product specifications in `.docs/` with the changes made. Commit the doc updates.
-- Report the result and exit.
+変更内容のチェックリストを作成し、`agent-browser` でブラウザ上で実動作を確認する。全項目パスしてから次に進む。
+
+### Debug phase
+
+`debugger` を起動して変更をレビューする。軽微な問題はその場で修正、重大な指摘は返される。
+
+### Triage
+
+debugger の指摘をユーザーに提示し、対応を確認する。軽微なものはその場で修正してコミットする。計画が必要なものは新しい GitHub Issue を作成する。
+
+### Pull Request
+
+commit-commands:commit-push-pr でプッシュして PR を作成する。gh-pr-template スキルに従う。

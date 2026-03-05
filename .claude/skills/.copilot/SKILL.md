@@ -10,11 +10,9 @@ Invoke via the Skill tool.
 
 - feature-dev: Investigate codebase and assess impact.
 - frontend-design: Design UI components and pages.
-- .agent-browser: Browser automation for verification.
-- .docs-update: Sync product specifications with code changes.
-- superpowers: Spawn parallel agents, create plans, review code.
+- agent-browser: Browser automation for verification.
 - pr-review-toolkit: Review code quality, tests, types, and comments.
-- commit-commands: Commit, push, and open PRs.
+- commit-commands: Commit and push.
 
 ## Basic policy
 
@@ -26,7 +24,7 @@ Invoke via the Skill tool.
 
 Report to the user and exit when any of these is reached:
 
-- Complete: report a summary of changes with PR URL.
+- Complete: report a summary of changes.
 - Blocked: present the cause and options.
 - Cancelled: report the reason.
 
@@ -61,11 +59,3 @@ Required. Exit if no argument is given.
 ### Verification
 
 Before marking as complete, create a verification checklist covering all changes made. Use `.agent-browser` to verify each item by actually operating the application in the browser. All items must pass before proceeding.
-
-### Docs update
-
-Invoke `.docs-update` to sync product specifications in `.docs/` with the changes made. Commit the doc updates.
-
-### Push and PR
-
-Invoke `commit-commands:commit-push-pr` to push the branch and create or update a pull request.

@@ -1,7 +1,8 @@
 import { appendFile, mkdir, writeFile } from "node:fs/promises"
+import { homedir } from "node:os"
 import path from "node:path"
 
-const INBOX_DIR = path.join(process.env.HOME ?? "", ".claude", "inboxes")
+const INBOX_DIR = path.join(homedir(), ".claude", "inboxes")
 
 type MessagePayload = {
   type: string
