@@ -11,6 +11,7 @@ FrontMatter(任意):
 
 ```yaml
 ---
+reference-id: TASK-{番号}
 notion-page-id: {Notion Page ID}
 ---
 ```
