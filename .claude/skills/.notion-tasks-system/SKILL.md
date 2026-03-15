@@ -10,6 +10,9 @@ description: Notion task template and guidelines for creating tasks
 必須:
 
 - Notion テーブル ID: !`echo $CUSTOM_NOTION_TABLE_TASK_ID`
+
+タスク作成時のみ必須:
+
 - リポジトリ: !`echo $CUSTOM_REPOSITORY_ID`
 
 任意:
@@ -17,7 +20,7 @@ description: Notion task template and guidelines for creating tasks
 - Notion user ID: !`echo $CUSTOM_NOTION_USER_ID`
 - 事業: !`echo $CUSTOM_NOTION_BUSINESS_UNIT`
 
-必須環境変数が未設定の場合はスキルを中断する。任意環境変数は未設定でも確認せず続行する。
+必須環境変数が未設定の場合はスキルを中断する。タスク作成時のみ必須の環境変数は、作成操作時に未設定なら中断する。任意環境変数は未設定でも確認せず続行する。
 
 ## タスク作成時の共通プロパティ
 
@@ -94,35 +97,72 @@ Notion の「ステータス」カラムで管理する。
 | 対応不要だった | 中止 |
 | すでに解決済みだった | 完了 |
 
-## タスク一覧の取得手順
+## タスクの取得手順
 
-タスク一覧を取得するには以下の手順で行う。
+全て `mcp__notion__` (Notion公式MCP) のツールを使う。`mcp__claude_ai_Notion__` は使用しない。
 
-### 手順
+### ID 指定でタスクを取得する (推奨)
 
-データソース URL は `collection://{Notion テーブル ID}` で構築できる。毎回 `notion-fetch` でデータベース構造を取得する必要はない。
+`mcp__notion__API-query-data-source` でプロパティフィルタを使う:
 
-`notion-search` でタスクを検索する:
+```
+data_source_id: {Notion テーブル ID}
+filter: {
+  "property": "ID",
+  "unique_id": {
+    "equals": 389
+  }
+}
+```
 
-- `data_source_url` にデータソース URL を指定する
-- `query` に検索キーワードを指定する (例: リポジトリ名)
-- レスポンスにはタスクの ID、タイトル、ハイライト(プロパティの一部を含む)が返される
+レスポンスの `results` 配列にマッチしたページが返る。各ページの `properties` からタイトル、ステータス、担当者などを取得できる。
 
-個別タスクの詳細を取得する:
+### ステータスや担当者でフィルタする
 
-- `notion-fetch` で各タスクの `id` を指定して取得する
-- レスポンスの `properties` にステータス、優先度、GitHub Issue 番号などが含まれる
+```
+filter: {
+  "property": "状態",
+  "status": {
+    "equals": "作業待ち"
+  }
+}
+```
 
-### 注意事項
+複合フィルタも可能:
 
-- `notion-fetch` のパラメータは `id` であり `url` ではない。ID は UUID 形式 (ダッシュあり/なし両方可)
-- `notion-query-database-view` はワークスペースのスラッグを含む完全な URL が必要だが、API からスラッグは取得できないため使用しない
-- `notion-search` はセマンティック検索であり、ステータスや優先度による構造化フィルタはできない。フィルタリングは取得後に行う
-- 大量のタスクがある場合、複数の検索クエリで段階的に取得する
+```
+filter: {
+  "and": [
+    { "property": "状態", "status": { "equals": "作業待ち" } },
+    { "property": "リポジトリ", "select": { "equals": "uninoverse-workers" } }
+  ]
+}
+```
+
+### キーワードでタスクを検索する
+
+タイトルでタスクを探す場合は `mcp__notion__API-post-search` を使う:
+
+- `query` にキーワードを指定する
+- タイトル一致検索（セマンティック検索ではない）
+
+### 個別タスクの詳細を取得する
+
+- プロパティ: `mcp__notion__API-retrieve-a-page` でページIDを指定して取得する
+- ページ本文: `mcp__notion__API-get-block-children` でページIDを `block_id` に指定して取得する
+
+### 認証エラー時の対処
+
+`mcp__notion__` のツールで 401 エラー (unauthorized) が発生した場合:
+
+1. ユーザーに Notion API トークン（`ntn_` で始まる文字列）を聞く
+2. `~/.claude/settings.json` の `env.NOTION_TOKEN` にトークンを書き込む
+3. Claude Code の再起動が必要な旨を伝える
 
 ## 重要な注意事項
 
-- データソース: データベースは複数データソースを持つ。fetch 結果の `<data-source>` タグからデータソース URL (`collection://...`) を取得する。タスクのデータソースは `PD.タスク` の方を使う
+- MCP サーバー: `mcp__notion__` (Notion公式MCP) のみを使用する。`mcp__claude_ai_Notion__` は使用しない
+- データソース: タスクDBのデータソースIDは Notion テーブル ID と同じ値を使う
 - Claude タグ: 作成時に `Claude` タグを必ず付与する
 - 担当者: `CUSTOM_NOTION_USER_ID` を使う。未設定なら `notion-get-users` で自動取得。取得できない場合は省略
 - 技術的な内容は書かない: ページ本文には技術的な内容を書かず、端的なメモにする。詳細は GitHub Issue に書く
