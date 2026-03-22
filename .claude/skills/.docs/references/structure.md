@@ -17,7 +17,9 @@
 
 ```
 .docs/
-  glossary.md             # 共通用語(手で管理)
+  index.md                # 事業全体のコンテキスト
+  glossary.md             # 共通用語
+  metrics.md              # KGI/KPI定義と計測ステータス
   notes/                  # 共通メモ
   products/
     {product-a}/
@@ -34,4 +36,4 @@
       snapshot/
 ```
 
-複数製品の場合、product.md / feedbacks/ / backlogs/ / decisions/ / snapshot/ は各製品ディレクトリの下に配置する。glossary.md と notes/ は共通。
+複数製品の場合、トップレベルの index.md は事業全体を理解するためのコンテキストを提供する。product.md / feedbacks/ / backlogs/ / decisions/ / snapshot/ は各製品ディレクトリの下に配置する。glossary.md / metrics.md / notes/ は共通。
