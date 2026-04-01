@@ -4,7 +4,7 @@
 
 ```
 .docs/
-  product.md
+  index.md
   glossary.md
   feedbacks/
   backlogs/
@@ -23,17 +23,17 @@
   notes/                  # 共通メモ
   products/
     {product-a}/
-      product.md
+      index.md
       feedbacks/
       backlogs/
       decisions/
       snapshot/
     {product-b}/
-      product.md
+      index.md
       feedbacks/
       backlogs/
       decisions/
       snapshot/
 ```
 
-複数製品の場合、トップレベルの index.md は事業全体を理解するためのコンテキストを提供する。product.md / feedbacks/ / backlogs/ / decisions/ / snapshot/ は各製品ディレクトリの下に配置する。glossary.md / metrics.md / notes/ は共通。
+複数製品の場合、トップレベルの index.md は事業全体を理解するためのコンテキストを提供する。index.md / feedbacks/ / backlogs/ / decisions/ / snapshot/ は各製品ディレクトリの下に配置する。glossary.md / metrics.md / notes/ は共通。

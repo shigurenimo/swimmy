@@ -4,7 +4,7 @@ description: Analyze and plan product backlogs with vision alignment.
 arguments: Issue description, feedbacks/ slug, or backlogs/ slug.
 ---
 
-Record issues in `.docs/backlogs/`, aligning with product.md.
+Record issues in `.docs/backlogs/`, aligning with index.md.
 
 See docs skill references/backlogs.md for format.
 
@@ -26,13 +26,13 @@ Invoke via the Skill tool.
 
 ## Workflow
 
-- Read `.docs/product.md`
+- Read `.docs/index.md`
 - Read `.docs/backlogs/index.md` to check existing backlogs
 - Interpret input:
   - feedbacks/ slug: read feedbacks/{slug}.md and link as background
   - Issue text: treat as a new issue
   - Existing backlogs/ slug: update the existing file
-- Discuss against product.md (see Discussion flow)
+- Discuss against index.md (see Discussion flow)
 - Use plan-backlog skill to draft content from the discussion result
 - Create or update slug.md with the returned content
 - Regenerate `index.md`

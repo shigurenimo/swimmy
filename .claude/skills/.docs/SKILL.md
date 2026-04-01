@@ -12,7 +12,7 @@ description: Structure and rules for .docs/ directory.
 ## references
 
 - structure.md: ディレクトリ構造（単一製品・複数製品）
-- product.md: product.md のフォーマットとルール
+- index.md: index.md（旧product.md）のフォーマットとルール
 - glossary.md: glossary.md のフォーマットとルール
 - feedbacks.md: feedbacks/ のフォーマットとルール
 - backlogs.md: backlogs/ のフォーマットとルール
@@ -29,7 +29,7 @@ description: Structure and rules for .docs/ directory.
 
 ### issueを受け取ったとき
 
-- product.mdを読む → 製品の方向性を確認
+- index.mdを読む → 製品の方向性を確認
 - backlogs/index.mdを読む → 分析済みの課題を確認
 - snapshot/features.mdを読む → 現状を把握
 - 関連するADRを検索 → 過去の判断を確認
@@ -42,7 +42,7 @@ description: Structure and rules for .docs/ directory.
 
 - voiceスキルでfeedbacks/に記録
 - 重要な課題はbacklogスキルでbacklogs/に分析を追加
-- product.mdの「解決する問題」を必要に応じて更新
+- index.mdの「解決する問題」を必要に応じて更新
 
 ### コードが大きく変わったとき
 

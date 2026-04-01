@@ -20,6 +20,14 @@
 - データ構造の詳細
 - 実装手順
 
+## リンクはwikiリンク
+
+Obsidianで閲覧する前提。Markdownリンク `[text](path)` は使わない。
+
+- ファイルへのリンク: `[[slug]]`
+- 表示名を変える場合: `[[slug|表示名]]`
+- パス(`./path/to/file.md`)は禁止。ファイル名だけで解決する
+
 ## 図はmermaid
 
 flowchart, sequenceDiagram, erDiagramを使用。
