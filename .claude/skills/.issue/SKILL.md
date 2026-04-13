@@ -18,20 +18,20 @@ Without number: Create a new Issue from the description. Before creating, check 
 
 Invoke via the Skill tool.
 
-- plan-issue: Create technical plan text for an Issue.
-- feature-dev: Investigate codebase and assess impact.
-- superpowers: Spawn parallel agents, create plans, review code.
-- gh-issue-template: Issue template, labels, and formatting rules.
+- `issue-planning`: Create technical plan text for an Issue.
+- `feature-dev`: Investigate codebase and assess impact.
+- `superpowers`: Spawn parallel agents, create plans, review code.
+- `gh-issue-template`: Issue template, labels, and formatting rules.
 
 ## Workflow
 
 ### Plan phase
 
-Use the plan-issue skill to create a technical plan and write it to the Issue body.
+Use the `issue-planning` skill to create a technical plan and write it to the Issue body.
 
 ### Report
 
 Present the plan to the user and ask whether to proceed with development.
 
-- Proceed: Invoke the pr skill to continue with implementation.
+- Proceed: Invoke the `pr` skill to continue with implementation.
 - Stop: End the workflow.

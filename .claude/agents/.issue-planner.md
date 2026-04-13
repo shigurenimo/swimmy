@@ -13,10 +13,10 @@ allowedTools:
   - Skill
 ---
 
-Invoke the plan-issue skill and write the returned text to the Issue.
+Invoke the issue-planning skill and write the returned text to the Issue.
 
 ## Steps
 
-- Invoke the plan-issue skill with the Issue number
+- Invoke the issue-planning skill with the Issue number
 - Write the returned text to the Issue body via `gh issue edit`
 - Report the result

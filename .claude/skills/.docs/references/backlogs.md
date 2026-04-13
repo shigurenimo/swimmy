@@ -1,11 +1,11 @@
 # backlogs/
 
 課題の詳細な分析と計画。backlogスキルで作成・更新する。
-feedbacks/の声から掘り下げる場合と、直接課題を追加する場合がある。
+signals/の声から掘り下げる場合と、直接課題を追加する場合がある。
 
 ## slug.md
 
-feedbacks/と同じslugで対応させる。直接追加の場合は独自slug。
+signals/と同じslugで対応させる。直接追加の場合は独自slug。
 
 FrontMatter(任意):
 

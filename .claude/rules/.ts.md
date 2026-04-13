@@ -1,83 +1,60 @@
----
-paths: "**/*.{ts,tsx}"
----
+## ファイル
 
-# TypeScript Rules
+- 1ファイル1関数 or 1クラス。ファイル名 = 関数名/クラス名（小文字ケバブケース）
+- import は `@/` 絶対パス、相対パス禁止
 
-## File Structure
+## 型
 
-- 1ファイル1関数 or 1クラス
-- ファイル名と関数名/クラス名を一致させる (例: `create-user.ts` → `createUser()`)
+- type のみ、interface と enum 禁止
+- unknown のみ、any と as 禁止
+- `as unknown as T` は最終手段のみ。使いたくなったら手を止めて根本原因を調べる
+- 値がないことは null（空文字や optional でなく `string | null`）
+- Zod スキーマから `z.infer` で型を生成する
 
-## Import
+## 命名
 
-- `@/` による絶対パスを使用
-- 相対パス (`./`, `../`) 禁止
+- 省略しない。`data` / `result` / `items` など汎用名を避ける
+- 配列は複数形、Boolean は `is` / `has` / `can`
+- メソッド: `with*()` 変換、`to*()` 出力、`get*()` 取得
+- ファイル内に1つだけの Props / Deps 型は `Props` / `Deps` のまま。`ChannelServiceDeps` のようなプレフィックスは付けない
+- export して名前空間が衝突する場合のみ長い名前にする
 
-## Naming
+## 関数
 
-- Use lowercase with hyphens for file names
+- 引数は3個まで、4個以上は `props: Props`
+- 20行以内、純粋関数を優先
 
-## Type System
+## クラス
 
-- Use "type" instead of "interface"
-- Avoid any type
-- No type assertion
-- Do NOT use enum
+- `constructor(private readonly props: Props)` + `Object.freeze(this)`
+- `with*()` で不変更新、配列は ReadonlyArray
+
+## 変数・制御フロー
+
+- const のみ、destructuring 禁止
+- for-of、early return、if を使う（switch 禁止。ただし Reducer の Action 分岐は exhaustive switch）
+
+## エラー
+
+- バックエンドは throw 禁止、`T | Error` を返し instanceof で判別
+
+## 空行
+
+- 処理と処理の間に1行の空行を入れる。インデント2段目まで適用、3段目以降は詰める
 
 ```ts
-const user = {} as User // Do NOT use type assertion
-const foo = {} as any // Do NOT use any type
+export function run() {
+  const x = 0
+
+  console.log(x)
+
+  if (x === 0) {
+    const y = 1
+    console.log(y)
+  }
+}
 ```
 
-## Naming Conventions
+## コメント
 
-- Use descriptive naming conventions
-- Do NOT abbreviate variable names
-- **Method naming**: `with*()` for transformations, `to*()` for outputs, `get*()` for retrieval
-
-## Code Style
-
-### Variables
-
-- Use const whenever possible, avoid let and var
-- Do NOT use delete operator
-- Do NOT Use destructuring
-
-### Control Flow
-
-- Use for-of loops instead of forEach
-- Avoid if-else statements
-- Use early returns/continue instead of nested if statements
-- Use if statements instead of switch statements
-- Do NOT wrap code in `main()` function - use top-level await directly
-  - NG: `async function main() { ... } main().catch(console.error)`
-  - NG: `async function main() { ... } await main()`
-  - OK: Write async code directly at top-level with `await`
-
-### Comments
-
-- Add comments only when function behavior is not easily predictable
-- Do NOT use param or return annotations
-- Do NOT write comments that repeat class/function names
-
-## Design Principles
-
-### SOLID Principles
-
-- Single Responsibility Principle
-- Open-Closed Principle  
-- Dependency Inversion Principle
-
-### Functional Programming
-
-- Immutable: Generate new data instead of modifying existing data, with constructor calling Object.freeze(this)
-- Referential Transparency: Create pure functions
-- Composition: Function composition instead of inheritance
-- Separation of Concerns: Separate data transformation, side effects, and business logic
-
-### Refactoring Decision Rules
-
-- **Extract to domain method**: When logic appears in 2+ places
-- **Create fluent method**: When manual object manipulation is required
-- **Use Service Layer**: When coordinating 3+ related operations
+- 動作が予測しにくい場合のみ。@param, @return 禁止

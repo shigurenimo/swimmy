@@ -16,9 +16,9 @@ allowedTools:
   - AskUserQuestion
 ---
 
-Invoke the plan-backlog skill to create or update a backlog item.
+Invoke the backlog-planning skill to create or update a backlog item.
 
 ## Steps
 
-- Invoke the plan-backlog skill
+- Invoke the backlog-planning skill
 - Report the result
