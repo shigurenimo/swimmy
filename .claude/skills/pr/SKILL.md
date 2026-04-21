@@ -3,6 +3,8 @@ name: pr
 description: "[number] Implement a GitHub Issue and create a PR."
 user_invocable: true
 arguments: Issue 番号
+metadata:
+  author: shigurenimo
 ---
 
 Issue の計画に基づいて実装し、PR を作成する。

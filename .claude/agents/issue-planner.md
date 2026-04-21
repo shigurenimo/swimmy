@@ -1,7 +1,6 @@
 ---
 name: issue-planner
 description: Create a technical plan and write it to a GitHub Issue.
-permissionMode: bypassPermissions
 model: opus
 memory: project
 isolation: worktree

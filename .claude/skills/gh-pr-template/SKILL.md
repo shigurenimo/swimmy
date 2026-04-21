@@ -1,6 +1,8 @@
 ---
 name: gh-pr-template
 description: Create or update GitHub pull request with proper format and required information.
+metadata:
+  author: shigurenimo
 ---
 
 # GitHub Pull Request

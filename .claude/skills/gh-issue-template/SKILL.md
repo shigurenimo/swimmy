@@ -1,6 +1,8 @@
 ---
 name: gh-issue-template
 description: GitHub Issue template and guidelines for creating issues
+metadata:
+  author: shigurenimo
 ---
 
 # GitHub Issue

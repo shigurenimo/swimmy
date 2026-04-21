@@ -3,6 +3,8 @@ name: test-lib
 description: "Create, run, and fix unit tests for libraries and utility modules."
 args: "[--full]"
 disable-model-invocation: true
+metadata:
+  author: shigurenimo
 ---
 
 # Test Lib
