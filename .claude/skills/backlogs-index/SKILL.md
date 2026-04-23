@@ -1,9 +1,10 @@
 ---
 name: backlogs-index
-description: backlogs/index.md をカテゴリ別ナラティブ＋脚注形式で再生成する。
+description: "?"
 arguments: backlogs ディレクトリのパス。省略時は対話で確認する。
 metadata:
   author: shigurenimo
+  dev: false
 ---
 
 # Backlogs Index

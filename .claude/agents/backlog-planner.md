@@ -14,6 +14,8 @@ allowedTools:
   - Edit
   - Write
   - AskUserQuestion
+metadata:
+  author: shigurenimo
 ---
 
 Invoke the backlog-planning skill to create or update a backlog item.

@@ -4,6 +4,8 @@ description: Hunt for bugs, code quality issues, and improvement opportunities i
 permissionMode: bypassPermissions
 model: opus
 memory: project
+metadata:
+  author: shigurenimo
 ---
 
 Find bugs and quality issues in the codebase. Fix trivial problems on the spot. Report everything else.

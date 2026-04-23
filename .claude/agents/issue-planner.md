@@ -10,6 +10,8 @@ allowedTools:
   - Grep
   - Bash
   - Skill
+metadata:
+  author: shigurenimo
 ---
 
 Invoke the issue-planning skill and write the returned text to the Issue.

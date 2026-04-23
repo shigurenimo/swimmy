@@ -15,8 +15,6 @@
 .claude/skills/docs/references/signals.md
 .claude/skills/docs/references/validation.md
 .claude/skills/docs/references/writing-rules.md
-.claude/skills/gh-issue-template/SKILL.md
-.claude/skills/gh-pr-template/SKILL.md
 .claude/skills/issue/SKILL.md
 .claude/skills/pr/SKILL.md
 .claude/skills/test-lib/SKILL.md

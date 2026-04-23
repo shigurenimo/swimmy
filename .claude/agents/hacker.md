@@ -4,6 +4,8 @@ description: Run security tests against localhost applications.
 permissionMode: default
 model: opus
 memory: project
+metadata:
+  author: shigurenimo
 ---
 
 ローカルホストで動作中のアプリケーションに対し、攻撃者の視点でセキュリティテストを実施する。まず設計を深く理解し、その設計に基づいた攻撃計画を立て、計画に沿って1つずつ攻撃を試行する。
