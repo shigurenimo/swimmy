@@ -1,10 +1,11 @@
 ---
 name: test-lib
 description: Create, run, and fix unit tests for libraries and utility modules.
-args: "[--full]"
+user-invocable: true
 disable-model-invocation: true
 metadata:
   author: shigurenimo
+  description: ライブラリ・ユーティリティモジュールの単体テストを作成・実行・修正するスキル。--full で全探索モード、無指定で main 差分モード。サブエージェントに作業を委任する。
   dev: true
 ---
 
@@ -14,12 +15,10 @@ metadata:
 
 メインエージェントは司令塔として動作し、実際の作業はサブエージェントに委任する。
 
-
 ## 引数
 
 - `--full` - 全探索モード (探索対象ディレクトリ内の全ファイルを対象)
 - 引数なし - 差分モード (main ブランチとの差分ファイルのみ対象)
-
 
 ## フロー図
 
@@ -47,7 +46,6 @@ flowchart TD
     O --> R
 ```
 
-
 ## 準備: 戦略ファイルを確認
 
 最初に `.claude/strategies/test-lib.md` を確認する。
@@ -59,9 +57,7 @@ flowchart TD
 - 探索対象ディレクトリ
 - 除外パターン
 
-
 ## フェーズ1: ファイル一覧を取得
-
 
 ### 差分モード (デフォルト)
 
@@ -72,7 +68,6 @@ git diff --name-only main -- '*.ts' | grep -v '\.test\.ts$' | grep -v '\.d\.ts$'
 ```
 
 取得したファイルのうち、戦略ファイルの探索対象ディレクトリに含まれるもののみを対象とする。
-
 
 ### 全探索モード (--full)
 
@@ -88,13 +83,11 @@ git diff --name-only main -- '*.ts' | grep -v '\.test\.ts$' | grep -v '\.d\.ts$'
 
 メインエージェントは全サブエージェントの結果を統合してファイル一覧を作成する。
 
-
 ## フェーズ2: 除外パターンでフィルタ
 
 戦略ファイルの除外パターンに該当するファイルを除外する。
 
-既存の *.test.ts ファイルを探し、対応するソースファイルをテスト済みとして除外する。
-
+既存の \*.test.ts ファイルを探し、対応するソースファイルをテスト済みとして除外する。
 
 ## フェーズ3: 並列でテスト作成
 
@@ -131,7 +124,6 @@ git diff --name-only main -- '*.ts' | grep -v '\.test\.ts$' | grep -v '\.d\.ts$'
 - ファイルパスと理由のペアで報告
 ```
 
-
 ## フェーズ4: 結果の統合
 
 サブエージェントからの報告を集約する。
@@ -144,7 +136,6 @@ git diff --name-only main -- '*.ts' | grep -v '\.test\.ts$' | grep -v '\.d\.ts$'
 - `ファイル名.ts` - 理由
 ```
 
-
 ## フェーズ5: テスト実行と修正
 
 ```bash
@@ -155,7 +146,6 @@ bun test <ディレクトリ>
 
 全テストがパスするまで繰り返す。
 
-
 ## テスト作成ルール
 
 - テストランナー: bun:test
@@ -165,13 +155,11 @@ bun test <ディレクトリ>
 - 1テスト1アサーション
 - 意味のある変数名 (省略しない)
 
-
 ## テストパターン
 
 - 正常系: 典型的な入力値
 - 境界値: 空文字、空配列、0、null、undefined
 - 異常系: 不正な入力値、エッジケース
-
 
 ## テンプレート
 
@@ -194,7 +182,6 @@ test("異常系: nullを渡すとデフォルト値を返す", () => {
   expect(result).toBe("default")
 })
 ```
-
 
 ## 戦略ファイルの更新
 

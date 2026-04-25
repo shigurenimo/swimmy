@@ -1,9 +1,11 @@
 ---
 name: backlogs-index
 description: "?"
-arguments: backlogs ディレクトリのパス。省略時は対話で確認する。
+user-invocable: true
+disable-model-invocation: false
 metadata:
   author: shigurenimo
+  description: 指定した backlogs ディレクトリ配下の slug.md を全て読み込み、カテゴリ別ナラティブ形式の index.md を再生成するスキル。
   dev: false
 ---
 

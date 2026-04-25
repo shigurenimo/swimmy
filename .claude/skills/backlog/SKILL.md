@@ -1,9 +1,11 @@
 ---
 name: backlog
 description: "?"
-arguments: Optional. Issue description, feedbacks/ slug, or backlogs/ slug. If empty, proposes new backlog candidates from feedbacks/.
+user-invocable: true
+disable-model-invocation: false
 metadata:
   author: shigurenimo
+  description: `.docs/backlogs/` に課題を記録・更新するスキル。feedbacks/ から新規バックログ候補も提案できる。
   dev: true
 ---
 

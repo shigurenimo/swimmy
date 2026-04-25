@@ -1,5 +1,8 @@
-<!-- I want to review in Japanese. -->
+closes #
 
-ここにコメントを書く
+[人間向けの概要。何が変わるか、何が良くなるかを自然な文章で書く。リスクや影響があれば触れる]
 
-<!-- I want to review in Japanese. -->
+## Verification
+
+- [ ] 対象機能の動作確認
+- [ ] 既存機能への影響確認

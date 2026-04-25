@@ -1,9 +1,14 @@
 ---
 name: docs
-description: Documentation management for .docs/ directory. Manages product specs, decisions, backlogs, and signals. Keeps docs in sync with code. Product thinking and design principles are in the software-design skill.
+description: .docs/ documentation management.
+when_to_use: Writing or maintaining product docs under .docs/.
+user-invocable: true
+disable-model-invocation: false
 metadata:
+  description: .docs/ 配下の製品ドキュメント（仕様・意思決定・バックログ・顧客の声）を管理し、コードと矛盾がない状態を保つ。
   author: shigurenimo
   dev: true
+  tags: [docs]
 ---
 
 # ドキュメントルール
@@ -49,11 +54,13 @@ metadata:
 ## 2種類の情報
 
 人間が書くもの（コードから読み取れない）:
+
 - index.md: 製品の方向性、ペルソナ、ジョブ、意思決定プロセス（software-design スキルの顧客理解をここに記録する）
 - glossary.md, backlogs/, decisions/, signals/, notes/
 - なぜそうしたか、何を作るべきか、ユーザーの声
 
 コードから生成するもの:
+
 - features.md, user-flows.md
 - 必要に応じて architecture.md, sitemap.md, domain-model.md も追加
 
