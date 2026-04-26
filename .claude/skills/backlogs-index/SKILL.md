@@ -19,7 +19,7 @@ metadata:
 /backlogs-index {backlogs-dir}
 ```
 
-例: `/backlogs-index vault/docs/jobantenna/products/jobantenna-partners/backlogs`
+例: `/backlogs-index vault/products/jobantenna/products/jobantenna-partners/backlogs`
 
 引数省略時は対話で対象ディレクトリを確認する。
 
