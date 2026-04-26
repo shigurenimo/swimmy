@@ -8,3 +8,4 @@ paths:
 - Do not use numbers in headings
 - Insert blank lines before and after headings
 - Always insert a blank line between headings and content text
+- Use hyphens for unordered lists
