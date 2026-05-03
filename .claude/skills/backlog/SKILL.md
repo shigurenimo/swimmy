@@ -60,15 +60,19 @@ Invoke via the Skill tool.
 - Interpret input:
   - feedbacks/ slug: read feedbacks/{slug}.md and link as background
   - Issue text: treat as a new issue
-  - Existing backlogs/ slug: update the existing file
+  - Existing backlogs/ slug: read it and parse `---` zone separator before updating
 - Discuss against index.md (see Discussion flow)
 - Use `backlog-planning` skill to draft content from the discussion result
 - Create or update slug.md with the returned content
+  - 既存ファイルを更新するときは `---` から下の Claude ゾーンのみ書き換える。`---` から上の人間ゾーンは触らない
+  - 新規作成時は `# {テーマ名}` の直下に空の人間ゾーンと `---` 分離線を置き、その下に Claude ゾーンを書く
+  - フォーマット詳細は `.claude/skills/docs/references/backlogs.md` を参照
 - Ask the user whether to proceed with Issue creation
   - Proceed: invoke the `issue` skill
   - Stop: end the workflow
 
 Do not touch `index.md`. Regenerating `index.md` is handled by the separate `backlogs-index` skill.
+Do not touch the human zone (above `---`). Only rewrite the Claude zone (below `---`).
 
 ## Discussion flow
 
