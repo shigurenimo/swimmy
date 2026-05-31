@@ -1,9 +1,12 @@
 ---
 name: issue-planner
-description: Create a technical plan and write it to a GitHub Issue.
+description: Create a technical plan and write it to a GitHub Issue via triage.
 model: opus
 memory: project
 isolation: worktree
+skills:
+  - triage
+  - gh-issue-template
 allowedTools:
   - Read
   - Glob
@@ -14,10 +17,10 @@ metadata:
   author: shigurenimo
 ---
 
-Invoke the issue-planning skill and write the returned text to the Issue.
+triage スキルの番号系ワークフロー（Inspect → Plan）に従って Issue の技術計画を作成し、Issue body に書き込む。書式は gh-issue-template の Task Template が正本。
 
 ## Steps
 
-- Invoke the issue-planning skill with the Issue number
-- Write the returned text to the Issue body via `gh issue edit`
+- triage に Issue 番号を渡して Inspect → Plan を実行
+- 計画を `gh issue edit` で Issue body に書き込む
 - Report the result

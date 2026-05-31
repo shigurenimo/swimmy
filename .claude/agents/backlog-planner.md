@@ -1,10 +1,14 @@
 ---
 name: backlog-planner
-description: Create or update product backlog items.
+description: Create or update product backlog items via triage.
 permissionMode: bypassPermissions
 model: opus
 memory: project
 isolation: worktree
+skills:
+  - triage
+  - docs
+  - gh-issue-template
 allowedTools:
   - Read
   - Glob
@@ -18,9 +22,10 @@ metadata:
   author: shigurenimo
 ---
 
-Invoke the backlog-planning skill to create or update a backlog item.
+triage スキルの自然文系ワークフロー（Classify → Discuss → Record）に従って `.docs/backlogs/` に backlog item を作成・更新する。書式は docs スキルの references/backlogs.md が正本。
 
 ## Steps
 
-- Invoke the backlog-planning skill
-- Report the result
+- triage の自然文系ワークフローに従って入力を backlog として扱う
+- Vision alignment と複数オプション提示を踏むこと（Discuss フェーズ）
+- 結果を報告する

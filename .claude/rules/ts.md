@@ -7,7 +7,12 @@ paths:
 ## ファイル
 
 - 1ファイル1関数 or 1クラス。ファイル名 = 関数名/クラス名（小文字ケバブケース）
-- import は `@/` 絶対パス、相対パス禁止
+- バレルファイル（`index.ts` で配下を re-export するだけのファイル）禁止。ライブラリの公開エントリのみ例外
+
+## import
+
+- `@/` 絶対パス、相対パス禁止
+- 動的 import 禁止（`await import(...)` / `import()` expression）。static `import` 文のみ
 
 ## 型
 
