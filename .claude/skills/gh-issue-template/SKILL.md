@@ -49,6 +49,35 @@ gh api "/orgs/$OWNER/issue-types" --jq '.[] | select(.is_enabled) | .name'
 
 Issue 作成時は `gh issue create --type Bug|Feature|Task` を必ず指定する。
 
+### `--type` フラグが使えない場合の GraphQL 代替
+
+gh のバージョンによって `--type` フラグが未対応の場合がある。その場合は GraphQL で代替する。
+
+まずリポジトリ ID と Issue Type ID を取得する。
+
+```bash
+REPO_ID=$(gh api graphql -f query='{ repository(owner:"'"$OWNER"'",name:"'"${REPO##*/}"'"){id} }' -q '.data.repository.id')
+gh api graphql -f query='{ repository(owner:"'"$OWNER"'",name:"'"${REPO##*/}"'"){ issueTypes(first:10){ nodes { id name } } } }' -q '.data.repository.issueTypes.nodes[] | [.id, .name] | @tsv'
+```
+
+Issue を作成する。
+
+```bash
+ISSUE_NUM=$(gh api graphql -f query='
+mutation($repoId:ID!, $title:String!, $body:String!, $typeId:ID!) {
+  createIssue(input:{repositoryId:$repoId, title:$title, body:$body, issueTypeId:$typeId}) {
+    issue { number url }
+  }
+}' \
+-f repoId="$REPO_ID" \
+-f typeId="$TYPE_ID" \
+-f title="タイトル" \
+-f body="本文" \
+-q '.data.createIssue.issue.number')
+```
+
+assigneeIds は GraphQL で配列を渡せないため、作成後に `gh issue edit $ISSUE_NUM --add-assignee @me` でアサインする。
+
 ## .github 雛形ファイルの優先順位
 
 `.github/ISSUE_TEMPLATE.md` と `.github/PULL_REQUEST_TEMPLATE.md` は GitHub UI が自動適用する雛形ファイル。Claude が本文を組み立てる時の優先順位は次の通り。

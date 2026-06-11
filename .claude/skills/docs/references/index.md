@@ -51,3 +51,19 @@
 - 解決する問題 → フィードバックから分析して更新してよい
 - 技術スタック → 選定理由を必ず1文つける
 - セクションを追加しない。この構造を守る
+
+## 肥大化したら分解する
+
+100行を超えそうになったら別ファイルに切り出す。index.md は入口。詳細はリンク先に置く。
+
+切り出し先の目安。
+
+- 解決する痛みと提供価値を深掘りしたい → [value.md](value.md)
+- 外部システム連携の事実関係 → [integrations.md](integrations.md)
+- リリース計画 → [milestones.md](milestones.md)
+- ロール別できることのサマリ → [capabilities.md](capabilities.md)
+- データ構造の業務語整理 → [domain.md](domain.md)
+- ロール横断のユースケース・業務ストーリー → [stories.md](stories.md)
+- 読者ロール別の通読ガイド → 各読者の入口セクション（経営／開発／請求 など）を index.md に1ブロック1〜2行で残し、本体は対応する features/ や milestones.md などへ wikiリンクで飛ばす
+
+index.md は方向性と読者ガイドの最薄入口に留め、内容は持ち過ぎない。

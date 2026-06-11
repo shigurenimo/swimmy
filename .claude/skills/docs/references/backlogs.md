@@ -55,19 +55,9 @@ notion-page-id: { Notion Page ID }
 
 脚注に日付と根拠をまとめる。本文は結論だけ。
 
-## ゾーン分離 (`---`)
+## ゾーン分離
 
-frontmatter とは別に、`# {テーマ名}` の直下に「人間ゾーン」、その後の `---` で「Claude ゾーン」に分ける。Claude (triage スキル) は `---` から下のみ書き換える。
-
-frontmatter があるファイルでの `---` の出現順:
-
-1. frontmatter 開始
-2. frontmatter 終端
-3. 人間ゾーンと Claude ゾーンの分離 (これが上書き対象の境界)
-
-frontmatter が無いファイルでは、本文先頭から最初の `---` が分離線。
-
-人間ゾーンが空でもよい (空行のみで `---` だけ置く)。
+人間が書く領域と Claude が再生成する領域を `---` で分ける。詳細は [human-claude-zone.md](human-claude-zone.md) を参照。
 
 ## index.md
 
@@ -135,5 +125,4 @@ slug.md は編集しない。index.md のみ上書きする。
 - 対応案は複数出す。1案に絞らない(絞るのはdecisions/の役割)
 - 判断が「開発する」になったらdecisions/にADRを作成して実装に進む
 - 判断が「見送り」でも削除しない。理由を残す
-- Claude ゾーンのみ書き換える。人間ゾーン (`---` より上) には触らない
-- `最終更新` 行は人間ゾーンの先頭に置く。Claude ゾーンを再生成したときに今日の日付に更新してよい
+- 人間ゾーンと Claude ゾーンの取り扱いは [human-claude-zone.md](human-claude-zone.md) を参照

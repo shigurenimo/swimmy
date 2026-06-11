@@ -13,133 +13,128 @@ metadata:
 
 # ドキュメントルール
 
-各アプリの `{app}/.docs/` に製品ドキュメントを管理する。コードから読み取れない意思決定やバックログを記録し、コードと矛盾がない状態を保つ。
+`.docs/` に製品ドキュメントを管理する。コードから読み取れない意思決定・声・計画を記録し、コードと矛盾がない状態を保つ。
 
 ## ディレクトリ構造
 
-製品が1つの場合はフラットに並べる:
+製品が1つの場合はフラットに並べる。
 
 ```
 .docs/
-  index.md           # 製品の方向性、解決する問題
-  glossary.md        # 用語集
-  features.md        # 機能一覧と現在の状態
-  user-flows.md      # ユーザー導線
-  backlogs/          # プロダクトバックログ
-  decisions/         # ADR（意思決定記録）
-  signals/           # 顧客と社内の声
-  notes/             # 自由メモ
+  index.md                    製品の方向性、解決する問題
+  value.md                    解決する痛みと提供価値の深掘り（必要なら）
+  glossary.md                 用語集
+  features.md                 機能一覧（小規模）
+  features/                   機能ファイル分割（中〜大規模）
+    index.md
+    {slug}.md   または NNN_{日本語名}.md
+  user-flows.md               ユーザー導線
+  stories/                    業務ストーリー（ロール横断のユースケース、必要なら）
+  sitemap.md                  URL一覧
+  architecture.md             システム構成
+  integrations.md             外部システム連携（必要なら）
+  domain.md                   ドメインモデル（必要なら）
+  roles-and-permissions.md    ロール権限（必要なら）
+  milestones.md               リリース計画（必要なら）
+  capabilities.md             ロール別できること（必要なら）
+  manual/                     エンドユーザーマニュアル（必要なら）
+  backlogs/                   プロダクトバックログ
+  decisions/                  ADR（意思決定記録）
+  signals/                    顧客と社内の声
+  sources/                    一次情報（議事録・要件書・配布物）
+  notes/                      自由メモ
+  references/terms/           業界用語のアトミック定義
+  drafts/                     検討中の草案
 ```
 
-製品が複数ある場合は `products/` で分ける:
+製品が複数ある場合は `products/{product-name}/` で分ける。`.docs/` 直下は全製品共通、`products/{product-name}/` は製品固有。
 
-```
-.docs/
-  index.md           # 全製品に共通する方向性、組織のミッション等
-  glossary.md        # 全製品で共有する用語集
-  products/
-    {product-name}/
-      index.md       # この製品の方向性、解決する問題
-      glossary.md    # この製品固有の用語集
-      features.md    # 機能一覧と現在の状態
-      user-flows.md  # ユーザー導線
-      backlogs/      # プロダクトバックログ
-      decisions/     # ADR（意思決定記録）
-      feedbacks/     # ユーザーの声
-      notes/         # 自由メモ
-```
+## 3種類の情報
 
-`.docs/` 直下のファイルは全製品に共通する内容を書く。製品固有の内容は `products/{product-name}/` に書く。
+人間が書く。コードから読み取れない意図・声・計画・価値。
 
-## 2種類の情報
+- index.md, value.md, glossary.md, milestones.md, capabilities.md, manual/, stories/
+- backlogs/, decisions/, signals/, notes/, references/terms/
 
-人間が書くもの（コードから読み取れない）:
+コードから生成する。実装が正で、文書はその索引・要約。
 
-- index.md: 製品の方向性、ペルソナ、ジョブ、意思決定プロセス（software-design スキルの顧客理解をここに記録する）
-- glossary.md, backlogs/, decisions/, signals/, notes/
-- なぜそうしたか、何を作るべきか、ユーザーの声
+- features（または features/）, user-flows.md, sitemap.md, architecture.md
+- 必要に応じて integrations.md, domain.md, roles-and-permissions.md, api-schema.md, components.md
+- 部分更新する。人間の追記コメントは残し、コードと矛盾する箇所だけ上書き。丸ごと再生成しない
 
-コードから生成するもの:
+一次情報として残す。決定の根拠。
 
-- features.md, user-flows.md
-- 必要に応じて architecture.md, sitemap.md, domain-model.md も追加
-
-コードから生成するファイルは部分的に更新する。人間が追記したコメントや補足は残し、コードと矛盾する部分だけ上書きする。丸ごと再生成しない。
-
-## コード生成ファイルのフォーマット
-
-features.md: 機能単位で「何ができるか」を書く。実装詳細は書かない。
-user-flows.md: ユーザー種別ごとに番号付きステップで導線を書く。
-詳細は [formats.md](references/formats.md) を参照。
+- sources/ に議事録・要件書・配布物を日付キーで保存
+- decisions/ や milestones.md, signals/ から `[[sources/minutes/YYYY-MM-DD-{topic}]]` で逆リンクし、判断の出所を辿れるようにする
 
 ## ナレッジグラフとリンク
 
-ドキュメントは孤立した文書の集まりではなく、相互リンクで繋がったナレッジグラフとして育てる。Obsidian では「1ファイル＝1ノード」「`[[]]`＝エッジ」でグラフが描かれる。リンクは積極的に張る。
+ドキュメントは相互リンクで繋がったナレッジグラフとして育てる。1ファイル＝1ノード、`[[]]`＝エッジ。
 
-原則:
+原則。
 
-- 専門用語・製品用語・機能名・他ドキュメントは、本文に登場したら `[[]]` でリンクする。リンクは「節（`##`）ごとに初出1回」を目安にし、読みやすさを保つ（同じ語を1段落で何度も張らない）。
-- リンクは Obsidian の wikiリンク `[[slug]]` または `[[path/file|表示名]]` を使う。Markdown リンク `[text](path)` は使わない。
-- 表記が揺れる語は `[[正式名|本文の表記]]` で表示名を当てる（例: `[[単位数|単位]]`、`[[pl|PL]]`）。
-- まだ定義ファイルが無い語でも先に `[[]]` を張ってよい。未解決リンクは「次に書くべきノード」のしるしになる。
-- 見出し・コードブロック・mermaid・frontmatter の中にはリンクを張らない。
+- 専門用語・製品用語・機能名・他ドキュメントは本文に登場したら `[[]]` でリンクする。節（`##`）ごとに初出1回が目安
+- wikiリンク `[[slug]]` または `[[path/file|表示名]]` を使う。Markdown リンク `[text](path)` は使わない
+- 表記が揺れる語は `[[正式名|本文の表記]]`（例: `[[単位数|単位]]`、`[[pl|PL]]`）
+- 未解決リンクは「次に書くべきノード」のしるしになる
+- 見出し・コードブロック・mermaid・frontmatter の中にはリンクを張らない
+- 孤立ノードを作らない。新ファイルは関連ノードか索引（glossary.md など）から必ず1本繋ぐ
 
-孤立ノード（どこからもリンクされない／どこへもリンクしないファイル）を作らない。新しいファイルを足したら、関連ノードと用語索引（glossary.md など）から必ず1本は繋ぐ。
+## 専門知識のノード化
 
-## 専門知識のノード化（references/terms/）
+製品の外にある専門知識（業界用語・制度・会計・技術）は `references/terms/{用語}.md` に1用語1ファイルで定義する。フォーマットとルールは [glossary.md](references/glossary.md) を参照。
 
-製品の外にある専門知識（業界用語・制度・会計・技術の用語）は、`references/terms/{用語}.md` に1用語1ファイルのアトミックなノードとして定義する。これがグラフの土台になる。
-
-棲み分け:
+棲み分け。
 
 - references/terms/ = 製品の外にある専門知識のアトミック定義（グラフのノード）
-- notes/ = 長文の解説・深掘り（references/terms/ から文中でリンクされる先）
-- glossary.md = 用語の索引、および機能名・製品固有用語の定義（機能詳細との二重記述を避けるため、製品の用語はここに留め、細かく書かない）
+- notes/ = 長文の解説・深掘り（terms から文中でリンクする先）
+- glossary.md = 用語の索引、および機能名・製品固有用語の定義
 - features/ = 製品の機能
-
-ノードのフォーマット:
-
-```
----
-term: 用語
-reading: よみがな
-aliases: [別名]
-category: カテゴリ
----
-
-# 用語（正式名）
-
-2〜6 行の定義。素人にも分かる言葉で。関連語や深掘り先の notes は、定義文の中に自然に `[[]]` で埋め込む。
-```
-
-ルール:
-
-- 1ファイル1用語。定義は短く（2〜6行）。
-- リンクは定義文の中に自然に `[[]]` で埋め込む。「関連」「詳細」のようなリンク専用の節やリストは作らない（リストの維持がメンテ負担になるため）。深掘り先の `notes/` も文中でリンクする。
-- `references/terms/` に index.md は作らない（索引は glossary.md が兼ねる）。
-- 製品固有の挙動・機能はノードにせず、該当機能 `[[features/...|表示名]]` へリンクする。
-- ファイル名に大文字を使わない。英字の用語は小文字とハイフンだけにする（例: `pl.md`、`kpi.md`、`spo2.md`）。frontmatter の `term:` と本文見出しには `PL`・`SpO2` のような正式な大文字表記を残し、リンクは `[[pl|PL]]` のように表示名を当てる。日本語の用語は日本語ファイル名でよい。
 
 ## 矛盾の検出と更新
 
-ドキュメントは古くなる。定期的にサブエージェントで矛盾を検出し、ユーザーと一緒に何が正しいかを確認して更新する:
+ドキュメントは古くなる。定期的にサブエージェントで矛盾を検出し、ユーザーと一緒に何が正しいかを確認して更新する。
 
 - index.md の方向性が現状のコードと合っているか
-- features.md がコードの実態と一致しているか
+- features がコードの実態と一致しているか
 - backlogs に完了済みの項目が残っていないか
 - decisions の内容が現在の実装と矛盾していないか
+- milestones の日付が現状計画と合っているか
+- roles-and-permissions が `requireRole()` の宣言と一致しているか
 
 コードと文書が矛盾する場合、コードを正とする。ただし人間に確認してから更新する。
 
 ## 各ファイルのフォーマット
 
-- [index.md](references/index.md): 製品の方向性と解決する問題
-- [glossary.md](references/glossary.md): 用語集
-- [backlogs.md](references/backlogs.md): プロダクトバックログ
-- [decisions.md](references/decisions.md): ADR（意思決定記録）
-- [signals.md](references/signals.md): 顧客と社内の声
-- [formats.md](references/formats.md): コード生成ファイル（features.md, user-flows.md 等）のフォーマット
+人間が書く。
+
+- [index.md](references/index.md)
+- [value.md](references/value.md)
+- [glossary.md](references/glossary.md)
+- [milestones.md](references/milestones.md)
+- [capabilities.md](references/capabilities.md)
+- [stories.md](references/stories.md)
+- [manual.md](references/manual.md)
+- [backlogs.md](references/backlogs.md)
+- [decisions.md](references/decisions.md)
+- [signals.md](references/signals.md)
+- [sources.md](references/sources.md)
+
+コードから生成する。
+
+- [features.md](references/features.md)
+- [sitemap.md](references/sitemap.md)
+- [architecture.md](references/architecture.md)
+- [integrations.md](references/integrations.md)
+- [domain.md](references/domain.md)
+- [roles-and-permissions.md](references/roles-and-permissions.md)
+- [api-schema.md](references/api-schema.md)
+- [components.md](references/components.md)
+
+共通ルール。
+
 - [writing-rules.md](references/writing-rules.md): 記述ルール
+- [human-claude-zone.md](references/human-claude-zone.md): signals/backlogs の人間ゾーンと Claude ゾーンの境界
 - [validation.md](references/validation.md): 検証基準
 
 ## 開発サイクルでの使い方

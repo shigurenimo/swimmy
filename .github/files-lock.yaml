@@ -20,3 +20,39 @@ nocker-inc/nocker-inc:
   - .claude/skills/triage/references/screenshot-upload.md
   - .editorconfig
   - .github/PULL_REQUEST_TEMPLATE.md
+nocker-inc/nocker-inc#shigurenimo-swimmy:
+  - .claude/agents/backlog-planner.md
+  - .claude/agents/debugger.md
+  - .claude/agents/hacker.md
+  - .claude/agents/issue-planner.md
+  - .claude/rules/md.md
+  - .claude/rules/ts.md
+  - .claude/skills/docs/SKILL.md
+  - .claude/skills/docs/references/api-schema.md
+  - .claude/skills/docs/references/architecture.md
+  - .claude/skills/docs/references/backlogs.md
+  - .claude/skills/docs/references/capabilities.md
+  - .claude/skills/docs/references/components.md
+  - .claude/skills/docs/references/decisions.md
+  - .claude/skills/docs/references/domain.md
+  - .claude/skills/docs/references/features.md
+  - .claude/skills/docs/references/glossary.md
+  - .claude/skills/docs/references/human-claude-zone.md
+  - .claude/skills/docs/references/index.md
+  - .claude/skills/docs/references/integrations.md
+  - .claude/skills/docs/references/manual.md
+  - .claude/skills/docs/references/milestones.md
+  - .claude/skills/docs/references/roles-and-permissions.md
+  - .claude/skills/docs/references/signals.md
+  - .claude/skills/docs/references/sitemap.md
+  - .claude/skills/docs/references/sources.md
+  - .claude/skills/docs/references/stories.md
+  - .claude/skills/docs/references/validation.md
+  - .claude/skills/docs/references/value.md
+  - .claude/skills/docs/references/writing-rules.md
+  - .claude/skills/gh-issue-template/SKILL.md
+  - .claude/skills/test-lib/SKILL.md
+  - .claude/skills/triage/SKILL.md
+  - .claude/skills/triage/references/screenshot-upload.md
+  - .editorconfig
+  - .github/PULL_REQUEST_TEMPLATE.md

@@ -2,7 +2,7 @@
 name: hacker
 description: Run security tests against localhost applications.
 permissionMode: default
-model: opus
+model: claude-opus-4-6
 memory: project
 metadata:
   author: shigurenimo
