@@ -1,12 +1,15 @@
 ---
 name: docs
 description: .docs/ documentation management.
+argument-hint: "[drift|links|next|features-sync] [scope]"
 when_to_use: Writing or maintaining product docs under .docs/.
 user-invocable: true
 disable-model-invocation: false
 metadata:
+  type: reference
   description: .docs/ 配下の製品ドキュメント（仕様・意思決定・バックログ・顧客の声）を管理し、コードと矛盾がない状態を保つ。
   author: shigurenimo
+  design: ナレッジグラフとして相互リンクした製品ドキュメントを管理し、コードとの矛盾検出や乖離更新を行う。設計判断と整合性維持の質が要となる。
   dev: true
   tags: [docs]
 ---
@@ -28,15 +31,19 @@ metadata:
   features/                   機能ファイル分割（中〜大規模）
     index.md
     {slug}.md   または NNN_{日本語名}.md
+  pages.md                    画面一覧（画面数30以上、必要なら）
+  pages/                      画面ファイル分割（ルートファイル単位、必要なら）
   user-flows.md               ユーザー導線
   stories/                    業務ストーリー（ロール横断のユースケース、必要なら）
   sitemap.md                  URL一覧
   architecture.md             システム構成
   integrations.md             外部システム連携（必要なら）
   domain.md                   ドメインモデル（必要なら）
+  models/                     ドメインモデル分割（テーブル数40以上、必要なら）
   roles-and-permissions.md    ロール権限（必要なら）
   milestones.md               リリース計画（必要なら）
-  capabilities.md             ロール別できること（必要なら）
+  capabilities.md             ロール別できることサマリ（必要なら）
+  page-capabilities.md        ロール × 画面の詳細できること（必要なら）
   manual/                     エンドユーザーマニュアル（必要なら）
   backlogs/                   プロダクトバックログ
   decisions/                  ADR（意思決定記録）
@@ -87,7 +94,7 @@ metadata:
 棲み分け。
 
 - references/terms/ = 製品の外にある専門知識のアトミック定義（グラフのノード）
-- notes/ = 長文の解説・深掘り（terms から文中でリンクする先）
+- notes/ = 長文の解説・深掘り（terms から文中でリンクする先）。一時的な棚卸し・調査メモ（`ephemeral: true`）も置く。詳細は [notes.md](references/notes.md)
 - glossary.md = 用語の索引、および機能名・製品固有用語の定義
 - features/ = 製品の機能
 
@@ -113,6 +120,7 @@ metadata:
 - [glossary.md](references/glossary.md)
 - [milestones.md](references/milestones.md)
 - [capabilities.md](references/capabilities.md)
+- [page-capabilities.md](references/page-capabilities.md)
 - [stories.md](references/stories.md)
 - [manual.md](references/manual.md)
 - [backlogs.md](references/backlogs.md)
@@ -123,6 +131,7 @@ metadata:
 コードから生成する。
 
 - [features.md](references/features.md)
+- [pages.md](references/pages.md)
 - [sitemap.md](references/sitemap.md)
 - [architecture.md](references/architecture.md)
 - [integrations.md](references/integrations.md)
@@ -136,6 +145,25 @@ metadata:
 - [writing-rules.md](references/writing-rules.md): 記述ルール
 - [human-claude-zone.md](references/human-claude-zone.md): signals/backlogs の人間ゾーンと Claude ゾーンの境界
 - [validation.md](references/validation.md): 検証基準
+
+## サブコマンド
+
+`/docs {sub}` でドキュメント運用のタスクを呼び分ける。各サブコマンドは `commands/{sub}.md` に詳細を書く。
+
+- [next](commands/next.md): コードベース全体を多レンズで探索し、未捕捉タスクを `tasks.md` に追記する。Workflow ファンアウトで網羅性を担保する。重い処理（300+ agent 規模）。
+- [drift](commands/drift.md): 仕様書／README と実装の乖離を検出する。「実装済」記述と実コードの突合、テーブル数・画面数・ロール権限の食い違い。
+- [links](commands/links.md): `[[wikilink]]` を解決して未定義リンク・孤児ページ・循環参照を検出する。
+
+将来候補（必要になったら追加）。
+
+- lint — 書式チェック（Markdown ルール・frontmatter 必須項目・命名規則）
+- index — features/signals/backlogs の index.md 再生成
+- orphan — どこからも参照されていない .md の検出
+- status — 実装ステータス記号と実装の自動突合
+- sync — backlog/signal を tasks.md へ昇格、tasks.md の判断済を docs 本文へ吸収
+- glossary — 用語の整合（定義漏れ・揺れ）
+- publish — docs→HTML 同期
+- review — 6 読者導線・3 クリック到達・説明の薄さの読み物検査
 
 ## 開発サイクルでの使い方
 

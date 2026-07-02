@@ -1,15 +1,7 @@
 ---
 name: backlog-planner
 description: Create or update product backlog items via triage.
-permissionMode: bypassPermissions
-model: claude-opus-4-6
-memory: project
-isolation: worktree
-skills:
-  - triage
-  - docs
-  - gh-issue-template
-allowedTools:
+tools:
   - Read
   - Glob
   - Grep
@@ -17,7 +9,14 @@ allowedTools:
   - Skill
   - Edit
   - Write
-  - AskUserQuestion
+model: claude-opus-4-6
+permissionMode: bypassPermissions
+background: true
+isolation: worktree
+skills:
+  - triage
+  - docs
+  - gh-issue-template
 metadata:
   author: shigurenimo
 ---

@@ -4,11 +4,16 @@ description: Single entry point that reads any input and routes it to signal / b
 when_to_use: Whenever you receive an input whose destination is undecided (customer voices, ideas, work requests, numbers, URLs). Implementation phases run through here too.
 user-invocable: true
 disable-model-invocation: false
+model: claude-opus-4-6[1m]
+effort: xhigh
 metadata:
+  type: task
   author: shigurenimo
   description: 入力の粒度と当事者性を判定し、signal / backlog / issue / 既存 issue or PR の続き作業へルーティングする入口スキル。実装フェーズ（Branch / Code / Verification / Debug / PR 作成）も内包する。書式は docs と gh-issue-template に委ねる。
+  design: 入力を分類して記録先へ振り分け計画から実装やレビューや PR まで通す入口スキル。ルーティング判断とコード実装を内包するため品質を優先する。
   dev: true
   tools: gh, playwright, agent-browser
+  tags: [tools]
 ---
 
 何かしたい時に投げる単一の入口。入力を読み、行き先を決めて記録し、必要なら実装まで進める。書式は `gh-issue-template` と `docs` が正本なのでここには書かない。

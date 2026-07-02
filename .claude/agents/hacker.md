@@ -1,9 +1,10 @@
 ---
 name: hacker
 description: Run security tests against localhost applications.
-permissionMode: default
 model: claude-opus-4-6
-memory: project
+permissionMode: bypassPermissions
+background: true
+isolation: worktree
 metadata:
   author: shigurenimo
 ---

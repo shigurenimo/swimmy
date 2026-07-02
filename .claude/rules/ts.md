@@ -13,6 +13,15 @@ paths:
 
 - `@/` 絶対パス、相対パス禁止
 - 動的 import 禁止（`await import(...)` / `import()` expression）。static `import` 文のみ
+- インライン型 import 禁止（`field: import("./foo").Bar` のような書き方）。ファイル冒頭で `import type { Bar } from "@/foo"` する
+
+```ts
+import type { EnemyId } from "@/world"
+
+type Props = {
+  summonEnemyId?: EnemyId
+}
+```
 
 ## 型
 
@@ -69,3 +78,12 @@ export function run() {
 ## コメント
 
 - 動作が予測しにくい場合のみ。@param, @return 禁止
+- 「集約ルート」「ユーティリティ」のような当たり前のラベルや自明な役割説明は書かない
+- クラスと関数のコメントは必ず JSDoc 形式（`/** ... */`）にする。`//` 行コメントだと IDE のホバーで表示されない
+
+```ts
+/**
+ * 証明書発行依頼。発行判定や計算は持たず記録のみ
+ */
+export class CertificateRequest implements Props {}
+```

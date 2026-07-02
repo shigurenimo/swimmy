@@ -50,3 +50,38 @@
 - 用語は glossary.md と一致させる。terms（業界知識）には `[[]]` でリンク
 - スキーマファイルの場所とテーブル数を冒頭で宣言。テーブル追加時はこの数も更新
 - 外部システムとのデータやりとりは `integrations.md` を別途立てる。domain.md は内部の業務データ構造に集中する
+
+## 大規模スキーマの分割（models/）
+
+テーブル数が 40 以上になり、1 ファイルでは「どこに何が書いてあるか」が引きにくくなったら `models/` ディレクトリに分割する。
+
+```
+.docs/
+  domain.md           概観（エンティティ一覧の上位カテゴリ + 主要 ERD + ライフサイクル）
+  models/
+    index.md          ドメイン索引
+    {domain}.md       1 ドメイン = 1 ファイル
+```
+
+切り出し方。
+
+- ドメインは業務領域で切る（組織・職員・利用者・記録・請求・経営 など）
+- 1 ドメインファイルにはそのドメインのテーブル群・関連・ライフサイクル・代表的な業務ルールを書く
+- ドメインを跨ぐ関係は `domain.md` に残す
+- `models/index.md` から各ドメインへ 1 行サマリ + `[[]]` で繋ぐ
+
+domain.md と models/ は重複させない。domain.md は「全体俯瞰」、models/ は「掘り下げ」と役割を分ける。
+
+models/{domain}.md の frontmatter。
+
+```yaml
+---
+domain: {english-key}
+tables: [{tableName}, {tableName}, ...]
+---
+```
+
+- `domain`: 英字キー。features の `models: [{domain}]` から逆引きされる識別子
+- `tables`: そのドメインに属する全テーブル名。schema ファイルの実名と一致させる。テーブル追加・削除時に追従
+
+features → models の逆引きが効くよう、`domain` キーは features 側 frontmatter の `models: []` と必ず揃える。

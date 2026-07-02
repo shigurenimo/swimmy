@@ -28,6 +28,10 @@ nocker-inc/nocker-inc#shigurenimo-swimmy:
   - .claude/rules/md.md
   - .claude/rules/ts.md
   - .claude/skills/docs/SKILL.md
+  - .claude/skills/docs/commands/drift.md
+  - .claude/skills/docs/commands/features-sync.md
+  - .claude/skills/docs/commands/links.md
+  - .claude/skills/docs/commands/next.md
   - .claude/skills/docs/references/api-schema.md
   - .claude/skills/docs/references/architecture.md
   - .claude/skills/docs/references/backlogs.md
@@ -42,9 +46,14 @@ nocker-inc/nocker-inc#shigurenimo-swimmy:
   - .claude/skills/docs/references/integrations.md
   - .claude/skills/docs/references/manual.md
   - .claude/skills/docs/references/milestones.md
+  - .claude/skills/docs/references/notes.md
+  - .claude/skills/docs/references/page-capabilities.md
+  - .claude/skills/docs/references/pages.md
   - .claude/skills/docs/references/roles-and-permissions.md
   - .claude/skills/docs/references/signals.md
+  - .claude/skills/docs/references/sitemap.md
   - .claude/skills/docs/references/sources.md
+  - .claude/skills/docs/references/stories.md
   - .claude/skills/docs/references/validation.md
   - .claude/skills/docs/references/value.md
   - .claude/skills/docs/references/writing-rules.md

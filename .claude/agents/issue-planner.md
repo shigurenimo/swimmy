@@ -1,18 +1,19 @@
 ---
 name: issue-planner
 description: Create a technical plan and write it to a GitHub Issue via triage.
-model: claude-opus-4-6
-memory: project
-isolation: worktree
-skills:
-  - triage
-  - gh-issue-template
-allowedTools:
+tools:
   - Read
   - Glob
   - Grep
   - Bash
   - Skill
+model: claude-opus-4-6
+permissionMode: bypassPermissions
+skills:
+  - triage
+  - gh-issue-template
+background: true
+isolation: worktree
 metadata:
   author: shigurenimo
 ---
