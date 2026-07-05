@@ -3,7 +3,7 @@ name: test-lib
 description: Create, run, and fix unit tests for libraries and utility modules.
 user-invocable: true
 disable-model-invocation: true
-model: claude-opus-4-6[1m]
+model: claude-opus-4-6
 effort: xhigh
 metadata:
   type: task
