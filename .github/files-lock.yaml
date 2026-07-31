@@ -63,3 +63,12 @@ nocker-inc/nocker-inc#shigurenimo-swimmy:
   - .claude/skills/triage/references/screenshot-upload.md
   - .editorconfig
   - .github/PULL_REQUEST_TEMPLATE.md
+nocker-sh/nocker-inc#shigurenimo-swimmy:
+  - .claude/agents/backlog-planner.md
+  - .claude/agents/debugger.md
+  - .claude/agents/hacker.md
+  - .claude/agents/issue-planner.md
+  - .claude/rules/md.md
+  - .claude/rules/ts.md
+  - .editorconfig
+  - .github/PULL_REQUEST_TEMPLATE.md
