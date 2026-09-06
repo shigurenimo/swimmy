@@ -9,6 +9,7 @@ import { readImage } from "@/service/images"
 import {
   addReaction,
   countPosts,
+  countResponses,
   createPost,
   listPosts,
   listResponses,
@@ -84,14 +85,18 @@ export function createApiApp() {
 
   app.get("/threads/:threadId/responses", async (context) => {
     const threadId = idSchema.safeParse(context.req.param("threadId"))
+    const cursor = idSchema.nullable().safeParse(context.req.query("after") ?? null)
 
-    if (!threadId.success) {
+    if (!threadId.success || !cursor.success) {
       return context.json({ message: "リクエストが不正です" }, 400)
     }
 
-    const nodes = await listResponses(threadId.data)
+    const [nodes, totalCount] = await Promise.all([
+      listResponses({ threadId: threadId.data, cursor: cursor.data, limit: pageSize + 1 }),
+      countResponses(threadId.data),
+    ])
 
-    return context.json(toPostsPage({ nodes, totalCount: nodes.length, take: nodes.length }))
+    return context.json(toPostsPage({ nodes, totalCount, take: pageSize }))
   })
 
   app.get("/images/:fileId", async (context) => {

@@ -17,8 +17,9 @@ async function readPosts(props: {
   const filters = props.filter ? [props.filter] : []
 
   if (props.cursor) {
+    const comparison = props.order === "desc" ? sql`<` : sql`>`
     filters.push(
-      sql`(posts.created_at, posts.id) < (
+      sql`(posts.created_at, posts.id) ${comparison} (
         select cursor_post.created_at, cursor_post.id
         from posts as cursor_post
         where cursor_post.id = ${props.cursor}
@@ -112,13 +113,22 @@ export async function readPost(postId: string) {
   return rows[0] ?? null
 }
 
-export async function listResponses(threadId: string) {
+export async function listResponses(props: {
+  threadId: string
+  cursor: string | null
+  limit: number
+}) {
   return readPosts({
-    filter: eq(posts.replyId, threadId),
+    filter: eq(posts.replyId, props.threadId),
     order: "asc",
-    cursor: null,
-    limit: 1000,
+    cursor: props.cursor,
+    limit: props.limit,
   })
+}
+
+export async function countResponses(threadId: string) {
+  const rows = await db.select({ count: count() }).from(posts).where(eq(posts.replyId, threadId))
+  return rows[0]?.count ?? 0
 }
 
 export async function createPost(input: CreatePostInput) {

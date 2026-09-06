@@ -66,6 +66,7 @@ test.each(["posts", "threads"])(
 test("thread detail and responses keep their distinct routes", async () => {
   spyOn(postService, "readPost").mockResolvedValue(post)
   spyOn(postService, "listResponses").mockResolvedValue([])
+  spyOn(postService, "countResponses").mockResolvedValue(0)
   const app = createApiApp()
   const detail = await app.request(`/api/threads/${post.id}`)
   const responses = await app.request(`/api/threads/${post.id}/responses`)
@@ -76,4 +77,28 @@ test("thread detail and responses keep their distinct routes", async () => {
     nodes: [],
     pageInfo: { endCursor: null, hasNextPage: false },
   })
+})
+
+test("responses expose additional pages beyond 1000 replies", async () => {
+  const listResponses = spyOn(postService, "listResponses").mockResolvedValue(
+    Array.from({ length: 41 }, (_, index) => ({ ...post, id: `response-${index}` })),
+  )
+  spyOn(postService, "countResponses").mockResolvedValue(1001)
+  const app = createApiApp()
+  const response = await app.request(`/api/threads/${post.id}/responses?after=response-cursor`)
+  const page = await response.json()
+
+  expect(response.status).toBe(200)
+  expect(page.totalCount).toBe(1001)
+  expect(page.nodes).toHaveLength(40)
+  expect(page.pageInfo).toEqual({ hasNextPage: true, endCursor: "response-39" })
+  expect(listResponses).toHaveBeenCalledWith({
+    threadId: post.id,
+    cursor: "response-cursor",
+    limit: 41,
+  })
+
+  const invalid = await app.request(`/api/threads/${post.id}/responses?after=short`)
+  expect(invalid.status).toBe(400)
+  expect(listResponses).toHaveBeenCalledTimes(1)
 })

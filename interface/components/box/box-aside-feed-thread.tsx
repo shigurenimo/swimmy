@@ -8,6 +8,7 @@ import { BoxQueryError } from "@/interface/components/box/box-query-error"
 import { BoxCardPost } from "@/interface/components/box/box-card-post"
 import { BoxCardResponse } from "@/interface/components/box/box-card-response"
 import { BoxFormResponse } from "@/interface/components/box/box-form-response"
+import { ButtonFetchMore } from "@/interface/components/button/button-fetch-more"
 import { useCreateResponseMutation } from "@/interface/hooks/use-create-response-mutation"
 import { useThreadQuery } from "@/interface/hooks/use-thread-query"
 import { useThreadResponsesQuery } from "@/interface/hooks/use-thread-responses-query"
@@ -35,7 +36,7 @@ export const BoxAsideFeedThread: FC<Props> = (props) => {
     return <BoxAsideFeedThreadFallback />
   }
 
-  const responses = responsesQuery.data?.nodes ?? []
+  const responses = responsesQuery.data?.pages.flatMap((page) => page.nodes) ?? []
 
   return (
     <BoxAside title="スレッド" onClose={props.onClose}>
@@ -75,8 +76,22 @@ export const BoxAsideFeedThread: FC<Props> = (props) => {
           {responsesQuery.isError && (
             <BoxQueryError
               isRetrying={responsesQuery.isFetching}
-              onRetry={() => responsesQuery.refetch()}
+              onRetry={() =>
+                responsesQuery.isFetchNextPageError
+                  ? responsesQuery.fetchNextPage()
+                  : responsesQuery.refetch()
+              }
             />
+          )}
+          {responsesQuery.hasNextPage && !responsesQuery.isError && (
+            <div className="p-4">
+              <ButtonFetchMore
+                isFetching={responsesQuery.isFetching}
+                isFetchingNextPage={responsesQuery.isFetchingNextPage}
+                hasNextPage={responsesQuery.hasNextPage}
+                onClick={() => responsesQuery.fetchNextPage()}
+              />
+            </div>
           )}
           <BoxFormResponse
             isLoading={createResponseMutation.isPending}
