@@ -6,8 +6,9 @@ node_modules/
 *.tsbuildinfo
 
 # Local configuration
-.env.local
-.env.*.local
+.env
+.env.*
+!.env.example
 .envrc
 .dev.vars
 .dev.vars.*
@@ -28,3 +29,14 @@ pids/
 .DS_Store
 /dist/
 .vinext/
+
+# Private migration and audit output
+/backups/
+/migration-backups/
+/security-audit/
+*.dump
+*.sqlite
+*.sqlite-*
+*.db
+*.tar.gz
+*.tgz

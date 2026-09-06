@@ -25,7 +25,7 @@ portless
 
 `portless.json` の名前を使い、`https://swimmy.localhost/` で表示します。Portless を使わない場合は `bun run dev` で `http://127.0.0.1:3000/` を開けます。新しいローカルDBは空です。実データのバックアップは Git に含めません。
 
-`READ_ONLY=true` を設定すると書き込みに503を返します。現在はローカル・本番ともに `false` です。既存の `.env.local` は旧PostgreSQLのバックアップ用に保持しますが、アプリは使いません。
+`READ_ONLY=true` を設定すると書き込みに503を返します。現在はローカル・本番ともに `false` です。環境ごとの認証情報はGit管理せず、ローカル設定またはCloudflareのシークレットで管理します。
 
 ## コマンド
 

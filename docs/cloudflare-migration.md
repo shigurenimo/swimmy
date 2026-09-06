@@ -17,11 +17,11 @@ PostgreSQL の全11アプリケーションテーブル・85列を D1 `swimmy` �
 
 これは切り替え前の件数です。以降の新しい投稿はD1に保存されます。
 
-Firebase Storage / Google Cloud Storage の `fqcwljdj7qt9rphssvk3.appspot.com` から、未参照画像も含む全1,904件・2,446,191,354 bytesをR2 `swimmy-images` へ移しました。旧世代・ソフト削除済みは0件でした。元キー、全バイト列、配信メタデータを保持し、R2から全件を読み戻してサイズ・SHA-256・キー集合・メタデータの一致を確認しました。Storageの書き込み停止後にも全世代・CRC32C・MD5・サイズ・メタデータ世代が変わっていないことを照合しました。
+Firebase Storage / Google Cloud Storageから、未参照画像も含む全1,904件・2,446,191,354 bytesをR2 `swimmy-images` へ移しました。旧世代・ソフト削除済みは0件でした。元キー、全バイト列、配信メタデータを保持し、R2から全件を読み戻してサイズ・SHA-256・キー集合・メタデータの一致を確認しました。Storageの書き込み停止後にも全世代・CRC32C・MD5・サイズ・メタデータ世代が変わっていないことを照合しました。
 
 DBが参照する固有画像キー1,191件のうち、1件は移行元にも存在しない不正なキーです（[Issue #36](https://github.com/shigurenimo/swimmy/issues/36)）。推測でキーを補正せず元データを保持しています。残る1,190件を含む全実画像は移行済みです。
 
-同プロジェクトのstagingバケットとDatastoreモードのDBは0件でした。Firebase Authの67アカウントと、パスワード復元に必要なハッシュ設定も非公開バックアップに保存しました。現行の匿名掲示板はFirebase Authを利用しません。旧プロジェクト `umfzwkzvrtpe` のStorage照会はプロジェクト不存在エラーでした。旧リソースは削除していません。
+現行コードで使わないデータも含めて保全しました。旧リソースは削除していません。
 
 ## 本番と検証
 
@@ -39,24 +39,9 @@ Railwayへの自動デプロイ連携を解除し、Cloudflare Buildsを `shigur
 
 ## バックアップと旧環境
 
-実データはリポジトリ外の `/Users/n/swimmy-migration-backups` に保存しています。親ディレクトリは所有者のみアクセス可能です。SQL、JSON、Authのハッシュ設定、画像メタデータをGitやIssueに添付しません。
+移行元のDBと画像、最終スナップショット、全件照合の記録は非公開で保管しています。復元用バックアップはアプリから参照できないストレージにも保存し、読み戻して内容の一致を確認しました。保管場所と認証・復元に必要な情報は公開文書に記載しません。
 
-| 保存先（上記からの相対パス）                  | 内容                                                                                                     |
-| --------------------------------------------- | -------------------------------------------------------------------------------------------------------- |
-| `20260907-postgres-final/postgres.json`       | 書き込み停止後の全11テーブル・85列・実DB定義                                                             |
-| `20260907-d1-final/`                          | 最終スナップショットから生成したSQL・SQLite・全行ハッシュ・画像キー                                      |
-| `20260907-postgres-native-final/`             | PostgreSQLのcustom形式dump・ロール等のglobals・展開確認済みSQL                                           |
-| `20260907-remote-crud/`                       | Cloudflareでの保存・取得・検証データ削除の記録。`after-cleanup-verified.sqlite` が照合済み読み戻しデータ |
-| `20260907-storage/`                           | 全画像の元バイト列・全世代一覧・CRC32C / MD5 / SHA-256付きmanifest                                       |
-| `20260907-r2-verified-bulk/verification.json` | R2の全1,904件・全バイト列・キー・配信メタデータ一致の記録                                                |
-| `20260907-google-inventory/`                  | Google側の残存データ調査、Authバックアップ、変更前のDNS                                                  |
-| `20260907-cutover/`                           | 最終照合、書き込み停止前後の設定、最終Authバックアップ、本番HTTP確認                                     |
-
-復元用のアーカイブは、アプリにバインドしていない非公開R2 `swimmy-migration-backups` の `20260907/final-cutover.tar.gz` にも保存し、読み戻しSHA-256一致を確認しました。49ファイルを含む31,948,838 bytesのアーカイブで、SHA-256は `d3109b162dd5edbc6d967cdf38ad9ee93bef58d418d048a172977fa3cd9e38c7` です。`r2.dev` は無効です。画像本体はR2 `swimmy-images` とローカルバックアップの両方に存在し、復元用アーカイブにはそのキー・ハッシュ・元メタデータを含めます。先行バックアップも保持します。
-
-旧PostgreSQLは15.5、Timescale拡張を含みます。アプリケーションテーブルのD1変換とは別に、`pg_dump` と `pg_dumpall --globals-only` も取得し、custom形式アーカイブを `pg_restore` でSQLへ展開できることを確認しました。
-
-旧DBは `default_transaction_read_only=on` に設定し、既存接続を終了して新しい接続にも反映しました。実際の書き込みがSQLSTATE `25006` で拒否されることを確認しています。Firebase Storageの公開ルールは従来の認証付き読み取りを維持し、書き込みを拒否しています。両方の変更前設定は `20260907-cutover/` に保存しました。
+旧環境への書き込みは停止し、新しい投稿と画像はCloudflareに保存されます。切り戻し時は新環境の書き込みを停止し、切り替え後のデータを退避・反映してから配信先を戻します。DNSだけを戻すと新規データが失われるため、実際の復元操作には非公開の運用記録を使います。
 
 ## PostgreSQL → D1 の変換
 
@@ -151,9 +136,3 @@ Next.js App Router / Hono の既存URLを維持して vinext + Cloudflare Vite p
 - `worker.ts` は `READ_ONLY=true` の場合、GET / HEAD / OPTIONS 以外を503にします。`.dev.vars` ではローカル開発用に `false` にできます。
 
 `https://swimmy.localhost/` とCloudflare上の両方で、画面、一覧取得、画像保存と変換を確認しました。実画像・実データの最終照合結果は前述の記録とIssue #31を参照してください。
-
-## 切り戻しと旧環境の廃止
-
-新環境は書き込みを開始しています。切り戻す場合は先にWorkerを `READ_ONLY=true` にしてD1 / R2の新規データを退避し、旧環境へ反映してから配信先を戻します。DNSだけを戻すと、切り替え後の投稿と画像が旧環境に存在しません。
-
-変更前DNSは `20260907-google-inventory/dns-before.json`、旧DB・Storageの設定は `20260907-cutover/` にあります。旧DBの設定解除には管理用接続で `default_transaction_read_only=off` を指定したうえで、保存した変更前設定へ戻します。Storageは保存した旧rulesetをreleaseへ戻します。旧Railwayアプリ・PostgreSQL・Firebaseはバックアップとともに保持し、今回の移行では削除しません。
