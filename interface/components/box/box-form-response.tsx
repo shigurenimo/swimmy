@@ -27,7 +27,7 @@ export const BoxFormResponse: FC<Props> = (props) => {
   }
 
   return (
-    <div className="flex min-w-0 flex-col gap-4 border-t p-4">
+    <div className="flex min-w-0 flex-col gap-4">
       <Textarea
         placeholder="返信を書き込む"
         rows={2}

@@ -8,6 +8,7 @@ import { BoxAsideFeedThread } from "@/interface/components/box/box-aside-feed-th
 import { BoxMainFeed } from "@/interface/components/box/box-main-feed"
 import { BoxMainFeedThread } from "@/interface/components/box/box-main-feed-thread"
 import { unregister } from "@/interface/utils/service-worker"
+import { cn } from "@/lib/utils"
 
 type Props = {
   initialTab: "home" | "threads"
@@ -24,15 +25,24 @@ export function Board(props: Props) {
     unregister()
   }, [])
 
+  useEffect(() => {
+    if (window.matchMedia("(width < 48rem)").matches) {
+      window.scrollTo({ top: 0 })
+    }
+  }, [threadId])
+
   const closeThread = () => {
     router.push(activeTab === "home" ? "/" : "/threads", { scroll: false })
   }
 
   return (
-    <div className="grid grid-cols-2 items-start">
+    <div className="grid items-start md:grid-cols-2">
       <section
         key={threadId}
-        className="sticky top-0 h-svh min-w-0 overflow-y-auto"
+        className={cn(
+          "min-w-0 md:sticky md:top-0 md:h-svh md:overflow-y-auto",
+          !threadId && "hidden md:block",
+        )}
         aria-label="スレッドの内容"
       >
         {threadId ? (
@@ -45,7 +55,10 @@ export function Board(props: Props) {
           </div>
         )}
       </section>
-      <section className="min-h-svh min-w-0 border-l" aria-label="投稿一覧">
+      <section
+        className={cn("min-h-svh min-w-0 md:border-l", threadId && "hidden md:block")}
+        aria-label="投稿一覧"
+      >
         <Tabs
           value={activeTab}
           onValueChange={(tab) => {
@@ -55,18 +68,20 @@ export function Board(props: Props) {
           }}
         >
           <div>
-            <div className="sticky top-0 z-16 flex h-16 items-center bg-background px-4">
+            <div className="sticky top-0 z-16 flex items-center bg-background p-4">
               <TabsList aria-label="投稿一覧の切り替え">
                 <TabsTrigger value="home">ホーム</TabsTrigger>
                 <TabsTrigger value="threads">スレッド</TabsTrigger>
               </TabsList>
             </div>
-            <TabsContent value="home" keepMounted>
-              <BoxMainFeed threadId={threadId} />
-            </TabsContent>
-            <TabsContent value="threads" keepMounted>
-              <BoxMainFeedThread threadId={threadId} />
-            </TabsContent>
+            <div className="px-4 pb-4">
+              <TabsContent value="home" keepMounted>
+                <BoxMainFeed threadId={threadId} />
+              </TabsContent>
+              <TabsContent value="threads" keepMounted>
+                <BoxMainFeedThread threadId={threadId} />
+              </TabsContent>
+            </div>
           </div>
         </Tabs>
       </section>

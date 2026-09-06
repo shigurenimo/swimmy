@@ -34,7 +34,7 @@ export const BoxMainFeed: FC<Props> = (props) => {
   const posts = postsQuery.data?.pages.flatMap((page) => page.nodes) ?? []
 
   return (
-    <div className="flex min-w-0 flex-col gap-4 p-4">
+    <div className="flex min-w-0 flex-col gap-4">
       <BoxFormPost isLoading={createPostMutation.isPending} onCreatePost={onCreatePost} />
       <ul className="flex flex-col gap-4">
         {posts.map((post) => (

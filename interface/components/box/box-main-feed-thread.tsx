@@ -21,7 +21,7 @@ export const BoxMainFeedThread: FC<Props> = (props) => {
   const threads = threadsQuery.data?.pages.flatMap((page) => page.nodes) ?? []
 
   return (
-    <div className="flex min-w-0 flex-col gap-4 p-4">
+    <div className="flex min-w-0 flex-col gap-4">
       {threads.map((thread) => (
         <div key={thread.id}>
           <BoxCardPost

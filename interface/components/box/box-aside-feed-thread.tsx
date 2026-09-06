@@ -45,7 +45,7 @@ export const BoxAsideFeedThread: FC<Props> = (props) => {
       )}
       {threadQuery.data && (
         <>
-          <ul className="flex flex-col gap-4 p-4">
+          <ul className="flex flex-col gap-4">
             <li>
               <BoxCardPost
                 id={threadQuery.data.id}
@@ -78,7 +78,7 @@ export const BoxAsideFeedThread: FC<Props> = (props) => {
             />
           )}
           {responsesQuery.hasNextPage && !responsesQuery.isError && (
-            <div className="p-4">
+            <div>
               <ButtonFetchMore
                 isFetching={responsesQuery.isFetching}
                 isFetchingNextPage={responsesQuery.isFetchingNextPage}

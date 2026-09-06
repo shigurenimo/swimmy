@@ -11,7 +11,7 @@ type Props = {
 export const BoxAside: FC<Props> = (props) => {
   return (
     <div className="flex min-h-full flex-col">
-      <header className="sticky top-0 z-16 flex h-16 shrink-0 items-center justify-between gap-4 bg-background px-4">
+      <header className="sticky top-0 z-16 flex shrink-0 items-center justify-between gap-4 bg-background p-4">
         <h2 className="font-medium">{props.title}</h2>
         {props.onClose && (
           <Button
@@ -24,7 +24,7 @@ export const BoxAside: FC<Props> = (props) => {
           </Button>
         )}
       </header>
-      {props.children}
+      <div className="flex flex-col gap-4 px-4 pb-4">{props.children}</div>
     </div>
   )
 }
