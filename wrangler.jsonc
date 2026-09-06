@@ -4,8 +4,13 @@
   "compatibility_date": "2026-09-06",
   "compatibility_flags": ["nodejs_compat"],
   "main": "worker.ts",
+  "workers_dev": true,
+  "routes": [
+    { "pattern": "swimmy.io", "custom_domain": true },
+    { "pattern": "www.swimmy.io", "custom_domain": true },
+  ],
   "vars": {
-    "READ_ONLY": "true",
+    "READ_ONLY": "false",
   },
   "assets": {
     "directory": "dist/client",

@@ -1,67 +1,62 @@
 # Cloudflare 移行の記録
 
-関連: [#29](https://github.com/shigurenimo/swimmy/issues/29)、[#31](https://github.com/shigurenimo/swimmy/issues/31)。2026-09-06 にアプリの Workers / D1 / R2 対応とリモート D1 への取り込みを実施しました。2026-09-07（JST）にユーザーが Push 禁止を解除し、main を Push、Worker の読み取り専用プレビューを公開しました。請求先の紐付けはユーザー承認後に完了し、既存画像を取得中です。本番ドメインの切り替えは未完了で、旧環境への書き込みとDNSは変更していません。
+2026-09-07（JST）に [swimmy.io](https://swimmy.io/) と [www.swimmy.io](https://www.swimmy.io/) を Cloudflare Workers / D1 / R2 へ切り替え、書き込みを開始しました。関連: [#29](https://github.com/shigurenimo/swimmy/issues/29)、[#31](https://github.com/shigurenimo/swimmy/issues/31)。請求先の紐付けと main への Push はユーザーの承認に基づいて実施しました。
 
-## リモート環境の検証
+## 移行結果
 
-検証URLは https://swimmy.nocker.workers.dev/ です。Worker の初回バージョンは `e4634b25-e8c0-497a-b5d1-d2e7927eff87`。Wrangler の dry run 後にデプロイし、起動時間は24 msでした。
+PostgreSQL の全11アプリケーションテーブル・85列を D1 `swimmy` に移しました。旧DBの書き込みを停止した後、2026-09-06 17:24:35 UTC に最終スナップショットを取得しました。D1から読み戻した全行と内容ハッシュが一致し、外部キー違反0件、整合性検査は `ok` でした。先行取り込み時点から変更がなかったため、同じ内容の再インポートは行っていません。
 
-- Chromeで画面表示を確認し、`/`・`/threads`・`/api/posts` は200、存在しない画像は404でした。POSTは `READ_ONLY=true` により503となり、新しい投稿は保存しません。
-- R2に合成テスト画像を保存し、元バイト列を読み戻してSHA-256一致、ImagesバインディングによるPNG配信200を確認しました。
-- 転送スクリプトも現行・旧世代の合成画像2件で実行しました。保存キー・サイズ・全バイト列・配信メタデータが一致し、旧世代はアーカイブに分離されました。検証記録はリポジトリ外の `20260907-storage-transfer-probe/verified-metadata/verification.json` にあります。テスト画像は削除済みで、既存Firebase画像はまだ移行していません。
-- `bun run check`、46件のテスト、`bun run build` が成功しました。
-- Railway の `shigurenimo/swimmy` / `main` 連携を解除し、旧アプリが稼働したまま main を Push しました。GitHub Actionsに加え、Cloudflare Buildsも接続済みです。mainへのPushで `bun run check && bun run test && bun run build` を実行後、`bunx wrangler deploy --config dist/server/wrangler.json` で公開します。Bunは1.3.14、Node.jsは24、非本番ブランチのビルドは無効です。
+| テーブル                                                                          |   行数 |
+| --------------------------------------------------------------------------------- | -----: |
+| posts                                                                             | 31,253 |
+| reactions                                                                         | 28,910 |
+| users                                                                             |     67 |
+| sessions                                                                          |      8 |
+| _user_reactions、bookmarks、friendships、likes、notifications、references、tokens |    各0 |
+| 合計                                                                              | 60,238 |
 
-Firebaseの請求先はユーザー承認後に紐付け、`billingEnabled: true` と実画像のダウンロード成功を確認しました。全画像の転送、書き込み停止中の最終同期、`swimmy.io` の切り替えが残っています。
+これは切り替え前の件数です。以降の新しい投稿はD1に保存されます。
 
-## 確認できたデータ
+Firebase Storage / Google Cloud Storage の `fqcwljdj7qt9rphssvk3.appspot.com` から、未参照画像も含む全1,904件・2,446,191,354 bytesをR2 `swimmy-images` へ移しました。旧世代・ソフト削除済みは0件でした。元キー、全バイト列、配信メタデータを保持し、R2から全件を読み戻してサイズ・SHA-256・キー集合・メタデータの一致を確認しました。Storageの書き込み停止後にも全世代・CRC32C・MD5・サイズ・メタデータ世代が変わっていないことを照合しました。
 
-PostgreSQL は Railway 上の 15.5。DB 全体は 28,971,823 bytes。サーバーのタイムゾーンは `Etc/UTC`、照合順序は `C.UTF-8`。`public` の全11テーブル・85列を、同じ読み取り専用トランザクションから取得しました。
+DBが参照する固有画像キー1,191件のうち、1件は移行元にも存在しない不正なキーです（[Issue #36](https://github.com/shigurenimo/swimmy/issues/36)）。推測でキーを補正せず元データを保持しています。残る1,190件を含む全実画像は移行済みです。
 
-| テーブル        |   行数 |
-| --------------- | -----: |
-| posts           | 31,253 |
-| reactions       | 28,910 |
-| users           |     67 |
-| sessions        |      8 |
-| _user_reactions |      0 |
-| bookmarks       |      0 |
-| friendships     |      0 |
-| likes           |      0 |
-| notifications   |      0 |
-| references      |      0 |
-| tokens          |      0 |
-| 合計            | 60,238 |
+同プロジェクトのstagingバケットとDatastoreモードのDBは0件でした。Firebase Authの67アカウントと、パスワード復元に必要なハッシュ設定も非公開バックアップに保存しました。現行の匿名掲示板はFirebase Authを利用しません。旧プロジェクト `umfzwkzvrtpe` のStorage照会はプロジェクト不存在エラーでした。旧リソースは削除していません。
 
-空テーブル、現行画面で使っていないユーザー・セッション情報も保存しています。これは全アプリケーションテーブルの論理バックアップです。PostgreSQL のシステムカタログ、Timescale 拡張の内部テーブル、ロールなどを含む `pg_dump` の代替ではありません。旧DBを廃止する前には、Railway の復元用バックアップも別途確保します。
+## 本番と検証
 
-画像の保存先は Firebase Storage / Google Cloud Storage の `fqcwljdj7qt9rphssvk3.appspot.com`（東京リージョン）。DB の投稿・プロフィールから参照される固有キーは 1,191 件です。**これはバケット全体のファイル数ではありません。** 未参照画像と旧世代も調査・保存の対象にします。
+Worker は `swimmy`、D1 は `swimmy`、画像用R2は `swimmy-images` です。リソースIDと両ドメインはルートの `wrangler.jsonc` に記録し、`READ_ONLY=false` で稼働しています。workers.dev のURLも同じ本番データを使います。
 
-請求先の紐付け後、全ページ・全世代を列挙し、現行1,904件、2,446,191,354 bytes、旧世代0件、ソフト削除済み0件を確認しました。全件をローカル保存中です。DB参照のうち1,190件は存在し、1件は元データの不正キーでした（[Issue #36](https://github.com/shigurenimo/swimmy/issues/36)）。推測でキーを書き換えず、元の内容を保持します。
+- Cloudflare上で画像アップロード・投稿・返信・リアクションの作成と取得に成功しました。検証用データは削除し、D1全行の内容ハッシュを再照合しました。
+- ホームとスレッド一覧のページング、最大59返信のスレッドを確認し、ID・順序の欠落と重複は0件でした。最大124,416 bytesの長文本文も一致しました。
+- 両本番ドメインでHTTPS、画面、一覧API、過去画像、約15 MBのGIFからの画像変換が200でした。空投稿は400で拒否され、書き込み停止の503ではないことも確認しました。
+- Chromeで本番画面とカードからスレッド詳細を開く操作を確認しました。PC・スマホのレイアウトは切り替え前にも検証済みです。
+- `bun run check`、46件のテスト、`bun run build`、Wranglerのdry runが成功しました。
 
-同じプロジェクトのstagingバケットは0件、DatastoreモードのDBも名前空間の全件照会で0件でした。Firebase Authの67アカウントをページ末尾まで取得し、リポジトリ外の `20260907-google-inventory/firebase-auth-accounts.json` に保存しました。旧プロジェクト `umfzwkzvrtpe` のStorage照会はプロジェクト不存在エラーで、今回の現行バケットには含めていません。旧リソースの削除は行いません。
+Railwayへの自動デプロイ連携を解除し、Cloudflare Buildsを `shigurenimo/swimmy` のmainに接続しました。Pushで `bun run check && bun run test && bun run build` を実行後、`bunx wrangler deploy --config dist/server/wrangler.json` で公開します。Bunは1.3.14、Node.jsは24、非本番ブランチのビルドは無効です。
 
-Cloudflare の Nocker アカウントに専用 D1 `swimmy`（APAC、ID はルートの `wrangler.jsonc`）と R2 `swimmy-images` を作成しました。D1 は取り込み・全行照合済み、リモート R2 は空です。公開側は `READ_ONLY=true` で書き込みを停止する構成です。
+旧Railway向けCNAME2件を取り除き、Workers Custom Domainsとして両ドメインを登録しました。既存TXT3件は保持しています。切り替え時のWorkerバージョンは `6e6589e9-64fc-4ae0-8bf7-17b19e097418` です。
 
-## 保存済みバックアップと検証結果
+## バックアップと旧環境
 
-実データはリポジトリ外の `/Users/n/swimmy-migration-backups` にあります。親ディレクトリは所有者のみアクセス可能です。ユーザー・セッション情報を含むため、SQL、JSON、画像、検証ログを Git / Issue に添付しないでください。
+実データはリポジトリ外の `/Users/n/swimmy-migration-backups` に保存しています。親ディレクトリは所有者のみアクセス可能です。SQL、JSON、Authのハッシュ設定、画像メタデータをGitやIssueに添付しません。
 
-| 保存先（上記ディレクトリからの相対パス） | 内容                                                                  |
-| ---------------------------------------- | --------------------------------------------------------------------- |
-| `20260906-postgres/postgres.json`        | 2026-09-06 12:34:49 UTC の全アプリテーブル・実DB定義。8,803,096 bytes |
-| `20260906-d1-verified/database.sqlite`   | 変換・照合済みSQLite。12,996,608 bytes                                |
-| `20260906-d1-verified/schema.sql`        | 全テーブル・主キー・外部キー・22個の非主キーインデックス              |
-| `20260906-d1-verified/data.sql`          | D1用データ。17,300,048 bytes                                          |
-| `20260906-d1-verified/verification.json` | 各テーブルの行数・変換後全列のSHA-256                                 |
-| `20260906-d1-verified/image-keys.json`   | DBが参照する1,191個の画像キー                                         |
-| `20260906-d1-state`                      | Wrangler のローカルD1への実取り込み結果                               |
+| 保存先（上記からの相対パス）                  | 内容                                                                                                     |
+| --------------------------------------------- | -------------------------------------------------------------------------------------------------------- |
+| `20260907-postgres-final/postgres.json`       | 書き込み停止後の全11テーブル・85列・実DB定義                                                             |
+| `20260907-d1-final/`                          | 最終スナップショットから生成したSQL・SQLite・全行ハッシュ・画像キー                                      |
+| `20260907-postgres-native-final/`             | PostgreSQLのcustom形式dump・ロール等のglobals・展開確認済みSQL                                           |
+| `20260907-remote-crud/`                       | Cloudflareでの保存・取得・検証データ削除の記録。`after-cleanup-verified.sqlite` が照合済み読み戻しデータ |
+| `20260907-storage/`                           | 全画像の元バイト列・全世代一覧・CRC32C / MD5 / SHA-256付きmanifest                                       |
+| `20260907-r2-verified-bulk/verification.json` | R2の全1,904件・全バイト列・キー・配信メタデータ一致の記録                                                |
+| `20260907-google-inventory/`                  | Google側の残存データ調査、Authバックアップ、変更前のDNS                                                  |
+| `20260907-cutover/`                           | 最終照合、書き込み停止前後の設定、最終Authバックアップ、本番HTTP確認                                     |
 
-照合結果は `20260906-d1-verified/local-verification.json`、バックアップファイルのSHA-256一覧は `20260906-checksums.json` にも保存しています。
+復元用のアーカイブは、アプリにバインドしていない非公開R2 `swimmy-migration-backups` の `20260907/final-cutover.tar.gz` にも保存し、読み戻しSHA-256一致を確認しました。49ファイルを含む31,948,838 bytesのアーカイブで、SHA-256は `d3109b162dd5edbc6d967cdf38ad9ee93bef58d418d048a172977fa3cd9e38c7` です。`r2.dev` は無効です。画像本体はR2 `swimmy-images` とローカルバックアップの両方に存在し、復元用アーカイブにはそのキー・ハッシュ・元メタデータを含めます。先行バックアップも保持します。
 
-変換後SQLiteと、Wrangler 4.97.0 で取り込んだローカルD1の両方で、11テーブル・60,238行の内容ハッシュが一致しました。`foreign_key_check` は違反0件、`integrity_check` は `ok`。さらに Wrangler 4.129.0 でリモート D1 に取り込み、全データをエクスポートして再照合しました。11テーブル・60,238行すべての内容ハッシュが一致し、外部キー違反は0件、整合性検査も `ok` でした。取り込みは約79秒、60,253クエリ、DB容量は約13 MBです。
+旧PostgreSQLは15.5、Timescale拡張を含みます。アプリケーションテーブルのD1変換とは別に、`pg_dump` と `pg_dumpall --globals-only` も取得し、custom形式アーカイブを `pg_restore` でSQLへ展開できることを確認しました。
 
-リモートへ取り込んだ最新成果物は `20260906-d1-ordered/` に保存しています。`schema.sql`、`data.sql`、`database.sqlite`、`verification.json`、`image-keys.json` に加え、読み戻した `remote-export.sql` / `remote-export.sqlite` と `remote-verification.json` を保存しました。先のバックアップも保持しています。
+旧DBは `default_transaction_read_only=on` に設定し、既存接続を終了して新しい接続にも反映しました。実際の書き込みがSQLSTATE `25006` で拒否されることを確認しています。Firebase Storageの公開ルールは従来の認証付き読み取りを維持し、書き込みを拒否しています。両方の変更前設定は `20260907-cutover/` に保存しました。
 
 ## PostgreSQL → D1 の変換
 
@@ -114,7 +109,7 @@ bun scripts/migration/verify-d1.ts \
 
 ## 画像の全件保存と R2
 
-`scripts/migration/backup-storage.ts` で実バケットを取得中です。既存のサービスアカウント、または Application Default Credentials が必要です。必要な読み取り権限は `storage.buckets.get`、`storage.objects.list`、`storage.objects.get`。今回はGoogle Cloud CLIの通常のユーザー認証によるADCを使い、新しいサービスアカウント鍵の発行やIAM変更は実施していません。
+`scripts/migration/backup-storage.ts` で実バケットの全件保存を完了しました。既存のサービスアカウント、または Application Default Credentials が必要です。必要な読み取り権限は `storage.buckets.get`、`storage.objects.list`、`storage.objects.get`。今回はGoogle Cloud CLIの通常のユーザー認証によるADCを使い、新しいサービスアカウント鍵の発行やIAM変更は実施していません。
 
 ```bash
 # 既存の読み取り用資格情報を端末側で設定してから実行
@@ -140,13 +135,13 @@ bun scripts/migration/transfer-storage.ts \
   "$SWIMMY_BACKUP_ROOT/r2-verified"
 ```
 
-転送前に全ローカルファイルのSHA-256とサイズを検査します。現行画像は元キー、旧世代は `_migration_archive/<元バケット>/<キーと世代から生成したハッシュ>` に保存し、衝突があれば中止します。`wrangler r2 object put/get --remote` で転送・全件読み戻しを行い、[R2の一覧API](https://developers.cloudflare.com/api/resources/r2/subresources/buckets/subresources/objects/methods/list/)でページを最後まで取得してキー集合・サイズ・配信メタデータを照合します。認証は既存のWranglerを使い、トークンはログやファイルに残しません。マニフェスト外の移行先オブジェクトは削除せず、処理を中止します。
+転送前に全ローカルファイルのSHA-256とサイズを検査します。転送と読み戻しは16件ずつ実行します。現行画像は元キー、旧世代は `_migration_archive/<元バケット>/<キーと世代から生成したハッシュ>` に保存し、衝突があれば中止します。`wrangler r2 object put/get --remote` で転送・全件読み戻しを行い、[R2の一覧API](https://developers.cloudflare.com/api/resources/r2/subresources/buckets/subresources/objects/methods/list/)でページを最後まで取得してキー集合・サイズ・配信メタデータを照合します。認証は既存のWranglerを使い、トークンはログやファイルに残しません。マニフェスト外の移行先オブジェクトは削除せず、処理を中止します。
 
-全件成功時だけ新しい検証保存先に `verification.json` を作ります。失敗時は部分転送済みの画像を残すため、原因を直して別の検証保存先で再実行します。途中結果だけでは完了と判断しません。合成画像でリモート検証済みですが、実Firebase画像への適用は取得再開後です。
+全件成功時だけ新しい検証保存先に `verification.json` を作ります。失敗時は部分転送済みの画像を残すため、原因を直して別の検証保存先で再実行します。途中結果だけでは完了と判断しません。現行・旧世代の合成画像で事前検証し、実Firebase画像1,904件も全件照合を完了しました。
 
 ## アプリ側の移植
 
-Next.js App Router / Hono の既存URLを維持して vinext + Cloudflare Vite plugin に移植しました。[Cloudflare の Next.js ガイド](https://developers.cloudflare.com/workers/framework-guides/web-apps/nextjs/) に沿った構成です。vinext はベータ版のため、本番切り替え前にリモート環境でも検証します。
+Next.js App Router / Hono の既存URLを維持して vinext + Cloudflare Vite plugin に移植しました。[Cloudflare の Next.js ガイド](https://developers.cloudflare.com/workers/framework-guides/web-apps/nextjs/) に沿った構成です。vinext はベータ版です。本番切り替え前にCloudflare上で画面・読み書き・画像変換を検証しました。
 
 - DB はリクエストごとの D1 バインディングと `drizzle-orm/d1` を使います。日時は `timestamp_ms`、配列は JSON、真偽値は boolean モードです。
 - 返信作成は [D1 batch](https://developers.cloudflare.com/d1/worker-api/d1-database/) の条件付き INSERT と親の件数更新で処理します。途中失敗時は同じバッチ全体が戻ります。
@@ -155,14 +150,10 @@ Next.js App Router / Hono の既存URLを維持して vinext + Cloudflare Vite p
 - Firebase Analytics / Storage、Firebase Emulator、sharp、Sentry の依存と設定を削除しました。ログは Workers Observability に集約します。PostgreSQL クライアントと Google Storage SDK は移行スクリプト用の開発依存です。
 - `worker.ts` は `READ_ONLY=true` の場合、GET / HEAD / OPTIONS 以外を503にします。`.dev.vars` ではローカル開発用に `false` にできます。
 
-`https://swimmy.localhost/` で画面とローカル D1 の一覧取得を確認しました。生成したテスト画像のローカル R2 への保存と32pxへの変換は成功しています。これは元の Firebase 画像の移行を意味しません。最終検証の実行結果は Issue #31 に記録します。
+`https://swimmy.localhost/` とCloudflare上の両方で、画面、一覧取得、画像保存と変換を確認しました。実画像・実データの最終照合結果は前述の記録とIssue #31を参照してください。
 
-## 実移行の順序と切り戻し
+## 切り戻しと旧環境の廃止
 
-1. 画像の読み取りアクセスを回復し、全件バックアップ・検証を完了する。Google Cloudに存在するstagingバケット、旧Firebaseプロジェクト、Auth / Firestoreなどの残存データも確認する。現行コードで未使用という理由だけで削除対象にしない。
-2. Workers対応とD1/R2実装をローカルで完成させる。`bun run check` / `bun run test` / `bun run build`、画面・API・アップロードを検証する。
-3. 作成済みの専用D1/R2を使い、Workerの読み取り専用プレビューを検証する。本番ドメインの切り替え前に画像と最終データの準備を完了する。
-4. 短時間の書き込み停止を設け、PostgreSQLとStorageの最終バックアップを取得する。両者のスナップショットは原子的ではないため、書き込み停止前のバックアップだけでは本番切り替えをしない。
-5. 現在の容量では、最終スナップショットを空のD1へ再インポートする方式を基本とする。全行・全画像を再照合し、旧キーの画像が表示されることを確認してからトラフィックを切り替える。
-6. 旧PostgreSQL・Firebase・配信環境と最終バックアップは保持する。新環境の書き込み開始前に問題があれば旧環境へ戻す。書き込み開始後は新規データを退避・反映してから戻すため、単純なDNS巻き戻しをしない。
-7. 運用確認後、旧リソースの廃止を判断する。旧データの削除は今回の移行完了条件に含めず、バックアップとともに保持する。
+新環境は書き込みを開始しています。切り戻す場合は先にWorkerを `READ_ONLY=true` にしてD1 / R2の新規データを退避し、旧環境へ反映してから配信先を戻します。DNSだけを戻すと、切り替え後の投稿と画像が旧環境に存在しません。
+
+変更前DNSは `20260907-google-inventory/dns-before.json`、旧DB・Storageの設定は `20260907-cutover/` にあります。旧DBの設定解除には管理用接続で `default_transaction_read_only=off` を指定したうえで、保存した変更前設定へ戻します。Storageは保存した旧rulesetをreleaseへ戻します。旧Railwayアプリ・PostgreSQL・Firebaseはバックアップとともに保持し、今回の移行では削除しません。

@@ -4,7 +4,7 @@
 
 開発時の規約は [CONTRIBUTING.md](CONTRIBUTING.md) を参照してください。
 
-Cloudflare への移行状況・バックアップ・切り替え手順は [移行記録](docs/cloudflare-migration.md) にまとめています。D1 へのデータ取り込みは検証済みですが、既存画像の取得と本番の切り替えは未完了です。
+本番は [swimmy.io](https://swimmy.io/) です。Cloudflare Workers / D1 / R2 への移行は完了しました。全データの照合結果とバックアップは [移行記録](docs/cloudflare-migration.md) を参照してください。
 
 - Next.js App Router + vinext / Cloudflare Workers
 - Hono REST API
@@ -25,7 +25,7 @@ portless
 
 `portless.json` の名前を使い、`https://swimmy.localhost/` で表示します。Portless を使わない場合は `bun run dev` で `http://127.0.0.1:3000/` を開けます。新しいローカルDBは空です。実データのバックアップは Git に含めません。
 
-`.dev.vars` の `READ_ONLY=false` はローカル開発用です。公開側の `wrangler.jsonc` は移行中のため `READ_ONLY=true` にしてあり、書き込みには 503 を返します。既存の `.env.local` は PostgreSQL の最終バックアップ用に保持しますが、アプリは使いません。
+`READ_ONLY=true` を設定すると書き込みに503を返します。現在はローカル・本番ともに `false` です。既存の `.env.local` は旧PostgreSQLのバックアップ用に保持しますが、アプリは使いません。
 
 ## コマンド
 
@@ -40,7 +40,7 @@ bun run studio     # D1用Drizzle Studio（CLOUDFLARE_API_TOKENが必要）
 bun run start      # ビルド済みWorkerをローカル起動
 ```
 
-公開用の `bun run deploy` は Cloudflare へ直接デプロイするコマンドです。画像の移行・最終データ照合が終わるまで既存サイトを切り替えません。読み取り専用の検証環境は https://swimmy.nocker.workers.dev/ です。main への Push は許可され、Cloudflare Builds が `bun run check && bun run test && bun run build` の成功後に `bunx wrangler deploy --config dist/server/wrangler.json` を実行します。非本番ブランチのビルドは無効です。Railway の自動デプロイ連携は解除済みです。
+公開用の `bun run deploy` は Cloudflare へ直接デプロイするコマンドです。main への Push では Cloudflare Builds が `bun run check && bun run test && bun run build` の成功後に `bunx wrangler deploy --config dist/server/wrangler.json` を実行します。非本番ブランチのビルドは無効です。`swimmy.io` と `www.swimmy.io` は同じ Worker に接続し、https://swimmy.nocker.workers.dev/ も同じ本番データを使います。Railway の自動デプロイ連携は解除済みです。
 
 ## 構成
 

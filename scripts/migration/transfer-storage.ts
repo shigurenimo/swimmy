@@ -131,9 +131,10 @@ async function transferStorage(manifestPath: string, bucket: string, destination
     ["contentLanguage", "--content-language"],
     ["cacheControl", "--cache-control"],
   ])
-  for (let offset = 0; offset < targets.length; offset += 4) {
+  const concurrency = 16
+  for (let offset = 0; offset < targets.length; offset += concurrency) {
     const completed = await Promise.allSettled(
-      targets.slice(offset, offset + 4).map(async (object) => {
+      targets.slice(offset, offset + concurrency).map(async (object) => {
         const args = [
           "r2",
           "object",
@@ -167,7 +168,10 @@ async function transferStorage(manifestPath: string, bucket: string, destination
     const failure = completed.find((result) => result.status === "rejected")
     if (failure?.status === "rejected") throw failure.reason
     console.log(
-      JSON.stringify({ verified: Math.min(offset + 4, targets.length), total: targets.length }),
+      JSON.stringify({
+        verified: Math.min(offset + concurrency, targets.length),
+        total: targets.length,
+      }),
     )
   }
   const remote = await listObjects(account, bucket)
