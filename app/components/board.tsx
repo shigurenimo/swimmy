@@ -55,7 +55,7 @@ export function Board(props: Props) {
           }}
         >
           <div>
-            <div className="sticky top-0 z-16 flex h-16 items-center border-b bg-background px-4">
+            <div className="sticky top-0 z-16 flex h-16 items-center bg-background px-4">
               <TabsList aria-label="投稿一覧の切り替え">
                 <TabsTrigger value="home">ホーム</TabsTrigger>
                 <TabsTrigger value="threads">スレッド</TabsTrigger>
