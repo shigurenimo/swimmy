@@ -9,11 +9,14 @@ export const LayoutHomeApp: FC<Props> = (props) => {
   return (
     <div className="flex min-h-svh flex-col bg-background">
       <main className="mx-auto w-full max-w-[64rem] flex-1">{props.children}</main>
-      <footer className="mx-auto flex w-full max-w-[64rem] shrink-0 items-center justify-between gap-4 border-t p-4 text-xs text-muted-foreground">
+      <footer className="mx-auto flex w-full max-w-[64rem] shrink-0 flex-wrap items-center justify-between gap-4 border-t p-4 text-xs text-muted-foreground">
         <Link href="/" className="font-bold">
-          スイミー
+          スイミー電子掲示板
         </Link>
-        <nav className="flex gap-4" aria-label="サイト情報">
+        <nav className="flex flex-wrap gap-4" aria-label="サイト情報">
+          <a href="https://github.com/shigurenimo/swimmy" className="hover:text-foreground">
+            リポジトリ
+          </a>
           <Link href="/terms" className="hover:text-foreground">
             利用規約
           </Link>
