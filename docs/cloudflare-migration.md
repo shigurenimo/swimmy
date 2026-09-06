@@ -1,6 +1,18 @@
 # Cloudflare 移行の記録
 
-関連: [#29](https://github.com/shigurenimo/swimmy/issues/29)、[#31](https://github.com/shigurenimo/swimmy/issues/31)。2026-09-06 にアプリの Workers / D1 / R2 対応とリモート D1 への取り込みを実施しました。既存画像の取得と本番切り替えは未完了です。旧 PostgreSQL・Firebase、課金設定、DNS は変更していません。Git Push は禁止です。
+関連: [#29](https://github.com/shigurenimo/swimmy/issues/29)、[#31](https://github.com/shigurenimo/swimmy/issues/31)。2026-09-06 にアプリの Workers / D1 / R2 対応とリモート D1 への取り込みを実施しました。2026-09-07（JST）にユーザーが Push 禁止を解除し、main を Push、Worker の読み取り専用プレビューを公開しました。既存画像の取得と本番ドメインの切り替えは未完了です。旧 PostgreSQL・Firebase、課金設定、DNS は変更していません。
+
+## リモート環境の検証
+
+検証URLは https://swimmy.nocker.workers.dev/ です。Worker の初回バージョンは `e4634b25-e8c0-497a-b5d1-d2e7927eff87`。Wrangler の dry run 後にデプロイし、起動時間は24 msでした。
+
+- Chromeで画面表示を確認し、`/`・`/threads`・`/api/posts` は200、存在しない画像は404でした。POSTは `READ_ONLY=true` により503となり、新しい投稿は保存しません。
+- R2に合成テスト画像を保存し、元バイト列を読み戻してSHA-256一致、ImagesバインディングによるPNG配信200を確認しました。
+- 転送スクリプトも現行・旧世代の合成画像2件で実行しました。保存キー・サイズ・全バイト列・配信メタデータが一致し、旧世代はアーカイブに分離されました。検証記録はリポジトリ外の `20260907-storage-transfer-probe/verified-metadata/verification.json` にあります。テスト画像は削除済みで、既存Firebase画像はまだ移行していません。
+- `bun run check`、46件のテスト、`bun run build` が成功しました。
+- Railway の `shigurenimo/swimmy` / `main` 連携を解除し、旧アプリが稼働したまま main を Push しました。今後の main への Push では GitHub Actions が品質チェックを実行します。Cloudflare Builds の接続は GitHub App の再認証待ちです。
+
+Firebase の課金状態は再照会しても無効でした。請求先の紐付けは承認待ちです。全画像の転送、書き込み停止中の最終同期、`swimmy.io` の切り替えが残っています。
 
 ## 確認できたデータ
 
@@ -118,7 +130,17 @@ bun scripts/migration/backup-storage.ts "$SWIMMY_BACKUP_ROOT/storage"
 5. R2から全件を読み戻し、キー集合・サイズ・SHA-256をローカルのマニフェストと比較する。移行元と移行先のETagだけで同一性を判断しない。
 6. 既存の `/api/images/:id` で過去の画像、複数添付、プロフィール画像、存在しないIDを確認する。
 
-転送には元キーとファイルを対応させて `wrangler r2 object put` を使えます。大量の転送には [Super Slurper のGCS対応](https://developers.cloudflare.com/r2/data-migration/super-slurper/) も利用できますが、ユーザーの希望するローカル保存・照合は別途実施します。R2バケットは作成済みです。アップロード用資格情報の発行や転送ジョブの開始は行っていません。
+転送には `scripts/migration/transfer-storage.ts` を使います。書き込み停止中の専用R2を対象に実行し、移行元と移行先への書き込みを再開する前に照合を完了します。
+
+```bash
+bun scripts/migration/transfer-storage.ts \
+  "$SWIMMY_BACKUP_ROOT/storage/manifest.json" swimmy-images \
+  "$SWIMMY_BACKUP_ROOT/r2-verified"
+```
+
+転送前に全ローカルファイルのSHA-256とサイズを検査します。現行画像は元キー、旧世代は `_migration_archive/<元バケット>/<キーと世代から生成したハッシュ>` に保存し、衝突があれば中止します。`wrangler r2 object put/get --remote` で転送・全件読み戻しを行い、[R2の一覧API](https://developers.cloudflare.com/api/resources/r2/subresources/buckets/subresources/objects/methods/list/)でページを最後まで取得してキー集合・サイズ・配信メタデータを照合します。認証は既存のWranglerを使い、トークンはログやファイルに残しません。マニフェスト外の移行先オブジェクトは削除せず、処理を中止します。
+
+全件成功時だけ新しい検証保存先に `verification.json` を作ります。失敗時は部分転送済みの画像を残すため、原因を直して別の検証保存先で再実行します。途中結果だけでは完了と判断しません。合成画像でリモート検証済みですが、実Firebase画像への適用は取得再開後です。
 
 ## アプリ側の移植
 
@@ -141,4 +163,4 @@ Next.js App Router / Hono の既存URLを維持して vinext + Cloudflare Vite p
 4. 短時間の書き込み停止を設け、PostgreSQLとStorageの最終バックアップを取得する。両者のスナップショットは原子的ではないため、書き込み停止前のバックアップだけでは本番切り替えをしない。
 5. 現在の容量では、最終スナップショットを空のD1へ再インポートする方式を基本とする。全行・全画像を再照合し、旧キーの画像が表示されることを確認してからトラフィックを切り替える。
 6. 旧PostgreSQL・Firebase・配信環境と最終バックアップは保持する。新環境の書き込み開始前に問題があれば旧環境へ戻す。書き込み開始後は新規データを退避・反映してから戻すため、単純なDNS巻き戻しをしない。
-7. 運用確認後、別途承認を得て旧リソースを廃止する。Git Pushはデプロイに直結するため、禁止が解除されるまでは実施しない。
+7. 運用確認後、旧リソースの廃止を判断する。旧データの削除は今回の移行完了条件に含めず、バックアップとともに保持する。

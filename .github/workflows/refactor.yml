@@ -1,6 +1,8 @@
 name: 品質チェック
 
 on:
+  push:
+    branches: [main]
   pull_request:
     branches: [main, develop]
 
