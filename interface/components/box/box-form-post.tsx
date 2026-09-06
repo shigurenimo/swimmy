@@ -60,7 +60,7 @@ export const BoxFormPost: FC<Props> = (props) => {
         onChange={(event) => setText(event.target.value)}
       />
       {submitError && (
-        <p role="alert" className="text-sm">
+        <p role="alert" className="text-base">
           送信できませんでした。時間をおいて、もう一度お試しください。
         </p>
       )}

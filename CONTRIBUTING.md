@@ -9,9 +9,10 @@
 - `const` と早期 return を基本にします。React のフックの戻り値や DOM に渡す props の分離には分割代入を使えます。入力の配列は変更せず、関数内で作った配列や Map への追加は許容します。
 - 関連する処理・型は同じファイルに置きます。関数の行数や export 数だけを理由に分割しません。DB スキーマ、API ルート、UI 部品群も意味のあるまとまりを優先します。
 - 単純な処理は関数で書きます。クラス、Facade、汎用基底、薄いラッパーを形式のために追加しません。共通化は実際の重複がある範囲に限定します。
-- UI は shadcn の `base-lyra`（Base UI）を使います。`components/ui` と公式生成の `interface/hooks/use-mobile.ts` は独自に書き換えず、lint・fmt の対象から外します。公式 CLI の `bunx shadcn add -o -y -a` で全コンポーネントを再生成できます。
+- UI は shadcn の `base-lyra`（Base UI）を使います。`components/ui` は文字サイズの下限を適用する変更のみ許可し、それ以外と公式生成の `interface/hooks/use-mobile.ts` は独自に書き換えません。これらはlint・fmtの対象から外します。公式CLIの `bunx shadcn add -o -y -a` で再生成した場合も、文字サイズの下限を再適用します。
 - Button は Primary（`variant="default"`、省略可）と Secondary（`variant="secondary"`）のみ使います。利用側で別の配色を上書きしません。
 - shadcn の標準スタイルを使い、利用側の `className` や `style` で余白・背景・枠線・角丸・文字・寸法を上書きしません。配置は外側の要素で指定します。Skeleton の表示寸法のみ利用側で指定します。
+- 文字サイズはすべて最低 `1rem`（標準16px）にします。本文、補助文、Input・Textarea、プレースホルダー、Markdown内の文字も対象です。`text-xs`・`text-sm`や1rem未満の直接指定を使わず、最小サイズは `text-base` に揃えます。画面幅によって小さくする指定も禁止します。
 - アプリ側の余白・寸法の数値スケールは `2 / 4 / 8 / 16 / 32 / 64` のみです。`0` によるリセットや `full`・`auto`・画面高などの構造的な指定は別扱いとします。
 - アプリ側の `padding` と `gap` は `4` に揃えます。同じ間隔に親の `gap` と子の `padding` を加算せず、一箇所で指定します。shadcn 内部の標準値は変更しません。
 - `use*` は React のフックを使う関数だけに付けます。定数や日付の整形は通常の値・関数にします。

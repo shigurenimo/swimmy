@@ -7,7 +7,7 @@ type Props = {
 
 export function BoxQueryError(props: Props) {
   return (
-    <div role="alert" className="flex flex-col items-start gap-4 text-sm">
+    <div role="alert" className="flex flex-col items-start gap-4 text-base">
       <p>読み込めませんでした。もう一度お試しください。</p>
       <Button variant="secondary" disabled={props.isRetrying} onClick={props.onRetry}>
         {props.isRetrying ? "読み込み中..." : "再試行"}

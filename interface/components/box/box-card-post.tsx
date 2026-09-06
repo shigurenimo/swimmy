@@ -51,12 +51,12 @@ export const BoxCardPost: FC<Props> = (props) => {
         <time
           dateTime={new Date(props.createdAt * 1000).toISOString()}
           suppressHydrationWarning
-          className="text-xs tracking-wide text-muted-foreground"
+          className="text-base tracking-wide text-muted-foreground"
         >
           {dateText}
         </time>
         {0 < props.repliesCount && (
-          <span className="font-bold text-primary text-xs">{`リプライ ${props.repliesCount}`}</span>
+          <span className="font-bold text-primary text-base">{`リプライ ${props.repliesCount}`}</span>
         )}
       </div>
       <p className="break-words font-medium">{props.text}</p>

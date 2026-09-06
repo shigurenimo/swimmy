@@ -57,7 +57,7 @@ export function Board() {
           <div className="flex h-full flex-col items-center justify-center gap-4 p-4 text-center text-muted-foreground">
             <MessageSquare className="size-8" />
             <p className="font-medium text-foreground">スレッドを選択</p>
-            <p className="text-sm">右の一覧から選ぶと、本文と返信がここに表示されます。</p>
+            <p className="text-base">右の一覧から選ぶと、本文と返信がここに表示されます。</p>
           </div>
         )}
       </section>

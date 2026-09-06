@@ -13,11 +13,11 @@ export const BoxCardResponse: FC<Props> = (props) => {
   return (
     <div className="flex w-full flex-col gap-4">
       <div className="flex flex-row items-center gap-4">
-        <span className="font-bold text-sm">{props.index}</span>
+        <span className="font-bold text-base">{props.index}</span>
         <time
           dateTime={new Date(props.createdAt * 1000).toISOString()}
           suppressHydrationWarning
-          className="text-xs tracking-wide text-muted-foreground"
+          className="text-base tracking-wide text-muted-foreground"
         >
           {dateText}
         </time>
