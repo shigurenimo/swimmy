@@ -2,6 +2,8 @@
 
 import type { FC } from "react"
 import { BoxCardPost } from "@/interface/components/box/box-card-post"
+import { BoxQueryError } from "@/interface/components/box/box-query-error"
+import { BoxFeedFallback } from "@/interface/components/box/box-feed-fallback"
 import { BoxMain } from "@/interface/components/box/box-main"
 import { ButtonFetchMore } from "@/interface/components/button/button-fetch-more"
 import { usePostsQuery } from "@/interface/hooks/use-posts-query"
@@ -37,12 +39,25 @@ export const BoxMainFeedThread: FC<Props> = (props) => {
           </div>
         ))}
         <div>
-          <ButtonFetchMore
-            isFetching={threadsQuery.isFetching}
-            hasNextPage={threadsQuery.hasNextPage}
-            isFetchingNextPage={threadsQuery.isFetchingNextPage}
-            onClick={onFetchNextPage}
-          />
+          {threadsQuery.isError ? (
+            <BoxQueryError
+              isRetrying={threadsQuery.isFetching}
+              onRetry={() =>
+                threadsQuery.isFetchNextPageError
+                  ? threadsQuery.fetchNextPage()
+                  : threadsQuery.refetch()
+              }
+            />
+          ) : threadsQuery.isLoading ? (
+            <BoxFeedFallback />
+          ) : (
+            <ButtonFetchMore
+              isFetching={threadsQuery.isFetching}
+              hasNextPage={threadsQuery.hasNextPage}
+              isFetchingNextPage={threadsQuery.isFetchingNextPage}
+              onClick={onFetchNextPage}
+            />
+          )}
         </div>
       </div>
     </BoxMain>

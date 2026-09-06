@@ -3,6 +3,8 @@
 import type { FC } from "react"
 import { BoxCardPost } from "@/interface/components/box/box-card-post"
 import { BoxFormPost } from "@/interface/components/box/box-form-post"
+import { BoxQueryError } from "@/interface/components/box/box-query-error"
+import { BoxFeedFallback } from "@/interface/components/box/box-feed-fallback"
 import { BoxMain } from "@/interface/components/box/box-main"
 import { ButtonFetchMore } from "@/interface/components/button/button-fetch-more"
 import { useCreatePostMutation } from "@/interface/hooks/use-create-post-mutation"
@@ -51,12 +53,23 @@ export const BoxMainFeed: FC<Props> = (props) => {
           </li>
         ))}
         <li>
-          <ButtonFetchMore
-            isFetching={postsQuery.isFetching}
-            hasNextPage={postsQuery.hasNextPage}
-            isFetchingNextPage={postsQuery.isFetchingNextPage}
-            onClick={onFetchMore}
-          />
+          {postsQuery.isError ? (
+            <BoxQueryError
+              isRetrying={postsQuery.isFetching}
+              onRetry={() =>
+                postsQuery.isFetchNextPageError ? postsQuery.fetchNextPage() : postsQuery.refetch()
+              }
+            />
+          ) : postsQuery.isLoading ? (
+            <BoxFeedFallback />
+          ) : (
+            <ButtonFetchMore
+              isFetching={postsQuery.isFetching}
+              hasNextPage={postsQuery.hasNextPage}
+              isFetchingNextPage={postsQuery.isFetchingNextPage}
+              onClick={onFetchMore}
+            />
+          )}
         </li>
       </ul>
     </BoxMain>
