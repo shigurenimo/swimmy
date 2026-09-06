@@ -2,7 +2,12 @@ import { defineConfig } from "vite-plus"
 
 export default defineConfig({
   lint: {
-    ignorePatterns: [".next/**", "next-env.d.ts", "components/ui/**"],
+    ignorePatterns: [
+      ".next/**",
+      "next-env.d.ts",
+      "components/ui/**",
+      "interface/hooks/use-mobile.ts",
+    ],
     plugins: ["typescript", "unicorn", "oxc", "react"],
     categories: { correctness: "error" },
     rules: {
@@ -13,6 +18,11 @@ export default defineConfig({
   },
   fmt: {
     semi: false,
-    ignorePatterns: [".claude/**", "next-env.d.ts", "components/ui/**"],
+    ignorePatterns: [
+      ".claude/**",
+      "next-env.d.ts",
+      "components/ui/**",
+      "interface/hooks/use-mobile.ts",
+    ],
   },
 })

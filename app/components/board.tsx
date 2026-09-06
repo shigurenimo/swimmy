@@ -55,22 +55,15 @@ export function Board(props: Props) {
         className="min-h-svh min-w-0 border-l"
       >
         <div className="sticky top-0 z-16 flex h-16 items-center border-b bg-background px-4">
-          <TabsList
-            className="grid h-auto w-full grid-cols-2 gap-2 p-2"
-            aria-label="投稿一覧の切り替え"
-          >
-            <TabsTrigger value="home" className="px-4 py-2">
-              ホーム
-            </TabsTrigger>
-            <TabsTrigger value="threads" className="px-4 py-2">
-              スレッド
-            </TabsTrigger>
+          <TabsList className="grid w-full grid-cols-2" aria-label="投稿一覧の切り替え">
+            <TabsTrigger value="home">ホーム</TabsTrigger>
+            <TabsTrigger value="threads">スレッド</TabsTrigger>
           </TabsList>
         </div>
-        <TabsContent value="home" forceMount className="mt-0 data-[state=inactive]:hidden">
+        <TabsContent value="home" keepMounted className="mt-0">
           <BoxMainFeed threadId={threadId} />
         </TabsContent>
-        <TabsContent value="threads" forceMount className="mt-0 data-[state=inactive]:hidden">
+        <TabsContent value="threads" keepMounted className="mt-0">
           <BoxMainFeedThread threadId={threadId} />
         </TabsContent>
       </Tabs>

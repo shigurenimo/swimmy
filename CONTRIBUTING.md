@@ -9,7 +9,7 @@
 - `const` と早期 return を基本にします。React のフックの戻り値や DOM に渡す props の分離には分割代入を使えます。入力の配列は変更せず、関数内で作った配列や Map への追加は許容します。
 - 関連する処理・型は同じファイルに置きます。関数の行数や export 数だけを理由に分割しません。DB スキーマ、API ルート、UI 部品群も意味のあるまとまりを優先します。
 - 単純な処理は関数で書きます。クラス、Facade、汎用基底、薄いラッパーを形式のために追加しません。共通化は実際の重複がある範囲に限定します。
-- UI は shadcn 公式 CLI の生成物を使います。`components/ui` は独自に書き換えず、lint・fmt の対象から外します。部品が不足する場合は公式 CLI で追加します。
+- UI は shadcn の `base-lyra`（Base UI）を使います。`components/ui` と公式生成の `interface/hooks/use-mobile.ts` は独自に書き換えず、lint・fmt の対象から外します。公式 CLI の `bunx shadcn add -o -y -a` で全コンポーネントを再生成できます。
 - Button は Primary（`variant="default"`、省略可）と Secondary（`variant="secondary"`）のみ使います。利用側で別の配色を上書きしません。
 - アプリ側の余白・寸法の数値スケールは `2 / 4 / 8 / 16 / 32 / 64` のみです。`0` によるリセットや `full`・`auto`・画面高などの構造的な指定は別扱いとします。
 - `use*` は React のフックを使う関数だけに付けます。定数や日付の整形は通常の値・関数にします。

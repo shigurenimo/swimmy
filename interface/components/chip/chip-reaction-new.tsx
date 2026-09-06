@@ -19,7 +19,6 @@ export const ChipReactionNew: FC<Props> = (props) => {
         event.stopPropagation()
         props.onClick()
       }}
-      className="size-8 rounded-full p-2"
     >
       <Plus className="h-4 w-4" />
     </Button>
