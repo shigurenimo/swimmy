@@ -22,7 +22,7 @@ export const ChipReaction: FC<Props> = (props) => {
       className="h-8 gap-2 rounded-full px-2 text-xs"
     >
       <span>{props.text}</span>
-      <span className="text-xs">{props.count}</span>
+      <span className="text-xs">{props.count + props.secretCount}</span>
     </Button>
   )
 }
