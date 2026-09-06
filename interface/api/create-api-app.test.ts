@@ -35,6 +35,39 @@ test("POST /posts returns 404 when the reply target does not exist", async () =>
   expect(readPost).not.toHaveBeenCalled()
 })
 
+test("POST /posts rejects missing images before saving the post", async () => {
+  const imagesExist = spyOn(imageService, "imagesExist").mockResolvedValue(false)
+  const createPost = spyOn(postService, "createPost")
+  const response = await createApiApp().request("/api/posts", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ text: "photo", threadId: null, fileIds: ["undefinedmissing-image"] }),
+  })
+
+  expect(response.status).toBe(400)
+  expect(z.object({ message: z.string() }).parse(await response.json())).toEqual({
+    message: "添付画像が見つかりません。画像を再アップロードしてください",
+  })
+  expect(imagesExist).toHaveBeenCalledWith(["undefinedmissing-image"])
+  expect(createPost).not.toHaveBeenCalled()
+})
+
+test("POST /posts preserves verified image keys", async () => {
+  const input = { text: "photo", threadId: null, fileIds: ["uploaded-image", "legacy-image"] }
+  spyOn(imageService, "imagesExist").mockResolvedValue(true)
+  const createPost = spyOn(postService, "createPost").mockResolvedValue(post.id)
+  spyOn(postService, "readPost").mockResolvedValue({ ...post, ...input })
+  const response = await createApiApp().request("/api/posts", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(input),
+  })
+
+  expect(response.status).toBe(201)
+  expect(postNodeSchema.parse(await response.json()).fileIds).toEqual(input.fileIds)
+  expect(createPost).toHaveBeenCalledWith(input)
+})
+
 test.each(["posts", "threads"])("GET /%s preserves pagination and filtering", async (resource) => {
   const listPosts = spyOn(postService, "listPosts").mockResolvedValue(
     Array.from({ length: 41 }, (_, index) => ({ ...post, id: `post-${index}` })),

@@ -5,7 +5,7 @@ import { createPostInputSchema } from "@/interface/api/create-post-input-schema"
 import { createReactionInputSchema } from "@/interface/api/create-reaction-input-schema"
 import { idSchema } from "@/interface/api/id-schema"
 import { toPostsPage } from "@/interface/api/to-posts-page"
-import { imageContentType, readImage, storeImage } from "@/service/images"
+import { imageContentType, imagesExist, readImage, storeImage } from "@/service/images"
 import {
   addReaction,
   countPosts,
@@ -49,6 +49,13 @@ export function createApiApp() {
 
     if (!input.success) {
       return context.json({ message: "リクエストが不正です" }, 400)
+    }
+
+    if (!(await imagesExist(input.data.fileIds))) {
+      return context.json(
+        { message: "添付画像が見つかりません。画像を再アップロードしてください" },
+        400,
+      )
     }
 
     const postId = await createPost(input.data)

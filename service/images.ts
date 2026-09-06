@@ -19,6 +19,13 @@ export async function storeImage(bytes: Uint8Array, contentType: string) {
   return fileId
 }
 
+export async function imagesExist(fileIds: string[]) {
+  if (fileIds.length === 0) return true
+  const { env } = await import("cloudflare:workers")
+  const objects = await Promise.all(fileIds.map((fileId) => env.BUCKET.head(fileId)))
+  return objects.every((object) => object !== null)
+}
+
 export async function readImage(props: { fileId: string; width: number; quality: number }) {
   const { env } = await import("cloudflare:workers")
   const object = await env.BUCKET.get(props.fileId)
