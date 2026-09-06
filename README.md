@@ -4,6 +4,8 @@
 
 開発時の規約は [CONTRIBUTING.md](CONTRIBUTING.md) を参照してください。
 
+Cloudflare への移行調査・バックアップ・切り替え手順は [移行準備](docs/cloudflare-migration.md) にまとめています。
+
 - Next.js App Router
 - Hono REST API
 - Drizzle ORM + PostgreSQL
