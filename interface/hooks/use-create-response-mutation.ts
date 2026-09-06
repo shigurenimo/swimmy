@@ -30,9 +30,10 @@ export function useCreateResponseMutation(props: Props) {
       })
     },
     async onSuccess() {
-      await queryClient.invalidateQueries({
-        queryKey: ["threads", props.threadId],
-      })
+      await Promise.all([
+        queryClient.invalidateQueries({ queryKey: ["posts"] }),
+        queryClient.invalidateQueries({ queryKey: ["threads"] }),
+      ])
     },
   })
 }
