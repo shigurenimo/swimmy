@@ -1,7 +1,7 @@
 import { expect, test } from "bun:test"
 import { getDateText } from "@/interface/utils/get-date-text"
 
-const postedAt = new Date(2024, 0, 2, 12)
+const postedAt = new Date("2024-01-02T03:00:00Z")
 
 test.each([
   [0, "いま"],
@@ -17,4 +17,10 @@ test.each([
   [365 * 86_400_000, "2024年01月02日"],
 ])("formats elapsed time %d", (milliseconds, expected) => {
   expect(getDateText(postedAt, new Date(postedAt.getTime() + milliseconds))).toBe(expected)
+})
+
+test("calendar dates use Japan time across the UTC date boundary", () => {
+  expect(getDateText(new Date("2024-01-01T16:00:00Z"), new Date("2024-01-02T16:00:00Z"))).toBe(
+    "1日前（1月2日）",
+  )
 })

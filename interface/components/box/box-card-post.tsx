@@ -48,7 +48,13 @@ export const BoxCardPost: FC<Props> = (props) => {
   const summary = (
     <>
       <div className="flex flex-row justify-between">
-        <span className="text-xs tracking-wide text-muted-foreground">{dateText}</span>
+        <time
+          dateTime={new Date(props.createdAt * 1000).toISOString()}
+          suppressHydrationWarning
+          className="text-xs tracking-wide text-muted-foreground"
+        >
+          {dateText}
+        </time>
         {0 < props.repliesCount && (
           <span className="font-bold text-primary text-xs">{`リプライ ${props.repliesCount}`}</span>
         )}

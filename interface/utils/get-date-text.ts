@@ -1,8 +1,10 @@
 export function getDateText(date: Date, now = new Date()) {
   const milliseconds = now.getTime() - date.getTime()
-  const year = date.getFullYear()
-  const month = date.getMonth() + 1
-  const day = date.getDate()
+  // サーバーとブラウザのタイムゾーンに依存せず、日本時間の日付を表示する。
+  const japanDate = new Date(date.getTime() + 9 * 3_600_000)
+  const year = japanDate.getUTCFullYear()
+  const month = japanDate.getUTCMonth() + 1
+  const day = japanDate.getUTCDate()
 
   if (milliseconds < 60_000) {
     return "いま"

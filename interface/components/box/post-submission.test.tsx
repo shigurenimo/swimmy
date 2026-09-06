@@ -68,7 +68,7 @@ test.each(["post", "response"])(
     shouldFail = false
     fireEvent.click(view.getByRole("button", { name: buttonName }))
 
-    await waitFor(() => expect(view.queryByDisplayValue("失いたくない下書き")).toBeNull())
+    await waitFor(() => expect(view.queryByDisplayValue("失いたくない下書き") === null).toBe(true))
     expect(view.queryByRole("alert")).toBeNull()
     client.clear()
   },

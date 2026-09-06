@@ -1,2 +1,5 @@
-user-agent:*
-disallow: /privacy
+User-agent: *
+Allow: /
+Disallow: /api/
+
+Sitemap: https://swimmy.io/sitemap.xml

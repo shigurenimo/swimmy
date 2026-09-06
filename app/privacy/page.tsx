@@ -1,7 +1,15 @@
 import { LayoutHomeApp } from "@/app/components/layout-home-app"
+import { pageMetadata } from "@/app/metadata"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { BoxMain } from "@/interface/components/box/box-main"
 import { BoxMarkdown } from "@/interface/components/box/box-markdown"
+
+export const metadata = pageMetadata({
+  title: "プライバシーポリシー",
+  description:
+    "スイミー電子掲示板のプライバシーポリシーです。個人情報の収集、利用、管理について説明しています。",
+  path: "/privacy",
+})
 
 export default function PrivacyPage() {
   const markdown = `スイミー電子掲示板・運営（以下、「当運営」といいます。）は、本ウェブサイト上で提供するサービス（以下、「本サービス」といいます。）における、ユーザーの個人情報の取扱いについて、以下のとおりプライバシーポリシー（以下、「本ポリシー」といいます。）を定めます。

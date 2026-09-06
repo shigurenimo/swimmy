@@ -66,8 +66,8 @@ test.each(["posts", "threads", "detail", "responses"])(
     shouldFail = false
     fireEvent.click(view.getByRole("button", { name: "再試行" }))
 
-    await waitFor(() => expect(view.queryByRole("alert")).toBeNull())
-    expect(view.getAllByText(post.text).length).toBeGreaterThan(0)
+    await waitFor(() => expect(view.queryAllByText(post.text).length).toBeGreaterThan(0))
+    expect(view.queryByRole("alert")).toBeNull()
     expect(fetchMock.mock.calls.filter(([input]) => String(input) === path)).toHaveLength(2)
     client.clear()
   },

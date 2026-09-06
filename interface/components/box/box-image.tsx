@@ -17,7 +17,7 @@ export const BoxImage: FC<Props> = (props) => {
           return `/api/images/${loaderProps.src}?${searchParams}`
         }}
         src={props.fileId}
-        alt={props.fileId}
+        alt="投稿の添付画像"
         width={640}
         height={640}
         className="h-full w-full object-cover"
