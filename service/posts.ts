@@ -136,7 +136,17 @@ export async function createPost(input: CreatePostInput) {
   const now = new Date()
   const dateText = [now.getFullYear(), now.getMonth() + 1, now.getDate()].join("-")
 
-  await db.transaction(async (transaction) => {
+  return db.transaction(async (transaction) => {
+    if (input.threadId) {
+      const parents = await transaction
+        .update(posts)
+        .set({ repliesCount: sql`${posts.repliesCount} + 1` })
+        .where(eq(posts.id, input.threadId))
+        .returning({ id: posts.id })
+
+      if (parents.length === 0) return null
+    }
+
     await transaction.insert(posts).values({
       id,
       text: input.text,
@@ -146,15 +156,8 @@ export async function createPost(input: CreatePostInput) {
       dateText,
     })
 
-    if (input.threadId) {
-      await transaction
-        .update(posts)
-        .set({ repliesCount: sql`${posts.repliesCount} + 1` })
-        .where(eq(posts.id, input.threadId))
-    }
+    return id
   })
-
-  return id
 }
 
 export async function addReaction(postId: string, text: string) {

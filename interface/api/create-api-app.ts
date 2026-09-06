@@ -52,6 +52,9 @@ export function createApiApp() {
     }
 
     const postId = await createPost(input.data)
+    if (postId === null) {
+      return context.json({ message: "返信先の投稿が見つかりません" }, 404)
+    }
     const post = await readPost(postId)
 
     return post ? context.json(post, 201) : context.json({ message: "投稿が見つかりません" }, 500)

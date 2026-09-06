@@ -16,6 +16,20 @@ const post: PostNode = {
   isDeleted: false,
 }
 
+test("POST /posts returns 404 when the reply target does not exist", async () => {
+  spyOn(postService, "createPost").mockResolvedValue(null)
+  const readPost = spyOn(postService, "readPost")
+  const response = await createApiApp().request("/api/posts", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ text: "reply", threadId: "missing-parent", fileIds: [] }),
+  })
+
+  expect(response.status).toBe(404)
+  expect(await response.json()).toEqual({ message: "返信先の投稿が見つかりません" })
+  expect(readPost).not.toHaveBeenCalled()
+})
+
 test.each(["posts", "threads"])("GET /%s preserves pagination and filtering", async (resource) => {
   const listPosts = spyOn(postService, "listPosts").mockResolvedValue(
     Array.from({ length: 41 }, (_, index) => ({ ...post, id: `post-${index}` })),
