@@ -35,7 +35,6 @@ export const BoxFormResponse: FC<Props> = (props) => {
         disabled={props.isLoading}
         value={text}
         onChange={(event) => setText(event.target.value)}
-        className="resize-none"
       />
       {submitError && (
         <p role="alert" className="text-sm">
@@ -43,9 +42,11 @@ export const BoxFormResponse: FC<Props> = (props) => {
         </p>
       )}
       {isValid && (
-        <Button disabled={props.isLoading} size="sm" className="self-end" onClick={onSubmit}>
-          {props.isLoading ? "送信中..." : "返信"}
-        </Button>
+        <div className="self-end">
+          <Button disabled={props.isLoading} onClick={onSubmit}>
+            {props.isLoading ? "送信中..." : "返信"}
+          </Button>
+        </div>
       )}
     </div>
   )

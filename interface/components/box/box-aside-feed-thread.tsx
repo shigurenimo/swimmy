@@ -1,6 +1,6 @@
 "use client"
 
-import { type FC, Fragment } from "react"
+import type { FC } from "react"
 import { Separator } from "@/components/ui/separator"
 import { BoxAside } from "@/interface/components/box/box-aside"
 import { BoxAsideFeedThreadFallback } from "@/interface/components/box/box-aside-feed-thread-fallback"
@@ -45,8 +45,8 @@ export const BoxAsideFeedThread: FC<Props> = (props) => {
       )}
       {threadQuery.data && (
         <>
-          <ul className="flex flex-col p-4">
-            <li className="pt-2 pb-2">
+          <ul className="flex flex-col gap-4 p-4">
+            <li>
               <BoxCardPost
                 id={threadQuery.data.id}
                 text={threadQuery.data.text}
@@ -57,20 +57,14 @@ export const BoxAsideFeedThread: FC<Props> = (props) => {
               />
             </li>
             {responses.map((response, index) => (
-              <Fragment key={response.id}>
-                <li className="py-2">
-                  <BoxCardResponse
-                    createdAt={response.createdAt}
-                    text={response.text}
-                    index={index + 1}
-                  />
-                </li>
-                {index !== responses.length - 1 && (
-                  <div className="px-2">
-                    <Separator />
-                  </div>
-                )}
-              </Fragment>
+              <li key={response.id} className="flex flex-col gap-4">
+                <BoxCardResponse
+                  createdAt={response.createdAt}
+                  text={response.text}
+                  index={index + 1}
+                />
+                {index !== responses.length - 1 && <Separator />}
+              </li>
             ))}
           </ul>
           {responsesQuery.isError && (

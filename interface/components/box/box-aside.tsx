@@ -17,7 +17,6 @@ export const BoxAside: FC<Props> = (props) => {
           <Button
             variant="secondary"
             size="icon"
-            className="size-8 p-2"
             aria-label="スレッドを閉じる"
             onClick={props.onClose}
           >

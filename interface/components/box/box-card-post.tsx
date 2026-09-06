@@ -3,7 +3,7 @@
 import Link from "next/link"
 import { type FC, useState } from "react"
 import type { PostNode } from "@/interface/api/post-node-schema"
-import { BoxCardPostFrame } from "@/interface/components/box/box-card-post-frame"
+import { Card, CardContent } from "@/components/ui/card"
 import { BoxFormReaction } from "@/interface/components/box/box-form-reaction"
 import { BoxImage } from "@/interface/components/box/box-image"
 import { ChipReaction } from "@/interface/components/chip/chip-reaction"
@@ -55,7 +55,7 @@ export const BoxCardPost: FC<Props> = (props) => {
       </div>
       <p className="break-words font-medium">{props.text}</p>
       {props.fileIds.length > 0 && (
-        <div className="flex flex-col">
+        <div className="flex flex-col gap-2">
           {props.fileIds.map((fileId) => (
             <BoxImage key={fileId} fileId={fileId} />
           ))}
@@ -65,35 +65,50 @@ export const BoxCardPost: FC<Props> = (props) => {
   )
 
   return (
-    <BoxCardPostFrame isActive={props.isActive} isClickable={props.href !== undefined}>
-      <div className="flex flex-col gap-2">
-        {props.href ? (
-          <Link href={props.href} scroll={false} className="flex min-w-0 flex-col gap-2 text-left">
-            {summary}
-          </Link>
-        ) : (
-          <div className="flex flex-col gap-2">{summary}</div>
-        )}
-        <div className="flex flex-wrap gap-2">
-          {props.reactions.map((reaction) => (
-            <div key={reaction.id}>
-              <ChipReaction
-                text={reaction.text}
-                count={reaction.count}
-                secretCount={reaction.secretCount}
-                isActive={reaction.isConnected}
-                onClick={() => {
-                  onUpdateReaction(reaction.text)
-                }}
-              />
+    <div className="relative">
+      <Card>
+        <CardContent>
+          <div className="flex flex-col gap-2">
+            {props.href ? (
+              <Link
+                href={props.href}
+                scroll={false}
+                aria-current={props.isActive ? "true" : undefined}
+                className="flex min-w-0 flex-col gap-2 text-left after:absolute after:inset-0"
+              >
+                {summary}
+              </Link>
+            ) : (
+              <div className="flex flex-col gap-2">{summary}</div>
+            )}
+            <div className="flex flex-wrap gap-2">
+              {props.reactions.map((reaction) => (
+                <div key={reaction.id} className="relative z-2">
+                  <ChipReaction
+                    text={reaction.text}
+                    count={reaction.count}
+                    secretCount={reaction.secretCount}
+                    isActive={reaction.isConnected}
+                    onClick={() => {
+                      onUpdateReaction(reaction.text)
+                    }}
+                  />
+                </div>
+              ))}
+              <div className="relative z-2">
+                {!isReaction && (
+                  <ChipReactionNew label="リアクションを追加" onClick={onInitReaction} />
+                )}
+              </div>
             </div>
-          ))}
-          <div>
-            {!isReaction && <ChipReactionNew label="リアクションを追加" onClick={onInitReaction} />}
+            {isReaction && (
+              <div className="relative z-2">
+                <BoxFormReaction postId={props.id} onClose={onCancelReaction} />
+              </div>
+            )}
           </div>
-        </div>
-        {isReaction && <BoxFormReaction postId={props.id} onClose={onCancelReaction} />}
-      </div>
-    </BoxCardPostFrame>
+        </CardContent>
+      </Card>
+    </div>
   )
 }

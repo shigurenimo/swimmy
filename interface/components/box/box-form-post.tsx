@@ -58,7 +58,6 @@ export const BoxFormPost: FC<Props> = (props) => {
         disabled={props.isLoading}
         value={text}
         onChange={(event) => setText(event.target.value)}
-        className="resize-none"
       />
       {submitError && (
         <p role="alert" className="text-sm">

@@ -3,10 +3,12 @@ import { Skeleton } from "@/components/ui/skeleton"
 
 export const BoxAsideFeedThreadFallback: FC = () => {
   return (
-    <div className="h-full w-full border-l p-4">
-      <Skeleton className="mb-4 h-8 w-full" />
-      <Skeleton className="mb-2 h-4 w-full" />
-      <Skeleton className="mb-2 h-4 w-full" />
+    <div className="flex h-full w-full flex-col gap-2 border-l p-4">
+      <div className="pb-2">
+        <Skeleton className="h-8 w-full" />
+      </div>
+      <Skeleton className="h-4 w-full" />
+      <Skeleton className="h-4 w-full" />
       <Skeleton className="h-4 w-32" />
     </div>
   )

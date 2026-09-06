@@ -13,7 +13,6 @@ export const ButtonFetchMore: FC<Props> = (props) => {
     <Button
       variant="secondary"
       disabled={props.isFetching || !props.hasNextPage}
-      className="w-full"
       onClick={props.onClick}
     >
       {props.isFetchingNextPage

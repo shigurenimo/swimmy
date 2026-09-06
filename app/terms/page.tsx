@@ -127,7 +127,7 @@ export default function TermsPage() {
       <BoxMain>
         <Card>
           <CardHeader>
-            <CardTitle className="font-bold text-2xl">利用規約</CardTitle>
+            <CardTitle>利用規約</CardTitle>
           </CardHeader>
           <CardContent>
             <BoxMarkdown>{markdown}</BoxMarkdown>

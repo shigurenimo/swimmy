@@ -80,7 +80,7 @@ export default function PrivacyPage() {
       <BoxMain>
         <Card>
           <CardHeader>
-            <CardTitle className="font-bold text-2xl">個人情報保護方針</CardTitle>
+            <CardTitle>個人情報保護方針</CardTitle>
           </CardHeader>
           <CardContent>
             <BoxMarkdown>{markdown}</BoxMarkdown>

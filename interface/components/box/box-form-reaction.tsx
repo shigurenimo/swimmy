@@ -31,19 +31,18 @@ export const BoxFormReaction: FC<Props> = (props) => {
   }
 
   return (
-    <form onSubmit={onSubmit} className="mt-2 flex flex-row items-center gap-2">
+    <form onSubmit={onSubmit} className="flex flex-row items-center gap-2">
       <Input
         value={text}
         onChange={(event) => setText(event.target.value)}
         placeholder="リアクション (絵文字など)"
         maxLength={8}
-        className="h-8 text-xs"
         autoFocus
       />
-      <Button type="submit" size="sm" disabled={!text.trim()}>
+      <Button type="submit" disabled={!text.trim()}>
         送信
       </Button>
-      <Button type="button" size="sm" variant="secondary" onClick={props.onClose}>
+      <Button type="button" variant="secondary" onClick={props.onClose}>
         キャンセル
       </Button>
     </form>

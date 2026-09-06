@@ -45,28 +45,29 @@ export function Board(props: Props) {
           </div>
         )}
       </section>
-      <Tabs
-        value={activeTab}
-        onValueChange={(tab) => {
-          if (tab === "home" || tab === "threads") {
-            setActiveTab(tab)
-          }
-        }}
-        className="min-h-svh min-w-0 border-l"
-      >
-        <div className="sticky top-0 z-16 flex h-16 items-center border-b bg-background px-4">
-          <TabsList className="grid w-full grid-cols-2" aria-label="投稿一覧の切り替え">
-            <TabsTrigger value="home">ホーム</TabsTrigger>
-            <TabsTrigger value="threads">スレッド</TabsTrigger>
-          </TabsList>
-        </div>
-        <TabsContent value="home" keepMounted className="mt-0">
-          <BoxMainFeed threadId={threadId} />
-        </TabsContent>
-        <TabsContent value="threads" keepMounted className="mt-0">
-          <BoxMainFeedThread threadId={threadId} />
-        </TabsContent>
-      </Tabs>
+      <section className="min-h-svh min-w-0 border-l" aria-label="投稿一覧">
+        <Tabs
+          value={activeTab}
+          onValueChange={(tab) => {
+            if (tab === "home" || tab === "threads") {
+              setActiveTab(tab)
+            }
+          }}
+        >
+          <div className="sticky top-0 z-16 flex h-16 items-center border-b bg-background px-4">
+            <TabsList aria-label="投稿一覧の切り替え">
+              <TabsTrigger value="home">ホーム</TabsTrigger>
+              <TabsTrigger value="threads">スレッド</TabsTrigger>
+            </TabsList>
+          </div>
+          <TabsContent value="home" keepMounted>
+            <BoxMainFeed threadId={threadId} />
+          </TabsContent>
+          <TabsContent value="threads" keepMounted>
+            <BoxMainFeedThread threadId={threadId} />
+          </TabsContent>
+        </Tabs>
+      </section>
     </div>
   )
 }

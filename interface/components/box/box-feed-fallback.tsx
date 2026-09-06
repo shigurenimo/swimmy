@@ -5,7 +5,7 @@ const placeholderIds = ["first", "second", "third", "fourth", "fifth"]
 
 export const BoxFeedFallback: FC = () => {
   return (
-    <div className="mx-auto flex w-full max-w-[64rem] flex-col gap-4 py-4">
+    <div className="flex flex-col gap-4">
       {placeholderIds.map((id) => (
         <BoxCardPostSkeleton key={id} />
       ))}

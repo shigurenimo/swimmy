@@ -11,6 +11,7 @@
 - 単純な処理は関数で書きます。クラス、Facade、汎用基底、薄いラッパーを形式のために追加しません。共通化は実際の重複がある範囲に限定します。
 - UI は shadcn の `base-lyra`（Base UI）を使います。`components/ui` と公式生成の `interface/hooks/use-mobile.ts` は独自に書き換えず、lint・fmt の対象から外します。公式 CLI の `bunx shadcn add -o -y -a` で全コンポーネントを再生成できます。
 - Button は Primary（`variant="default"`、省略可）と Secondary（`variant="secondary"`）のみ使います。利用側で別の配色を上書きしません。
+- shadcn の標準スタイルを使い、利用側の `className` や `style` で余白・背景・枠線・角丸・文字・寸法を上書きしません。配置は外側の要素で指定します。Skeleton の表示寸法のみ利用側で指定します。
 - アプリ側の余白・寸法の数値スケールは `2 / 4 / 8 / 16 / 32 / 64` のみです。`0` によるリセットや `full`・`auto`・画面高などの構造的な指定は別扱いとします。
 - `use*` は React のフックを使う関数だけに付けます。定数や日付の整形は通常の値・関数にします。
 - API・DB の失敗は例外として伝播し、Hono のエラーハンドラーで HTTP 応答に変換します。クライアントの通信失敗は React Query に伝えます。成功扱いに変わる catch は追加しません。
