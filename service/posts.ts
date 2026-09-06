@@ -170,19 +170,13 @@ export async function createPost(input: CreatePostInput) {
 
 export async function addReaction(postId: string, text: string) {
   const db = await getDb()
-  await db
-    .insert(reactions)
-    .values({
-      id: nanoid(),
-      postId,
-      text,
-      count: 1,
-    })
-    .onConflictDoUpdate({
-      target: [reactions.postId, reactions.text],
-      set: {
-        count: sql`min(${reactions.count} + 1, 11)`,
-        updatedAt: new Date(),
-      },
-    })
+  await db.$client
+    .prepare(`
+      INSERT INTO reactions (id, post_id, text, count)
+      SELECT ?, id, ?, 1 FROM posts WHERE id = ?
+      ON CONFLICT (post_id, text) DO UPDATE SET
+        count = min(reactions.count + 1, 11), updated_at = ?
+    `)
+    .bind(nanoid(), text, postId, Date.now())
+    .run()
 }

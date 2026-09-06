@@ -1,8 +1,10 @@
 import { afterAll, afterEach, beforeAll, beforeEach, expect, mock, spyOn, test } from "bun:test"
 import { drizzle } from "drizzle-orm/d1"
 import { Miniflare } from "miniflare"
+import { z } from "zod"
 import * as connection from "@/db"
 import * as schema from "@/db/schema"
+import { createApiApp } from "@/interface/api/create-api-app"
 import { addReaction, createPost, listPosts, readPost } from "@/service/posts"
 
 const runtime = new Miniflare({
@@ -71,6 +73,34 @@ test("D1 keeps anonymous reactions capped at 11", async () => {
   expect(post?.reactions[0]?.secretCount).toBe(11)
   expect(post?.reactions[0]?.count).toBe(0)
 })
+
+test.each(["missing", "deleted"])(
+  "reactions on a %s post return 404 without creating an orphan",
+  async (state) => {
+    const postId =
+      state === "deleted"
+        ? await createPost({ text: "deleted", fileIds: [], threadId: null })
+        : "missing-post"
+    if (!postId) throw new Error("投稿を作成できませんでした")
+    if (state === "deleted") {
+      await database.prepare("DELETE FROM posts WHERE id = ?").bind(postId).run()
+    }
+
+    const response = await createApiApp().request(`/api/posts/${postId}/reactions`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ text: "🙂" }),
+    })
+
+    expect(response.status).toBe(404)
+    expect(z.object({ message: z.string() }).parse(await response.json())).toEqual({
+      message: "投稿が見つかりません",
+    })
+    expect(
+      await database.prepare("SELECT count(*) AS count FROM reactions").first<number>("count"),
+    ).toBe(0)
+  },
+)
 
 test("D1 pagination does not skip posts with equal timestamps", async () => {
   for (const id of ["fixture-a", "fixture-b", "fixture-c", "fixture-d"]) {
