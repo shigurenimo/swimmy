@@ -31,7 +31,7 @@ export const BoxFormReaction: FC<Props> = (props) => {
   }
 
   return (
-    <form onSubmit={onSubmit} className="flex flex-row items-center gap-2">
+    <form onSubmit={onSubmit} className="flex flex-row items-center gap-4">
       <Input
         value={text}
         onChange={(event) => setText(event.target.value)}

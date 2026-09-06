@@ -55,7 +55,7 @@ export const BoxCardPost: FC<Props> = (props) => {
       </div>
       <p className="break-words font-medium">{props.text}</p>
       {props.fileIds.length > 0 && (
-        <div className="flex flex-col gap-2">
+        <div className="flex flex-col gap-4">
           {props.fileIds.map((fileId) => (
             <BoxImage key={fileId} fileId={fileId} />
           ))}
@@ -68,20 +68,20 @@ export const BoxCardPost: FC<Props> = (props) => {
     <div className="relative">
       <Card>
         <CardContent>
-          <div className="flex flex-col gap-2">
+          <div className="flex flex-col gap-4">
             {props.href ? (
               <Link
                 href={props.href}
                 scroll={false}
                 aria-current={props.isActive ? "true" : undefined}
-                className="flex min-w-0 flex-col gap-2 text-left after:absolute after:inset-0"
+                className="flex min-w-0 flex-col gap-4 text-left after:absolute after:inset-0"
               >
                 {summary}
               </Link>
             ) : (
-              <div className="flex flex-col gap-2">{summary}</div>
+              <div className="flex flex-col gap-4">{summary}</div>
             )}
-            <div className="flex flex-wrap gap-2">
+            <div className="flex flex-wrap gap-4">
               {props.reactions.map((reaction) => (
                 <div key={reaction.id} className="relative z-2">
                   <ChipReaction

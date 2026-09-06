@@ -11,8 +11,8 @@ export const BoxCardResponse: FC<Props> = (props) => {
   const dateText = getDateText(new Date(props.createdAt * 1000))
 
   return (
-    <div className="flex w-full flex-col gap-2">
-      <div className="flex flex-row items-center gap-2">
+    <div className="flex w-full flex-col gap-4">
+      <div className="flex flex-row items-center gap-4">
         <span className="font-bold text-sm">{props.index}</span>
         <span className="text-xs tracking-wide text-muted-foreground">{dateText}</span>
       </div>

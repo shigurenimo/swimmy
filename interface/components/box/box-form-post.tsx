@@ -65,7 +65,7 @@ export const BoxFormPost: FC<Props> = (props) => {
         </p>
       )}
       {isValid && (
-        <div className="flex flex-wrap justify-end gap-2">
+        <div className="flex flex-wrap justify-end gap-4">
           <ButtonFile
             variant="secondary"
             onChange={onUploadFile}

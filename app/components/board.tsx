@@ -38,7 +38,7 @@ export function Board(props: Props) {
         {threadId ? (
           <BoxAsideFeedThread threadId={threadId} onClose={closeThread} />
         ) : (
-          <div className="flex h-full flex-col items-center justify-center gap-4 p-8 text-center text-muted-foreground">
+          <div className="flex h-full flex-col items-center justify-center gap-4 p-4 text-center text-muted-foreground">
             <MessageSquare className="size-8" />
             <p className="font-medium text-foreground">スレッドを選択</p>
             <p className="text-sm">右の一覧から選ぶと、本文と返信がここに表示されます。</p>
@@ -54,18 +54,20 @@ export function Board(props: Props) {
             }
           }}
         >
-          <div className="sticky top-0 z-16 flex h-16 items-center border-b bg-background px-4">
-            <TabsList aria-label="投稿一覧の切り替え">
-              <TabsTrigger value="home">ホーム</TabsTrigger>
-              <TabsTrigger value="threads">スレッド</TabsTrigger>
-            </TabsList>
+          <div>
+            <div className="sticky top-0 z-16 flex h-16 items-center border-b bg-background px-4">
+              <TabsList aria-label="投稿一覧の切り替え">
+                <TabsTrigger value="home">ホーム</TabsTrigger>
+                <TabsTrigger value="threads">スレッド</TabsTrigger>
+              </TabsList>
+            </div>
+            <TabsContent value="home" keepMounted>
+              <BoxMainFeed threadId={threadId} />
+            </TabsContent>
+            <TabsContent value="threads" keepMounted>
+              <BoxMainFeedThread threadId={threadId} />
+            </TabsContent>
           </div>
-          <TabsContent value="home" keepMounted>
-            <BoxMainFeed threadId={threadId} />
-          </TabsContent>
-          <TabsContent value="threads" keepMounted>
-            <BoxMainFeedThread threadId={threadId} />
-          </TabsContent>
         </Tabs>
       </section>
     </div>
