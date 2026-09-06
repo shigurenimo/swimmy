@@ -40,7 +40,7 @@ bun run studio     # D1用Drizzle Studio（CLOUDFLARE_API_TOKENが必要）
 bun run start      # ビルド済みWorkerをローカル起動
 ```
 
-公開用の `bun run deploy` は Cloudflare へ直接デプロイするコマンドです。画像の移行・最終データ照合が終わるまで既存サイトを切り替えません。読み取り専用の検証環境は https://swimmy.nocker.workers.dev/ です。main への Push は許可され、品質チェックを実行します。Railway の自動デプロイ連携は解除済みです。
+公開用の `bun run deploy` は Cloudflare へ直接デプロイするコマンドです。画像の移行・最終データ照合が終わるまで既存サイトを切り替えません。読み取り専用の検証環境は https://swimmy.nocker.workers.dev/ です。main への Push は許可され、Cloudflare Builds が `bun run check && bun run test && bun run build` の成功後に `bunx wrangler deploy --config dist/server/wrangler.json` を実行します。非本番ブランチのビルドは無効です。Railway の自動デプロイ連携は解除済みです。
 
 ## 構成
 

@@ -1,6 +1,6 @@
 # Cloudflare 移行の記録
 
-関連: [#29](https://github.com/shigurenimo/swimmy/issues/29)、[#31](https://github.com/shigurenimo/swimmy/issues/31)。2026-09-06 にアプリの Workers / D1 / R2 対応とリモート D1 への取り込みを実施しました。2026-09-07（JST）にユーザーが Push 禁止を解除し、main を Push、Worker の読み取り専用プレビューを公開しました。既存画像の取得と本番ドメインの切り替えは未完了です。旧 PostgreSQL・Firebase、課金設定、DNS は変更していません。
+関連: [#29](https://github.com/shigurenimo/swimmy/issues/29)、[#31](https://github.com/shigurenimo/swimmy/issues/31)。2026-09-06 にアプリの Workers / D1 / R2 対応とリモート D1 への取り込みを実施しました。2026-09-07（JST）にユーザーが Push 禁止を解除し、main を Push、Worker の読み取り専用プレビューを公開しました。請求先の紐付けはユーザー承認後に完了し、既存画像を取得中です。本番ドメインの切り替えは未完了で、旧環境への書き込みとDNSは変更していません。
 
 ## リモート環境の検証
 
@@ -10,9 +10,9 @@
 - R2に合成テスト画像を保存し、元バイト列を読み戻してSHA-256一致、ImagesバインディングによるPNG配信200を確認しました。
 - 転送スクリプトも現行・旧世代の合成画像2件で実行しました。保存キー・サイズ・全バイト列・配信メタデータが一致し、旧世代はアーカイブに分離されました。検証記録はリポジトリ外の `20260907-storage-transfer-probe/verified-metadata/verification.json` にあります。テスト画像は削除済みで、既存Firebase画像はまだ移行していません。
 - `bun run check`、46件のテスト、`bun run build` が成功しました。
-- Railway の `shigurenimo/swimmy` / `main` 連携を解除し、旧アプリが稼働したまま main を Push しました。今後の main への Push では GitHub Actions が品質チェックを実行します。Cloudflare Builds の接続は GitHub App の再認証待ちです。
+- Railway の `shigurenimo/swimmy` / `main` 連携を解除し、旧アプリが稼働したまま main を Push しました。GitHub Actionsに加え、Cloudflare Buildsも接続済みです。mainへのPushで `bun run check && bun run test && bun run build` を実行後、`bunx wrangler deploy --config dist/server/wrangler.json` で公開します。Bunは1.3.14、Node.jsは24、非本番ブランチのビルドは無効です。
 
-Firebase の課金状態は再照会しても無効でした。請求先の紐付けは承認待ちです。全画像の転送、書き込み停止中の最終同期、`swimmy.io` の切り替えが残っています。
+Firebaseの請求先はユーザー承認後に紐付け、`billingEnabled: true` と実画像のダウンロード成功を確認しました。全画像の転送、書き込み停止中の最終同期、`swimmy.io` の切り替えが残っています。
 
 ## 確認できたデータ
 
@@ -37,7 +37,9 @@ PostgreSQL は Railway 上の 15.5。DB 全体は 28,971,823 bytes。サーバ�
 
 画像の保存先は Firebase Storage / Google Cloud Storage の `fqcwljdj7qt9rphssvk3.appspot.com`（東京リージョン）。DB の投稿・プロフィールから参照される固有キーは 1,191 件です。**これはバケット全体のファイル数ではありません。** 未参照画像と旧世代も調査・保存の対象にします。
 
-認証済みの Cloud Shell でも画像の取得は 403 となり、プロジェクトの請求先が未設定であることを確認しました。既存の有効な請求先への紐付けは従量課金を有効にする変更なので、ユーザーの承認待ちです。画像の全件取得・容量集計・R2 への転送は未実施です。一覧が見えるだけでは取得可能とは判断しません。
+請求先の紐付け後、全ページ・全世代を列挙し、現行1,904件、2,446,191,354 bytes、旧世代0件、ソフト削除済み0件を確認しました。全件をローカル保存中です。DB参照のうち1,190件は存在し、1件は元データの不正キーでした（[Issue #36](https://github.com/shigurenimo/swimmy/issues/36)）。推測でキーを書き換えず、元の内容を保持します。
+
+同じプロジェクトのstagingバケットは0件、DatastoreモードのDBも名前空間の全件照会で0件でした。Firebase Authの67アカウントをページ末尾まで取得し、リポジトリ外の `20260907-google-inventory/firebase-auth-accounts.json` に保存しました。旧プロジェクト `umfzwkzvrtpe` のStorage照会はプロジェクト不存在エラーで、今回の現行バケットには含めていません。旧リソースの削除は行いません。
 
 Cloudflare の Nocker アカウントに専用 D1 `swimmy`（APAC、ID はルートの `wrangler.jsonc`）と R2 `swimmy-images` を作成しました。D1 は取り込み・全行照合済み、リモート R2 は空です。公開側は `READ_ONLY=true` で書き込みを停止する構成です。
 
@@ -112,7 +114,7 @@ bun scripts/migration/verify-d1.ts \
 
 ## 画像の全件保存と R2
 
-`scripts/migration/backup-storage.ts` を準備済みです。実バケットでの成功確認は、読み取りアクセスが回復してから行います。既存のサービスアカウント、または Application Default Credentials が必要です。必要な読み取り権限は `storage.buckets.get`、`storage.objects.list`、`storage.objects.get`。新しい鍵の発行やIAM変更は実施していません。
+`scripts/migration/backup-storage.ts` で実バケットを取得中です。既存のサービスアカウント、または Application Default Credentials が必要です。必要な読み取り権限は `storage.buckets.get`、`storage.objects.list`、`storage.objects.get`。今回はGoogle Cloud CLIの通常のユーザー認証によるADCを使い、新しいサービスアカウント鍵の発行やIAM変更は実施していません。
 
 ```bash
 # 既存の読み取り用資格情報を端末側で設定してから実行
