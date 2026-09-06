@@ -10,12 +10,13 @@ import { useFileUploader } from "@/interface/hooks/use-file-uploader"
 import type { FormNewPost } from "@/interface/types/form-new-post"
 
 type Props = {
-  onCreatePost?(input: FormNewPost): Promise<void>
+  onCreatePost(input: FormNewPost): Promise<void>
   isLoading: boolean
 }
 
 export const BoxFormPost: FC<Props> = (props) => {
   const [text, setText] = useState("")
+  const [submitError, setSubmitError] = useState(false)
 
   const fileUploader = useFileUploader()
 
@@ -40,11 +41,14 @@ export const BoxFormPost: FC<Props> = (props) => {
   }
 
   const onSubmit = async () => {
+    setSubmitError(false)
+
     try {
-      await props.onCreatePost?.({ text, fileIds })
+      await props.onCreatePost({ text, fileIds })
       setText("")
       setFileIds([])
     } catch (error) {
+      setSubmitError(true)
       captureException(error)
       if (error instanceof Error) {
         console.error(error.message)
@@ -63,6 +67,11 @@ export const BoxFormPost: FC<Props> = (props) => {
         onChange={(event) => setText(event.target.value)}
         className="resize-none"
       />
+      {submitError && (
+        <p role="alert" className="text-sm">
+          送信できませんでした。時間をおいて、もう一度お試しください。
+        </p>
+      )}
       {isValid && (
         <div className="flex flex-wrap justify-end gap-2">
           <ButtonFile

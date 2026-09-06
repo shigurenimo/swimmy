@@ -1,6 +1,5 @@
 "use client"
 
-import { captureException } from "@sentry/react"
 import { type FC, Fragment } from "react"
 import { Separator } from "@/components/ui/separator"
 import { BoxAside } from "@/interface/components/box/box-aside"
@@ -28,16 +27,7 @@ export const BoxAsideFeedThread: FC<Props> = (props) => {
   })
 
   const onCreateResponse = async (value: FormNewPost) => {
-    try {
-      await createResponseMutation.mutateAsync({
-        text: value.text,
-        fileIds: [],
-      })
-    } catch (error) {
-      if (error instanceof Error) {
-        captureException(error)
-      }
-    }
+    await createResponseMutation.mutateAsync({ text: value.text, fileIds: [] })
   }
 
   if (threadQuery.isLoading) {

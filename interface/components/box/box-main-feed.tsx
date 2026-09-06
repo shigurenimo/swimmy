@@ -1,6 +1,5 @@
 "use client"
 
-import { captureException } from "@sentry/react"
 import type { FC } from "react"
 import { BoxCardPost } from "@/interface/components/box/box-card-post"
 import { BoxFormPost } from "@/interface/components/box/box-form-post"
@@ -20,19 +19,11 @@ export const BoxMainFeed: FC<Props> = (props) => {
   const createPostMutation = useCreatePostMutation()
 
   const onCreatePost = async (value: FormNewPost) => {
-    try {
-      await createPostMutation.mutateAsync({
-        text: value.text,
-        fileIds: value.fileIds,
-        threadId: null,
-      })
-    } catch (error) {
-      captureException(error)
-
-      if (error instanceof Error) {
-        console.error(error.message)
-      }
-    }
+    await createPostMutation.mutateAsync({
+      text: value.text,
+      fileIds: value.fileIds,
+      threadId: null,
+    })
   }
 
   const onFetchMore = async () => {
