@@ -1,11 +1,11 @@
-import { captureException } from "@sentry/node"
 import { Hono } from "hono"
+import { bodyLimit } from "hono/body-limit"
 import { z } from "zod"
 import { createPostInputSchema } from "@/interface/api/create-post-input-schema"
 import { createReactionInputSchema } from "@/interface/api/create-reaction-input-schema"
 import { idSchema } from "@/interface/api/id-schema"
 import { toPostsPage } from "@/interface/api/to-posts-page"
-import { readImage } from "@/service/images"
+import { imageContentType, readImage, storeImage } from "@/service/images"
 import {
   addReaction,
   countPosts,
@@ -22,7 +22,7 @@ export function createApiApp() {
   const app = new Hono().basePath("/api")
 
   app.onError((error, context) => {
-    captureException(error)
+    console.error(error)
     return context.json({ message: "サーバーエラーが発生しました" }, 500)
   })
 
@@ -119,13 +119,24 @@ export function createApiApp() {
       return context.json({ message: "リクエストが不正です" }, 400)
     }
 
-    const image = await readImage(params.data)
-
-    context.header("Cache-Control", "public, max-age=86400")
-    context.header("Content-Type", "image/png")
-
-    return context.body(new Uint8Array(image))
+    return readImage(params.data)
   })
+
+  app.post(
+    "/images",
+    bodyLimit({
+      maxSize: 8 * 1024 * 1024,
+      onError: (context) => context.json({ message: "画像は8 MiB以下にしてください" }, 413),
+    }),
+    async (context) => {
+      const bytes = new Uint8Array(await context.req.arrayBuffer())
+      const contentType = imageContentType(bytes)
+      if (!contentType)
+        return context.json({ message: "JPEG・PNG・GIF・WebP画像を選択してください" }, 400)
+      const fileId = await storeImage(bytes, contentType)
+      return context.json({ fileId }, 201)
+    },
+  )
 
   return app
 }

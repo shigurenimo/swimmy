@@ -9,6 +9,9 @@ node_modules/
 .env.local
 .env.*.local
 .envrc
+.dev.vars
+.dev.vars.*
+!.dev.vars.example
 
 # Logs and runtime files
 logs/
@@ -23,3 +26,5 @@ pids/
 
 # System
 .DS_Store
+/dist/
+.vinext/

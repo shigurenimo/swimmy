@@ -1,6 +1,9 @@
 import { afterEach, expect, mock, spyOn, test } from "bun:test"
 import { createApiApp } from "@/interface/api/create-api-app"
-import type { PostNode } from "@/interface/api/post-node-schema"
+import { postNodeSchema, type PostNode } from "@/interface/api/post-node-schema"
+import { postsPageSchema } from "@/interface/api/posts-page-schema"
+import { z } from "zod"
+import * as imageService from "@/service/images"
 import * as postService from "@/service/posts"
 
 afterEach(() => mock.restore())
@@ -26,7 +29,9 @@ test("POST /posts returns 404 when the reply target does not exist", async () =>
   })
 
   expect(response.status).toBe(404)
-  expect(await response.json()).toEqual({ message: "返信先の投稿が見つかりません" })
+  expect(z.object({ message: z.string() }).parse(await response.json())).toEqual({
+    message: "返信先の投稿が見つかりません",
+  })
   expect(readPost).not.toHaveBeenCalled()
 })
 
@@ -36,7 +41,7 @@ test.each(["posts", "threads"])("GET /%s preserves pagination and filtering", as
   )
   const countPosts = spyOn(postService, "countPosts").mockResolvedValue(50)
   const response = await createApiApp().request(`/api/${resource}?after=post-cursor`)
-  const page = await response.json()
+  const page = postsPageSchema.parse(await response.json())
 
   expect(response.status).toBe(200)
   expect(page.totalCount).toBe(50)
@@ -59,7 +64,7 @@ test.each(["posts", "threads"])(
     const firstPage = await app.request(`/api/${resource}`)
 
     expect(firstPage.status).toBe(200)
-    expect(await firstPage.json()).toEqual({
+    expect(postsPageSchema.parse(await firstPage.json())).toEqual({
       totalCount: 0,
       nodes: [],
       pageInfo: { endCursor: null, hasNextPage: false },
@@ -85,8 +90,8 @@ test("thread detail and responses keep their distinct routes", async () => {
   const detail = await app.request(`/api/threads/${post.id}`)
   const responses = await app.request(`/api/threads/${post.id}/responses`)
 
-  expect(await detail.json()).toEqual(post)
-  expect(await responses.json()).toEqual({
+  expect(postNodeSchema.parse(await detail.json())).toEqual(post)
+  expect(postsPageSchema.parse(await responses.json())).toEqual({
     totalCount: 0,
     nodes: [],
     pageInfo: { endCursor: null, hasNextPage: false },
@@ -100,7 +105,7 @@ test("responses expose additional pages beyond 1000 replies", async () => {
   spyOn(postService, "countResponses").mockResolvedValue(1001)
   const app = createApiApp()
   const response = await app.request(`/api/threads/${post.id}/responses?after=response-cursor`)
-  const page = await response.json()
+  const page = postsPageSchema.parse(await response.json())
 
   expect(response.status).toBe(200)
   expect(page.totalCount).toBe(1001)
@@ -115,4 +120,37 @@ test("responses expose additional pages beyond 1000 replies", async () => {
   const invalid = await app.request(`/api/threads/${post.id}/responses?after=short`)
   expect(invalid.status).toBe(400)
   expect(listResponses).toHaveBeenCalledTimes(1)
+})
+
+test("image uploads reject unsupported files and files above 8 MiB", async () => {
+  const store = spyOn(imageService, "storeImage").mockResolvedValue("uploaded-image")
+  const app = createApiApp()
+  const invalid = await app.request("/api/images", { method: "POST", body: "<svg></svg>" })
+  const oversized = await app.request("/api/images", {
+    method: "POST",
+    body: new Uint8Array(8 * 1024 * 1024 + 1),
+  })
+  expect(invalid.status).toBe(400)
+  expect(oversized.status).toBe(413)
+  expect(store).not.toHaveBeenCalled()
+})
+
+test("image uploads identify content and return the stored key", async () => {
+  const store = spyOn(imageService, "storeImage").mockResolvedValue("uploaded-image")
+  const bytes = new Uint8Array([137, 80, 78, 71, 13, 10, 26, 10])
+  const response = await createApiApp().request("/api/images", { method: "POST", body: bytes })
+  expect(response.status).toBe(201)
+  expect(z.object({ fileId: z.string() }).parse(await response.json()).fileId).toBe(
+    "uploaded-image",
+  )
+  expect(store).toHaveBeenCalledWith(bytes, "image/png")
+})
+
+test("image downloads preserve transformation options and missing-image responses", async () => {
+  const read = spyOn(imageService, "readImage").mockResolvedValue(
+    new Response("missing", { status: 404 }),
+  )
+  const response = await createApiApp().request("/api/images/old-image-key?w=32&q=80")
+  expect(response.status).toBe(404)
+  expect(read).toHaveBeenCalledWith({ fileId: "old-image-key", width: 32, quality: 80 })
 })

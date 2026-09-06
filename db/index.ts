@@ -1,17 +1,7 @@
-import { drizzle, type NodePgDatabase } from "drizzle-orm/node-postgres"
-import { Pool } from "pg"
+import { drizzle } from "drizzle-orm/d1"
 import * as schema from "@/db/schema"
 
-const globalForDrizzle: typeof globalThis & {
-  drizzle?: NodePgDatabase<typeof schema>
-} = globalThis
-
-const db =
-  globalForDrizzle.drizzle ??
-  drizzle(new Pool({ connectionString: process.env.DATABASE_URL }), { schema })
-
-if (process.env.NODE_ENV !== "production") {
-  globalForDrizzle.drizzle = db
+export async function getDb() {
+  const { env } = await import("cloudflare:workers")
+  return drizzle(env.DB, { schema })
 }
-
-export default db

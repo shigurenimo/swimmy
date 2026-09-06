@@ -1,0 +1,36 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "swimmy",
+  "compatibility_date": "2026-09-06",
+  "compatibility_flags": ["nodejs_compat"],
+  "main": "worker.ts",
+  "vars": {
+    "READ_ONLY": "true",
+  },
+  "assets": {
+    "directory": "dist/client",
+    "not_found_handling": "none",
+    "binding": "ASSETS",
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "swimmy",
+      "database_id": "5da58112-3d9b-4780-b26d-2a6fb4f088cc",
+      "migrations_dir": "db/migrations",
+    },
+  ],
+  "account_id": "5b7537bae3233beb7ebbcdb7f47c3ec0",
+  "r2_buckets": [
+    {
+      "binding": "BUCKET",
+      "bucket_name": "swimmy-images",
+    },
+  ],
+  "images": {
+    "binding": "IMAGES",
+  },
+  "observability": {
+    "enabled": true,
+  },
+}

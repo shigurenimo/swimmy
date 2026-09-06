@@ -12,6 +12,63 @@ import {
 type Table = Snapshot["tables"][number]
 type Column = Table["columns"][number]
 
+function dependencyOrder<T>(items: T[], dependencies: (item: T) => T[]) {
+  const children = new Map(items.map((item) => [item, new Set<T>()]))
+  const remaining = new Map<T, number>()
+  const ready: T[] = []
+  for (const item of items) {
+    const parents = new Set(dependencies(item).filter((parent) => parent !== item))
+    remaining.set(item, parents.size)
+    if (!parents.size) ready.push(item)
+    for (const parent of parents) {
+      const dependents = children.get(parent)
+      if (!dependents) throw new Error("外部キーの参照先が見つかりません")
+      dependents.add(item)
+    }
+  }
+  const ordered: T[] = []
+  for (let index = 0; index < ready.length; index++) {
+    const item = ready[index]
+    if (item === undefined) throw new Error("移行順序を解決できません")
+    ordered.push(item)
+    for (const child of children.get(item) ?? []) {
+      const count = (remaining.get(child) ?? 0) - 1
+      remaining.set(child, count)
+      if (count === 0) ready.push(child)
+    }
+  }
+  if (ordered.length !== items.length) throw new Error("循環する外部キーには個別の移行が必要です")
+  return ordered
+}
+
+function orderedRows(table: Table) {
+  const references = table.constraints
+    .filter((constraint) => constraint.kind === "f" && constraint.target === table.name)
+    .map((constraint) => {
+      const columns = constraint.columns.map((name) =>
+        table.columns.findIndex((column) => column.name === name),
+      )
+      const targets = constraint.targetColumns.map((name) =>
+        table.columns.findIndex((column) => column.name === name),
+      )
+      if ([...columns, ...targets].includes(-1)) throw new Error("外部キーの列が見つかりません")
+      const rows = new Map(
+        table.rows.map((row) => [JSON.stringify(targets.map((index) => row[index])), row]),
+      )
+      return { columns, rows }
+    })
+  if (!references.length) return table.rows
+  return dependencyOrder(table.rows, (row) =>
+    references.flatMap((reference) => {
+      const key = reference.columns.map((index) => row[index])
+      if (key.includes(null)) return []
+      const parent = reference.rows.get(JSON.stringify(key))
+      if (!parent) throw new Error(`${table.name}: 外部キーの参照先が見つかりません`)
+      return [parent]
+    }),
+  )
+}
+
 export function sqlValue(value: string | number | null) {
   if (value === null) return "NULL"
   if (typeof value === "number") {
@@ -150,6 +207,15 @@ export function insertStatements(prefix: string, row: (string | number | null)[]
 }
 
 export async function prepareD1(snapshot: Snapshot, directory: string) {
+  const tables = dependencyOrder(snapshot.tables, (table) =>
+    table.constraints
+      .filter((constraint) => constraint.kind === "f")
+      .map((constraint) => {
+        const parent = snapshot.tables.find((candidate) => candidate.name === constraint.target)
+        if (!parent) throw new Error("外部キーの参照テーブルが見つかりません")
+        return parent
+      }),
+  )
   const schema = createSchema(snapshot)
   const databasePath = resolve(directory, "database.sqlite")
   const database = new Database(databasePath, { create: true, strict: true })
@@ -165,10 +231,10 @@ export async function prepareD1(snapshot: Snapshot, directory: string) {
   try {
     database.exec("PRAGMA foreign_keys = ON; BEGIN; PRAGMA defer_foreign_keys = ON;")
     database.exec(schema)
-    for (const table of snapshot.tables) {
+    for (const table of tables) {
       const prefix = `INSERT INTO ${quoteIdentifier(table.name)} (${table.columns.map((column) => quoteIdentifier(column.name)).join(", ")}) VALUES`
       const statement = database.prepare(`${prefix} (${table.columns.map(() => "?").join(", ")})`)
-      const converted = table.rows.map((row) => {
+      const converted = orderedRows(table).map((row) => {
         if (row.length !== table.columns.length)
           throw new Error(`${table.name}: 列数が一致しません`)
         return table.columns.map((column, index) => {

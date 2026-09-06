@@ -24,14 +24,9 @@
     "paths": {
       "@/*": ["./*"]
     },
-    "allowJs": true
+    "allowJs": true,
+    "types": ["bun", "@cloudflare/workers-types"]
   },
-  "include": [
-    "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx",
-    ".next/types/**/*.ts",
-    ".next/dev/types/**/*.ts"
-  ],
-  "exclude": ["node_modules"]
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+  "exclude": ["node_modules", ".next", "dist", ".wrangler"]
 }

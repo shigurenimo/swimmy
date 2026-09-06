@@ -1,19 +1,12 @@
 import { useMutation } from "@tanstack/react-query"
-import { ref, uploadBytes } from "firebase/storage"
-import { nanoid } from "nanoid"
-import { getFirebaseStorage } from "@/lib/firebase-storage"
+import { z } from "zod"
+import { idSchema } from "@/interface/api/id-schema"
 
 export const useFileUploader = () => {
   const upload = async (file: File) => {
-    const storage = getFirebaseStorage()
-
-    const fileId = nanoid(20)
-
-    const fileRef = ref(storage, fileId)
-
-    await uploadBytes(fileRef, file)
-
-    return fileId
+    const response = await fetch("/api/images", { method: "POST", body: file })
+    if (!response.ok) throw new Error(`画像のアップロードに失敗しました (${response.status})`)
+    return z.object({ fileId: idSchema }).parse(await response.json()).fileId
   }
 
   return useMutation({ mutationFn: upload })

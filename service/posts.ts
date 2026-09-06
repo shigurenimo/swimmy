@@ -1,6 +1,6 @@
 import { and, asc, count, desc, eq, gt, inArray, isNull, type SQL, sql } from "drizzle-orm"
 import { nanoid } from "nanoid"
-import db from "@/db"
+import { getDb } from "@/db"
 import { posts, reactions } from "@/db/schema"
 import type { CreatePostInput } from "@/interface/api/create-post-input-schema"
 import { toPostNodes } from "@/service/to-post-nodes"
@@ -14,6 +14,7 @@ async function readPosts(props: {
   cursor: string | null
   limit: number
 }) {
+  const db = await getDb()
   const filters = props.filter ? [props.filter] : []
 
   if (props.cursor) {
@@ -35,10 +36,10 @@ async function readPosts(props: {
       fileIds: posts.fileIds,
       isDeleted: posts.isDeleted,
       likesCount: sql<number>`(
-        select count(*)::int from likes where likes.post_id = posts.id
+        select count(*) from likes where likes.post_id = posts.id
       )`,
       repliesCount: sql<number>`(
-        select count(*)::int
+        select count(*)
         from posts as replies
         where replies.reply_id = posts.id
       )`,
@@ -64,7 +65,7 @@ async function readPosts(props: {
       createdAt: reactions.createdAt,
       secretCount: reactions.count,
       usersCount: sql<number>`(
-        select count(*)::int
+        select count(*)
         from "_user_reactions" as user_reactions
         where user_reactions."A" = reactions.id
       )`,
@@ -94,6 +95,7 @@ export async function listPosts(props: {
 }
 
 export async function countPosts(threadsOnly = false) {
+  const db = await getDb()
   const rows = await db
     .select({ count: count() })
     .from(posts)
@@ -127,40 +129,47 @@ export async function listResponses(props: {
 }
 
 export async function countResponses(threadId: string) {
+  const db = await getDb()
   const rows = await db.select({ count: count() }).from(posts).where(eq(posts.replyId, threadId))
   return rows[0]?.count ?? 0
 }
 
 export async function createPost(input: CreatePostInput) {
+  const db = await getDb()
   const id = nanoid()
   const now = new Date()
   const dateText = [now.getFullYear(), now.getMonth() + 1, now.getDate()].join("-")
 
-  return db.transaction(async (transaction) => {
-    if (input.threadId) {
-      const parents = await transaction
-        .update(posts)
-        .set({ repliesCount: sql`${posts.repliesCount} + 1` })
-        .where(eq(posts.id, input.threadId))
-        .returning({ id: posts.id })
-
-      if (parents.length === 0) return null
-    }
-
-    await transaction.insert(posts).values({
-      id,
-      text: input.text,
-      replyId: input.threadId,
-      userId: null,
-      fileIds: input.fileIds,
-      dateText,
-    })
-
-    return id
-  })
+  // 親の存在確認と返信数の更新を同じD1バッチ内で行い、途中失敗時は両方を戻す。
+  const results = await db.$client.batch<{ id: string }>([
+    db.$client
+      .prepare(`
+      INSERT INTO posts (id, text, reply_id, user_id, file_ids, date_text)
+      SELECT ?, ?, ?, NULL, ?, ?
+      WHERE ? IS NULL OR EXISTS (SELECT 1 FROM posts WHERE id = ?)
+      RETURNING id
+    `)
+      .bind(
+        id,
+        input.text,
+        input.threadId,
+        JSON.stringify(input.fileIds),
+        dateText,
+        input.threadId,
+        input.threadId,
+      ),
+    db.$client
+      .prepare(`
+      UPDATE posts SET replies_count = replies_count + 1, updated_at = ?
+      WHERE id = ? AND EXISTS (SELECT 1 FROM posts WHERE id = ?)
+    `)
+      .bind(now.getTime(), input.threadId, id),
+  ])
+  return results[0]?.results[0]?.id ?? null
 }
 
 export async function addReaction(postId: string, text: string) {
+  const db = await getDb()
   await db
     .insert(reactions)
     .values({
@@ -172,7 +181,7 @@ export async function addReaction(postId: string, text: string) {
     .onConflictDoUpdate({
       target: [reactions.postId, reactions.text],
       set: {
-        count: sql`least(${reactions.count} + 1, 11)`,
+        count: sql`min(${reactions.count} + 1, 11)`,
         updatedAt: new Date(),
       },
     })

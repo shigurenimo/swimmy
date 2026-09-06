@@ -1,8 +1,7 @@
-import { handle } from "hono/vercel"
 import { createApiApp } from "@/interface/api/create-api-app"
 
 const app = createApiApp()
 
-export const GET = handle(app)
+export const GET = (request: Request) => app.fetch(request)
 
-export const POST = handle(app)
+export const POST = (request: Request) => app.fetch(request)

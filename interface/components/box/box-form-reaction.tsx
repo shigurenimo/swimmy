@@ -1,6 +1,5 @@
 "use client"
 
-import { captureException } from "@sentry/react"
 import { type FC, type FormEvent, useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -27,7 +26,7 @@ export const BoxFormReaction: FC<Props> = (props) => {
       setText("")
       props.onClose()
     } catch (error) {
-      captureException(error)
+      console.error(error)
     }
   }
 

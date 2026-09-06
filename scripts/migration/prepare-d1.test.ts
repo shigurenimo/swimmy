@@ -84,7 +84,7 @@ const snapshot: Snapshot = {
   ],
 }
 
-test("D1 conversion preserves values and validates deferred references, enums and delete actions", async () => {
+test("D1 conversion preserves values and imports references without spanning transactions", async () => {
   const directory = await mkdtemp(join(tmpdir(), "swimmy-d1-test-"))
   directories.push(directory)
   await prepareD1(snapshot, directory)
@@ -117,10 +117,9 @@ test("D1 conversion preserves values and validates deferred references, enums an
     )
     const imported = new Database(":memory:")
     try {
-      imported.exec("PRAGMA foreign_keys = ON; BEGIN")
+      imported.exec("PRAGMA foreign_keys = ON")
       imported.exec(await Bun.file(join(directory, "schema.sql")).text())
       imported.exec(await Bun.file(join(directory, "data.sql")).text())
-      imported.exec("COMMIT")
       expect(imported.query("SELECT count(*) FROM posts").values()).toEqual([[3]])
       expect(imported.query("PRAGMA foreign_key_check").all()).toEqual([])
     } finally {

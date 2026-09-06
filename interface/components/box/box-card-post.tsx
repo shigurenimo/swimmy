@@ -1,6 +1,5 @@
 "use client"
 
-import { captureException } from "@sentry/react"
 import Link from "next/link"
 import { type FC, useState } from "react"
 import type { PostNode } from "@/interface/api/post-node-schema"
@@ -34,11 +33,7 @@ export const BoxCardPost: FC<Props> = (props) => {
         text: text,
       })
     } catch (error) {
-      captureException(error)
-
-      if (error instanceof Error) {
-        console.error(error.message)
-      }
+      console.error(error)
     }
   }
 

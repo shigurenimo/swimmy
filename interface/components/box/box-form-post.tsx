@@ -1,6 +1,5 @@
 "use client"
 
-import { captureException } from "@sentry/react"
 import { type FC, useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Textarea } from "@/components/ui/textarea"
@@ -33,10 +32,7 @@ export const BoxFormPost: FC<Props> = (props) => {
       const fileId = await fileUploader.mutateAsync(file)
       setFileIds((current) => [...current, fileId])
     } catch (error) {
-      captureException(error)
-      if (error instanceof Error) {
-        console.error(error.message)
-      }
+      console.error(error)
     }
   }
 
@@ -49,10 +45,7 @@ export const BoxFormPost: FC<Props> = (props) => {
       setFileIds([])
     } catch (error) {
       setSubmitError(true)
-      captureException(error)
-      if (error instanceof Error) {
-        console.error(error.message)
-      }
+      console.error(error)
     }
   }
 
