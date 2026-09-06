@@ -1,10 +1,11 @@
 import { useMutation } from "@tanstack/react-query"
-import { getStorage, ref, uploadBytes } from "firebase/storage"
+import { ref, uploadBytes } from "firebase/storage"
 import { nanoid } from "nanoid"
+import { getFirebaseStorage } from "@/lib/firebase-storage"
 
 export const useFileUploader = () => {
   const upload = async (file: File) => {
-    const storage = getStorage()
+    const storage = getFirebaseStorage()
 
     const fileId = nanoid(20)
 
