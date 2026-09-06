@@ -1,0 +1,104 @@
+"use client"
+
+import { captureException } from "@sentry/react"
+import Link from "next/link"
+import { type FC, useState } from "react"
+import type { PostNode } from "@/interface/api/post-node-schema"
+import { BoxCardPostFrame } from "@/interface/components/box/box-card-post-frame"
+import { BoxFormReaction } from "@/interface/components/box/box-form-reaction"
+import { BoxImage } from "@/interface/components/box/box-image"
+import { ChipReaction } from "@/interface/components/chip/chip-reaction"
+import { ChipReactionNew } from "@/interface/components/chip/chip-reaction-new"
+import { useCreateReactionMutation } from "@/interface/hooks/use-create-reaction-mutation"
+import { getDateText } from "@/interface/utils/get-date-text"
+
+type Props = Pick<
+  PostNode,
+  "id" | "text" | "createdAt" | "fileIds" | "repliesCount" | "reactions"
+> & {
+  href?: string
+  isActive?: boolean
+}
+
+export const BoxCardPost: FC<Props> = (props) => {
+  const dateText = getDateText(new Date(props.createdAt * 1000))
+
+  const [isReaction, setReaction] = useState(false)
+
+  const createReactionMutation = useCreateReactionMutation()
+
+  const onUpdateReaction = async (text: string) => {
+    try {
+      await createReactionMutation.mutateAsync({
+        postId: props.id,
+        text: text,
+      })
+    } catch (error) {
+      captureException(error)
+
+      if (error instanceof Error) {
+        console.error(error.message)
+      }
+    }
+  }
+
+  const onInitReaction = () => {
+    setReaction(true)
+  }
+
+  const onCancelReaction = () => {
+    setReaction(false)
+  }
+
+  const summary = (
+    <>
+      <div className="flex flex-row justify-between">
+        <span className="text-xs tracking-wide text-muted-foreground">{dateText}</span>
+        {0 < props.repliesCount && (
+          <span className="font-bold text-primary text-xs">{`リプライ ${props.repliesCount}`}</span>
+        )}
+      </div>
+      <p className="break-words font-medium">{props.text}</p>
+      {props.fileIds.length > 0 && (
+        <div className="flex flex-col">
+          {props.fileIds.map((fileId) => (
+            <BoxImage key={fileId} fileId={fileId} />
+          ))}
+        </div>
+      )}
+    </>
+  )
+
+  return (
+    <BoxCardPostFrame isActive={props.isActive} isClickable={props.href !== undefined}>
+      <div className="flex flex-col gap-2">
+        {props.href ? (
+          <Link href={props.href} scroll={false} className="flex min-w-0 flex-col gap-2 text-left">
+            {summary}
+          </Link>
+        ) : (
+          <div className="flex flex-col gap-2">{summary}</div>
+        )}
+        <div className="flex flex-wrap gap-2">
+          {props.reactions.map((reaction) => (
+            <div key={reaction.id}>
+              <ChipReaction
+                text={reaction.text}
+                count={reaction.count}
+                secretCount={reaction.secretCount}
+                isActive={reaction.isConnected}
+                onClick={() => {
+                  onUpdateReaction(reaction.text)
+                }}
+              />
+            </div>
+          ))}
+          <div>
+            {!isReaction && <ChipReactionNew label="リアクションを追加" onClick={onInitReaction} />}
+          </div>
+        </div>
+        {isReaction && <BoxFormReaction postId={props.id} onClose={onCancelReaction} />}
+      </div>
+    </BoxCardPostFrame>
+  )
+}

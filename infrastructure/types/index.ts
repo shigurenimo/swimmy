@@ -1,6 +1,0 @@
-export * from "./appPhoto"
-export * from "./appPost"
-export * from "./appReaction"
-export * from "./appReference"
-export * from "./appResponse"
-export * from "./appThread"

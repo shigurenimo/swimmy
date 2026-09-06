@@ -1,5 +1,0 @@
-export * from "./id.factory"
-export * from "./name.factory"
-export * from "./post.factory"
-export * from "./reaction.factory"
-export * from "./user.factory"

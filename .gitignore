@@ -1,60 +1,24 @@
-# GraphQL
-__generated__
+# Dependencies and builds
+node_modules/
+.next/
+.firebase/
+*.tsbuildinfo
 
-# Yarn
-.yarn
-
-# dependencies
-node_modules
-.yarn/cache
-.yarn/unplugged
-.yarn/build-state.yml
-.pnp.*
-.npm
-web_modules/
-
-# blitz
-/.blitz/
-/.next/
-*.sqlite
-*.sqlite-journal
-.now
-.blitz**
-blitz-log.log
-
-# misc
-.DS_Store
-
-# local env files
+# Local configuration
 .env.local
 .env.*.local
 .envrc
 
-# Logs
-logs
+# Logs and runtime files
+logs/
 *.log
-
-# Runtime data
-pids
+pids/
 *.pid
-*.seed
 *.pid.lock
 
-# Testing
-.coverage
+# Tests
+.coverage/
 *.lcov
-.nyc_output
-lib-cov
 
-# Caches
-*.tsbuildinfo
-.eslintcache
-.node_repl_history
-.yarn-integrity
-
-# Serverless directories
-.serverless/
-
-# Stores VSCode versions used for testing VSCode extensions
-.vscode-test
-
+# System
+.DS_Store

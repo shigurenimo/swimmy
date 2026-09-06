@@ -1,9 +1,3 @@
 {
-  "recommendations": [
-    "dbaeumer.vscode-eslint",
-    "editorconfig.editorconfig",
-    "eliostruyf.vscode-typescript-exportallmodules",
-    "esbenp.prettier-vscode",
-    "prisma.prisma"
-  ]
+  "recommendations": ["oxc.oxc-vscode", "editorconfig.editorconfig"]
 }

@@ -7,10 +7,8 @@ self.addEventListener("activate", (event) => {
   console.info("activate", event)
   self.registration
     .unregister()
-    .then(function () {
-      return self.clients.matchAll()
-    })
-    .then(function (clients) {
+    .then(() => self.clients.matchAll())
+    .then((clients) => {
       clients.forEach((client) => client.navigate(client.url))
     })
 })

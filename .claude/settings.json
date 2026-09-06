@@ -2,7 +2,6 @@
   "permissions": {
     "defaultMode": "bypassPermissions",
     "deny": [
-      "Bash(bun run dev)",
       "Edit(components/theme-provider.tsx)",
       "Edit(components/ui/*)",
       "Edit(hooks/use-mobile.ts)",
@@ -30,5 +29,19 @@
         ]
       }
     ]
+  },
+  "enabledPlugins": {
+    "claude-code-setup@claude-plugins-official": true,
+    "claude-md-management@claude-plugins-official": true,
+    "commit-commands@claude-plugins-official": true,
+    "context7@claude-plugins-official": true,
+    "document-skills@anthropic-agent-skills": true,
+    "feature-dev@claude-plugins-official": true,
+    "frontend-design@claude-plugins-official": true,
+    "pr-review-toolkit@claude-plugins-official": true,
+    "ralph-loop@claude-plugins-official": true,
+    "security-guidance@claude-plugins-official": true,
+    "superpowers@claude-plugins-official": true,
+    "typescript-lsp@claude-plugins-official": true
   }
 }
