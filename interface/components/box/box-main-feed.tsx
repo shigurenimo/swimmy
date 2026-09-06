@@ -47,7 +47,7 @@ export const BoxMainFeed: FC<Props> = (props) => {
               repliesCount={post.repliesCount}
               reactions={post.reactions}
               isActive={post.id === props.threadId}
-              href={`/?threadId=${post.id}`}
+              href={`/threads/${post.id}`}
             />
           </li>
         ))}

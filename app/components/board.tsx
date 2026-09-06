@@ -1,7 +1,7 @@
 "use client"
 
 import { MessageSquare } from "lucide-react"
-import { useRouter, useSearchParams } from "next/navigation"
+import { useParams, usePathname, useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { BoxAsideFeedThread } from "@/interface/components/box/box-aside-feed-thread"
@@ -10,16 +10,22 @@ import { BoxMainFeedThread } from "@/interface/components/box/box-main-feed-thre
 import { unregister } from "@/interface/utils/service-worker"
 import { cn } from "@/lib/utils"
 
-type Props = {
-  initialTab: "home" | "threads"
-  threadId: string | null
-}
-
-export function Board(props: Props) {
+export function Board() {
   const router = useRouter()
-  const searchParams = useSearchParams()
-  const threadId = props.threadId ?? searchParams.get("threadId")
-  const [activeTab, setActiveTab] = useState(props.initialTab)
+  const pathname = usePathname()
+  const params = useParams<{ threadId?: string }>()
+  const threadId = params?.threadId ?? null
+  const [activeTab, setActiveTab] = useState<"home" | "threads">(
+    pathname === "/" ? "home" : "threads",
+  )
+  const [previousPathname, setPreviousPathname] = useState(pathname)
+
+  if (pathname !== previousPathname) {
+    setPreviousPathname(pathname)
+    if (pathname === "/" || pathname === "/threads") {
+      setActiveTab(pathname === "/" ? "home" : "threads")
+    }
+  }
 
   useEffect(() => {
     unregister()
@@ -64,6 +70,9 @@ export function Board(props: Props) {
           onValueChange={(tab) => {
             if (tab === "home" || tab === "threads") {
               setActiveTab(tab)
+              if (!threadId) {
+                router.push(tab === "home" ? "/" : "/threads", { scroll: false })
+              }
             }
           }}
         >

@@ -64,7 +64,7 @@ test("the first response updates counts and adds its post to the thread list", a
     view
       .getAllByRole("link", { name: /返信を待っている投稿/ })
       .map((link) => link.getAttribute("href")),
-  ).toEqual([`/?threadId=${post.id}`, `/threads/${post.id}`])
+  ).toEqual([`/threads/${post.id}`, `/threads/${post.id}`])
   expect(view.getByText("最初の返信")).toBeTruthy()
   client.clear()
 })
