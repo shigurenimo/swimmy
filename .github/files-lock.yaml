@@ -65,6 +65,5 @@ nocker-inc/nocker-inc#shigurenimo-swimmy:
   - .github/PULL_REQUEST_TEMPLATE.md
 nocker-sh/nocker-inc#shigurenimo-swimmy:
   - .claude/rules/md.md
-  - .claude/rules/ts.md
   - .editorconfig
   - .github/PULL_REQUEST_TEMPLATE.md
