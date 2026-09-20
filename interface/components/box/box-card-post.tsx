@@ -59,7 +59,7 @@ export const BoxCardPost: FC<Props> = (props) => {
           <span className="font-bold text-primary text-base">{`リプライ ${props.repliesCount}`}</span>
         )}
       </div>
-      <p className="break-words font-medium">
+      <p className="whitespace-pre-wrap break-words font-medium">
         {props.isDeleted ? "この投稿は削除されました。" : props.text}
       </p>
       {!props.isDeleted && props.fileIds.length > 0 && (
