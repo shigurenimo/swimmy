@@ -16,6 +16,7 @@ type Props = {
 export const BoxFormPost: FC<Props> = (props) => {
   const [text, setText] = useState("")
   const [submitError, setSubmitError] = useState(false)
+  const [uploadError, setUploadError] = useState(false)
 
   const fileUploader = useFileUploader()
 
@@ -28,21 +29,25 @@ export const BoxFormPost: FC<Props> = (props) => {
   }
 
   const onUploadFile = async (file: File) => {
+    setUploadError(false)
     try {
       const fileId = await fileUploader.mutateAsync(file)
       setFileIds((current) => [...current, fileId])
     } catch (error) {
+      setUploadError(true)
       console.error(error)
     }
   }
 
   const onSubmit = async () => {
+    if (!isValid || props.isLoading || fileUploader.isPending) return
     setSubmitError(false)
 
     try {
       await props.onCreatePost({ text, fileIds })
       setText("")
       setFileIds([])
+      setUploadError(false)
     } catch (error) {
       setSubmitError(true)
       console.error(error)
@@ -64,6 +69,11 @@ export const BoxFormPost: FC<Props> = (props) => {
           送信できませんでした。時間をおいて、もう一度お試しください。
         </p>
       )}
+      {uploadError && (
+        <p role="alert" className="text-base">
+          画像をアップロードできませんでした。もう一度画像を選択してください。
+        </p>
+      )}
       {isValid && (
         <div className="flex flex-wrap justify-end gap-4">
           <ButtonFile
@@ -74,7 +84,7 @@ export const BoxFormPost: FC<Props> = (props) => {
           >
             画像
           </ButtonFile>
-          <Button disabled={props.isLoading} onClick={onSubmit}>
+          <Button disabled={props.isLoading || fileUploader.isPending} onClick={onSubmit}>
             {props.isLoading ? "送信中..." : "送信"}
           </Button>
         </div>

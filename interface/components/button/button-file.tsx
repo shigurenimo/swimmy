@@ -32,6 +32,7 @@ export const ButtonFile: FC<ButtonFileProps> = ({ onChange, loading, ...props })
           if (typeof file === "undefined") {
             return null
           }
+          event.currentTarget.value = ""
           onChange(file)
         }}
       />
