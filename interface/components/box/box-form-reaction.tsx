@@ -36,26 +36,33 @@ export const BoxFormReaction: FC<Props> = (props) => {
   }
 
   return (
-    <form onSubmit={onSubmit} className="flex flex-row items-center gap-4">
-      <Input
-        value={text}
-        onChange={(event) => setText(event.target.value)}
-        placeholder="リアクション (絵文字など)"
-        maxLength={8}
-        disabled={createReactionMutation.isPending}
-        autoFocus
-      />
-      <Button type="submit" disabled={!text.trim() || createReactionMutation.isPending}>
-        {createReactionMutation.isPending ? "送信中..." : "送信"}
-      </Button>
-      <Button
-        type="button"
-        variant="secondary"
-        disabled={createReactionMutation.isPending}
-        onClick={props.onClose}
-      >
-        キャンセル
-      </Button>
+    <form onSubmit={onSubmit} className="flex flex-col gap-4">
+      <div className="flex flex-row items-center gap-4">
+        <Input
+          value={text}
+          onChange={(event) => setText(event.target.value)}
+          placeholder="リアクション (絵文字など)"
+          maxLength={8}
+          disabled={createReactionMutation.isPending}
+          autoFocus
+        />
+        <Button type="submit" disabled={!text.trim() || createReactionMutation.isPending}>
+          {createReactionMutation.isPending ? "送信中..." : "送信"}
+        </Button>
+        <Button
+          type="button"
+          variant="secondary"
+          disabled={createReactionMutation.isPending}
+          onClick={props.onClose}
+        >
+          キャンセル
+        </Button>
+      </div>
+      {createReactionMutation.isError && (
+        <p role="alert" className="text-base">
+          リアクションを送信できませんでした。もう一度お試しください。
+        </p>
+      )}
     </form>
   )
 }

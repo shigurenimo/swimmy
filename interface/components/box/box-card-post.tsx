@@ -111,6 +111,11 @@ export const BoxCardPost: FC<Props> = (props) => {
                 </div>
               </div>
             )}
+            {!props.isDeleted && createReactionMutation.isError && (
+              <p role="alert" className="text-base">
+                リアクションを送信できませんでした。もう一度お試しください。
+              </p>
+            )}
             {!props.isDeleted && isReaction && (
               <div className="relative z-2">
                 <BoxFormReaction postId={props.id} onClose={onCancelReaction} />
