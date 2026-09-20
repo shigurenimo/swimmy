@@ -1,4 +1,5 @@
 import type { FC } from "react"
+import { BoxImage } from "@/interface/components/box/box-image"
 import { getDateText } from "@/interface/utils/get-date-text"
 
 type Props = {
@@ -6,6 +7,7 @@ type Props = {
   index: number
   text: string | null
   isDeleted: boolean
+  fileIds: string[]
 }
 
 export const BoxCardResponse: FC<Props> = (props) => {
@@ -28,6 +30,7 @@ export const BoxCardResponse: FC<Props> = (props) => {
       ) : (
         props.text && <p className="whitespace-pre-wrap font-bold">{props.text}</p>
       )}
+      {!props.isDeleted && props.fileIds.map((fileId) => <BoxImage key={fileId} fileId={fileId} />)}
     </div>
   )
 }

@@ -63,6 +63,7 @@ export const BoxAsideFeedThread: FC<Props> = (props) => {
                   createdAt={response.createdAt}
                   text={response.text}
                   isDeleted={response.isDeleted}
+                  fileIds={response.fileIds}
                   index={index + 1}
                 />
                 {index !== responses.length - 1 && <Separator />}
