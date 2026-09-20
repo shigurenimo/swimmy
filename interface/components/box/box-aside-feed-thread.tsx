@@ -54,6 +54,7 @@ export const BoxAsideFeedThread: FC<Props> = (props) => {
                 fileIds={threadQuery.data.fileIds}
                 repliesCount={threadQuery.data.repliesCount}
                 reactions={threadQuery.data.reactions}
+                isDeleted={threadQuery.data.isDeleted}
               />
             </li>
             {responses.map((response, index) => (
@@ -61,6 +62,7 @@ export const BoxAsideFeedThread: FC<Props> = (props) => {
                 <BoxCardResponse
                   createdAt={response.createdAt}
                   text={response.text}
+                  isDeleted={response.isDeleted}
                   index={index + 1}
                 />
                 {index !== responses.length - 1 && <Separator />}
@@ -87,10 +89,12 @@ export const BoxAsideFeedThread: FC<Props> = (props) => {
               />
             </div>
           )}
-          <BoxFormResponse
-            isLoading={createResponseMutation.isPending}
-            onCreateResponse={onCreateResponse}
-          />
+          {!threadQuery.data.isDeleted && (
+            <BoxFormResponse
+              isLoading={createResponseMutation.isPending}
+              onCreateResponse={onCreateResponse}
+            />
+          )}
         </>
       )}
     </BoxAside>

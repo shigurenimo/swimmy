@@ -116,3 +116,58 @@ test("D1 pagination does not skip posts with equal timestamps", async () => {
   expect(first.map((post) => post.id)).toEqual(["fixture-d", "fixture-c"])
   expect(second.map((post) => post.id)).toEqual(["fixture-b", "fixture-a"])
 })
+
+test("soft-deleted posts are redacted across APIs and reject writes without changing data", async () => {
+  const parent = await createPost({
+    text: "hidden parent",
+    fileIds: ["hidden-parent-image"],
+    threadId: null,
+  })
+  if (!parent) throw new Error("親投稿を作成できませんでした")
+  const reply = await createPost({
+    text: "hidden reply",
+    fileIds: ["hidden-reply-image"],
+    threadId: parent,
+  })
+  if (!reply) throw new Error("返信を作成できませんでした")
+  await addReaction(parent, "hidden reaction")
+  await database.prepare("UPDATE posts SET is_deleted=1").run()
+  const before = await database.prepare("SELECT * FROM posts ORDER BY id").all()
+  const reactionsBefore = await database.prepare("SELECT * FROM reactions ORDER BY id").all()
+  const app = createApiApp()
+  for (const path of [
+    "/api/posts",
+    "/api/threads",
+    `/api/threads/${parent}`,
+    `/api/threads/${parent}/responses`,
+  ]) {
+    const response = await app.request(path)
+    expect(response.status).toBe(200)
+    const payload = await response.text()
+    expect(payload).not.toContain("hidden")
+    const decoded = JSON.parse(payload)
+    const nodes = path === `/api/threads/${parent}` ? [decoded] : decoded.nodes
+    expect(nodes).toHaveLength(1)
+    expect(nodes[0]).toMatchObject({ isDeleted: true, text: null, fileIds: [], reactions: [] })
+  }
+  for (const id of [parent, reply]) {
+    const reaction = await app.request(`/api/posts/${id}/reactions`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ text: "new" }),
+    })
+    expect(reaction.status).toBe(404)
+    const response = await app.request("/api/posts", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ text: "new reply", fileIds: [], threadId: id }),
+    })
+    expect(response.status).toBe(404)
+  }
+  expect((await database.prepare("SELECT * FROM posts ORDER BY id").all()).results).toEqual(
+    before.results,
+  )
+  expect((await database.prepare("SELECT * FROM reactions ORDER BY id").all()).results).toEqual(
+    reactionsBefore.results,
+  )
+})

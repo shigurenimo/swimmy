@@ -5,6 +5,7 @@ type Props = {
   createdAt: number
   index: number
   text: string | null
+  isDeleted: boolean
 }
 
 export const BoxCardResponse: FC<Props> = (props) => {
@@ -22,7 +23,11 @@ export const BoxCardResponse: FC<Props> = (props) => {
           {dateText}
         </time>
       </div>
-      {props.text && <p className="whitespace-pre-wrap font-bold">{props.text}</p>}
+      {props.isDeleted ? (
+        <p>この投稿は削除されました。</p>
+      ) : (
+        props.text && <p className="whitespace-pre-wrap font-bold">{props.text}</p>
+      )}
     </div>
   )
 }

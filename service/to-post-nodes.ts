@@ -38,11 +38,11 @@ export function toPostNodes(props: Props): PostNode[] {
   return props.posts.map((post) => ({
     id: post.id,
     createdAt: Math.floor(post.createdAt.getTime() / 1000),
-    text: post.text,
-    fileIds: post.fileIds ?? [],
+    text: post.isDeleted ? null : post.text,
+    fileIds: post.isDeleted ? [] : (post.fileIds ?? []),
     likesCount: post.likesCount,
     repliesCount: post.repliesCount,
     isDeleted: post.isDeleted ?? false,
-    reactions: reactionsByPostId.get(post.id) ?? [],
+    reactions: post.isDeleted ? [] : (reactionsByPostId.get(post.id) ?? []),
   }))
 }

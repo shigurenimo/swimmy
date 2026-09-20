@@ -13,7 +13,7 @@ import { getDateText } from "@/interface/utils/get-date-text"
 
 type Props = Pick<
   PostNode,
-  "id" | "text" | "createdAt" | "fileIds" | "repliesCount" | "reactions"
+  "id" | "text" | "createdAt" | "fileIds" | "repliesCount" | "reactions" | "isDeleted"
 > & {
   href?: string
   isActive?: boolean
@@ -59,8 +59,10 @@ export const BoxCardPost: FC<Props> = (props) => {
           <span className="font-bold text-primary text-base">{`リプライ ${props.repliesCount}`}</span>
         )}
       </div>
-      <p className="break-words font-medium">{props.text}</p>
-      {props.fileIds.length > 0 && (
+      <p className="break-words font-medium">
+        {props.isDeleted ? "この投稿は削除されました。" : props.text}
+      </p>
+      {!props.isDeleted && props.fileIds.length > 0 && (
         <div className="flex flex-col gap-4">
           {props.fileIds.map((fileId) => (
             <BoxImage key={fileId} fileId={fileId} />
@@ -87,27 +89,29 @@ export const BoxCardPost: FC<Props> = (props) => {
             ) : (
               <div className="flex flex-col gap-4">{summary}</div>
             )}
-            <div className="flex flex-wrap gap-4">
-              {props.reactions.map((reaction) => (
-                <div key={reaction.id} className="relative z-2">
-                  <ChipReaction
-                    text={reaction.text}
-                    count={reaction.count}
-                    secretCount={reaction.secretCount}
-                    isActive={reaction.isConnected}
-                    onClick={() => {
-                      onUpdateReaction(reaction.text)
-                    }}
-                  />
+            {!props.isDeleted && (
+              <div className="flex flex-wrap gap-4">
+                {props.reactions.map((reaction) => (
+                  <div key={reaction.id} className="relative z-2">
+                    <ChipReaction
+                      text={reaction.text}
+                      count={reaction.count}
+                      secretCount={reaction.secretCount}
+                      isActive={reaction.isConnected}
+                      onClick={() => {
+                        onUpdateReaction(reaction.text)
+                      }}
+                    />
+                  </div>
+                ))}
+                <div className="relative z-2">
+                  {!isReaction && (
+                    <ChipReactionNew label="リアクションを追加" onClick={onInitReaction} />
+                  )}
                 </div>
-              ))}
-              <div className="relative z-2">
-                {!isReaction && (
-                  <ChipReactionNew label="リアクションを追加" onClick={onInitReaction} />
-                )}
               </div>
-            </div>
-            {isReaction && (
+            )}
+            {!props.isDeleted && isReaction && (
               <div className="relative z-2">
                 <BoxFormReaction postId={props.id} onClose={onCancelReaction} />
               </div>

@@ -146,7 +146,9 @@ export async function createPost(input: CreatePostInput) {
       .prepare(`
       INSERT INTO posts (id, text, reply_id, user_id, file_ids, date_text)
       SELECT ?, ?, ?, NULL, ?, ?
-      WHERE ? IS NULL OR EXISTS (SELECT 1 FROM posts WHERE id = ?)
+      WHERE ? IS NULL OR EXISTS (
+        SELECT 1 FROM posts WHERE id = ? AND coalesce(is_deleted, 0) = 0
+      )
       RETURNING id
     `)
       .bind(
@@ -170,13 +172,14 @@ export async function createPost(input: CreatePostInput) {
 
 export async function addReaction(postId: string, text: string) {
   const db = await getDb()
-  await db.$client
+  const result = await db.$client
     .prepare(`
       INSERT INTO reactions (id, post_id, text, count)
-      SELECT ?, id, ?, 1 FROM posts WHERE id = ?
+      SELECT ?, id, ?, 1 FROM posts WHERE id = ? AND coalesce(is_deleted, 0) = 0
       ON CONFLICT (post_id, text) DO UPDATE SET
         count = min(reactions.count + 1, 11), updated_at = ?
     `)
     .bind(nanoid(), text, postId, Date.now())
     .run()
+  return result.meta.changes > 0
 }

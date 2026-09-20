@@ -51,7 +51,7 @@ test("groups active reactions by post in creation order without changing input",
   const nodes = toPostNodes({
     posts: [
       post,
-      { ...post, id: "post-second", fileIds: ["image"], isDeleted: true },
+      { ...post, id: "post-second", fileIds: ["image"], isDeleted: false },
       { ...post, id: "post-without-reactions" },
     ],
     reactions,
@@ -74,7 +74,7 @@ test("groups active reactions by post in creation order without changing input",
       isConnected: false,
     },
   ])
-  expect(nodes[1]).toMatchObject({ fileIds: ["image"], isDeleted: true })
+  expect(nodes[1]).toMatchObject({ fileIds: ["image"], isDeleted: false })
   expect(nodes[1]?.reactions.map((entry) => entry.id)).toEqual(["other-reaction"])
   expect(nodes[2]?.reactions).toEqual([])
   expect(reactions.map((entry) => entry.id)).toEqual([

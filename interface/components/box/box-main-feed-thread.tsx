@@ -31,6 +31,7 @@ export const BoxMainFeedThread: FC<Props> = (props) => {
             fileIds={thread.fileIds}
             repliesCount={thread.repliesCount}
             reactions={thread.reactions}
+            isDeleted={thread.isDeleted}
             isActive={thread.id === props.threadId}
             href={`/threads/${thread.id}`}
           />

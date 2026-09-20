@@ -75,7 +75,9 @@ export function createApiApp() {
       return context.json({ message: "リクエストが不正です" }, 400)
     }
 
-    await addReaction(params.data, input.data.text)
+    if (!(await addReaction(params.data, input.data.text))) {
+      return context.json({ message: "投稿が見つかりません" }, 404)
+    }
     const post = await readPost(params.data)
 
     return post ? context.json(post, 201) : context.json({ message: "投稿が見つかりません" }, 404)
