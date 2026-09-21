@@ -143,6 +143,8 @@ export function createApiApp() {
       if (!contentType)
         return context.json({ message: "JPEG・PNG・GIF・WebP画像を選択してください" }, 400)
       const fileId = await storeImage(bytes, contentType)
+      if (!fileId)
+        return context.json({ message: "画像を読み取れません。別の画像を選択してください" }, 400)
       return context.json({ fileId }, 201)
     },
   )

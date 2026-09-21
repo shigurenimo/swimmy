@@ -12,6 +12,23 @@ export function imageContentType(bytes: Uint8Array) {
 
 export async function storeImage(bytes: Uint8Array, contentType: string) {
   const { env } = await import("cloudflare:workers")
+  try {
+    // Decode before persisting: a valid signature does not guarantee valid image data.
+    const image = await env.IMAGES.input(new Blob([bytes.slice()]).stream())
+      .transform({ width: 640 })
+      .output({ format: "image/png", quality: 75 })
+    await image.response().arrayBuffer()
+  } catch (error) {
+    if (
+      error instanceof Error &&
+      "code" in error &&
+      typeof error.code === "number" &&
+      [9412, 9413, 9520, 9523].includes(error.code)
+    ) {
+      return null
+    }
+    throw error
+  }
   const fileId = nanoid(20)
   await env.BUCKET.put(fileId, bytes, {
     httpMetadata: { contentType, cacheControl: "public, max-age=86400" },

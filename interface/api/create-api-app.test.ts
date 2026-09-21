@@ -187,3 +187,15 @@ test("image downloads preserve transformation options and missing-image response
   expect(response.status).toBe(404)
   expect(read).toHaveBeenCalledWith({ fileId: "old-image-key", width: 32, quality: 80 })
 })
+
+test("image uploads reject decoding failures instead of returning a file ID", async () => {
+  spyOn(imageService, "storeImage").mockResolvedValue(null)
+  const response = await createApiApp().request("/api/images", {
+    method: "POST",
+    body: new Uint8Array([137, 80, 78, 71, 13, 10, 26, 10]),
+  })
+  expect(response.status).toBe(400)
+  expect(z.object({ message: z.string() }).parse(await response.json())).toEqual({
+    message: "画像を読み取れません。別の画像を選択してください",
+  })
+})
