@@ -4,7 +4,7 @@ import { cleanup, render, waitFor } from "@testing-library/react"
 import type { PostNode } from "@/interface/api/post-node-schema"
 import { BoxAsideFeedThread } from "@/interface/components/box/box-aside-feed-thread"
 import { BoxMainFeed } from "@/interface/components/box/box-main-feed"
-import { BoxMainFeedThread } from "@/interface/components/box/box-main-feed-thread"
+import { BoxPostList } from "@/interface/components/box/box-post-list"
 import { mockFetch } from "@/test/mock-fetch"
 
 afterEach(() => {
@@ -45,7 +45,7 @@ test("deleted posts hide cached content and controls in both lists and thread de
   const view = render(
     <QueryClientProvider client={client}>
       <BoxMainFeed threadId={post.id} />
-      <BoxMainFeedThread threadId={post.id} />
+      <BoxPostList resource="threads" threadId={post.id} />
       <BoxAsideFeedThread threadId={post.id} onClose={() => {}} />
     </QueryClientProvider>,
   )

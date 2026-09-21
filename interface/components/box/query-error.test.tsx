@@ -4,7 +4,7 @@ import { cleanup, fireEvent, render, waitFor } from "@testing-library/react"
 import type { PostNode } from "@/interface/api/post-node-schema"
 import { BoxAsideFeedThread } from "@/interface/components/box/box-aside-feed-thread"
 import { BoxMainFeed } from "@/interface/components/box/box-main-feed"
-import { BoxMainFeedThread } from "@/interface/components/box/box-main-feed-thread"
+import { BoxPostList } from "@/interface/components/box/box-post-list"
 import { mockFetch } from "@/test/mock-fetch"
 
 afterEach(() => {
@@ -54,7 +54,7 @@ test.each(["posts", "threads", "detail", "responses"])(
         {resource === "posts" ? (
           <BoxMainFeed threadId={null} />
         ) : resource === "threads" ? (
-          <BoxMainFeedThread threadId={null} />
+          <BoxPostList resource="threads" threadId={null} />
         ) : (
           <BoxAsideFeedThread threadId={post.id} onClose={() => {}} />
         )}

@@ -6,7 +6,7 @@ import { useEffect, useState } from "react"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { BoxAsideFeedThread } from "@/interface/components/box/box-aside-feed-thread"
 import { BoxMainFeed } from "@/interface/components/box/box-main-feed"
-import { BoxMainFeedThread } from "@/interface/components/box/box-main-feed-thread"
+import { BoxPostList } from "@/interface/components/box/box-post-list"
 import { unregister } from "@/interface/utils/service-worker"
 import { cn } from "@/lib/utils"
 
@@ -88,7 +88,7 @@ export function Board() {
                 <BoxMainFeed threadId={threadId} />
               </TabsContent>
               <TabsContent value="threads" keepMounted>
-                <BoxMainFeedThread threadId={threadId} />
+                <BoxPostList resource="threads" threadId={threadId} />
               </TabsContent>
             </div>
           </div>
