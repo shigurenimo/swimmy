@@ -1,4 +1,4 @@
-import Link from "next/link"
+import { Link } from "@void/react"
 import { buttonVariants } from "@/components/ui/button"
 
 export default function NotFound() {

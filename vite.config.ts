@@ -1,16 +1,15 @@
 import { defineConfig } from "vite-plus"
-import vinext from "vinext"
-import { cloudflare } from "@cloudflare/vite-plugin"
+import { voidPlugin } from "void"
+import { voidReact } from "@void/react/plugin"
 
 export default defineConfig({
   lint: {
     ignorePatterns: [
-      ".next/**",
+      ".void/**",
+      ".void-wrangler.jsonc",
       "dist/**",
       ".wrangler/**",
-      ".vinext/**",
       "worker-configuration.d.ts",
-      "next-env.d.ts",
       "components/ui/**",
       "interface/hooks/use-mobile.ts",
     ],
@@ -26,23 +25,18 @@ export default defineConfig({
     semi: false,
     ignorePatterns: [
       ".claude/**",
+      ".void/**",
+      ".void-wrangler.jsonc",
       "dist/**",
       ".wrangler/**",
-      ".vinext/**",
       "worker-configuration.d.ts",
-      "next-env.d.ts",
       "components/ui/**",
       "interface/hooks/use-mobile.ts",
     ],
   },
 
-  plugins: [
-    vinext(),
-    cloudflare({
-      viteEnvironment: {
-        name: "rsc",
-        childEnvironments: ["ssr"],
-      },
-    }),
-  ],
+  resolve: { tsconfigPaths: true },
+  // Cloudflare Builds already publishes this path.
+  environments: { void_worker: { build: { outDir: "dist/server" } } },
+  plugins: [voidPlugin(), voidReact()],
 })

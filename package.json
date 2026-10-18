@@ -4,17 +4,18 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "vinext dev --port ${PORT:-3000} --hostname 127.0.0.1",
-    "build": "vinext build",
-    "start": "wrangler dev --config dist/server/wrangler.json",
+    "dev": "vite --port ${PORT:-3000} --host 127.0.0.1",
+    "build": "vite build",
+    "start": "vite preview --port ${PORT:-3000} --host 127.0.0.1",
     "studio": "drizzle-kit studio",
     "check": "vp lint && vp fmt --check && tsc --noEmit --incremental false",
     "test": "bun test",
     "test:watch": "bun test --watch",
     "lint": "vp lint",
     "fmt": "vp fmt",
-    "deploy": "vinext-cloudflare deploy --config dist/server/wrangler.json",
-    "types": "wrangler types --include-runtime=false"
+    "deploy": "void deploy --platform cloudflare",
+    "types": "void prepare",
+    "prepare": "void prepare"
   },
   "dependencies": {
     "@base-ui/react": "1.8.0",
@@ -30,19 +31,16 @@
     "input-otp": "1.5.0",
     "lucide-react": "0.575.0",
     "nanoid": "5.1.6",
-    "next": "16.1.6",
     "react": "19.2.8",
     "react-day-picker": "10.0.1",
     "react-dom": "19.2.8",
     "react-markdown": "10.1.0",
     "react-resizable-panels": "4.12.3",
-    "react-server-dom-webpack": "19.2.8",
     "recharts": "3.8.0",
     "remark-gfm": "4.0.1",
     "zod": "4.3.6"
   },
   "devDependencies": {
-    "@cloudflare/vite-plugin": "1.54.4",
     "@cloudflare/workers-types": "5.20260906.1",
     "@google-cloud/storage": "8.0.1",
     "@happy-dom/global-registrator": "20.14.0",
@@ -51,9 +49,8 @@
     "@testing-library/react": "16.3.3",
     "@types/bun": "1.3.14",
     "@types/react": "19.2.14",
-    "@vinext/cloudflare": "1.0.0-beta.7",
-    "@vitejs/plugin-react": "6.1.1",
-    "@vitejs/plugin-rsc": "0.5.34",
+    "@types/react-dom": "19.2.3",
+    "@void/react": "1.1.11",
     "drizzle-kit": "0.31.10",
     "miniflare": "5.20260903.0-alpha",
     "pg": "8.19.0",
@@ -62,9 +59,9 @@
     "tailwindcss": "4.2.1",
     "tw-animate-css": "1.4.0",
     "typescript": "5.9.3",
-    "vinext": "1.0.0-beta.9",
     "vite": "8.2.2",
     "vite-plus": "0.3.0",
+    "void": "1.1.11",
     "wrangler": "4.129.0"
   }
 }

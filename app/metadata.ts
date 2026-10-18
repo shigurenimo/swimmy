@@ -1,18 +1,15 @@
-import type { Metadata } from "next"
+import type { HeadDescriptor } from "void"
 
 export const siteName = "スイミー電子掲示板"
 export const siteUrl = "https://swimmy.io"
 export const siteDescription =
   "日々の出来事や気になる話題を気軽に書き込める電子掲示板です。ホームで新しい投稿を読み、スレッドで返信やリアクションを交わして会話を楽しめます。"
 
-export function pageMetadata(props: {
-  title?: string
-  description: string
-  path: string
-}): Metadata {
+const image = { url: `${siteUrl}/icons/icon-512.png`, width: 512, height: 512, alt: siteName }
+
+export function pageMetadata(props: { title?: string; description: string; path: string }) {
   const title = props.title ? `${props.title} | ${siteName}` : siteName
   const url = `${siteUrl}${props.path}`
-  const image = { url: `${siteUrl}/icons/icon-512.png`, width: 512, height: 512, alt: siteName }
 
   return {
     title,
@@ -31,7 +28,11 @@ export function pageMetadata(props: {
   }
 }
 
-export function threadMetadata(props: { id: string; text: string | null; isDeleted: boolean }) {
+export function threadMetadata(props: {
+  id: string
+  text: string | null
+  isDeleted: boolean
+}): ReturnType<typeof pageMetadata> & { robots?: { index: boolean; follow: boolean } } {
   if (props.isDeleted) {
     return {
       ...pageMetadata({
@@ -52,4 +53,41 @@ export function threadMetadata(props: { id: string; text: string | null; isDelet
     description: `${excerpt(120)} — ${siteName}の投稿と返信。`,
     path: `/threads/${props.id}`,
   })
+}
+
+export function metadataHead(
+  metadata: ReturnType<typeof pageMetadata> & { robots?: { index: boolean; follow: boolean } },
+): HeadDescriptor {
+  return {
+    title: metadata.title,
+    link: [{ rel: "canonical", href: metadata.alternates.canonical }],
+    meta: [
+      { name: "description", content: metadata.description },
+      ...Object.entries({
+        type: "website",
+        locale: "ja_JP",
+        site_name: siteName,
+        title: metadata.title,
+        description: metadata.description,
+        url: metadata.openGraph.url,
+      }).map(([name, content]) => ({ property: `og:${name}`, content })),
+      ...Object.entries(image).map(([name, value]) => ({
+        property: name === "url" ? "og:image" : `og:image:${name}`,
+        content: String(value),
+      })),
+      { name: "twitter:card", content: "summary" },
+      { name: "twitter:title", content: metadata.title },
+      { name: "twitter:description", content: metadata.description },
+      { name: "twitter:image", content: image.url },
+      { name: "twitter:image:alt", content: image.alt },
+      ...(metadata.robots
+        ? [
+            {
+              name: "robots",
+              content: `${metadata.robots.index ? "index" : "noindex"}, ${metadata.robots.follow ? "follow" : "nofollow"}`,
+            },
+          ]
+        : []),
+    ],
+  }
 }

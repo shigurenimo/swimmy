@@ -16,17 +16,12 @@
     "jsx": "react-jsx",
     "incremental": true,
     "tsBuildInfoFile": ".tsbuildinfo",
-    "plugins": [
-      {
-        "name": "next"
-      }
-    ],
     "paths": {
       "@/*": ["./*"]
     },
     "allowJs": true,
-    "types": ["bun", "@cloudflare/workers-types"]
+    "types": ["bun", "@cloudflare/workers-types", "vite/client"]
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
-  "exclude": ["node_modules", ".next", "dist", ".wrangler"]
+  "include": ["**/*.ts", "**/*.tsx", ".void/**/*.d.ts"],
+  "exclude": ["node_modules", ".next", "dist", ".wrangler", ".void"]
 }

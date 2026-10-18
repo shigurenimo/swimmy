@@ -1,19 +1,12 @@
-import { Suspense, type ReactNode } from "react"
 import { dehydrate, QueryClient } from "@tanstack/react-query"
-import { Board } from "@/app/components/board"
-import { LayoutHomeApp } from "@/app/components/layout-home-app"
-import { HydrateBoard } from "@/app/providers"
-import { BoxFeedFallback } from "@/interface/components/box/box-feed-fallback"
 import { toPostsPage } from "@/interface/api/to-posts-page"
 import { countPosts, countResponses, listPosts, listResponses, readPost } from "@/service/posts"
 
-export const dynamic = "force-dynamic"
+export type BoardData = NonNullable<Awaited<ReturnType<typeof loadBoard>>>
 
-export default async function BoardLayout(props: {
-  children: ReactNode
-  params: Promise<{ threadId?: string }>
-}) {
-  const { threadId } = await props.params
+export async function loadBoard(threadId: string | null) {
+  const post = threadId ? await readPost(threadId) : null
+  if (threadId && !post) return null
   const client = new QueryClient()
   await Promise.all([
     ...(["posts", "threads"] as const).map((resource) =>
@@ -32,7 +25,7 @@ export default async function BoardLayout(props: {
     ),
     ...(threadId
       ? [
-          client.fetchQuery({ queryKey: ["threads", threadId], queryFn: () => readPost(threadId) }),
+          client.fetchQuery({ queryKey: ["threads", threadId], queryFn: async () => post }),
           client.fetchInfiniteQuery({
             queryKey: ["threads", threadId, "responses"],
             initialPageParam: null,
@@ -48,14 +41,5 @@ export default async function BoardLayout(props: {
       : []),
   ])
 
-  return (
-    <LayoutHomeApp>
-      <HydrateBoard state={dehydrate(client)}>
-        {props.children}
-        <Suspense fallback={<BoxFeedFallback />}>
-          <Board />
-        </Suspense>
-      </HydrateBoard>
-    </LayoutHomeApp>
-  )
+  return { state: dehydrate(client), post }
 }

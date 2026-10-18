@@ -6,7 +6,7 @@
 
 本番は [swimmy.io](https://swimmy.io/) です。Cloudflare Workers / D1 / R2 への移行は完了しました。全データの照合結果とバックアップは [移行記録](docs/cloudflare-migration.md) を参照してください。
 
-- Next.js App Router + vinext / Cloudflare Workers
+- Void + @void/react / Cloudflare Workers
 - Hono REST API
 - Drizzle ORM + Cloudflare D1
 - Cloudflare R2 + Images
@@ -18,14 +18,14 @@
 
 ```bash
 bun install
-cp .dev.vars.example .dev.vars
-bunx wrangler d1 migrations apply DB --local
 portless
 ```
 
-`portless.json` の名前を使い、`https://swimmy.localhost/` で表示します。Portless を使わない場合は `bun run dev` で `http://127.0.0.1:3000/` を開けます。新しいローカルDBは空です。実データのバックアップは Git に含めません。
+`portless.json` の名前を使い、`https://swimmy.localhost/` で表示します。Portless を使わない場合は `bun run dev` で `http://127.0.0.1:3000/` を開けます。Voidが起動時に `db/migrations` をローカルD1へ適用します。新しいローカルDBは空です。実データのバックアップは Git に含めません。
 
-`READ_ONLY=true` を設定すると書き込みに503を返します。現在はローカル・本番ともに `false` です。環境ごとの認証情報はGit管理せず、ローカル設定またはCloudflareのシークレットで管理します。
+環境変数はルートの `.env` にまとめます。`.env.local`・`.env.example`・`.dev.vars*` はVoidで利用できません。旧構成のローカル設定がある場合は、必要な値を `.env` へ移してから旧ファイルを取り除いてください。
+
+`READ_ONLY=true` を `.env` に設定すると書き込みに503を返します。既定値は `void.config.ts` の `worker.vars` にある `false` です。環境ごとの認証情報はGit管理せず、ローカル設定またはCloudflareのシークレットで管理します。
 
 ## コマンド
 
@@ -35,23 +35,26 @@ bun run fmt        # vp fmt による整形
 bun run check      # lint・整形確認・型検査
 bun run test       # テスト
 bun run build      # 本番ビルド
-bun run types      # Workersバインディングの型生成
+bun run types      # Voidのルート・DBの型生成
 bun run studio     # D1用Drizzle Studio（CLOUDFLARE_API_TOKENが必要）
 bun run start      # ビルド済みWorkerをローカル起動
 ```
 
-公開用の `bun run deploy` は Cloudflare へ直接デプロイするコマンドです。main への Push では Cloudflare Builds が `bun run check && bun run test && bun run build` の成功後に `bunx wrangler deploy --config dist/server/wrangler.json` を実行します。非本番ブランチのビルドは無効です。`swimmy.io` と `www.swimmy.io` は同じ Worker に接続し、https://swimmy.nocker.workers.dev/ も同じ本番データを使います。Railway の自動デプロイ連携は解除済みです。
+公開用の `bun run deploy` は `void deploy --platform cloudflare` で既存Workerへデプロイするコマンドです。既存D1・R2・Imagesとドメインの設定は `void.config.ts` に保持しています。Voidが作成する `void.lock.json` は初回デプロイ後にコミットします。main への Push では Cloudflare Builds が `bun run check && bun run test && bun run build` の成功後に `bunx wrangler deploy --config dist/server/wrangler.json` を実行します。非本番ブランチのビルドは無効です。`swimmy.io` と `www.swimmy.io` は同じ Worker に接続し、https://swimmy.nocker.workers.dev/ も同じ本番データを使います。Railway の自動デプロイ連携は解除済みです。
 
 ## 構成
 
 ```text
-app/        画面とNext.jsルート
+pages/      Voidの画面とhead定義
+routes/     Hono APIへの接続とsitemap
+middleware/ READ_ONLY・掲示板のSSRデータ・404
+app/        掲示板の画面部品・メタデータ・CSS
 interface/  REST APIと画面部品
 service/    投稿・画像の処理
 db/         Drizzle接続とスキーマ
 ```
 
-Vite+ の設定は `vite.config.ts` に集約しています。fmt の書式指定は `semi: false` のみです。`vp lint` と `vp fmt` を直接実行することもできます。
+Void / ReactプラグインとVite+の設定は `vite.config.ts` に集約しています。`void_worker` の出力先を `dist/server` に指定し、Cloudflare Buildsの既存デプロイコマンドを維持しています。掲示板のデータは共有ミドルウェアで取得し、リクエストごとのReact QueryキャッシュをSSRとハイドレーションで共有します。fmt の書式指定は `semi: false` のみです。`vp lint` と `vp fmt` を直接実行することもできます。
 
 スレッド詳細は `/threads/:id` に統一しています。ホームとスレッド一覧のどちらから開いても同じURLになり、共通レイアウトが選択中の一覧タブを保持します。旧 `?threadId=...` 形式は正規パスへ転送します。
 

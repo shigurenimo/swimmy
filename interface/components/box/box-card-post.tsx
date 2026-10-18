@@ -1,6 +1,6 @@
 "use client"
 
-import Link from "next/link"
+import { Link } from "@void/react"
 import { type FC, useState } from "react"
 import type { PostNode } from "@/interface/api/post-node-schema"
 import { Card, CardContent } from "@/components/ui/card"
@@ -80,7 +80,7 @@ export const BoxCardPost: FC<Props> = (props) => {
             {props.href ? (
               <Link
                 href={props.href}
-                scroll={false}
+                preserveScroll
                 aria-current={props.isActive ? "true" : undefined}
                 className="flex min-w-0 flex-col gap-4 text-left after:absolute after:inset-0"
               >

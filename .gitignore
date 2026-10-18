@@ -40,3 +40,7 @@ pids/
 *.db
 *.tar.gz
 *.tgz
+
+# Void generated state
+.void/
+.void-wrangler.jsonc

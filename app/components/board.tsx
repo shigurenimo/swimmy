@@ -1,7 +1,7 @@
 "use client"
 
 import { MessageSquare } from "lucide-react"
-import { useParams, usePathname, useRouter } from "next/navigation"
+import { useParams, useRouter } from "@void/react"
 import { useEffect, useState } from "react"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { BoxAsideFeedThread } from "@/interface/components/box/box-aside-feed-thread"
@@ -12,9 +12,9 @@ import { cn } from "@/lib/utils"
 
 export function Board() {
   const router = useRouter()
-  const pathname = usePathname()
-  const params = useParams<{ threadId?: string }>()
-  const threadId = params?.threadId ?? null
+  const pathname = router.path
+  const params = useParams<{ id: string }>()
+  const threadId = params?.id ?? null
   const [activeTab, setActiveTab] = useState<"home" | "threads">(
     pathname === "/" ? "home" : "threads",
   )
@@ -38,7 +38,7 @@ export function Board() {
   }, [threadId])
 
   const closeThread = () => {
-    router.push(activeTab === "home" ? "/" : "/threads", { scroll: false })
+    router.visit(activeTab === "home" ? "/" : "/threads", { preserveScroll: true })
   }
 
   return (
@@ -71,7 +71,7 @@ export function Board() {
             if (tab === "home" || tab === "threads") {
               setActiveTab(tab)
               if (!threadId) {
-                router.push(tab === "home" ? "/" : "/threads", { scroll: false })
+                router.visit(tab === "home" ? "/" : "/threads", { preserveScroll: true })
               }
             }
           }}
