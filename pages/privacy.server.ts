@@ -1,4 +1,4 @@
-import { metadataHead, pageMetadata } from "@/app/metadata"
+import { metadataHead, pageMetadata } from "@/metadata"
 
 export const head = () =>
   metadataHead(

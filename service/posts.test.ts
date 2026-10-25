@@ -4,7 +4,7 @@ import { Miniflare } from "miniflare"
 import { z } from "zod"
 import * as connection from "@/db"
 import * as schema from "@/db/schema"
-import { createApiApp } from "@/interface/api/create-api-app"
+import { createApiApp } from "@/api/create-api-app"
 import { addReaction, createPost, listPosts, readPost } from "@/service/posts"
 
 const runtime = new Miniflare({

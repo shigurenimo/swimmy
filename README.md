@@ -48,11 +48,16 @@ bun run start      # ビルド済みWorkerをローカル起動
 pages/      Voidの画面とhead定義
 routes/     Hono APIへの接続とsitemap
 middleware/ READ_ONLY・掲示板のSSRデータ・404
-app/        掲示板の画面部品・メタデータ・CSS
-interface/  REST APIと画面部品
+components/ 画面部品（直下）とshadcnのui/
+hooks/      React Query・画像アップロード等のフック
+api/        API契約・検証スキーマ・HTTP通信
+metadata.ts サイト情報とheadの生成
+styles.css  全体のCSS
 service/    投稿・画像の処理
 db/         Drizzle接続とスキーマ
 ```
+
+`app/`・`interface/`・`common/`・`shared/` は設けません。ファイルは役割ごとのディレクトリ直下へ置き、テストは対象ファイルの隣へ置きます。`pages/`・`routes/` の階層はURLとレイアウト、`components/ui/` はshadcnの生成先に必要な構造です。
 
 Void / ReactプラグインとVite+の設定は `vite.config.ts` に集約しています。`void_worker` の出力先を `dist/server` に指定し、Cloudflare Buildsの既存デプロイコマンドを維持しています。掲示板のデータは共有ミドルウェアで取得し、リクエストごとのReact QueryキャッシュをSSRとハイドレーションで共有します。fmt の書式指定は `semi: false` のみです。`vp lint` と `vp fmt` を直接実行することもできます。
 

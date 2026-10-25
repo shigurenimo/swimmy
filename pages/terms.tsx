@@ -1,7 +1,7 @@
-import { LayoutHomeApp } from "@/app/components/layout-home-app"
+import { LayoutHomeApp } from "@/components/layout-home-app"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { BoxMain } from "@/interface/components/box/box-main"
-import { BoxMarkdown } from "@/interface/components/box/box-markdown"
+import { BoxMain } from "@/components/box-main"
+import { BoxMarkdown } from "@/components/box-markdown"
 
 export default function TermsPage() {
   const markdown = `この利用規約（以下、「本規約」といいます。）は、スイミー電子掲示板・運営（以下、「当運営」といいます。）がこのウェブサイト上で提供するサービス（以下、「本サービス」といいます。）の利用条件を定めるものです。登録ユーザーの皆さま（以下、「ユーザー」といいます。）には、本規約に従って、本サービスをご利用いただきます。

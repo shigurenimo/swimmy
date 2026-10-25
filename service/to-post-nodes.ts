@@ -1,6 +1,6 @@
 import type { posts, reactions } from "@/db/schema"
-import type { PostNode } from "@/interface/api/post-node-schema"
-import type { ReactionNode } from "@/interface/api/reaction-node-schema"
+import type { PostNode } from "@/api/post-node-schema"
+import type { ReactionNode } from "@/api/reaction-node-schema"
 
 type Props = {
   posts: Pick<

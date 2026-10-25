@@ -1,6 +1,6 @@
 import { renderToReadableStream } from "react-dom/server"
-import NotFound from "@/app/not-found"
-import stylesheet from "@/app/globals.css?url"
+import NotFound from "@/components/not-found"
+import stylesheet from "@/styles.css?url"
 
 export async function notFoundResponse() {
   const body = await renderToReadableStream(

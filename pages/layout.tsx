@@ -1,7 +1,7 @@
 import type { ReactNode } from "react"
-import { Providers } from "@/app/providers"
-import "@/app/globals.css"
+import { QueryProvider } from "@/components/query-provider"
+import "@/styles.css"
 
 export default function RootLayout({ children }: { children: ReactNode }) {
-  return <Providers>{children}</Providers>
+  return <QueryProvider>{children}</QueryProvider>
 }

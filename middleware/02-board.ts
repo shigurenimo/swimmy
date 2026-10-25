@@ -1,5 +1,5 @@
 import { defineMiddleware } from "void"
-import { idSchema } from "@/interface/api/id-schema"
+import { idSchema } from "@/api/id-schema"
 import { notFoundResponse } from "@/service/not-found-response"
 import { loadBoard, type BoardData } from "@/service/load-board"
 

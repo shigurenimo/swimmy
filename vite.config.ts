@@ -11,7 +11,7 @@ export default defineConfig({
       ".wrangler/**",
       "worker-configuration.d.ts",
       "components/ui/**",
-      "interface/hooks/use-mobile.ts",
+      "hooks/use-mobile.ts",
     ],
     plugins: ["typescript", "unicorn", "oxc", "react"],
     categories: { correctness: "error" },
@@ -31,7 +31,7 @@ export default defineConfig({
       ".wrangler/**",
       "worker-configuration.d.ts",
       "components/ui/**",
-      "interface/hooks/use-mobile.ts",
+      "hooks/use-mobile.ts",
     ],
   },
 

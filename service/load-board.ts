@@ -1,5 +1,5 @@
 import { dehydrate, QueryClient } from "@tanstack/react-query"
-import { toPostsPage } from "@/interface/api/to-posts-page"
+import { toPostsPage } from "@/api/to-posts-page"
 import { countPosts, countResponses, listPosts, listResponses, readPost } from "@/service/posts"
 
 export type BoardData = NonNullable<Awaited<ReturnType<typeof loadBoard>>>
