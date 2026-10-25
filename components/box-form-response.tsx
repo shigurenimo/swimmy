@@ -1,0 +1,53 @@
+import { type FC, useState } from "react"
+import { Button } from "@/components/ui/button"
+import { Textarea } from "@/components/ui/textarea"
+import type { FormNewPost } from "@/components/form-new-post"
+
+type Props = {
+  onCreateResponse(input: FormNewPost): Promise<void>
+  isLoading: boolean
+}
+
+export const BoxFormResponse: FC<Props> = (props) => {
+  const [text, setText] = useState("")
+  const [submitError, setSubmitError] = useState(false)
+
+  const isValid = text.trim().length > 0 && text.length <= 280
+
+  const onSubmit = async () => {
+    setSubmitError(false)
+
+    try {
+      await props.onCreateResponse({ text, fileIds: [] })
+      setText("")
+    } catch (error) {
+      setSubmitError(true)
+      console.error(error)
+    }
+  }
+
+  return (
+    <div className="flex min-w-0 flex-col gap-4">
+      <Textarea
+        placeholder="返信を書き込む"
+        rows={2}
+        maxLength={280}
+        disabled={props.isLoading}
+        value={text}
+        onChange={(event) => setText(event.target.value)}
+      />
+      {submitError && (
+        <p role="alert" className="text-base">
+          送信できませんでした。時間をおいて、もう一度お試しください。
+        </p>
+      )}
+      {isValid && (
+        <div className="self-end">
+          <Button disabled={props.isLoading} onClick={onSubmit}>
+            {props.isLoading ? "送信中..." : "返信"}
+          </Button>
+        </div>
+      )}
+    </div>
+  )
+}

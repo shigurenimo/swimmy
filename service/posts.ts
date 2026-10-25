@@ -2,7 +2,7 @@ import { and, asc, count, desc, eq, gt, inArray, isNull, type SQL, sql } from "d
 import { nanoid } from "nanoid"
 import { getDb } from "@/db"
 import { posts, reactions } from "@/db/schema"
-import type { CreatePostInput } from "@/interface/api/create-post-input-schema"
+import type { CreatePostInput } from "@/api/create-post-input-schema"
 import { toPostNodes } from "@/service/to-post-nodes"
 
 const rootPostFilter = isNull(posts.replyId)

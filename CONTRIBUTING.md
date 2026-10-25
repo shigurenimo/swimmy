@@ -3,13 +3,14 @@
 このリポジトリでは本書を規約の正本とします。共通のエージェント指示と競合する場合は本書を優先します。
 
 - Bun を使い、整形・静的検査は `vp fmt`・`vp lint` と `vite.config.ts`、型検査は `tsconfig.json` に従います。
-- ファイル名は kebab-case、コンポーネント・型は PascalCase、関数・変数は camelCase にします。Next.js の予約ファイル・ルート名はフレームワークに従います。
+- ファイル名は kebab-case、コンポーネント・型は PascalCase、関数・変数は camelCase にします。Voidの予約ファイル・ルート名はフレームワークに従います。
+- ディレクトリは `pages/`・`routes/`・`middleware/`・`components/`・`hooks/`・`api/`・`service/`・`db/` に役割で分け、基本は直下に配置します。`common/`・`shared/`・`utils/` のような汎用の置き場や、部品名だけを理由にしたサブディレクトリは作りません。テストは対象の隣に置きます。URL・レイアウトとshadcnの生成先は規約に従う階層を保ちます。
 - 内部 import は `@/` からの絶対パス、型専用の依存は `import type` にします。再 export だけのバレルは作りません。
 - 型は `type` を使い、外部入力は Zod で検証します。API の型はスキーマから導出し、同じ構造を手書きし直しません。`any` や型アサーションで型の不一致を隠しません。
 - `const` と早期 return を基本にします。React のフックの戻り値や DOM に渡す props の分離には分割代入を使えます。入力の配列は変更せず、関数内で作った配列や Map への追加は許容します。
 - 関連する処理・型は同じファイルに置きます。関数の行数や export 数だけを理由に分割しません。DB スキーマ、API ルート、UI 部品群も意味のあるまとまりを優先します。
 - 単純な処理は関数で書きます。クラス、Facade、汎用基底、薄いラッパーを形式のために追加しません。共通化は実際の重複がある範囲に限定します。
-- UI は shadcn の `base-lyra`（Base UI）を使います。`components/ui` は文字サイズの下限を適用する変更のみ許可し、それ以外と公式生成の `interface/hooks/use-mobile.ts` は独自に書き換えません。これらはlint・fmtの対象から外します。公式CLIの `bunx shadcn add -o -y -a` で再生成した場合も、文字サイズの下限を再適用します。
+- UI は shadcn の `base-lyra`（Base UI）を使います。`components/ui` は文字サイズの下限を適用する変更のみ許可し、それ以外と公式生成の `hooks/use-mobile.ts` は独自に書き換えません。これらはlint・fmtの対象から外します。公式CLIの `bunx shadcn add -o -y -a` で再生成した場合も、文字サイズの下限を再適用します。
 - Button は Primary（`variant="default"`、省略可）と Secondary（`variant="secondary"`）のみ使います。利用側で別の配色を上書きしません。
 - shadcn の標準スタイルを使い、利用側の `className` や `style` で余白・背景・枠線・角丸・文字・寸法を上書きしません。配置は外側の要素で指定します。Skeleton の表示寸法のみ利用側で指定します。
 - 文字サイズはすべて最低 `1rem`（標準16px）にします。本文、補助文、Input・Textarea、プレースホルダー、Markdown内の文字も対象です。`text-xs`・`text-sm`や1rem未満の直接指定を使わず、最小サイズは `text-base` に揃えます。画面幅によって小さくする指定も禁止します。
